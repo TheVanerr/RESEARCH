@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hava Sistemi</title>
+  <style>
+    :root {
+      --bg: #f6f7f9; --card: #fff; --text: #1a1a1a; --muted: #5c6570;
+      --border: #d8dee6; --accent: #2563eb; --accent2: #059669;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .site-nav {
+      background: #1e293b; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155;
+    }
+    .site-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.875rem; padding: 4px 8px; border-radius: 6px; }
+    .site-nav a:hover { background: #334155; color: #fff; }
+    .site-nav a.active { background: var(--accent); color: #fff; }
+    .site-nav .brand { color: #fff; font-weight: 700; margin-right: 12px; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+    .wrap.wide { max-width: 1100px; }
+    h1 { font-size: 1.75rem; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); margin: 0 0 24px; }
+    .hero-banner {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+      background: linear-gradient(135deg, #1e40af, #059669); color: white; border-radius: 12px;
+      padding: 20px 24px; margin-bottom: 24px;
+    }
+    .hero-banner p { margin: 0; opacity: 0.92; font-size: 0.95rem; }
+    .hero-banner a {
+      background: white; color: #1e40af; padding: 10px 18px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem; white-space: nowrap;
+    }
+    .hero-banner a:hover { background: #f0f4f8; }
+    section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; margin-bottom: 20px;
+    }
+    section h2 { font-size: 1.125rem; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    section h3 { font-size: 1rem; margin: 20px 0 10px; color: #334155; }
+    section p { margin: 0 0 10px; font-size: 0.95rem; }
+    .note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; margin: 12px 0; }
+    .flow {
+      font-family: Consolas, "Courier New", monospace; font-size: 0.85rem;
+      background: #0f172a; color: #94a3b8; padding: 16px 20px; border-radius: 8px;
+      line-height: 1.8; overflow-x: auto; white-space: pre;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 12px 0; }
+    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
+    th { background: #f0f4f8; font-weight: 600; }
+    tr:nth-child(even) td { background: #fafbfc; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+    .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--accent2); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card-link {
+      display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; text-decoration: none; color: inherit; transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .card-link:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(37,99,235,0.12); }
+    .card-link h2 { margin: 0 0 8px; font-size: 1.1rem; color: var(--accent); }
+    .card-link p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .card-link .tag { display: inline-block; margin-top: 12px; font-size: 0.75rem; background: #ecfdf5; color: #059669; padding: 3px 8px; border-radius: 4px; }
+    .product-card { border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; background: #fafbfc; }
+    .product-card h3 { margin: 0 0 4px; font-size: 1rem; color: #1e40af; }
+    .product-card .code { font-family: Consolas, monospace; font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .badge { display: inline-block; background: #dbeafe; color: #1d4ed8; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<nav class="site-nav"><span class="brand">Pnömatik Dokümantasyon</span><a href="index.html">Ana Sayfa</a><a href="hava-sistemi.html" class="active">Hava Sistemi</a><a href="hava-sistemi-akisi.html">Hava Simülasyon</a><a href="pneumatik-plan-sema.html">Festo Plan</a><a href="pnomatik-plan-akisi.html">Festo Simülasyon</a><a href="smc-pnomatik-urunler.html">SMC Ürünler</a></nav>
+<div class="wrap">
+
+  <h1>Hava Sistemi — Kapı Pnömatiği</h1>
+  <p class="subtitle">Kendi hava sistemimiz · Detaylar zamanla eklenecek</p>
+
+  <div class="hero-banner">
+    <div>
+      <strong>İnteraktif simülasyon</strong>
+      <p>Valflere sinyal verin, kapak ve basınç sensörlerini canlı izleyin.</p>
+    </div>
+    <a href="hava-sistemi-akisi.html">Simülasyonu Aç →</a>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">2</div><div class="stat-label">LDNC silindir</div></div>
+    <div class="stat"><div class="stat-val">2</div><div class="stat-label">Valf</div></div>
+    <div class="stat"><div class="stat-val">2</div><div class="stat-label">Basınç sensörü</div></div>
+    <div class="stat"><div class="stat-val">10</div><div class="stat-label">Bar max</div></div>
+  </div>
+
+  <section>
+    <h2>Sistem Özeti</h2>
+    <table>
+      <thead><tr><th>Bileşen</th><th>Adet</th><th>Görev</th></tr></thead>
+      <tbody>
+        <tr><td>Regülatör (0–10 bar)</td><td>1</td><td>Şebeke havasını çalışma basıncına indirir</td></tr>
+        <tr><td>Ana valf</td><td>1</td><td>Sisteme ana hava beslemesini açar/kapatır</td></tr>
+        <tr><td>Basınç sensörü (giriş)</td><td>1</td><td>Ana valf öncesi basıncı izler</td></tr>
+        <tr><td>Basınç sensörü (çıkış)</td><td>1</td><td>Ana valf sonrası basıncı izler</td></tr>
+        <tr><td>Yön valfi 4V220E-08</td><td>1</td><td>Kapı silindirlerine hava yönlendirir</td></tr>
+        <tr><td>Kapı silindiri LDNC-50-1200</td><td>2</td><td>Tek parça kapağı yukarı–aşağı hareket ettirir</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Kapı:</strong> Tek parça halinde yukarı kalkıp aşağı inen kapak. İki silindir birlikte çalışır.</p>
+  </section>
+
+  <section>
+    <h2>Hava Akışı</h2>
+    <div class="flow">Şebeke havası
+    ↓
+Regülatör (0–10 bar)
+    ↓
+[Basınç sensörü — giriş]
+    ↓
+Ana valf
+    ↓
+[Basınç sensörü — çıkış]
+    ↓
+4V220E-08 (5/2, çift bobinli yön valfi)
+    ↓
+LDNC-50-1200 × 2  →  Kapı (yukarı / aşağı)</div>
+  </section>
+
+  <section>
+    <h2>Bileşen Detayları</h2>
+
+    <h3>Regülatör</h3>
+    <p><strong>Aralık:</strong> 0–10 bar — Şebeke basıncını silindir ve valfler için uygun seviyeye ayarlar.</p>
+
+    <h3>Ana valf</h3>
+    <p>Sisteme giren ana kesme / besleme valfi. Giriş ve çıkış tarafında basınç sensörü bulunur.</p>
+
+    <h3>4V220E-08 — Yön valfi</h3>
+    <table>
+      <tr><th>Özellik</th><th>Değer</th></tr>
+      <tr><td>Tip</td><td>5/2 yollu, çift bobinli (double solenoid)</td></tr>
+      <tr><td>Port</td><td>1/4" (08 serisi)</td></tr>
+      <tr><td>Çalışma basıncı</td><td>~0,15–0,8 MPa (≈ 1,5–8 bar)</td></tr>
+      <tr><td>İşlev</td><td>Bobin A → silindirler uzar (kapı yukarı); Bobin B → geri çeker (kapı aşağı)</td></tr>
+    </table>
+    <div class="note">4V220 serisi Airtac/Luftec uyumlu standart pnömatik yön valfidir.</div>
+
+    <h3>LDNC-50-1200 — Kapı silindiri (×2)</h3>
+    <table>
+      <tr><th>Özellik</th><th>Değer</th></tr>
+      <tr><td><strong>Sipariş kodu</strong></td><td><strong>LDNC-50-1200-PPV-A</strong></td></tr>
+      <tr><td>Marka / seri</td><td>Luftec LDNC · ISO 15552</td></tr>
+      <tr><td>Tip</td><td>Çift etkili, tek millili</td></tr>
+      <tr><td>Çap / Strok</td><td>50 mm / 1200 mm</td></tr>
+      <tr><td>Yastıklama</td><td>PPV — iki uçta ayarlanabilir pnömatik yastıklama</td></tr>
+      <tr><td>Konum algılama</td><td>A — mıknatıslı piston</td></tr>
+      <tr><td>Bağlantı</td><td>G 1/4 · Piston mili M16 × 1,5</td></tr>
+      <tr><td>Çalışma basıncı</td><td>0,1–1,0 MPa (≈ 1–10 bar)</td></tr>
+    </table>
+    <table>
+      <thead><tr><th>Kod parçası</th><th>Anlam</th></tr></thead>
+      <tbody>
+        <tr><td>LDNC</td><td>Luftec ISO 15552 standart silindir</td></tr>
+        <tr><td>50</td><td>50 mm piston çapı</td></tr>
+        <tr><td>1200</td><td>1200 mm strok</td></tr>
+        <tr><td>PPV</td><td>Ayarlanabilir pnömatik yastıklama</td></tr>
+        <tr><td>A</td><td>Mıknatıslı piston (konum sensörü)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Çalışma Mantığı</h2>
+    <ol>
+      <li>Regülatör hat basıncını <strong>0–10 bar</strong> aralığına ayarlar.</li>
+      <li>Ana valf açılır; giriş/çıkış sensörleri basıncı doğrular.</li>
+      <li>PLC veya kumanda, 4V220E-08 bobinlerinden birine sinyal verir.</li>
+      <li>Valf hava yönünü değiştirir → iki LDNC silindiri birlikte hareket eder.</li>
+      <li>Kapı yukarı (açık) veya aşağı (kapalı) konuma gelir.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Eklenecek Bilgiler</h2>
+    <ul class="checklist">
+      <li>Ana valf marka / model</li>
+      <li>Regülatör marka / model</li>
+      <li>Basınç sensörü marka / model (giriş ve çıkış)</li>
+      <li>Hortum çapları ve bağlantı noktaları</li>
+      <li>PLC çıkışları / bobin gerilimi (4V220E-08)</li>
+      <li>Kapı üst / alt limit sensörleri</li>
+      <li>Montaj ve emniyet kilitlemeleri</li>
+    </ul>
+  </section>
+
+</div>
+</body>
+</html>

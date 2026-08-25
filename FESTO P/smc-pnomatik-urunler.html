@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMC Pnömatik Ürünler</title>
+  <style>
+    :root {
+      --bg: #f6f7f9; --card: #fff; --text: #1a1a1a; --muted: #5c6570;
+      --border: #d8dee6; --accent: #2563eb; --accent2: #059669;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .site-nav {
+      background: #1e293b; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155;
+    }
+    .site-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.875rem; padding: 4px 8px; border-radius: 6px; }
+    .site-nav a:hover { background: #334155; color: #fff; }
+    .site-nav a.active { background: var(--accent); color: #fff; }
+    .site-nav .brand { color: #fff; font-weight: 700; margin-right: 12px; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+    .wrap.wide { max-width: 1100px; }
+    h1 { font-size: 1.75rem; margin: 0 0 8px; }
+    .subtitle { color: var(--muted); margin: 0 0 24px; }
+    .hero-banner {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;
+      background: linear-gradient(135deg, #1e40af, #059669); color: white; border-radius: 12px;
+      padding: 20px 24px; margin-bottom: 24px;
+    }
+    .hero-banner p { margin: 0; opacity: 0.92; font-size: 0.95rem; }
+    .hero-banner a {
+      background: white; color: #1e40af; padding: 10px 18px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem; white-space: nowrap;
+    }
+    .hero-banner a:hover { background: #f0f4f8; }
+    section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; margin-bottom: 20px;
+    }
+    section h2 { font-size: 1.125rem; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    section h3 { font-size: 1rem; margin: 20px 0 10px; color: #334155; }
+    section p { margin: 0 0 10px; font-size: 0.95rem; }
+    .note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; margin: 12px 0; }
+    .flow {
+      font-family: Consolas, "Courier New", monospace; font-size: 0.85rem;
+      background: #0f172a; color: #94a3b8; padding: 16px 20px; border-radius: 8px;
+      line-height: 1.8; overflow-x: auto; white-space: pre;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 12px 0; }
+    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; }
+    th { background: #f0f4f8; font-weight: 600; }
+    tr:nth-child(even) td { background: #fafbfc; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+    .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--accent2); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .checklist { list-style: none; padding: 0; margin: 0; }
+    .checklist li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .checklist li::before { content: "☐ "; color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .card-link {
+      display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; text-decoration: none; color: inherit; transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .card-link:hover { border-color: var(--accent); box-shadow: 0 4px 16px rgba(37,99,235,0.12); }
+    .card-link h2 { margin: 0 0 8px; font-size: 1.1rem; color: var(--accent); }
+    .card-link p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .card-link .tag { display: inline-block; margin-top: 12px; font-size: 0.75rem; background: #ecfdf5; color: #059669; padding: 3px 8px; border-radius: 4px; }
+    .product-card { border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; background: #fafbfc; }
+    .product-card h3 { margin: 0 0 4px; font-size: 1rem; color: #1e40af; }
+    .product-card .code { font-family: Consolas, monospace; font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .badge { display: inline-block; background: #dbeafe; color: #1d4ed8; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<nav class="site-nav"><span class="brand">Pnömatik Dokümantasyon</span><a href="index.html">Ana Sayfa</a><a href="hava-sistemi.html">Hava Sistemi</a><a href="hava-sistemi-akisi.html">Hava Simülasyon</a><a href="pneumatik-plan-sema.html">Festo Plan</a><a href="pnomatik-plan-akisi.html">Festo Simülasyon</a><a href="smc-pnomatik-urunler.html" class="active">SMC Ürünler</a></nav>
+<div class="wrap wide">
+
+  <h1>SMC Pnömatik Ürünler</h1>
+  <p class="subtitle">Festo Önerilen Ürünler.pdf (SMC teklif) · 9 parça</p>
+
+  <section>
+    <h2>Ürün Listesi</h2>
+    <table>
+      <thead><tr><th>#</th><th>Parça No</th><th>Açıklama</th><th>Adet</th></tr></thead>
+      <tbody><tr><td>1</td><td><strong>CP96NDB50-1200C</strong></td><td>Kilitli Pnömatik Silindir</td><td>1</td></tr>
+<tr><td>2</td><td><strong>VHS40-F04-D</strong></td><td>Basınç Tahliye Valfi (3 Yollu)</td><td>1</td></tr>
+<tr><td>3</td><td><strong>AW40-F04CE-D</strong></td><td>Modüler Filtre + Regülatör</td><td>1</td></tr>
+<tr><td>4</td><td><strong>AV4000-F04-5DZB-A</strong></td><td>Yavaş Başlatma Valfi</td><td>1</td></tr>
+<tr><td>5</td><td><strong>IS10E-40-F04-6L-D</strong></td><td>Modüler Basınç Anahtarı</td><td>1</td></tr>
+<tr><td>6</td><td><strong>AN30-03</strong></td><td>Susturucu 3/8"</td><td>1</td></tr>
+<tr><td>7</td><td><strong>Y400T-D</strong></td><td>Spacer + Montaj Braketi</td><td>2</td></tr>
+<tr><td>8</td><td><strong>Y400-D</strong></td><td>Spacer (Bracketsiz)</td><td>1</td></tr>
+<tr><td>9</td><td><strong>AN40-04</strong></td><td>Susturucu 1/2"</td><td>1</td></tr>
+</tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Ürün Detayları</h2>
+    
+    <div class="product-card" id="CP96NDB50-1200C">
+      <h3>Kilitli Pnömatik Silindir</h3>
+      <div class="code">CP96NDB50-1200C · Adet: 1</div>
+      <table><tr><td>Seri</td><td>CP96N (ISO 15552)</td></tr><tr><td>Tip</td><td>Çift etkili, tek millili, kilit üniteli</td></tr><tr><td>Çap / Strok</td><td>50 mm / 1200 mm</td></tr><tr><td>Kilit tipi</td><td>Egzoz kilitleme</td></tr><tr><td>Tutma kuvveti</td><td>~1570 N</td></tr><tr><td>Çalışma basıncı</td><td>0,08 – 1,0 MPa</td></tr><tr><td>Piston hızı</td><td>50 – 1000 mm/s</td></tr><tr><td>Sıcaklık</td><td>-10 °C … +70 °C</td></tr></table>
+      <p><strong>Kullanım:</strong> Doğrusal hareket, dikey yüklerde düşme önleme, uzun strok uygulamaları.</p>
+      <p><strong>Çalışma:</strong> Kilit devreye girince egzoz kapanır; hava kesilse bile yük düşmez.</p>
+    </div>
+    <div class="product-card" id="VHS40-F04-D">
+      <h3>Basınç Tahliye Valfi (3 Yollu)</h3>
+      <div class="code">VHS40-F04-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Basınç</td><td>0,1 – 1,0 MPa</td></tr><tr><td>Kontrol</td><td>Manuel döner kol (kilitlenebilir)</td></tr><tr><td>Maks. debi</td><td>~14.098 L/dk</td></tr><tr><td>Sıcaklık</td><td>-5 °C … +60 °C</td></tr></table>
+      <p><strong>Kullanım:</strong> Hattı izole etme, kalıntı basıncı tahliye, bakım güvenliği (LOTO).</p>
+      <p><strong>Çalışma:</strong> Kol çevrilince giriş kapanır, çıkış basıncı egzoza boşaltılır.</p>
+    </div>
+    <div class="product-card" id="AW40-F04CE-D">
+      <h3>Modüler Filtre + Regülatör</h3>
+      <div class="code">AW40-F04CE-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Filtreleme</td><td>5 µm</td></tr><tr><td>Maks. basınç</td><td>10 bar</td></tr><tr><td>Regülatör</td><td>Relieving</td></tr><tr><td>Montaj</td><td>Modüler FRL uyumlu</td></tr></table>
+      <p><strong>Kullanım:</strong> Hava filtreleme, çıkış basıncını sabitleme.</p>
+      <p><strong>Çalışma:</strong> Fazla basınç otomatik tahliye edilir.</p>
+    </div>
+    <div class="product-card" id="AV4000-F04-5DZB-A">
+      <h3>Yavaş Başlatma Valfi</h3>
+      <div class="code">AV4000-F04-5DZB-A · Adet: 1</div>
+      <table><tr><td>Port</td><td>1/2"</td></tr><tr><td>Besleme</td><td>24 VDC</td></tr><tr><td>Terminal</td><td>DIN konnektör</td></tr><tr><td>Override</td><td>Push-turn kilitlemeli</td></tr><tr><td>Güç</td><td>~0,35 W</td></tr></table>
+      <p><strong>Kullanım:</strong> Açılışta basınç şokunu önleme, kontrollü devreye alma.</p>
+      <p><strong>Çalışma:</strong> 24 VDC ile kademeli açılır; enerji kesilince hızla egzoz.</p>
+    </div>
+    <div class="product-card" id="IS10E-40-F04-6L-D">
+      <h3>Modüler Basınç Anahtarı</h3>
+      <div class="code">IS10E-40-F04-6L-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Set aralığı</td><td>0,1 – 0,6 MPa</td></tr><tr><td>Kablo</td><td>3 m</td></tr><tr><td>Çıkış</td><td>Reed switch, NO</td></tr><tr><td>Koruma</td><td>IP40</td></tr></table>
+      <p><strong>Kullanım:</strong> Hat basıncı izleme, düşük basınç alarm/interlock.</p>
+      <p><strong>Çalışma:</strong> Basınç pistonu reed switch'i tetikler.</p>
+    </div>
+    <div class="product-card" id="AN30-03">
+      <h3>Susturucu 3/8"</h3>
+      <div class="code">AN30-03 · Adet: 1</div>
+      <table><tr><td>Port</td><td>R/G 3/8"</td></tr><tr><td>Gürültü azaltma</td><td>~30 dB(A)</td></tr><tr><td>Efektif alan</td><td>35 mm²</td></tr><tr><td>Maks. basınç</td><td>1,0 MPa</td></tr></table>
+      <p><strong>Kullanım:</strong> Valf/silindir egzoz gürültüsünü azaltma.</p>
+      <p><strong>Çalışma:</strong> Egzoz havası ses emici elemandan geçer.</p>
+    </div>
+    <div class="product-card" id="Y400T-D">
+      <h3>Spacer + Montaj Braketi</h3>
+      <div class="code">Y400T-D · Adet: 2</div>
+      <table><tr><td>Gövde</td><td>40 (AC40 uyumlu)</td></tr><tr><td>Tip</td><td>Spacer + duvar braketi</td></tr></table>
+      <p><strong>Kullanım:</strong> VHS40 ve diğer modülleri FRL hattına bağlama.</p>
+      <p><strong>Çalışma:</strong> Modüler montaj arayüzü.</p>
+    </div>
+    <div class="product-card" id="Y400-D">
+      <h3>Spacer (Bracketsiz)</h3>
+      <div class="code">Y400-D · Adet: 1</div>
+      <table><tr><td>Gövde</td><td>40</td></tr><tr><td>Maks. basınç</td><td>1,0 MPa</td></tr></table>
+      <p><strong>Kullanım:</strong> Modüler FRL bileşenleri arası bağlantı.</p>
+      <p><strong>Çalışma:</strong> O-ring sızdırmazlık.</p>
+    </div>
+    <div class="product-card" id="AN40-04">
+      <h3>Susturucu 1/2"</h3>
+      <div class="code">AN40-04 · Adet: 1</div>
+      <table><tr><td>Port</td><td>R/G 1/2"</td></tr><tr><td>Gürültü azaltma</td><td>~30 dB(A)</td></tr><tr><td>Efektif alan</td><td>60 mm²</td></tr><tr><td>Önerilen debi</td><td>≤ 5 m³/dk</td></tr></table>
+      <p><strong>Kullanım:</strong> 1/2" egzoz hatları (VHS40 EXH, büyük valfler).</p>
+      <p><strong>Çalışma:</strong> AN30-03'e göre daha yüksek debi.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
