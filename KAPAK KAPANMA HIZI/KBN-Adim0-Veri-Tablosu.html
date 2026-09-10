@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN Serisi — Adım 0 Veri Tablosu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1419; color: #e8ecf0;
+      padding: 28px 20px 48px; line-height: 1.55;
+    }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin-bottom: 6px; }
+    .sub { color: #8899aa; font-size: 0.9rem; margin-bottom: 24px; }
+    h2 {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em;
+      color: #6b8aad; margin: 28px 0 10px;
+    }
+    .panel {
+      background: #1a2332; border: 1px solid #2a3a4d;
+      border-radius: 10px; overflow: hidden; margin-bottom: 16px;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th {
+      background: #121a24; color: #8ab4d4; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,0.04); }
+    .num { font-family: Consolas, monospace; font-weight: 600; color: #93c5fd; white-space: nowrap; }
+    .same { color: #94a3b8; font-size: 0.78rem; }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .todo { color: #f87171; font-weight: 600; }
+    .note {
+      background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px;
+      padding: 14px 16px; font-size: 0.84rem; color: #aab4c0; margin-top: 8px;
+    }
+    .note strong { color: #e8ecf0; }
+    .note.danger { border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06); }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+    .b-1b { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .b-2b { background: rgba(168,85,247,0.15); color: #c084fc; }
+    .step-box {
+      background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(6,182,212,0.06));
+      border: 1px solid rgba(59,130,246,0.3); border-radius: 10px; padding: 18px 20px;
+    }
+    .step-box h3 { font-size: 1rem; margin-bottom: 10px; color: #93c5fd; }
+    .step-box ol { margin-left: 1.2rem; font-size: 0.86rem; color: #c8d0dc; }
+    .step-box li { margin-bottom: 6px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; font-size: 0.78rem; color: #8899aa; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KBN Serisi — Adım 0 Veri Tablosu</h1>
+  <p class="sub">Güncelleme: strok 1350, toplam hareketli kütle, D8 hortum, koruma davranışı netleştirildi</p>
+
+  <h2>1. Model Matrisi (7 model)</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Bus</th><th>Boy</th><th>Model</th><th>Toplam Hareketli Kütle</th><th>Strok</th><th>1B = 2B</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><span class="badge b-1b">1B</span></td><td class="num">1650</td><td>KBN 1B-1650</td><td class="num">85 kg</td><td class="num">1200 mm</td><td class="ok">= 2B-1650</td></tr>
+        <tr><td>2</td><td><span class="badge b-2b">2B</span></td><td class="num">1650</td><td>KBN 2B-1650</td><td class="num">85 kg</td><td class="num">1200 mm</td><td class="ok">= 1B-1650</td></tr>
+        <tr><td>3</td><td><span class="badge b-1b">1B</span></td><td class="num">1850</td><td>KBN 1B-1850</td><td class="num">95 kg</td><td class="num">1200 mm</td><td class="ok">= 2B-1850</td></tr>
+        <tr><td>4</td><td><span class="badge b-2b">2B</span></td><td class="num">1850</td><td>KBN 2B-1850</td><td class="num">95 kg</td><td class="num">1200 mm</td><td class="ok">= 1B-1850</td></tr>
+        <tr><td>5</td><td><span class="badge b-1b">1B</span></td><td class="num">2050</td><td>KBN 1B-2050</td><td class="num">105 kg</td><td class="num">1200 mm</td><td class="ok">= 2B-2050</td></tr>
+        <tr><td>6</td><td><span class="badge b-2b">2B</span></td><td class="num">2050</td><td>KBN 2B-2050</td><td class="num">105 kg</td><td class="num">1200 mm</td><td class="ok">= 1B-2050</td></tr>
+        <tr><td>7</td><td>—</td><td class="num">1350</td><td>KBN 1350</td><td class="num">65 kg</td><td class="num">950 mm</td><td class="same">Ayrı boy sınıfı</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <strong>Toplam hareketli kütle</strong> = kapak + profil/şase + bağlantı elemanları + piston millerinin taşıdığı tüm kütle (verilen kg değerleri bu toplamdır).
+    Hesaplama için <strong>4 grup</strong> yeterli: 65 / 85 / 95 / 105 kg.
+  </div>
+
+  <h2>2. Hesap Birimleri Özet</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th>Birim</th><th>m (kg)</th><th>Strok (mm)</th><th>Modeller</th><th>Worst-case?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>KBN-1350</td><td class="num">65</td><td class="num">950</td><td>KBN 1350</td><td>En hafif</td></tr>
+        <tr><td>KBN-1650</td><td class="num">85</td><td class="num">1200</td><td>1B/2B-1650</td><td>—</td></tr>
+        <tr><td>KBN-1850</td><td class="num">95</td><td class="num">1200</td><td>1B/2B-1850</td><td>—</td></tr>
+        <tr><td>KBN-2050 ★</td><td class="num">105</td><td class="num">1200</td><td>1B/2B-2050</td><td class="ok">En ağır kütle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3. Ortak Pnömatik & Hat Parametreleri</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th>Parametre</th><th>Değer</th><th>Durum</th><th>Not</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Piston adedi (n)</td><td class="num">2</td><td class="ok">✓</td><td>Sol + sağ, ortak YV-A / YV-K hattı</td></tr>
+        <tr><td>Piston çapı (Ø)</td><td class="num">50 mm</td><td class="ok">✓</td><td>ISO 15552, tüm modeller</td></tr>
+        <tr><td>Sistem basıncı</td><td class="num">6 bar</td><td class="ok">✓</td><td>Regülatör çıkışı</td></tr>
+        <tr><td>Kapama valfi</td><td class="num">AIRTAC 4V230E-08</td><td class="ok">✓</td><td>5/3, orta konum = <strong>boşaltma (E)</strong></td></tr>
+        <tr><td>Açma valfi</td><td class="num">AIRTAC 4V230E-08</td><td class="ok">✓</td><td>5/3, orta konum = boşaltma (E)</td></tr>
+        <tr><td>Valf nominal debi</td><td class="num">~890 NL/dk</td><td class="warn">Katalog</td><td>Cv≈0,67 · PT1/4" · 12 mm² orifis</td></tr>
+        <tr><td>Hortum esas hat</td><td class="num">D8 × 4 m × 2</td><td class="ok">✓</td><td>Her piston ayrı hat; Adım 1'de efektif debi düşürülecek</td></tr>
+        <tr><td>Pilot / plot hattı</td><td class="num">D4 (dirsek)</td><td class="ok">✓</td><td>Üst + alt port; çapraz T ile karşı D8'e bağlı → <a href="KBN-piston-pnomatik-hat.html" style="color:#60a5fa">hat şeması</a></td></tr>
+        <tr><td>Alt port çek valf</td><td class="num">Var</td><td class="ok">✓</td><td>Kapanış yönü kontrolü; iğne ayarlı</td></tr>
+        <tr><td>Kompresör</td><td class="todo">Müşteri bazlı</td><td class="todo">Eksik</td><td>Worst-case müşteri ayrı kayıt</td></tr>
+        <tr><td>Mevcut kapanma süresi</td><td class="num">8 – 12 s</td><td class="ok">✓</td><td>Saha / ayar aralığı</td></tr>
+        <tr><td>Hat throttle / flow control</td><td class="todo">Doğrulanacak</td><td class="warn">?</td><td>8–12 s muhtemelen buradan geliyor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4. Koruyucu Cihaz — Enerji Limiti (ISO 14120)</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr><th>Seçenek</th><th>Koruma alanı</th><th>Otomatik geri açılma</th><th>ISO 14120 limiti</th><th>Hesapta kullan</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A — Reflektörlü el sensörü</strong></td>
+          <td>Kapak altı dar bölge</td><td class="todo">Yok</td>
+          <td class="num">4 J / 75 N</td><td class="ok">✓ 4 J</td>
+        </tr>
+        <tr>
+          <td><strong>B — Işık perdesi</strong></td>
+          <td>Boydan boya</td>
+          <td class="todo">Yok (mevcut)</td>
+          <td class="num">4 J / 75 N</td><td class="ok">✓ 4 J</td>
+        </tr>
+        <tr>
+          <td><strong>B+ — Işık perdesi (gelecek)</strong></td>
+          <td>Boydan boya</td><td class="ok">Var (planlanırsa)</td>
+          <td class="num">10 J / 150 N</td><td class="same">Opsiyonel 2. senaryo</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    ISO 14120 §5.2.5.4: <strong>10 J / 150 N</strong> yalnızca koruyucu cihaz <em>otomatik geri açılmayı</em> tetikliyorsa geçerli.
+    Mevcut KBN (A ve B): geri açılma yok → her iki seçenekte de hesap <strong>4 J / 75 N</strong> ile yapılır.
+  </div>
+
+  <h2>5. Koruyucu Cihaz — Algılama Anında Kapak Davranışı (netleştirilecek)</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr>
+          <th>Olay</th><th>Standart beklentisi</th><th>Yerinde dur (E valf)</th><th>Geri aç</th><th>KBN önerisi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Kapanma sırasında sensör/perde tetiklendi</td>
+          <td>Tehlikeli hareket durmalı (ISO 14119, ISO 13849-1). Otomatik yeniden kapanma yasak; reset gerekir.</td>
+          <td class="warn">Riskli</td>
+          <td class="ok">Tercih</td>
+          <td class="ok"><strong>Geri aç (YV-A)</strong></td>
+        </tr>
+        <tr>
+          <td>Valf orta konuma (4V230E boşaltma) alınırsa</td>
+          <td>—</td>
+          <td class="todo">Kapak düşebilir</td>
+          <td>—</td>
+          <td class="same">Dikey kapak + E merkez → basınç kaybı, yerinde tutma güvenilmez</td>
+        </tr>
+        <tr>
+          <td>Sadece sinyal kes, valf kapanma pozisyonunda kalır</td>
+          <td>Durma fonksiyonu</td>
+          <td class="ok">Basınç tutulur</td>
+          <td>—</td>
+          <td class="warn">Kabul edilebilir ama ezilme riski devam eder</td>
+        </tr>
+        <tr>
+          <td>Algılama → açma valfi aktif, kapak yukarı</td>
+          <td>ISO 14120 geri açılma tanımına girer → 10 J hakkı (gelecekte)</td>
+          <td>—</td>
+          <td class="ok">En güvenli</td>
+          <td class="ok"><strong>Hedef mimari (B+)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note danger">
+    <strong>Kritik — 4V230E-08 (orta boşaltma):</strong> Sensör tetiklenince valfi nötr/boşaltmaya almak kapakta basıncı düşürür;
+    105 kg dikey kapak <strong>aşağı kayabilir/düşebilir</strong>. Bu nedenle “yerinde dur” için E merkez valf uygun değil.<br><br>
+    <strong>Önerilen güvenlik fonksiyonu:</strong> Algılama → kapanma valfi OFF + <strong>açma valfi ON</strong> → kapak yukarı kalkar → reset olmadan tekrar kapanmaz.
+  </div>
+
+  <h2>6. Tam Veri Matrisi (Adım 0 — dolu)</h2>
+  <div class="panel">
+    <table>
+      <thead>
+        <tr>
+          <th>Birim</th><th>m (kg)</th><th>Strok</th><th>Ø</th><th>n</th><th>P</th>
+          <th>Valf</th><th>Q valf</th><th>Hortum</th><th>Koruma</th><th>E limit</th><th>t mevcut</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>KBN-1350</strong></td><td class="num">65</td><td class="num">950 mm</td><td class="num">50</td><td class="num">2</td><td class="num">6 bar</td>
+          <td>4V230E-08</td><td class="num">~890</td><td class="num">D8×4m×2</td><td>A veya B</td><td class="num">4 J</td><td class="num">8–12 s</td>
+        </tr>
+        <tr>
+          <td><strong>KBN-1650</strong></td><td class="num">85</td><td class="num">1200 mm</td><td class="num">50</td><td class="num">2</td><td class="num">6 bar</td>
+          <td>4V230E-08</td><td class="num">~890</td><td class="num">D8×4m×2</td><td>A veya B</td><td class="num">4 J</td><td class="num">8–12 s</td>
+        </tr>
+        <tr>
+          <td><strong>KBN-1850</strong></td><td class="num">95</td><td class="num">1200 mm</td><td class="num">50</td><td class="num">2</td><td class="num">6 bar</td>
+          <td>4V230E-08</td><td class="num">~890</td><td class="num">D8×4m×2</td><td>A veya B</td><td class="num">4 J</td><td class="num">8–12 s</td>
+        </tr>
+        <tr>
+          <td><strong>KBN-2050 ★</strong></td><td class="num">105</td><td class="num">1200 mm</td><td class="num">50</td><td class="num">2</td><td class="num">6 bar</td>
+          <td>4V230E-08</td><td class="num">~890</td><td class="num">D8×4m×2</td><td>A veya B</td><td class="num">4 J</td><td class="num">8–12 s</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>7. Açık Kararlar (Adım 0 sonrası)</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Konu</th><th>Durum</th><th>Karar / aksiyon</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Algılama anında kapak davranışı</td><td class="warn">Karar bekliyor</td><td>Öneri: geri aç; PLC fonksiyonu tanımlanacak</td></tr>
+        <tr><td>2</td><td>10 J limitine geçiş (B+ senaryo)</td><td class="todo">Opsiyonel</td><td>Otomatik geri açılma eklenirse enerji limiti 10 J olur</td></tr>
+        <tr><td>3</td><td>Throttle / flow control</td><td class="warn">Doğrulanacak</td><td>Hat üzerinde var mı? Adım 1'de 8–12 s açıklanacak</td></tr>
+        <tr><td>4</td><td>Silindir yastıklama iğne ayarı</td><td class="warn">Doğrulanacak</td><td>Üretim montaj değeri</td></tr>
+        <tr><td>5</td><td>Referans kompresör debisi</td><td class="todo">Eksik</td><td>En düşük kapasiteli müşteri</td></tr>
+        <tr><td>6</td><td>ISO 13849-1 performans seviyesi (PL)</td><td class="todo">Risk analizi</td><td>Koruma fonksiyonu için PLr belirlenmeli</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8. Adım 1 Tanımı — Güvenlik Limiti Hesabı</h2>
+  <div class="step-box">
+    <h3>Adım 1 ne yapar?</h3>
+    <p style="font-size:0.86rem;color:#aab4c0;margin-bottom:12px">
+      Her hesap birimi için <strong>3 bağımsız üst limit</strong> hesaplanır; en kısıtlayıcı olan belirler
+      <strong>minimum güvenli kapanma süresini</strong>. Mevcut 8–12 s ile karşılaştırılır.
+    </p>
+    <ol>
+      <li><strong>ISO 14120 limiti (4 J):</strong> v = √(2×4/m) → t_ISO = strok/v</li>
+      <li><strong>Yastıklama limiti (Ø50, 6 bar, 2 silindir):</strong> lidspeed.html veri tablosu → t_yastık</li>
+      <li><strong>Valf + hortum limiti:</strong> Q_eff (D8×4m kaybı dahil) → dolum süresi → t_valf (teorik min.)</li>
+    </ol>
+    <p style="font-size:0.86rem;color:#93c5fd;margin-top:12px">
+      <strong>Çıktı:</strong> t_güvenli_min = max(t_ISO, t_yastık) · t_fiziksel_min = t_valf ·
+      Mevcut aralık uygun mu? · Frenli piston / throttle gerekli mi?
+    </p>
+    <p style="font-size:0.84rem;color:#8899aa;margin-top:10px">
+      <strong>Başlangıç sırası:</strong> KBN-2050 (105 kg, 1200 mm) worst-case → sonra 1850, 1650, 1350.
+    </p>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:#2ecc71"></span> Onaylı</span>
+    <span><span class="dot" style="background:#f59e0b"></span> Doğrulanacak</span>
+    <span><span class="dot" style="background:#f87171"></span> Karar / eksik</span>
+  </div>
+</div>
+</body>
+</html>

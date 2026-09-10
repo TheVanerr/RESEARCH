@@ -1,0 +1,13 @@
+﻿python : Traceback (most recent call last):
+At C:\Users\fatih.gural\AppData\Local\Temp\ps-script-5b436837-ce5c-46e1-978d-3df8427a5361.ps1:110 char:1
++ python -c "
++ ~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "<string>", line 8, in <module>
+  File "C:\Users\fatih.gural\AppData\Local\Programs\Python\Python311\Lib\encodings\cp1254.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u23af' in position 1489: character maps to <undefined>
+=== PAGE 33 ===

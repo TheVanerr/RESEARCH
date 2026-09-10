@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kabin Tipi Makine — Kapak & Çift Piston</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #1a1f26;
+      color: #e8ecf0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    h1 { text-align: center; font-size: 1.4rem; margin-bottom: 4px; }
+    .subtitle { text-align: center; color: #8899aa; font-size: 0.88rem; margin-bottom: 20px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: #242b35;
+      border: 1px solid #3a4555;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .panel h2 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #7a9abb;
+      margin-bottom: 12px;
+    }
+
+    svg { display: block; width: 100%; height: auto; }
+
+    #doorAssembly { transition: transform 1s cubic-bezier(0.45, 0, 0.2, 1); }
+
+    button {
+      width: 100%;
+      padding: 11px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .btn-open { background: #27ae60; color: #fff; }
+    .btn-close { background: #c0392b; color: #fff; }
+    .btn-stop { background: #4a5568; color: #ddd; }
+
+    .status-box {
+      background: #1a1f26;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 0.85rem;
+    }
+    .row { display: flex; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #3a4555; }
+    .row:last-child { border-bottom: none; }
+    .lbl { color: #8899aa; }
+    .val { font-weight: 600; }
+    .val.open { color: #2ecc71; }
+    .val.close { color: #e74c3c; }
+
+    .legend { font-size: 0.82rem; color: #aab4c0; line-height: 1.6; }
+    .legend b { color: #ccd6e0; }
+
+    .flow { stroke-dasharray: 7 5; animation: flow 0.8s linear infinite; opacity: 0; transition: opacity 0.25s; }
+    .flow.on { opacity: 1; }
+    .flow.open { stroke: #2ecc71; }
+    .flow.close { stroke: #e74c3c; }
+    @keyframes flow { to { stroke-dashoffset: -12; } }
+
+    .valf-on-open { fill: #27ae60 !important; }
+    .valf-on-close { fill: #c0392b !important; }
+  </style>
+</head>
+<body>
+  <h1>Kabin Tipi Yıkama Makinesi</h1>
+  <p class="subtitle">Ön görünüm — çift yan piston, kapak dikey açılır / kapanır</p>
+
+  <div class="layout">
+    <div class="panel">
+      <h2>Makine (fotoğraftaki gibi)</h2>
+      <svg viewBox="0 0 520 580" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#b8c4cc"/>
+            <stop offset="30%" stop-color="#eef2f5"/>
+            <stop offset="70%" stop-color="#d0d8de"/>
+            <stop offset="100%" stop-color="#a8b4bc"/>
+          </linearGradient>
+          <linearGradient id="steelDark" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c8d2da"/>
+            <stop offset="100%" stop-color="#98a8b4"/>
+          </linearGradient>
+          <linearGradient id="chamber" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2a3540"/>
+            <stop offset="100%" stop-color="#1a222a"/>
+          </linearGradient>
+          <pattern id="hazard" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width="6" height="12" fill="#f1c40f"/>
+            <rect x="6" width="6" height="12" fill="#111"/>
+          </pattern>
+          <clipPath id="openingClip">
+            <rect x="108" y="248" width="264" height="210" rx="2"/>
+          </clipPath>
+        </defs>
+
+        <!-- Zemin -->
+        <rect x="0" y="555" width="520" height="25" fill="#2a3038"/>
+
+        <!-- TABAN BLOĞU -->
+        <rect x="40" y="468" width="400" height="87" rx="3" fill="url(#steelDark)" stroke="#8899a4" stroke-width="1.5"/>
+        <rect x="48" y="476" width="384" height="8" rx="1" fill="#eef2f5" opacity="0.35"/>
+
+        <!-- Sol yan çerçeve / piston gövdesi (sabit) -->
+        <rect x="40" y="118" width="28" height="350" rx="2" fill="url(#steel)" stroke="#788898" stroke-width="1"/>
+        <!-- Sağ yan çerçeve / piston gövdesi (sabit) -->
+        <rect x="412" y="118" width="28" height="350" rx="2" fill="url(#steel)" stroke="#788898" stroke-width="1"/>
+
+        <!-- Mavi koruma kafesi (alt) -->
+        <rect x="42" y="380" width="24" height="88" rx="1" fill="#2980b9" opacity="0.35" stroke="#3498db" stroke-width="0.8"/>
+        <rect x="414" y="380" width="24" height="88" rx="1" fill="#2980b9" opacity="0.35" stroke="#3498db" stroke-width="0.8"/>
+
+        <!-- ÜST GÖVDE (sabit) -->
+        <rect x="68" y="68" width="344" height="50" rx="2" fill="url(#steel)" stroke="#788898" stroke-width="1"/>
+        <text x="240" y="98" text-anchor="middle" fill="#555" font-size="13" font-weight="700" font-family="Arial">DOLFIN</text>
+
+        <!-- Yan üst bağlantı kolları -->
+        <rect x="68" y="118" width="40" height="18" fill="url(#steel)" stroke="#788898" stroke-width="0.8"/>
+        <rect x="372" y="118" width="40" height="18" fill="url(#steel)" stroke="#788898" stroke-width="0.8"/>
+
+        <!-- Açıklık çerçevesi (sabit) -->
+        <rect x="100" y="240" width="280" height="228" rx="2" fill="none" stroke="#788898" stroke-width="2"/>
+        <!-- Kabin içi -->
+        <rect x="108" y="248" width="264" height="210" fill="url(#chamber)"/>
+        <!-- Tehlike şeridi (açıklık üst kenarı — kapak açıkken görünür) -->
+        <rect x="108" y="248" width="264" height="10" fill="url(#hazard)" opacity="0.85"/>
+        <!-- Döner tabla -->
+        <ellipse cx="240" cy="360" rx="72" ry="22" fill="#3a4a58" stroke="#5a6a78" stroke-width="1"/>
+        <ellipse cx="240" cy="355" rx="68" ry="20" fill="none" stroke="#6a7a88" stroke-width="0.8" stroke-dasharray="4 3"/>
+        <text x="240" y="400" text-anchor="middle" fill="#5a7080" font-size="10">Döner tabla</text>
+        <text x="240" y="420" text-anchor="middle" fill="#4a6070" font-size="9">KABİN (iş alanı)</text>
+
+        <!-- Hareketli grup: kapak + piston milleri -->
+        <g id="doorAssembly">
+          <!-- Sol piston mili -->
+          <rect x="47" y="136" width="14" height="114" rx="1" fill="#d8e0e6" stroke="#8899a4" stroke-width="0.8"/>
+          <!-- Sağ piston mili -->
+          <rect x="419" y="136" width="14" height="114" rx="1" fill="#d8e0e6" stroke="#8899a4" stroke-width="0.8"/>
+
+          <!-- Kapak paneli -->
+          <rect x="72" y="248" width="336" height="200" rx="2" fill="url(#steel)" stroke="#788898" stroke-width="1.5"/>
+          <rect x="80" y="256" width="320" height="6" rx="1" fill="#fff" opacity="0.25"/>
+          <!-- Kapak alt tehlike şeridi -->
+          <rect x="72" y="438" width="336" height="10" fill="url(#hazard)"/>
+          <text x="240" y="340" text-anchor="middle" fill="#666" font-size="14" font-weight="700">KAPAK</text>
+
+          <!-- Piston–kapak bağlantı braketleri (üst köşeler) -->
+          <rect x="68" y="240" width="22" height="10" rx="1" fill="#a8b8c4" stroke="#687888" stroke-width="0.8"/>
+          <rect x="390" y="240" width="22" height="10" rx="1" fill="#a8b8c4" stroke="#687888" stroke-width="0.8"/>
+        </g>
+
+        <!-- Kontrol paneli (sağda, sabit) -->
+        <rect x="448" y="200" width="58" height="200" rx="3" fill="url(#steelDark)" stroke="#788898" stroke-width="1"/>
+        <rect x="456" y="212" width="42" height="28" rx="2" fill="#1a222a" stroke="#555"/>
+        <text x="477" y="230" text-anchor="middle" fill="#2ecc71" font-size="8" font-family="monospace">888</text>
+        <circle cx="477" cy="270" r="10" fill="#27ae60" stroke="#1e8449"/>
+        <circle cx="477" cy="300" r="10" fill="#c0392b" stroke="#922b21"/>
+        <circle cx="477" cy="330" r="10" fill="#f39c12" stroke="#d68910"/>
+        <text x="477" y="365" text-anchor="middle" fill="#8899aa" font-size="7">Kontrol</text>
+
+        <!-- Etiketler -->
+        <text x="54" y="110" text-anchor="middle" fill="#8899aa" font-size="8">P1</text>
+        <text x="426" y="110" text-anchor="middle" fill="#8899aa" font-size="8">P2</text>
+        <text x="54" y="375" text-anchor="middle" fill="#3498db" font-size="7" transform="rotate(-90 54 375)">Koruma</text>
+
+        <!-- Hareket okları -->
+        <g id="arrowUp" opacity="0.25">
+          <path d="M240 210 L235 222 L245 222 Z" fill="#2ecc71"/>
+          <line x1="240" y1="222" x2="240" y2="238" stroke="#2ecc71" stroke-width="2"/>
+          <text x="252" y="228" fill="#2ecc71" font-size="9">AÇ ↑</text>
+        </g>
+        <g id="arrowDown" opacity="0.25">
+          <path d="M240 478 L235 466 L245 466 Z" fill="#e74c3c"/>
+          <line x1="240" y1="466" x2="240" y2="450" stroke="#e74c3c" stroke-width="2"/>
+          <text x="252" y="472" fill="#e74c3c" font-size="9">KAP ↓</text>
+        </g>
+
+        <!-- Hidrolik şema (küçük) -->
+        <rect x="8" y="8" width="200" height="52" rx="6" fill="#1a1f26" stroke="#3a4555" stroke-width="1"/>
+        <text x="108" y="24" text-anchor="middle" fill="#7a9abb" font-size="8" font-weight="600">ORTAK VALF</text>
+        <rect id="valfAcma" x="20" y="32" width="44" height="16" rx="2" fill="#2a3540" stroke="#4a5568"/>
+        <text x="42" y="43" text-anchor="middle" fill="#2ecc71" font-size="7">YV-A</text>
+        <rect id="valfKapama" x="72" y="32" width="44" height="16" rx="2" fill="#2a3540" stroke="#4a5568"/>
+        <text x="94" y="43" text-anchor="middle" fill="#e74c3c" font-size="7">YV-K</text>
+        <text x="148" y="43" text-anchor="middle" fill="#8899aa" font-size="7">P1+P2</text>
+        <line x1="132" y1="40" x2="148" y2="40" stroke="#4a5568" stroke-width="1"/>
+
+        <path id="fOpen1" class="flow open" d="M42 48 L42 90 L54 90" fill="none" stroke-width="2"/>
+        <path id="fOpen2" class="flow open" d="M94 48 L94 90 L426 90 L426 118" fill="none" stroke-width="2"/>
+        <path id="fClose1" class="flow close" d="M94 48 L94 75 L240 75 L240 130" fill="none" stroke-width="2"/>
+        <path id="fClose2" class="flow close" d="M54 380 L54 90" fill="none" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <div class="panel">
+      <h2>Kontrol</h2>
+      <button class="btn-open" id="btnOpen">▲ Kapak Aç (YV-A)</button>
+      <button class="btn-close" id="btnClose">▼ Kapak Kapat (YV-K)</button>
+      <button class="btn-stop" id="btnStop">■ Durdur</button>
+
+      <div class="status-box">
+        <div class="row"><span class="lbl">Kapak</span><span class="val close" id="stKapak">Kapalı</span></div>
+        <div class="row"><span class="lbl">Valf</span><span class="val" id="stValf">—</span></div>
+        <div class="row"><span class="lbl">Piston 1</span><span class="val" id="stP1">Aşağıda</span></div>
+        <div class="row"><span class="lbl">Piston 2</span><span class="val" id="stP2">Aşağıda</span></div>
+      </div>
+
+      <div class="legend">
+        <h2 style="margin-bottom:8px">Mekanizma</h2>
+        <p><b>Kapalı:</b> Kapak açıklığı kapatır, tabla görünmez.</p>
+        <p><b>Açık:</b> Pistonlar kapağı yukarı çeker (fotoğraftaki gibi).</p>
+        <p><b>YV-A:</b> Açma yönü ortak valf → P1 + P2 birlikte kaldırır.</p>
+        <p><b>YV-K:</b> Kapama yönü ortak valf → P1 + P2 birlikte indirir.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LIFT = 200; // kapak yukarı hareket (px)
+    let state = 'closed';
+    let busy = false;
+
+    const door = document.getElementById('doorAssembly');
+    const valfA = document.getElementById('valfAcma');
+    const valfK = document.getElementById('valfKapama');
+    const arrowUp = document.getElementById('arrowUp');
+    const arrowDown = document.getElementById('arrowDown');
+    const flowsOpen = ['fOpen1', 'fOpen2'].map(id => document.getElementById(id));
+    const flowsClose = ['fClose1', 'fClose2'].map(id => document.getElementById(id));
+
+    function setDoor(open) {
+      door.style.transform = open ? `translateY(-${LIFT}px)` : 'translateY(0)';
+    }
+
+    function setFlow(open, close) {
+      flowsOpen.forEach(f => f.classList.toggle('on', open));
+      flowsClose.forEach(f => f.classList.toggle('on', close));
+    }
+
+    function setUI(open) {
+      const sk = document.getElementById('stKapak');
+      sk.textContent = open ? 'Açık (Yukarıda)' : 'Kapalı (Aşağıda)';
+      sk.className = 'val ' + (open ? 'open' : 'close');
+      document.getElementById('stP1').textContent = open ? 'Yukarıda' : 'Aşağıda';
+      document.getElementById('stP2').textContent = open ? 'Yukarıda' : 'Aşağıda';
+    }
+
+    function move(open) {
+      if (busy) return;
+      busy = true;
+
+      valfA.classList.remove('valf-on-open');
+      valfK.classList.remove('valf-on-close');
+
+      if (open) {
+        valfA.classList.add('valf-on-open');
+        document.getElementById('stValf').textContent = 'YV-A';
+        document.getElementById('stValf').className = 'val open';
+        setFlow(true, false);
+        arrowUp.setAttribute('opacity', '1');
+        arrowDown.setAttribute('opacity', '0.15');
+      } else {
+        valfK.classList.add('valf-on-close');
+        document.getElementById('stValf').textContent = 'YV-K';
+        document.getElementById('stValf').className = 'val close';
+        setFlow(false, true);
+        arrowDown.setAttribute('opacity', '1');
+        arrowUp.setAttribute('opacity', '0.15');
+      }
+
+      setDoor(open);
+
+      setTimeout(() => {
+        busy = false;
+        state = open ? 'open' : 'closed';
+        setFlow(false, false);
+        valfA.classList.remove('valf-on-open');
+        valfK.classList.remove('valf-on-close');
+        document.getElementById('stValf').textContent = '—';
+        document.getElementById('stValf').className = 'val';
+        arrowUp.setAttribute('opacity', '0.25');
+        arrowDown.setAttribute('opacity', '0.25');
+        setUI(open);
+      }, 1050);
+    }
+
+    document.getElementById('btnOpen').onclick = () => { if (state !== 'open') move(true); };
+    document.getElementById('btnClose').onclick = () => { if (state !== 'closed') move(false); };
+    document.getElementById('btnStop').onclick = () => {
+      setFlow(false, false);
+      valfA.classList.remove('valf-on-open');
+      valfK.classList.remove('valf-on-close');
+      document.getElementById('stValf').textContent = '—';
+    };
+
+    setDoor(false);
+    setUI(false);
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — Piston Pnömatik Hat Şeması</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1419; color: #e8ecf0;
+      padding: 24px 20px 40px; line-height: 1.5;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 1.35rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 20px; }
+    .panel {
+      background: #1a2332; border: 1px solid #2a3a4d;
+      border-radius: 12px; padding: 16px; margin-bottom: 16px;
+    }
+    .panel h2 {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
+      color: #6b8aad; margin-bottom: 12px;
+    }
+    svg { display: block; width: 100%; height: auto; }
+    .legend { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; font-size: 0.82rem; color: #aab4c0; }
+    .legend-item { display: flex; align-items: center; gap: 8px; }
+    .note { font-size: 0.84rem; color: #8899aa; margin-top: 12px; padding: 12px; background: #121a24; border-radius: 8px; border: 1px solid #2a3a4d; }
+    .note strong { color: #e8ecf0; }
+    a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KBN Piston — Pnömatik Hat Şeması</h1>
+  <p class="sub">Tek silindir (×2 adet KBN) · Üst/alt port · D4 pilot · D8 esas hat · çapraz T bağlantısı</p>
+
+  <div class="panel">
+    <h2>Sembolik şema (fotoğrafa göre)</h2>
+    <svg viewBox="0 0 720 620" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/>
+        </marker>
+        <linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#64748b"/>
+          <stop offset="50%" stop-color="#94a3b8"/>
+          <stop offset="100%" stop-color="#64748b"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Başlık -->
+      <text x="360" y="28" text-anchor="middle" fill="#6b8aad" font-size="11" font-weight="600">BİR SİLİNDİR — KBN'De 2 ADET (SOL + SAĞ)</text>
+
+      <!-- Silindir gövdesi -->
+      <rect x="380" y="100" width="56" height="340" rx="4" fill="url(#cyl)" stroke="#475569" stroke-width="2"/>
+      <rect x="384" y="104" width="8" height="332" rx="2" fill="#cbd5e1" opacity="0.3"/>
+      <text x="408" y="280" text-anchor="middle" fill="#334155" font-size="10" font-weight="600" transform="rotate(-90 408 280)">SİLİNDİR Ø50</text>
+      <!-- Koruma kafesi -->
+      <rect x="372" y="320" width="72" height="120" rx="2" fill="none" stroke="#3498db" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+      <text x="408" y="450" text-anchor="middle" fill="#3498db" font-size="8">Koruma kafesi</text>
+
+      <!-- Piston mil -->
+      <rect x="396" y="60" width="24" height="44" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+      <text x="408" y="52" text-anchor="middle" fill="#8899aa" font-size="9">Mil → kapak</text>
+
+      <!-- ═══ ÜST PORT ═══ -->
+      <rect x="200" y="108" width="180" height="72" rx="6" fill="#121a24" stroke="#3b82f6" stroke-width="1.5"/>
+      <text x="290" y="128" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="700">ÜST GİRİŞ / PORT</text>
+
+      <!-- Üst D4 dirsek (plot/pilot) -->
+      <path d="M 260 140 L 260 155 L 245 155" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="245" cy="155" r="4" fill="#22d3ee"/>
+      <text x="248" y="148" fill="#22d3ee" font-size="9" font-weight="600">D4</text>
+      <text x="248" y="172" fill="#64748b" font-size="8">Plot / pilot dirsek</text>
+      <line x1="245" y1="155" x2="120" y2="155" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="5 4"/>
+      <text x="115" y="150" text-anchor="end" fill="#22d3ee" font-size="8">Üst D4 çıkış →</text>
+
+      <!-- Üst D8 esas hat -->
+      <line x1="320" y1="155" x2="380" y2="155" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="320" cy="155" r="5" fill="#3b82f6"/>
+      <text x="330" y="148" fill="#93c5fd" font-size="9" font-weight="600">D8</text>
+      <text x="350" y="175" fill="#64748b" font-size="8">Esas hat</text>
+      <line x1="320" y1="155" x2="320" y2="480" stroke="#3b82f6" stroke-width="4"/>
+      <text x="330" y="300" fill="#64748b" font-size="8" transform="rotate(-90 330 300)">Üst D8 ↓</text>
+
+      <!-- Port bağlantı silindire -->
+      <line x1="380" y1="140" x2="380" y2="155" stroke="#475569" stroke-width="3"/>
+      <line x1="380" y1="155" x2="408" y2="155" stroke="#475569" stroke-width="3"/>
+
+      <!-- ═══ ALT PORT ═══ -->
+      <rect x="200" y="360" width="180" height="88" rx="6" fill="#121a24" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="290" y="380" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">ALT GİRİŞ / PORT</text>
+
+      <!-- Çek valf sembolü -->
+      <rect x="248" y="392" width="84" height="36" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <!-- check valve triangle -->
+      <path d="M 268 408 L 288 398 L 288 418 Z" fill="#f59e0b"/>
+      <line x1="292" y1="398" x2="292" y2="418" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="296" y1="400" x2="316" y2="400" stroke="#64748b" stroke-width="1"/>
+      <line x1="296" y1="416" x2="316" y2="416" stroke="#64748b" stroke-width="1"/>
+      <text x="290" y="438" text-anchor="middle" fill="#fbbf24" font-size="8">Pnömatik çek valf</text>
+      <!-- iğne ayar (fotoğraftaki pirinç vida) -->
+      <rect x="278" y="428" width="24" height="8" rx="2" fill="#b45309" stroke="#92400e"/>
+      <text x="290" y="456" text-anchor="middle" fill="#78716c" font-size="7">İğne / ayar</text>
+
+      <!-- Alt D4 -->
+      <path d="M 245 400 L 230 400 L 230 415" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="230" cy="415" r="4" fill="#22d3ee"/>
+      <text x="218" y="408" fill="#22d3ee" font-size="9" font-weight="600">D4</text>
+      <line x1="230" y1="415" x2="120" y2="415" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="5 4"/>
+      <text x="115" y="410" text-anchor="end" fill="#22d3ee" font-size="8">Alt D4 çıkış →</text>
+
+      <!-- Alt D8 -->
+      <line x1="332" y1="408" x2="380" y2="408" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="332" cy="408" r="5" fill="#3b82f6"/>
+      <text x="342" y="402" fill="#93c5fd" font-size="9" font-weight="600">D8</text>
+      <line x1="332" y1="408" x2="332" y2="155" stroke="#3b82f6" stroke-width="4"/>
+      <text x="342" y="280" fill="#64748b" font-size="8" transform="rotate(-90 342 280)">Alt D8 ↑</text>
+
+      <line x1="380" y1="408" x2="408" y2="408" stroke="#475569" stroke-width="3"/>
+
+      <!-- ═══ T BİRLEŞTİRMELERİ (çapraz) ═══ -->
+      <!-- T1: Alt D4 + Üst D8 → Hat A (kapanma yönü ana hat) -->
+      <circle cx="120" cy="285" r="14" fill="#1e293b" stroke="#e879f9" stroke-width="2"/>
+      <text x="120" y="289" text-anchor="middle" fill="#e879f9" font-size="10" font-weight="700">T1</text>
+      <line x1="120" y1="155" x2="120" y2="271" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="120" y1="299" x2="120" y2="401" stroke="#22d3ee" stroke-width="2.5"/>
+      <line x1="106" y1="285" x2="50" y2="285" stroke="#a855f7" stroke-width="4" marker-end="url(#arr)"/>
+      <text x="48" y="278" text-anchor="end" fill="#c084fc" font-size="9" font-weight="600">HAT-A</text>
+      <text x="48" y="292" text-anchor="end" fill="#64748b" font-size="7">Alt D4 + Üst D8</text>
+
+      <!-- T2: Üst D4 + Alt D8 → Hat B -->
+      <circle cx="120" cy="520" r="14" fill="#1e293b" stroke="#e879f9" stroke-width="2"/>
+      <text x="120" y="524" text-anchor="middle" fill="#e879f9" font-size="10" font-weight="700">T2</text>
+      <line x1="120" y1="429" x2="120" y2="506" stroke="#22d3ee" stroke-width="2.5"/>
+      <line x1="120" y1="534" x2="120" y2="560" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="332" y1="560" x2="134" y2="560" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="120" y1="155" x2="80" y2="155" stroke="#22d3ee" stroke-width="2"/>
+      <path d="M 80 155 L 80 520 L 106 520" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="5 4"/>
+      <line x1="106" y1="520" x2="50" y2="520" stroke="#a855f7" stroke-width="4" marker-end="url(#arr)"/>
+      <text x="48" y="513" text-anchor="end" fill="#c084fc" font-size="9" font-weight="600">HAT-B</text>
+      <text x="48" y="527" text-anchor="end" fill="#64748b" font-size="7">Üst D4 + Alt D8</text>
+
+      <!-- Valf bloğuna -->
+      <rect x="8" y="250" width="36" height="70" rx="4" fill="#1e293b" stroke="#475569"/>
+      <text x="26" y="278" text-anchor="middle" fill="#8899aa" font-size="7" transform="rotate(-90 26 278)">YV</text>
+      <rect x="8" y="485" width="36" height="70" rx="4" fill="#1e293b" stroke="#475569"/>
+      <line x1="44" y1="285" x2="8" y2="285" stroke="#a855f7" stroke-width="3"/>
+      <line x1="44" y1="520" x2="8" y2="520" stroke="#a855f7" stroke-width="3"/>
+      <text x="26" y="560" text-anchor="middle" fill="#64748b" font-size="8">Ortak valf</text>
+      <text x="26" y="572" text-anchor="middle" fill="#64748b" font-size="7">(×2 piston)</text>
+
+      <!-- Akış açıklama kutusu -->
+      <rect x="460" y="480" width="240" height="120" rx="8" fill="#121a24" stroke="#2a3a4d"/>
+      <text x="580" y="502" text-anchor="middle" fill="#6b8aad" font-size="10" font-weight="600">ÇAPRAZ BAĞLANTI MANTIĞI</text>
+      <text x="472" y="522" fill="#94a3b8" font-size="9">T1: Alt D4 + Üst D8 → Hat-A</text>
+      <text x="472" y="538" fill="#94a3b8" font-size="9">T2: Üst D4 + Alt D8 → Hat-B</text>
+      <text x="472" y="558" fill="#64748b" font-size="8">Pilot (D4) karşı portun esas (D8)</text>
+      <text x="472" y="572" fill="#64748b" font-size="8">hattını kontrol eder → çek valf aç/kapa</text>
+      <text x="472" y="588" fill="#fbbf24" font-size="8">Kapanış yönünde çek valf + pilot</text>
+
+      <!-- Foto referans -->
+      <rect x="460" y="100" width="240" height="100" rx="8" fill="#121a24" stroke="#2a3a4d"/>
+      <text x="580" y="122" text-anchor="middle" fill="#6b8aad" font-size="10" font-weight="600">FOTOĞRAFTAN (gerçek montaj)</text>
+      <text x="472" y="142" fill="#94a3b8" font-size="9">Üst: D4 ince dirsek + D8 kalın hat</text>
+      <text x="472" y="158" fill="#94a3b8" font-size="9">Alt: çek valf + iğne ayar + D4/D8</text>
+      <text x="472" y="174" fill="#94a3b8" font-size="9">Siyah T dirsekler, mavi PU hortum</text>
+      <text x="472" y="190" fill="#64748b" font-size="8">D8 hat uzunluğu: 4 m (Adım 0)</text>
+    </svg>
+  </div>
+
+  <div class="panel">
+    <h2>Sembol açıklaması</h2>
+    <div class="legend">
+      <div class="legend-item"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#3b82f6" stroke-width="5"/></svg> D8 — esas hat (4 m)</div>
+      <div class="legend-item"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#22d3ee" stroke-width="2.5"/></svg> D4 — plot / pilot hat</div>
+      <div class="legend-item"><svg width="28" height="16"><polygon points="4,8 14,2 14,14" fill="#f59e0b"/><line x1="16" y1="2" x2="16" y2="14" stroke="#f59e0b" stroke-width="2"/></svg> Pnömatik çek valf (alt port)</div>
+      <div class="legend-item"><svg width="28" height="16"><circle cx="14" cy="8" r="8" fill="none" stroke="#e879f9" stroke-width="2"/><line x1="6" y1="8" x2="22" y2="8" stroke="#e879f9"/><line x1="14" y1="8" x2="14" y2="16" stroke="#e879f9"/></svg> T birleştirme (çapraz)</div>
+      <div class="legend-item"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#a855f7" stroke-width="3"/></svg> Ortak valf hattına gidiş</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Mekanizma özeti:</strong> Her silindirin üst ve alt portunda D4 (pilot/plot) ve D8 (esas) hatlar var.
+    Alt portta <strong>pnömatik çek valf</strong> kapanış yönünü kontrol eder. Çapraz T bağlantısı:
+    alt D4 + üst D8 → Hat-A; üst D4 + alt D8 → Hat-B. Pilot hattı karşı uçtaki esas hattı
+    pilotlar → çek valfin kontrollü açılması / kapanış hızı sınırlanır.<br><br>
+    KBN'de bu blok <strong>2 adet</strong> (sol/sağ piston), her biri ortak YV-A / YV-K valflerine bağlanır.
+    İlgili dosyalar: <a href="kabin-kapak-piston-valf.html">Makine görünümü</a> ·
+    <a href="KBN-Adim0-Veri-Tablosu.html">Adım 0 verileri</a>
+  </div>
+</div>
+</body>
+</html>

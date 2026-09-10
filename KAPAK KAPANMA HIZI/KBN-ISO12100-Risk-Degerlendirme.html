@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — ISO 12100 Risk Değerlendirmesi</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 48px; line-height: 1.55; }
+    .wrap { max-width: 960px; margin: 0 auto; }
+    h1 { font-size: 1.4rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 20px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 24px 0 8px; }
+    .panel { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th { background: #121a24; color: #8ab4d4; font-size: 0.68rem; text-transform: uppercase; }
+    tr:last-child td { border-bottom: none; }
+    .ref { color: #64748b; font-size: 0.75rem; }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .todo { color: #f87171; font-weight: 600; }
+    .flow { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 14px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .flow ol { margin: 8px 0 0 1.2rem; }
+    .flow li { margin-bottom: 4px; }
+    .step { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; }
+    .s1 { background: rgba(46,204,113,0.15); color: #2ecc71; }
+    .s2 { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .s3 { background: rgba(168,85,247,0.15); color: #c084fc; }
+    a { color: #60a5fa; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>KBN Serisi — ISO 12100 Risk Değerlendirmesi</h1>
+  <p class="sub">BS EN ISO 12100:2010 · Risk assessment and risk reduction · Kapak kapanma hızı çalışmasının başlangıç noktası</p>
+
+  <div class="flow">
+    <strong>ISO 12100 süreci (Madde 4–7, Şekil 1):</strong>
+    <ol>
+      <li>Makine sınırlarını belirle <span class="ref">(5.3)</span></li>
+      <li>Tehlikeleri tanımla <span class="ref">(5.4 + Ek B)</span></li>
+      <li>Riski tahmin et <span class="ref">(5.5)</span></li>
+      <li>Riski değerlendir — azaltma gerekli mi? <span class="ref">(5.6)</span></li>
+      <li><strong>Üç adımlı yöntem</strong> ile risk azalt <span class="ref">(6.1, Şekil 2)</span></li>
+      <li>Dokümante et <span class="ref">(Madde 7)</span></li>
+    </ol>
+    Süreç <strong>iteratif</strong> — her tehlike için ayrı; yeterli risk azaltma sağlanana kadar tekrarlanır.
+  </div>
+
+  <h2>5.3 Makine sınırları — KBN</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Limit</th><th>KBN değeri</th><th>ISO 12100 ref.</th></tr></thead>
+      <tbody>
+        <tr><td>Amaca uygun kullanım</td><td>Kabin tipi endüstriyel yıkama; kapak dikey açılır/kapanır</td><td>5.3.2 a</td></tr>
+        <tr><td>Öngörülebilir amaç dışı kullanım</td><td>Kapak altında el/vücut; throttle bypass; basınç artırma</td><td>5.3.2 a</td></tr>
+        <tr><td>Kullanıcı</td><td>Operatör, bakım personeli</td><td>5.3.2 b</td></tr>
+        <tr><td>Mekansal sınır</td><td>Kapak stroku 950–1200 mm; 2×Ø50 piston</td><td>5.3.3</td></tr>
+        <tr><td>Enerji arayüzü</td><td>6 bar pnömatik; elektrik kontrol</td><td>5.3.5</td></tr>
+        <tr><td>Yaşam döngüsü fazları</td><td>Transport, montaj, işletme, bakım, hurda</td><td>5.3.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>5.4 Tehlike tanımlama — Kapak sistemi</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Tehlike</th><th>Tehlikeli durum</th><th>Tehlikeli olay</th><th>Ek B ref.</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Ezilme (crushing)</strong></td>
+          <td>Kapak kapanırken açıklıkta el/vücut</td>
+          <td>Kapak + kabin ağzı arasında sıkışma</td>
+          <td>Mekanik — ezilme</td>
+        </tr>
+        <tr>
+          <td>Kinetik enerji aşımı</td>
+          <td>Çok hızlı kapanma</td>
+          <td>Yastıklama yetmez, piston hasarı</td>
+          <td>6.2.3 b — kütle/hız</td>
+        </tr>
+        <tr>
+          <td>Beklenmeyen hareket</td>
+          <td>Valf orta boşaltma (4V230E-E)</td>
+          <td>Kapak düşme / kayma</td>
+          <td>6.2.11, ISO 4414</td>
+        </tr>
+        <tr>
+          <td>Enerji birikimi</td>
+          <td>Basınç kesilmeden bakım</td>
+          <td>Ani hareket</td>
+          <td>6.3.5.4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>5.5–5.6 Risk tahmini & değerlendirme — KBN</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Parametre</th><th>Mevcut durum</th><th>Değerlendirme</th></tr></thead>
+      <tbody>
+        <tr><td>Maruz kalan kişiler</td><td>Operatör (açıklık önü)</td><td>5.5.3 — tüm öngörülebilir maruziyet</td></tr>
+        <tr><td>Koruyucu önlem uygunluğu</td><td>Işık perdesi + Safety PLC VEYA el sensörü (emniyet katmanı yok)</td><td class="warn">El sensörü yolu PL açısından zayıf</td></tr>
+        <tr><td>Önlem devre dışı bırakılabilir mi?</td><td>Throttle ayarı, valf bypass</td><td>5.5 — defeat analizi gerekli</td></tr>
+        <tr><td>Enerji limiti (ISO 14120)</td><td>4 J (geri açılma yok)</td><td class="ok">12100 sonrası 14120 ile detay</td></tr>
+        <tr><td>Kapanma süresi</td><td>8–12 s (saha)</td><td class="todo">Adım 1 ile doğrulanacak</td></tr>
+        <tr><td>Yeterli risk azaltma?</td><td>—</td><td class="todo">PLr + hesap sonrası karar</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6.1 Üç adımlı risk azaltma — KBN kapak</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Adım</th><th>ISO 12100</th><th>KBN uygulaması</th><th>Detay standart</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="step s1">ADIM 1</span></td>
+          <td>6.2 — Doğası gereği güvenli tasarım</td>
+          <td>
+            Kapanma hızı sınırlama (çek valf + D4 pilot + throttle);<br>
+            Kütle/hız → E_k ≤ 4 J; yastıklama; basınç 6 bar
+          </td>
+          <td>ISO 14120 §5.2.5.4, ISO 4414, 6.2.3</td>
+          <td class="todo">Adım 1 hesap</td>
+        </tr>
+        <tr>
+          <td><span class="step s2">ADIM 2</span></td>
+          <td>6.3 — Koruyucu tedbirler</td>
+          <td>
+            Hareketli kapak (power-operated guard);<br>
+            Işık perdesi (IEC 61496) + Safety PLC VEYA el sensörü (kısmi);<br>
+            Interlock — kapak kapalı değilse cycle yok (ISO 14119)
+          </td>
+          <td>ISO 14120, ISO 14119, ISO 13855, ISO 13849-1</td>
+          <td class="warn">El sensörü PL?</td>
+        </tr>
+        <tr>
+          <td><span class="step s3">ADIM 3</span></td>
+          <td>6.4 — Kullanım bilgisi</td>
+          <td>Kullanım kılavuzu; kapanma süresi; bakım; artık riskler</td>
+          <td>6.4.5 instruction handbook</td>
+          <td class="todo">Kılavuz</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6.3.5 Tamamlayıcı koruma — KBN</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Madde</th><th>Gereksinim</th><th>KBN</th></tr></thead>
+      <tbody>
+        <tr><td>6.3.5.2</td><td>Acil durdurma (ISO 13850)</td><td class="ok">Mevcut — valf de-energize</td></tr>
+        <tr><td>6.3.5.3</td><td>Sıkışan kişi kurtarma — <strong>geri hareket düzenlemesi</strong></td><td class="todo">Algılama → geri aç (öneri); henüz yok</td></tr>
+        <tr><td>6.3.5.4</td><td>İzolasyon + enerji boşaltma (ISO 14118, ISO 4414)</td><td class="todo">Bakım modu basınç boşaltma doğrula</td></tr>
+        <tr><td>6.3.5.5</td><td>Ağır parça taşıma</td><td>Kapak 65–105 kg — kaldırma noktaları</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6.3.2.5 Hassas koruyucu ekipman — iki KBN konfigürasyonu</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Konfig</th><th>Cihaz</th><th>12100 yönlendirmesi</th><th>SRP/CS</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>A</strong></td>
+          <td>Reflektörlü el sensörü</td>
+          <td>6.3.2.5 — trip/presence; kısmi alan; 12100 NOT: ISO 13849-1</td>
+          <td class="todo">Emniyet rölesi / Safety PLC yok → PL?</td>
+        </tr>
+        <tr>
+          <td><strong>B</strong></td>
+          <td>Işık perdesi</td>
+          <td>6.3.2.5 — light curtains → IEC 61496; mesafe ISO 13855</td>
+          <td class="ok">Safety PLC var</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>7 Dokümantasyon checklist (Madde 7)</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>12100 §7 gereksinimi</th><th>KBN dosyası</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td>a</td><td>Makine tanımı, limitler, amaçlanan kullanım</td><td><a href="KBN-Adim0-Veri-Tablosu.html">Adım 0 tablosu</a></td><td class="ok">✓</td></tr>
+        <tr><td>b</td><td>Varsayımlar (kütle, basınç, debi)</td><td>Adım 0 + Adım 1</td><td class="todo">Adım 1 eksik</td></tr>
+        <tr><td>c</td><td>Tehlikeler, tehlikeli durumlar</td><td>Bu dosya §5.4</td><td class="ok">Taslak</td></tr>
+        <tr><td>d</td><td>Risk değerlendirme veri kaynağı</td><td>—</td><td class="todo">Kaza geçmişi?</td></tr>
+        <tr><td>e</td><td>Koruyucu önlem hedefleri (PLr)</td><td>—</td><td class="todo">ISO 13849-1</td></tr>
+        <tr><td>f</td><td>Uygulanan koruyucu önlemler</td><td><a href="KBN-piston-pnomatik-hat.html">Pnömatik hat</a></td><td class="ok">Kısmen</td></tr>
+        <tr><td>g</td><td>Artık riskler</td><td>Kullanım kılavuzu</td><td class="todo">—</td></tr>
+        <tr><td>h</td><td>Risk değerlendirme sonucu</td><td>Adım 1 + PL validation</td><td class="todo">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flow">
+    <strong>Sonraki adım (12100 akışına göre):</strong>
+    <ol>
+      <li><strong>Adım 1 hesap</strong> — 4 J + yastıklama + valf/D8 → min. kapanma süresi (Madde 6.2, enerji sınırı)</li>
+      <li><strong>PLr belirle</strong> — ISO 13849-1 (12100, 6.3.3.1 NOT)</li>
+      <li><strong>Koruma fonksiyonu tanımı</strong> — algılama → geri aç (12100, 6.3.5.3 ile uyumlu)</li>
+      <li><strong>Validation</strong> — ISO 13849-2 veya IEC 62061</li>
+    </ol>
+    Kaynak: <code>BS EN ISO 12100:2010.pdf</code> (proje klasöründe)
+  </div>
+</div>
+</body>
+</html>
