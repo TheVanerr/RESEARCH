@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — ISO 13849-1 Kapak Emniyet Fonksiyonları</title>
+  <link rel="stylesheet" href="kbn-nav.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 56px; line-height: 1.55; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 16px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 28px 0 10px; }
+    h3 { font-size: 0.92rem; color: #93c5fd; margin: 16px 0 8px; font-weight: 600; }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .nav a { font-size: 0.78rem; padding: 6px 12px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #60a5fa; text-decoration: none; }
+    .nav a:hover { border-color: #60a5fa; }
+    .nav a.active { background: rgba(59,130,246,0.15); border-color: #60a5fa; font-weight: 600; }
+    .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .meta-card { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; }
+    .meta-card .lbl { color: #64748b; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .pl-scale { background: #121a24; border: 1px solid #2a3a4d; border-radius: 10px; padding: 18px 20px; margin-bottom: 20px; }
+    .pl-scale h3 { margin: 0 0 14px; font-size: 0.88rem; color: #8ab4d4; }
+    .pl-bar { display: flex; border-radius: 8px; overflow: hidden; height: 36px; font-size: 0.78rem; font-weight: 700; margin-bottom: 12px; }
+    .pl-bar span { flex: 1; display: flex; align-items: center; justify-content: center; border-right: 1px solid #0f1419; }
+    .pl-bar span:last-child { border-right: none; }
+    .pla { background: #374151; color: #9ca3af; }
+    .plb { background: #4b5563; color: #d1d5db; }
+    .plc { background: #6b7280; color: #f3f4f6; }
+    .pld { background: rgba(59,130,246,0.5); color: #fff; outline: 2px solid #60a5fa; outline-offset: -2px; }
+    .ple { background: rgba(46,204,113,0.4); color: #fff; }
+    .pl-markers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; }
+    @media (max-width: 600px) { .pl-markers { grid-template-columns: 1fr; } }
+    .pl-marker { padding: 8px 10px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; }
+    .pl-marker .tag { font-weight: 700; margin-right: 6px; }
+    .tag-bad { color: #f87171; }
+    .tag-warn { color: #f59e0b; }
+    .tag-ok { color: #2ecc71; }
+    .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .sf-card { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; padding: 14px 16px; }
+    .sf-card h4 { font-size: 0.85rem; color: #93c5fd; margin-bottom: 8px; }
+    .sf-row { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 4px 0; border-bottom: 1px solid rgba(42,58,77,0.5); }
+    .sf-row:last-child { border-bottom: none; }
+    .panel { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .panel-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th { background: #121a24; color: #8ab4d4; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,0.03); }
+    .num { font-family: Consolas, monospace; font-weight: 600; color: #93c5fd; white-space: nowrap; }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .bad { color: #f87171; font-weight: 600; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+    .b-plr { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .b-a { background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .b-b { background: rgba(59,130,246,0.12); color: #93c5fd; }
+    .arch { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 14px 16px; font-family: Consolas, monospace; font-size: 0.78rem; color: #aab4c0; line-height: 1.7; margin-bottom: 14px; white-space: pre-wrap; }
+    .arch .hl { color: #93c5fd; }
+    .arch .warn-txt { color: #f59e0b; }
+    .arch .ok-txt { color: #2ecc71; }
+    .note { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .note strong { color: #e8ecf0; }
+    .note.danger { border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    @media (max-width: 700px) { .compare { grid-template-columns: 1fr; } }
+    .compare-col { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; padding: 14px 16px; }
+    .compare-col h4 { font-size: 0.88rem; margin-bottom: 10px; }
+    .compare-col.a h4 { color: #f87171; }
+    .compare-col.b h4 { color: #60a5fa; }
+    .compare-col ul { margin-left: 1.1rem; font-size: 0.84rem; color: #c8d0dc; }
+    .compare-col li { margin-bottom: 4px; }
+    .risk-graph { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+    .rg-cell { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px; text-align: center; }
+    .rg-cell .lbl { font-size: 0.68rem; color: #64748b; text-transform: uppercase; margin-bottom: 6px; }
+    .rg-cell .val { font-size: 1.1rem; font-weight: 700; color: #93c5fd; }
+    .rg-result { grid-column: 1 / -1; background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3); }
+    .rg-result .val { color: #60a5fa; font-size: 1.3rem; }
+    .check { color: #2ecc71; }
+    .cross { color: #f87171; }
+    .partial { color: #f59e0b; }
+    .sign-table td:last-child { min-width: 120px; border-left: 1px dashed #2a3a4d; }
+    a { color: #60a5fa; }
+    .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #2a3a4d; font-size: 0.78rem; color: #64748b; }
+    .test-num { display: inline-block; width: 22px; height: 22px; line-height: 22px; text-align: center; border-radius: 50%; background: rgba(59,130,246,0.15); color: #60a5fa; font-size: 0.72rem; font-weight: 700; margin-right: 6px; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div id="kbn-nav-root"></div>
+  <script src="kbn-nav.js"></script>
+
+  <h1>KBN Serisi — ISO 13849-1 Kapak Emniyet Fonksiyonları</h1>
+  <p class="sub">EN ISO 13849-1:2023 · Safety-related parts of control systems · Validation: ISO 13849-2 · 10.09.2026</p>
+
+  <div class="meta">
+    <div class="meta-card"><div class="lbl">Hazırlayan</div>Fatih GÜRAL</div>
+    <div class="meta-card"><div class="lbl">Konfig A</div>XUK1 ARCNL2 · Standart PLC</div>
+    <div class="meta-card"><div class="lbl">Konfig B</div>F3SG + G9SX G9SPN20S</div>
+    <div class="meta-card"><div class="lbl">Validation</div><span class="bad">Yapılmadı</span></div>
+  </div>
+
+  <div class="pl-scale">
+    <h3>Performans seviyesi (PL) özeti — SF1 ezilme koruması</h3>
+    <div class="pl-bar">
+      <span class="pla">a</span>
+      <span class="plb">b</span>
+      <span class="plc">c</span>
+      <span class="pld">d ← PLr</span>
+      <span class="ple">e</span>
+    </div>
+    <div class="pl-markers">
+      <div class="pl-marker"><span class="tag tag-bad">Konfig A</span> Mevcut PL: a–b <span class="cross">✗</span></div>
+      <div class="pl-marker"><span class="tag tag-warn">Konfig B</span> Mevcut PL: d △ (validation bekliyor)</div>
+      <div class="pl-marker"><span class="tag tag-bad">SF2/SF3</span> Her iki konfig: a–b <span class="cross">✗</span> (PLr c)</div>
+      <div class="pl-marker"><span class="tag tag-warn">SF4</span> Acil stop: b–c △ (doğrulanmalı)</div>
+    </div>
+  </div>
+
+  <h2>1 · Emniyet fonksiyonları envanteri</h2>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>ID</th><th>Fonksiyon</th><th>Tetikleyici</th><th>Emniyet durumu</th><th>Ref.</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SF1</strong></td><td>Kapanma algılama → dur/geri aç</td><td>El sensörü (A) / Perde (B)</td><td>YV-K OFF · hedef: YV-A ON</td><td>6.3.2.5, 6.3.5.3</td></tr>
+        <tr><td><strong>SF2</strong></td><td>Kapak kapalı değilken cycle engelle</td><td>Mekanik kapalı sensörü</td><td>Cycle enable = 0</td><td>ISO 14119</td></tr>
+        <tr><td><strong>SF3</strong></td><td>Kapak açılınca cycle durdur</td><td>Mekanik kapak sensörü</td><td>Cycle stop</td><td>ISO 14119</td></tr>
+        <tr><td><strong>SF4</strong></td><td>Acil durdurma</td><td>Acil stop butonu</td><td>Tüm valfler de-energize</td><td>ISO 13850</td></tr>
+        <tr><td><strong>SF5</strong></td><td>Çift el kapak komutu</td><td>İki el butonu</td><td>Kapak sekansı başlat</td><td>ISO 13851</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="summary-grid">
+    <div class="sf-card">
+      <h4>SF1 — Ezilme koruması</h4>
+      <div class="sf-row"><span>PLr</span><span class="badge b-plr">d</span></div>
+      <div class="sf-row"><span>Konfig A PL</span><span class="bad">a–b ✗</span></div>
+      <div class="sf-row"><span>Konfig B PL</span><span class="warn">d △</span></div>
+    </div>
+    <div class="sf-card">
+      <h4>SF2 / SF3 — Interlock</h4>
+      <div class="sf-row"><span>PLr</span><span class="badge b-plr">c</span></div>
+      <div class="sf-row"><span>Konfig A PL</span><span class="bad">a–b ✗</span></div>
+      <div class="sf-row"><span>Konfig B PL</span><span class="bad">a–b ✗</span></div>
+    </div>
+    <div class="sf-card">
+      <h4>SF4 — Acil stop</h4>
+      <div class="sf-row"><span>PLr</span><span class="badge b-plr">c</span></div>
+      <div class="sf-row"><span>Mevcut PL</span><span class="warn">b–c △</span></div>
+      <div class="sf-row"><span>Kapak</span><span class="ok">Yerinde kalır</span></div>
+    </div>
+  </div>
+
+  <h2>2 · PLr belirleme — Risk grafik (Annex A)</h2>
+  <h3>SF1 — Kapak ezilme koruması</h3>
+  <div class="risk-graph">
+    <div class="rg-cell"><div class="lbl">S — Şiddet</div><div class="val">S2</div><div class="ref" style="font-size:0.72rem;color:#64748b;margin-top:4px">Ciddi kalıcı yaralanma</div></div>
+    <div class="rg-cell"><div class="lbl">F — Sıklık</div><div class="val">F2</div><div class="ref" style="font-size:0.72rem;color:#64748b;margin-top:4px">Günlük, her cycle</div></div>
+    <div class="rg-cell"><div class="lbl">P — Kaçınma</div><div class="val">P2</div><div class="ref" style="font-size:0.72rem;color:#64748b;margin-top:4px">Otomatik kapanma</div></div>
+    <div class="rg-cell rg-result"><div class="lbl">PLr sonucu (ISO 13849-1 Şekil A.1)</div><div class="val">PLr = d</div></div>
+  </div>
+  <div class="note">Konfig A bypass senaryosunda P1 kabul edilirse PLr = <strong>e</strong> olur. Tasarım hedefi: <strong>PLr = d</strong>.</div>
+
+  <h2>3 · SF1 — Konfigürasyon A (El sensörü)</h2>
+  <div class="arch"><span class="hl">[Çift el]</span> → Kapak kapanma → <span class="hl">[YV-K ON]</span>
+    ↓
+<span class="hl">[XUK1 — alt bölge]</span> — algılama?
+    ↓ EVET                    ↓ HAYIR
+<span class="warn-txt">[Standart PLC DI]</span>        [Kapanma devam]
+    ↓
+<span class="warn-txt">[YV-K OFF / nötr]</span> → Kapak <span class="warn-txt">YERİNDE DURUR</span></div>
+
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>Blok</th><th>Bileşen</th><th>Emniyet rolü</th><th>Veri</th></tr></thead>
+      <tbody>
+        <tr><td>Giriş</td><td>XUK1 ARCNL2</td><td>Reflektörlü algılama</td><td class="warn">B10d bilinmiyor</td></tr>
+        <tr><td>Mantık</td><td>Standart PLC</td><td>Sinyal işleme</td><td class="bad">Emniyet için uygun değil</td></tr>
+        <tr><td>Çıkış</td><td>YV-K 4V230E-08</td><td>Kapanmayı durdur</td><td class="bad">Kanıtlanmış prensip değil</td></tr>
+        <tr><td>Geri besleme</td><td>—</td><td>—</td><td class="cross">✗ Yok</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <table>
+      <thead><tr><th></th><th>Değer</th></tr></thead>
+      <tbody>
+        <tr><td>Kategori (tahmini)</td><td>B veya 1</td></tr>
+        <tr><td>Tahmini PL</td><td class="bad">PL a–b</td></tr>
+        <tr><th>Gerekli PLr</th><td class="num">d</td></tr>
+        <tr><th>Sonuç</th><td class="bad">✗ UYGUN DEĞİL</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Önerilen mimari (A+)</h3>
+  <div class="arch"><span class="hl">[XUK1]</span> → <span class="ok-txt">[Emniyet rölesi 2 kanal]</span> → <span class="ok-txt">[Emniyet kontaktör + valf]</span>
+         ↓ algılama
+    <span class="ok-txt">[YV-K OFF + YV-A ON]</span> → Geri açılma</div>
+
+  <h2>4 · SF1 — Konfigürasyon B (Işık perdesi + Safety PLC)</h2>
+  <div class="arch"><span class="hl">[Çift el]</span> → Kapak kapanma → <span class="hl">[YV-K ON]</span>
+    ↓
+<span class="hl">[F3SG Type 4 — 400 mm]</span> — ışın kesildi?
+    ↓ EVET                    ↓ HAYIR
+<span class="ok-txt">[G9SX Safety PLC OSSD]</span>   [Kapanma devam]
+    ↓
+<span class="warn-txt">[Emniyet çıkış]</span> → Kapanma durur (hedef: <span class="ok-txt">geri aç</span>)</div>
+
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>Blok</th><th>Bileşen</th><th>Emniyet rolü</th><th>Veri</th></tr></thead>
+      <tbody>
+        <tr><td>Giriş</td><td>OMRON F3SG-44RE0880P14-L</td><td>Type 4 ışık perdesi</td><td>IEC 61496-3</td></tr>
+        <tr><td>Mantık</td><td>OMRON G9SX G9SPN20S</td><td>Safety PLC</td><td class="ok">PL e/d tipik</td></tr>
+        <tr><td>Çıkış</td><td>Emniyet valf sürücü</td><td>Kapanma durdurma</td><td class="warn">Doğrulanacak</td></tr>
+        <tr><td>Mesafe</td><td>50 mm (perde ↔ tehlike)</td><td>ISO 13855</td><td class="bad">Hesap gerekli</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <table>
+      <thead><tr><th></th><th>Değer</th></tr></thead>
+      <tbody>
+        <tr><td>Kategori (tahmini)</td><td>3 veya 4</td></tr>
+        <tr><td>Tahmini PL</td><td class="ok">PL d – e</td></tr>
+        <tr><th>Gerekli PLr</th><td class="num">d</td></tr>
+        <tr><th>Sonuç</th><td class="warn">△ KOŞULLU — validation + geri açılma eksik</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>5 · ISO 13855 mesafe kontrolü</h2>
+  <div class="note danger">
+    <strong>Kritik:</strong> Formül S = (K × T) + C · K = 1600 mm/s · C = 850 mm (Type 4)<br>
+    Örnek T = 0,3 s → S = <strong>1330 mm</strong>. Bildirilen 50 mm muhtemelen farklı referans noktası — resmi hesap zorunlu.
+  </div>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Parametre</th><th>Değer</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>K (yaklaşma hızı)</td><td class="num">1600 mm/s</td><td>El/kol varsayılan</td></tr>
+        <tr><td>T (tepki + durma)</td><td class="warn">Ölçülecek</td><td>Stop time testi</td></tr>
+        <tr><td>C (penetrasyon)</td><td class="num">850 mm</td><td>Type 4 dikey</td></tr>
+        <tr><td>S (min mesafe)</td><td class="bad">Hesaplanacak</td><td>Form: 50 mm</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6 · SF2 / SF3 — Kapak kapalı sensörü</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Fonksiyon</th><th>Koşul</th><th>Çıkış</th></tr></thead>
+      <tbody>
+        <tr><td>SF2</td><td>Kapak kapalı ≠ ON</td><td>Cycle start engelle</td></tr>
+        <tr><td>SF3</td><td>Kapak açıldı</td><td>Cycle stop</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel">
+    <table>
+      <thead><tr><th></th><th>Değer</th></tr></thead>
+      <tbody>
+        <tr><td>Mevcut</td><td>Mekanik switch + standart PLC DI</td></tr>
+        <tr><td>PLr</td><td class="num">c</td></tr>
+        <tr><td>Mevcut PL</td><td class="bad">a–b</td></tr>
+        <tr><th>Sonuç</th><td class="bad">✗ UYGUN DEĞİL (her iki konfig)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note"><strong>Öneri:</strong> Emniyet kapı switch (ISO 14119) + Safety PLC girişi (G9SX). Guard locking gerekli değil.</div>
+
+  <h2>7 · Emniyet fonksiyonları özet</h2>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>SF</th><th>Fonksiyon</th><th>PLr</th><th>Konfig A</th><th>Konfig B</th><th>Uygun?</th></tr></thead>
+      <tbody>
+        <tr><td>SF1</td><td>Kapanma algılama</td><td class="num">d</td><td class="bad">a–b ✗</td><td class="warn">d △</td><td>B: koşullu</td></tr>
+        <tr><td>SF2</td><td>Cycle lock</td><td class="num">c</td><td class="bad">a–b ✗</td><td class="bad">a–b ✗</td><td class="cross">✗</td></tr>
+        <tr><td>SF3</td><td>Cycle stop</td><td class="num">c</td><td class="bad">a–b ✗</td><td class="bad">a–b ✗</td><td class="cross">✗</td></tr>
+        <tr><td>SF4</td><td>Acil stop</td><td class="num">c</td><td class="warn">b △</td><td class="warn">b–c △</td><td class="partial">△</td></tr>
+        <tr><td>SF5</td><td>Çift el</td><td class="num">b</td><td>?</td><td>?</td><td>Ayrı analiz</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8 · SF1-HEDEF spesifikasyonu</h2>
+  <div class="panel">
+    <table>
+      <tbody>
+        <tr><th style="width:180px">Ad</th><td>Kapak ezilme koruması — algılama ve geri açılma</td></tr>
+        <tr><th>Giriş</th><td>Type 4 ışık perdesi (F3SG) OSSD → G9SX</td></tr>
+        <tr><th>Tetikleme</th><td>Kapanma aktif AND perde ışını kesildi</td></tr>
+        <tr><th>Emniyet durumu</th><td><strong>YV-K OFF + YV-A ON</strong> → kapak yukarı</td></tr>
+        <tr><th>Reset</th><td>Manuel; otomatik yeniden kapanma YOK</td></tr>
+        <tr><th>PLr / Hedef PL</th><td class="num">d</td></tr>
+        <tr><th>Kategori</th><td>3 veya 4</td></tr>
+        <tr><th>Enerji limiti</th><td>E_k ≤ 4 J (mevcut) veya ≤ 10 J (geri açılma ile)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Pnömatik mantık (kritik)</h3>
+  <div class="arch"><span class="ok-txt">ALGILAMA:</span>
+  YV-K = OFF · YV-A = ON (geri açılma)
+  <span class="bad">YV orta konum (E) = KULLANMA</span> ← 105 kg düşme riski
+
+<span class="hl">NORMAL KAPANMA:</span> YV-K ON · YV-A OFF
+
+<span class="hl">ACİL STOP:</span> YV-K OFF · YV-A OFF · Çek valf → kapak yerinde</div>
+
+  <h2>9 · Validation planı (ISO 13849-2)</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Aktivite</th><th>Sorumlu</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td>V1</td><td>Emniyet fonksiyon spesifikasyonu</td><td>Mühendislik</td><td class="ok">Bu doküman</td></tr>
+        <tr><td>V2</td><td>G9SX yazılım validation</td><td>Otomasyon</td><td class="bad">Bekliyor</td></tr>
+        <tr><td>V3</td><td>F3SG montaj + ISO 13855 mesafe</td><td>Montaj</td><td class="bad">Bekliyor</td></tr>
+        <tr><td>V4</td><td>Stop time ölçümü</td><td>Test</td><td class="bad">Bekliyor</td></tr>
+        <tr><td>V5</td><td>Fonksiyon testi (10 senaryo)</td><td>Test</td><td class="bad">Bekliyor</td></tr>
+        <tr><td>V6</td><td>PFHd / PL hesap</td><td>Emniyet</td><td class="bad">Bekliyor</td></tr>
+        <tr><td>V7</td><td>Validation raporu</td><td>QA</td><td class="bad">Bekliyor</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Fonksiyon test senaryoları</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Senaryo</th><th>Beklenen sonuç</th></tr></thead>
+      <tbody>
+        <tr><td><span class="test-num">1</span></td><td>Kapanma sırasında perde/sensör tetikle</td><td class="ok">Durur + geri açar</td></tr>
+        <tr><td><span class="test-num">2</span></td><td>Reset olmadan tekrar kapanma</td><td class="ok">Kapanmaz</td></tr>
+        <tr><td><span class="test-num">3</span></td><td>Reset sonrası normal kapanma</td><td class="ok">Normal kapanır</td></tr>
+        <tr><td><span class="test-num">4</span></td><td>Perde arızası simülasyonu</td><td class="ok">Emniyet durumu</td></tr>
+        <tr><td><span class="test-num">5</span></td><td>Acil stop kapanma sırasında</td><td class="ok">Valf de-energize, kapak kalır</td></tr>
+        <tr><td><span class="test-num">6</span></td><td>Kapak kapanmadan cycle start</td><td class="ok">Cycle başlamaz (SF2)</td></tr>
+        <tr><td><span class="test-num">7</span></td><td>Cycle sırasında kapak aç</td><td class="ok">Cycle durur (SF3)</td></tr>
+        <tr><td><span class="test-num">8</span></td><td>Tek el butonu</td><td class="ok">Kapak hareket etmez</td></tr>
+        <tr><td><span class="test-num">9</span></td><td>YV orta konum simülasyonu</td><td class="ok">Kapak düşmemeli</td></tr>
+        <tr><td><span class="test-num">10</span></td><td>Bypass denemesi (A)</td><td class="ok">Tespit / engelleme</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>10 · Sonuç ve karar</h2>
+  <div class="compare">
+    <div class="compare-col a">
+      <h4><span class="badge b-a">Konfig A</span> RED</h4>
+      <ul>
+        <li>SF1 PL ≥ PLr (d): <strong>Hayır</strong></li>
+        <li>Validation: Yapılmadı</li>
+        <li>Seri üretim için uygun değil</li>
+      </ul>
+      <p style="font-size:0.82rem;color:#8899aa;margin-top:10px">Min. iyileştirme: emniyet rölesi + geri açılma + validation</p>
+    </div>
+    <div class="compare-col b">
+      <h4><span class="badge b-b">Konfig B</span> KOŞULLU</h4>
+      <ul>
+        <li>SF1 PL ≥ PLr (d): Muhtemel △</li>
+        <li>SF2/SF3: ✗ emniyet switch gerekli</li>
+        <li>Geri açılma: ✗ eksik</li>
+        <li>Validation: ✗ yapılmadı</li>
+      </ul>
+      <p style="font-size:0.82rem;color:#8899aa;margin-top:10px">4 aksiyon tamamlanınca kabul</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Zorunlu aksiyon (Konfig B)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>SF1 geri açılma</strong> — Safety PLC'de YV-A çıkışı</td></tr>
+        <tr><td>2</td><td><strong>SF2/SF3 emniyet switch</strong> — PL c mimarisi</td></tr>
+        <tr><td>3</td><td><strong>ISO 13855 mesafe hesabı</strong> — resmi rapor</td></tr>
+        <tr><td>4</td><td><strong>ISO 13849-2 validation</strong> — yazılım + donanım</td></tr>
+        <tr><td>5</td><td><strong>Stop time ölçümü</strong> — test raporu</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>11 · Onay</h2>
+  <div class="panel">
+    <table class="sign-table">
+      <thead><tr><th>Rol</th><th>Ad Soyad</th><th>Tarih</th><th>İmza</th></tr></thead>
+      <tbody>
+        <tr><td>Hazırlayan</td><td>Fatih GÜRAL</td><td>10.09.2026</td><td></td></tr>
+        <tr><td>Emniyet sorumlusu</td><td></td><td></td><td></td></tr>
+        <tr><td>Onaylayan</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Kaynak MD: <code>KBN-ISO13849-Kapak-Risk-Degerlendirme.md</code> · ISO 13849-1 Annex A · ISO 13849-2 · ISO 13855 · IEC 61496-3
+  </div>
+</div>
+</body>
+</html>

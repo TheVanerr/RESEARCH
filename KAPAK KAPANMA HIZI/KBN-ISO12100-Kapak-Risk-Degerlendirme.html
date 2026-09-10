@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — ISO 12100 Kapak Risk Değerlendirmesi</title>
+  <link rel="stylesheet" href="kbn-nav.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 56px; line-height: 1.55; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 16px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 28px 0 10px; }
+    h3 { font-size: 0.92rem; color: #93c5fd; margin: 16px 0 8px; font-weight: 600; }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .nav a { font-size: 0.78rem; padding: 6px 12px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #60a5fa; text-decoration: none; }
+    .nav a:hover { border-color: #60a5fa; }
+    .nav a.active { background: rgba(59,130,246,0.15); border-color: #60a5fa; font-weight: 600; }
+    .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .meta-card { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: 0.82rem; }
+    .meta-card .lbl { color: #64748b; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    @media (max-width: 700px) { .summary { grid-template-columns: 1fr; } }
+    .verdict { border-radius: 10px; padding: 16px 18px; border: 1px solid; }
+    .verdict-a { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.35); }
+    .verdict-b { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.35); }
+    .verdict h3 { margin: 0 0 8px; font-size: 0.95rem; }
+    .verdict-a h3 { color: #f87171; }
+    .verdict-b h3 { color: #f59e0b; }
+    .verdict ul { margin: 8px 0 0 1.1rem; font-size: 0.84rem; color: #c8d0dc; }
+    .verdict li { margin-bottom: 4px; }
+    .panel { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .panel-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th { background: #121a24; color: #8ab4d4; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,0.03); }
+    .num { font-family: Consolas, monospace; font-weight: 600; color: #93c5fd; white-space: nowrap; }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .bad { color: #f87171; font-weight: 600; }
+    .ref { color: #64748b; font-size: 0.75rem; }
+    .flow { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 16px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .flow-diagram { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 12px; font-size: 0.78rem; }
+    .flow-box { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 6px; padding: 6px 10px; color: #e8ecf0; }
+    .flow-arrow { color: #64748b; }
+    .step { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 700; }
+    .s1 { background: rgba(46,204,113,0.15); color: #2ecc71; }
+    .s2 { background: rgba(59,130,246,0.15); color: #60a5fa; }
+    .s3 { background: rgba(168,85,247,0.15); color: #c084fc; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+    .b-high { background: rgba(239,68,68,0.15); color: #f87171; }
+    .b-med { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .b-low { background: rgba(46,204,113,0.15); color: #2ecc71; }
+    .b-config-a { background: rgba(239,68,68,0.12); color: #fca5a5; }
+    .b-config-b { background: rgba(59,130,246,0.12); color: #93c5fd; }
+    .note { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .note strong { color: #e8ecf0; }
+    .note.danger { border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06); }
+    .priority { display: flex; align-items: center; gap: 8px; }
+    .p-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .p1 { background: #f87171; }
+    .p2 { background: #f59e0b; }
+    .p3 { background: #60a5fa; }
+    .sign-table td:last-child { min-width: 120px; border-left: 1px dashed #2a3a4d; }
+    a { color: #60a5fa; }
+    .check { color: #2ecc71; }
+    .cross { color: #f87171; }
+    .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #2a3a4d; font-size: 0.78rem; color: #64748b; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div id="kbn-nav-root"></div>
+  <script src="kbn-nav.js"></script>
+
+  <h1>KBN Serisi — ISO 12100 Kapak Risk Değerlendirmesi</h1>
+  <p class="sub">BS EN ISO 12100:2010 · Risk assessment and risk reduction · Dikey pnömatik kapak sistemi · 10.09.2026</p>
+
+  <div class="meta">
+    <div class="meta-card"><div class="lbl">Hazırlayan</div>Fatih GÜRAL — Makine Mühendisi</div>
+    <div class="meta-card"><div class="lbl">Kapsam</div>KBN 1B/2B 1500–2050 + KBN 1350</div>
+    <div class="meta-card"><div class="lbl">CE</div>2006/42/EC — Makine Direktifi</div>
+    <div class="meta-card"><div class="lbl">Worst-case</div>KBN-2050 · 105 kg · 1200 mm strok</div>
+  </div>
+
+  <div class="summary">
+    <div class="verdict verdict-a">
+      <h3><span class="badge b-config-a">Konfig A</span> El sensörü (XUK1) — RED</h3>
+      <p style="font-size:0.86rem;color:#c8d0dc">Risk yeterince azaltılmamış. Emniyet katmanı yok, bypass mümkün, geri açılma yok.</p>
+      <ul>
+        <li>Emniyet rölesi / Safety PLC ekle</li>
+        <li>Algılama → geri açılma</li>
+        <li>PL validation + 4 J ölçümü</li>
+      </ul>
+    </div>
+    <div class="verdict verdict-b">
+      <h3><span class="badge b-config-b">Konfig B</span> Işık perdesi + G9SX — KOŞULLU</h3>
+      <p style="font-size:0.86rem;color:#c8d0dc">Mimari üstün; geri açılma ve PL validation tamamlanınca kabul edilebilir.</p>
+      <ul>
+        <li>Geri açılma (YV-A ON) — öncelik 1</li>
+        <li>ISO 13855 mesafe doğrulama</li>
+        <li>ISO 13849-2 validation</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>1 · Doküman bilgileri</h2>
+  <div class="panel">
+    <table>
+      <tbody>
+        <tr><th style="width:220px">Makine</th><td>Kabinli endüstriyel parça yıkama makinesi — KBN serisi</td></tr>
+        <tr><th>Modeller</th><td>KBN 1B/2B 1500, 1650, 1850, 2050 + KBN 1350</td></tr>
+        <tr><th>İlgili standartlar</th><td>ISO 14120, ISO 14119, ISO 13855, ISO 13849-1, ISO 13850, ISO 4414, IEC 60204-1</td></tr>
+        <tr><th>Referans dosyalar</th><td><a href="KBN-Adim0-Veri-Tablosu.html">Adım 0</a> · <a href="KBN-piston-pnomatik-hat.html">Pnömatik hat</a> · <a href="KBN-ISO13849-Kapak-Risk-Degerlendirme.html">ISO 13849</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>2 · ISO 12100 süreci (Madde 4–7)</h2>
+  <div class="flow">
+    <strong>Iteratif risk azaltma döngüsü:</strong>
+    <div class="flow-diagram">
+      <span class="flow-box">Makine sınırları <span class="ref">5.3</span></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Tehlike tanımlama <span class="ref">5.4</span></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Risk tahmini <span class="ref">5.5</span></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Risk değerlendirme <span class="ref">5.6</span></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box"><span class="step s1">Adım 1</span> Tasarım</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box"><span class="step s2">Adım 2</span> Koruma</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box"><span class="step s3">Adım 3</span> Bilgi</span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-box">Dokümante et <span class="ref">§7</span></span>
+    </div>
+  </div>
+
+  <h2>3 · Madde 5.3 — Makine sınırları</h2>
+  <h3>3.1 Amaçlanan kullanım</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Parametre</th><th>Tanım</th></tr></thead>
+      <tbody>
+        <tr><td>Fonksiyon</td><td>Endüstriyel parça yıkama kabininin dikey kapak ile kapatılması</td></tr>
+        <tr><td>Operatör görevi</td><td>Su ısıtma → parça yükleme → <strong>çift el butonu</strong> → start → yıkama → parça alma</td></tr>
+        <tr><td>Kapak hareketi</td><td>Çift el butonundan sonra <strong>otomatik</strong> açılır veya kapanır</td></tr>
+        <tr><td>Cycle koşulu</td><td>Yalnızca kapak <strong>kapalıyken</strong>; açıkken cycle <strong>asla</strong> başlamaz</td></tr>
+        <tr><td>Bakım modu</td><td>Yok — enerji kesimi + <strong>LOTO</strong> zorunlu</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 Öngörülebilir amaç dışı kullanım</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Senaryo</th><th>Değerlendirme</th></tr></thead>
+      <tbody>
+        <tr><td>Kapak altına el/baş sokma</td><td class="warn">Öngörülebilir — operatör müdahalesi</td></tr>
+        <tr><td>El sensörü bypass (Konfig A)</td><td class="bad">Öngörülebilir — jumper/bypass mümkün</td></tr>
+        <tr><td>Işık perdesi bypass (Konfig B)</td><td class="ok">Öngörülebilir değil — Safety PLC</td></tr>
+        <tr><td>Basınç regülatörü operatör ayarı</td><td class="warn">Öngörülebilir — hız/kuvvet değişebilir</td></tr>
+        <tr><td>Bilinen saha kazası</td><td>Yok</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.4 Mekanik sınırlar</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Parametre</th><th>KBN 1350</th><th>KBN 1650</th><th>KBN 1850</th><th>KBN 2050 ★</th></tr></thead>
+      <tbody>
+        <tr><td>Hareketli kütle (kg)</td><td class="num">65</td><td class="num">85</td><td class="num">95</td><td class="num">105</td></tr>
+        <tr><td>Strok (mm)</td><td class="num">950</td><td class="num">1200</td><td class="num">1200</td><td class="num">1200</td></tr>
+        <tr><td>Piston</td><td colspan="4" class="num">2×Ø50 mm · 6 bar</td></tr>
+        <tr><td>Kabin açıklığı</td><td colspan="4" class="num">3000 mm</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.5 Enerji arayüzleri</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Kaynak</th><th>Değer</th><th>Kapak etkisi</th></tr></thead>
+      <tbody>
+        <tr><td>Pnömatik</td><td class="num">6 bar</td><td>Kapak kuvveti ve hızı</td></tr>
+        <tr><td>Elektrik</td><td class="num">380 V / 50 Hz</td><td>Valf, PLC, koruma cihazları</td></tr>
+        <tr><td>Acil stop</td><td>Valf de-energize</td><td>Kapak <strong>yerinde kalır</strong> (çek valf)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>4 · Madde 5.4 — Tehlike tanımlama</h2>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Tehlike</th><th>Tehlikeli durum</th><th>Tehlikeli olay</th><th>Ref.</th></tr></thead>
+      <tbody>
+        <tr><td>H1</td><td><strong>Ezilme</strong></td><td>Kapanırken el/vücut açıklıkta</td><td>Kapak ↔ kabin ağzı sıkışma</td><td>Ek B — crushing</td></tr>
+        <tr><td>H2</td><td>Kinetik enerji</td><td>Hızlı kapanma</td><td>Yastıklama aşımı, yüksek darbe</td><td>6.2.3 b</td></tr>
+        <tr><td>H3</td><td>Düşme</td><td>Valf E boşaltma, basınç kaybı</td><td>65–105 kg kapak aşağı kayma</td><td>6.2.11</td></tr>
+        <tr><td>H4</td><td>Sıkışma devamı</td><td>Algılama → yerinde dur</td><td>Ezilme devam eder</td><td>6.3.5.3</td></tr>
+        <tr><td>H5</td><td>Enerji birikimi</td><td>Bakımda basınç izole edilmeden müdahale</td><td>Ani hareket</td><td>6.3.5.4</td></tr>
+        <tr><td>H6</td><td>Koruma devre dışı</td><td>El sensörü bypass (A)</td><td>H1 gerçekleşir</td><td>5.5 defeat</td></tr>
+        <tr><td>H7</td><td>Elle müdahale</td><td>Manuel valf tuşları (bakım)</td><td>Beklenmeyen hareket</td><td>6.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tehlikeli durum senaryoları</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Senaryo</th><th>Tetikleyici</th><th>Sonuç</th></tr></thead>
+      <tbody>
+        <tr><td>S1</td><td>Parça yerleştirirken kapak kapanır</td><td class="bad">H1 — ezilme</td></tr>
+        <tr><td>S2</td><td>El sensörü algılar</td><td class="warn">Durur — H4 (geri açılmıyor)</td></tr>
+        <tr><td>S3</td><td>Işık perdesi algılar (B)</td><td class="warn">Durur — H4</td></tr>
+        <tr><td>S4</td><td>Sensör bypass (A)</td><td class="bad">H1 — tam ezilme</td></tr>
+        <tr><td>S5</td><td>Acil stop</td><td class="ok">Kapak kalır — H3 düşük</td></tr>
+        <tr><td>S6</td><td>4V230E E boşaltma</td><td class="bad">H3 — düşme riski</td></tr>
+        <tr><td>S7</td><td>Bakımda LOTO yok</td><td class="warn">H5 — ani hareket</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>5 · Madde 5.5 — Risk tahmini</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Parametre</th><th>Skala</th><th>H1 (Ezilme)</th></tr></thead>
+      <tbody>
+        <tr><td>S — Şiddet</td><td>S1 / S2 / S3</td><td><strong>S2</strong> — ciddi kalıcı yaralanma</td></tr>
+        <tr><td>F — Sıklık</td><td>F1 / F2</td><td><strong>F2</strong> — her cycle</td></tr>
+        <tr><td>P — Kaçınma</td><td>P1 / P2</td><td><strong>P2</strong> — otomatik kapanma</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>Tehlike</th><th>S</th><th>F</th><th>P</th><th>Başlangıç riski</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>H1 Ezilme</td><td>S2</td><td>F2</td><td>P2</td><td><span class="badge b-high">Yüksek</span></td><td>Koruma olmadan kabul edilemez</td></tr>
+        <tr><td>H2 Kinetik enerji</td><td>S2</td><td>F2</td><td>P2</td><td><span class="badge b-med">Orta-Yüksek</span></td><td>Throttle ile azaltılmış</td></tr>
+        <tr><td>H3 Düşme</td><td>S2</td><td>F1</td><td>P2</td><td><span class="badge b-med">Orta</span></td><td>Çek valf mevcut</td></tr>
+        <tr><td>H4 Sıkışma devamı</td><td>S2</td><td>F2</td><td>P2</td><td><span class="badge b-high">Yüksek</span></td><td>Geri açılma yok</td></tr>
+        <tr><td>H5 Bakım enerjisi</td><td>S2</td><td>F1</td><td>P1</td><td><span class="badge b-med">Orta</span></td><td>LOTO'ya bağlı</td></tr>
+        <tr><td>H6 Bypass</td><td>S2</td><td>F1</td><td>P2</td><td><span class="badge b-high">Yüksek</span></td><td>Yalnızca Konfig A</td></tr>
+        <tr><td>H7 Manuel valf</td><td>S1</td><td>F1</td><td>P1</td><td><span class="badge b-low">Düşük-Orta</span></td><td>Bakım senaryosu</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6 · Madde 5.6 — Mevcut durum değerlendirmesi</h2>
+  <h3>Konfigürasyon A — El sensörü (XUK1 ARCNL2)</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>Tehlike</th><th>Mevcut önlemler</th><th>Değerlendirme</th><th>Azaltma?</th></tr></thead>
+      <tbody>
+        <tr><td>H1</td><td>Alt bölge sensör + throttle + çek valf</td><td class="bad">Kabul edilebilir değil — bypass, emniyet katmanı yok</td><td class="bad">EVET</td></tr>
+        <tr><td>H2</td><td>Kısma vanası, 8–12 s, 6 bar</td><td class="warn">Kısmen — 4 J doğrulanmalı</td><td class="warn">EVET</td></tr>
+        <tr><td>H3</td><td>PCV08G çek valf</td><td class="ok">Kabul edilebilir</td><td>Hayır</td></tr>
+        <tr><td>H4</td><td>Sensör → yerinde dur</td><td class="bad">Kabul edilebilir değil — 6.3.5.3</td><td class="bad">EVET</td></tr>
+        <tr><td>H6</td><td>Bypass mümkün</td><td class="bad">Kabul edilebilir değil</td><td class="bad">EVET</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Konfigürasyon B — Işık perdesi + Safety PLC</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>Tehlike</th><th>Mevcut önlemler</th><th>Değerlendirme</th><th>Azaltma?</th></tr></thead>
+      <tbody>
+        <tr><td>H1</td><td>F3SG perde + G9SX Safety PLC</td><td class="warn">Kısmen — geri açılma yok</td><td class="warn">EVET</td></tr>
+        <tr><td>H2</td><td>Throttle + yavaş kapanma</td><td class="warn">Kısmen — enerji hesabı gerekli</td><td class="warn">EVET</td></tr>
+        <tr><td>H3</td><td>Çek valf</td><td class="ok">Kabul edilebilir</td><td>Hayır</td></tr>
+        <tr><td>H4</td><td>Perde → yerinde dur</td><td class="bad">Kabul edilebilir değil</td><td class="bad">EVET</td></tr>
+        <tr><td>H6</td><td>Safety PLC — bypass zor</td><td class="ok">Kabul edilebilir</td><td>Hayır</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>7 · Madde 6 — Risk azaltma</h2>
+  <h3>7.1 Adım 1 — Doğası gereği güvenli tasarım</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Önlem</th><th>ISO</th><th>Durum</th><th>Aksiyon</th></tr></thead>
+      <tbody>
+        <tr><td>1.1</td><td>Kapanma hızı sınırlama (kısma vanası)</td><td>6.2.3 b</td><td class="ok">Uygulanıyor</td><td>4 J doğrula (2050)</td></tr>
+        <tr><td>1.2</td><td>Yastıklı piston</td><td>6.2.3</td><td class="ok">Uygulanıyor</td><td>Ayar dokümante et</td></tr>
+        <tr><td>1.3</td><td>Basınç limiti 6 bar</td><td>6.2.11</td><td class="ok">Uygulanıyor</td><td>Operatör ayarını kilitle</td></tr>
+        <tr><td>1.4</td><td>Çek valf PCV08G</td><td>6.2.11</td><td class="ok">Uygulanıyor</td><td>—</td></tr>
+        <tr><td>1.5</td><td>E_k ≤ 4 J hedefi</td><td>ISO 14120</td><td class="warn">Hedef</td><td>Adım 1 hesap</td></tr>
+        <tr><td>1.6</td><td>E valf orta konumdan kaçınma</td><td>6.2.11</td><td class="warn">Kısmen</td><td>SF'de E kullanma</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note"><strong>4 J teorik kapanma süresi:</strong> KBN-2050 → t_ISO = <span class="num">4,3 s</span>. Mevcut 8–12 s >> t_ISO → enerji limiti teorik olarak karşılanıyor (saha ölçümü önerilir).</div>
+
+  <div class="panel">
+    <table>
+      <thead><tr><th>Model</th><th>m (kg)</th><th>v_max (m/s)</th><th>Strok (mm)</th><th>t_ISO (s)</th></tr></thead>
+      <tbody>
+        <tr><td>KBN-1350</td><td class="num">65</td><td class="num">0,35</td><td class="num">950</td><td class="num">2,7</td></tr>
+        <tr><td>KBN-1650</td><td class="num">85</td><td class="num">0,31</td><td class="num">1200</td><td class="num">3,9</td></tr>
+        <tr><td>KBN-1850</td><td class="num">95</td><td class="num">0,29</td><td class="num">1200</td><td class="num">4,1</td></tr>
+        <tr><td>KBN-2050 ★</td><td class="num">105</td><td class="num">0,28</td><td class="num">1200</td><td class="num">4,3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>7.2 Adım 2 — Koruyucu tedbirler</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Önlem</th><th>Konfig A</th><th>Konfig B</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td>2.1</td><td>Power-operated guard</td><td class="check">✓</td><td class="check">✓</td><td>Mevcut</td></tr>
+        <tr><td>2.2</td><td>SPOC (sensör / perde)</td><td>El sensörü (kısmi)</td><td>Işık perdesi (tam)</td><td>Mevcut</td></tr>
+        <tr><td>2.3</td><td>Kapak kapalı sensörü</td><td class="check">✓</td><td class="check">✓</td><td>Interlock değil</td></tr>
+        <tr><td>2.4</td><td>Guard locking</td><td class="cross">✗</td><td class="cross">✗</td><td>Yok</td></tr>
+        <tr><td>2.5</td><td>Çift el kontrol</td><td class="check">✓</td><td class="check">✓</td><td>Mevcut</td></tr>
+        <tr><td>2.6</td><td>Safety PLC / emniyet rölesi</td><td class="cross">✗</td><td class="check">✓ G9SX</td><td>B üstün</td></tr>
+        <tr><td>2.7</td><td>Algılama → geri açılma</td><td class="cross">✗</td><td class="cross">✗</td><td class="bad">Eksik — P1</td></tr>
+        <tr><td>2.8</td><td>Otomatik yeniden kapanma yasağı</td><td class="check">✓</td><td class="check">✓</td><td>Reset gerekli</td></tr>
+        <tr><td>2.9</td><td>ISO 13855 mesafe</td><td>n/a</td><td class="warn">50 mm — doğrula</td><td>Hesap gerekli</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>7.4 Tamamlayıcı koruma (6.3.5)</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Madde</th><th>Gereksinim</th><th>KBN</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td>6.3.5.2</td><td>Acil durdurma</td><td>Pano üzerinde, reset prosedürlü</td><td class="ok">✓ Uygun</td></tr>
+        <tr><td>6.3.5.3</td><td>Sıkışma → geri hareket</td><td>Yerinde dur</td><td class="bad">✗ Uygun değil</td></tr>
+        <tr><td>6.3.5.4</td><td>Enerji izolasyon</td><td>LOTO; otomatik boşaltma yok</td><td class="warn">Kısmen</td></tr>
+        <tr><td>6.3.5.5</td><td>Ağır parça taşıma</td><td>Kaldırma noktaları mevcut</td><td class="ok">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8 · Artık riskler</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Artık risk</th><th>Maruziyet</th><th>Azaltma</th></tr></thead>
+      <tbody>
+        <tr><td>R1</td><td>Konfig A sensör bypass</td><td>Bakım / kötü niyet</td><td>Konfig B veya emniyet rölesi</td></tr>
+        <tr><td>R2</td><td>Regülatör operatör ayarı</td><td>Basınç artışı</td><td>Mühürleme / kılavuz</td></tr>
+        <tr><td>R3</td><td>LOTO ihmal</td><td>Bakım</td><td>Talimat + eğitim</td></tr>
+        <tr><td>R4</td><td>Sıcak buhar</td><td>Operatör</td><td>Egzoz fanı — tam makine RA</td></tr>
+        <tr><td>R5</td><td>Manuel valf (bakım)</td><td>Bakım personeli</td><td>LOTO prosedürü</td></tr>
+        <tr><td>R6</td><td>4 J ölçümü yapılmadı</td><td>Teorik uygunluk</td><td>Saha test raporu</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>9 · Sonuç ve öncelikler</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Öncelik</th><th>Aksiyon</th><th>Standart</th></tr></thead>
+      <tbody>
+        <tr><td><span class="priority"><span class="p-dot p1"></span>P1</span></td><td>Geri açılma güvenlik fonksiyonu (YV-A ON)</td><td>ISO 12100 6.3.5.3</td></tr>
+        <tr><td><span class="priority"><span class="p-dot p2"></span>P2</span></td><td>PL validation (Konfig B)</td><td>ISO 13849-1/2</td></tr>
+        <tr><td><span class="priority"><span class="p-dot p2"></span>P3</span></td><td>4 J enerji saha ölçümü</td><td>ISO 14120</td></tr>
+        <tr><td><span class="priority"><span class="p-dot p3"></span>P4</span></td><td>Konfig A emniyet mimarisi</td><td>ISO 13849-1</td></tr>
+        <tr><td><span class="priority"><span class="p-dot p3"></span>P5</span></td><td>Bakım LOTO talimatı</td><td>ISO 12100 6.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>10 · Dokümantasyon checklist (Madde 7)</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Gereksinim</th><th>Dosya</th><th>Durum</th></tr></thead>
+      <tbody>
+        <tr><td>a</td><td>Makine tanımı, limitler</td><td>Bu doküman §3</td><td class="ok">✓</td></tr>
+        <tr><td>b</td><td>Varsayımlar</td><td>Adım 0 + form</td><td class="ok">✓</td></tr>
+        <tr><td>c</td><td>Tehlikeler</td><td>§4</td><td class="ok">✓</td></tr>
+        <tr><td>d</td><td>Risk veri kaynağı</td><td>Form + saha</td><td class="ok">✓</td></tr>
+        <tr><td>e</td><td>PLr hedefleri</td><td><a href="KBN-ISO13849-Kapak-Risk-Degerlendirme.html">ISO 13849</a></td><td class="ok">✓</td></tr>
+        <tr><td>f</td><td>Uygulanan önlemler</td><td>Pnömatik/elektrik şema</td><td class="ok">✓</td></tr>
+        <tr><td>g</td><td>Artık riskler</td><td>§8</td><td class="ok">✓</td></tr>
+        <tr><td>h</td><td>Sonuç</td><td>§9</td><td class="ok">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>11 · Onay</h2>
+  <div class="panel">
+    <table class="sign-table">
+      <thead><tr><th>Rol</th><th>Ad Soyad</th><th>Tarih</th><th>İmza</th></tr></thead>
+      <tbody>
+        <tr><td>Hazırlayan</td><td>Fatih GÜRAL</td><td>10.09.2026</td><td></td></tr>
+        <tr><td>Onaylayan</td><td></td><td></td><td></td></tr>
+        <tr><td>Gözden geçiren (Emniyet)</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Kaynak MD: <code>KBN-ISO12100-Kapak-Risk-Degerlendirme.md</code> · BS EN ISO 12100:2010
+  </div>
+</div>
+</body>
+</html>

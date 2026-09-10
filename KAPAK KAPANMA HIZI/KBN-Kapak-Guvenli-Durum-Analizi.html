@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — Kapak Güvenli Durum Analizi (Standart Rehberi)</title>
+  <link rel="stylesheet" href="kbn-nav.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 56px; line-height: 1.55; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 16px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 28px 0 10px; }
+    h3 { font-size: 0.92rem; color: #93c5fd; margin: 16px 0 8px; font-weight: 600; }
+    .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .nav a { font-size: 0.78rem; padding: 6px 12px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #60a5fa; text-decoration: none; }
+    .nav a:hover { border-color: #60a5fa; }
+    .nav a.active { background: rgba(59,130,246,0.15); border-color: #60a5fa; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(6,182,212,0.06)); border: 1px solid rgba(59,130,246,0.3); border-radius: 12px; padding: 20px 22px; margin-bottom: 20px; }
+    .hero p { font-size: 0.9rem; color: #c8d0dc; margin-top: 8px; }
+    .hero strong { color: #e8ecf0; }
+    .answer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .answer-card { border-radius: 10px; padding: 16px; border: 1px solid; }
+    .answer-card h4 { font-size: 0.88rem; margin-bottom: 8px; }
+    .answer-card .action { font-size: 1.05rem; font-weight: 700; margin: 8px 0; }
+    .answer-card ul { margin: 8px 0 0 1rem; font-size: 0.82rem; color: #c8d0dc; }
+    .answer-card li { margin-bottom: 4px; }
+    .ac-open { background: rgba(46,204,113,0.08); border-color: rgba(46,204,113,0.35); }
+    .ac-open h4 { color: #2ecc71; }
+    .ac-open .action { color: #2ecc71; }
+    .ac-hold { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.35); }
+    .ac-hold h4 { color: #60a5fa; }
+    .ac-hold .action { color: #60a5fa; }
+    .ac-warn { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.35); }
+    .ac-warn h4 { color: #f59e0b; }
+    .ac-warn .action { color: #f59e0b; }
+    .panel { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .panel-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th { background: #121a24; color: #8ab4d4; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,0.03); }
+    .pri { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 0.68rem; font-weight: 700; }
+    .p1 { background: rgba(239,68,68,0.2); color: #f87171; }
+    .p2 { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .p3 { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .p4 { background: rgba(100,116,139,0.2); color: #94a3b8; }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .bad { color: #f87171; font-weight: 600; }
+    .note { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 14px 16px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .note strong { color: #e8ecf0; }
+    .note.danger { border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06); }
+    .note.info { border-color: rgba(59,130,246,0.35); background: rgba(59,130,246,0.06); }
+    .quote { border-left: 3px solid #60a5fa; padding: 10px 14px; margin: 10px 0; background: rgba(59,130,246,0.05); font-size: 0.84rem; color: #c8d0dc; font-style: italic; }
+    .quote cite { display: block; margin-top: 6px; font-style: normal; font-size: 0.75rem; color: #64748b; }
+    .matrix td:nth-child(3), .matrix td:nth-child(4) { font-weight: 600; }
+    .std-id { font-family: Consolas, monospace; color: #93c5fd; font-weight: 600; white-space: nowrap; }
+    .checklist { list-style: none; }
+    .checklist li { padding: 8px 0; border-bottom: 1px solid #2a3a4d; font-size: 0.84rem; display: flex; gap: 10px; align-items: flex-start; }
+    .checklist li:last-child { border-bottom: none; }
+    .cb { width: 18px; height: 18px; border: 2px solid #2a3a4d; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+    a { color: #60a5fa; }
+    .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #2a3a4d; font-size: 0.78rem; color: #64748b; }
+    .flow-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    @media (max-width: 700px) { .flow-compare { grid-template-columns: 1fr; } }
+    .flow-box { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 14px; font-family: Consolas, monospace; font-size: 0.76rem; color: #aab4c0; line-height: 1.65; white-space: pre-wrap; }
+    .flow-box .title { font-family: 'Segoe UI', sans-serif; font-weight: 600; color: #93c5fd; margin-bottom: 8px; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div id="kbn-nav-root"></div>
+  <script src="kbn-nav.js"></script>
+
+  <h1>KBN — Kapak Güvenli Durum Analizi</h1>
+  <p class="sub">4 senaryo · Standart bazlı cevap arama rehberi · Mevcut dokümanlara dokunulmadı · 10.09.2026</p>
+
+  <div class="hero">
+    <strong>Temel soru:</strong> Kapak kapanırken sensör gördüğünde, acil stop'ta, hava kesildiğinde, elektrik kesildiğinde — kapak yerinde mi kalmalı, yukarı mı açılmalı?
+    <p>
+      Standartlar <strong>tek bir cevap vermez</strong>. Olay türüne göre farklı "güvenli durum" tanımlar.
+      Kapanmaya devam etme zaten yasak — ancak <em>dur + tut</em> ile <em>dur + kontrollü geri aç</em> farklı senaryolarda geçerli.
+      Bakımda kapak üstünde insan varken açılma tehlikesi <strong>LOTO (ISO 14118)</strong> ile çözülür; acil stop'un kapak açması gerekmez.
+    </p>
+  </div>
+
+  <h2>1 · Özet cevap (standart yorumu — taslak)</h2>
+  <div class="answer-grid">
+    <div class="answer-card ac-open">
+      <h4>① Sensör / perde algılama (kapanma sırasında)</h4>
+      <div class="action">DUR + KONTROLLÜ GERİ AÇ</div>
+      <ul>
+        <li>ISO 14120 §5.2.5.4: koruyucu cihaz otomatik <strong>re-opening</strong> tetiklemeli</li>
+        <li>ISO 12100 §6.3.5.3: sıkışma → geri hareket düzenlemesi</li>
+        <li>Reset olmadan tekrar kapanmaz</li>
+        <li>10 J / 150 N limiti bu yola açılır</li>
+      </ul>
+    </div>
+    <div class="answer-card ac-hold">
+      <h4>② Acil stop</h4>
+      <div class="action">DUR + YERİNDE TUT</div>
+      <ul>
+        <li>ISO 13850: ek tehlike yaratmadan dur</li>
+        <li>Tutma cihazı (çek valf) devreye girebilir — §4.1.1.4</li>
+        <li>Otomatik yukarı açma <strong>gerekmez</strong>; bakımda tehlike yaratır</li>
+        <li>Kurtarma: manuel reset + kasıtlı aç komutu</li>
+      </ul>
+    </div>
+    <div class="answer-card ac-hold">
+      <h4>③ Hava kesildi (basınç kaybı)</h4>
+      <div class="action">KONTROLSÜZ HAREKET YOK — TUT</div>
+      <ul>
+        <li>ISO 4414: beklenmeyen hareket önleme</li>
+        <li>Çek valf (PCV08G) → mevcut konumda kilit</li>
+        <li>E merkez (boşaltma) valf → <span class="bad">düşme riski</span></li>
+        <li>Pnömatik enerji yok → açma mümkün değil</li>
+      </ul>
+    </div>
+    <div class="answer-card ac-hold">
+      <h4>④ Elektrik kesildi</h4>
+      <div class="action">DUR + YERİNDE TUT (çek valf)</div>
+      <ul>
+        <li>IEC 60204-1: stop category 0/1 — valf de-energize</li>
+        <li>ISO 4414: dikey yük → çek valf zorunlu</li>
+        <li>Valf varsayılan konumu kritik (E boşaltma tehlikeli)</li>
+        <li>Yeniden enerji → yumuşak start, beklenmeyen hareket yok</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note info">
+    <strong>Önemli ayrım:</strong> "Yerinde kal" mevcut KBN tasarımında acil stop / hava / elektrik için <span class="ok">standartla uyumlu</span> (çek valf ile).
+    Sorun yalnızca <strong>algılama sırasında</strong>: ezilme devam ederse ISO 14120 ve 12100 geri açılma veya kanıtlanmış düşük kuvvet (≤75 N / ≤4 J) ister.
+  </div>
+
+  <h2>2 · Karar matrisi</h2>
+  <div class="panel panel-scroll">
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Olay</th>
+          <th>Operasyon modu</th>
+          <th>Standart hedef davranış</th>
+          <th>KBN mevcut</th>
+          <th>Uygun mu?</th>
+          <th>Ana standart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sensör algılama</strong></td>
+          <td>Normal kapanma</td>
+          <td class="ok">Dur + geri aç (re-opening)</td>
+          <td class="warn">Yerinde dur</td>
+          <td class="bad">✗ Eksik</td>
+          <td class="std-id">ISO 14120 §5.2.5.4</td>
+        </tr>
+        <tr>
+          <td><strong>Acil stop</strong></td>
+          <td>Her mod</td>
+          <td class="ok">Dur, ek tehlike yok, tut</td>
+          <td class="ok">Yerinde dur (çek valf)</td>
+          <td class="ok">✓ Uygun</td>
+          <td class="std-id">ISO 13850 §4.1.1.5</td>
+        </tr>
+        <tr>
+          <td><strong>Hava kesildi</strong></td>
+          <td>Her mod</td>
+          <td class="ok">Kontrolsüz hareket yok</td>
+          <td class="ok">Çek valf tutar</td>
+          <td class="ok">✓ (E valf yoksa)</td>
+          <td class="std-id">ISO 4414</td>
+        </tr>
+        <tr>
+          <td><strong>Elektrik kesildi</strong></td>
+          <td>Her mod</td>
+          <td class="ok">Dur + tut veya kontrollü iniş</td>
+          <td class="ok">Valf OFF + çek valf</td>
+          <td class="ok">✓ Uygun</td>
+          <td class="std-id">IEC 60204-1 + ISO 4414</td>
+        </tr>
+        <tr>
+          <td><strong>Manuel aç komutu</strong></td>
+          <td>Ezilmiş kişi kurtarma</td>
+          <td class="ok">Reset + kasıtlı çift el → aç</td>
+          <td class="ok">Mümkün (reset sonrası)</td>
+          <td class="warn">△ Basınç durumuna bağlı</td>
+          <td class="std-id">ISO 12100 §6.3.5.3</td>
+        </tr>
+        <tr>
+          <td><strong>Bakımda kapak üstünde insan</strong></td>
+          <td>Bakım (LOTO yok — misuse)</td>
+          <td class="bad">LOTO zorunlu — hareket olmamalı</td>
+          <td class="warn">Manuel valf riski</td>
+          <td class="bad">Prosedür + LOTO</td>
+          <td class="std-id">ISO 14118</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3 · "Yukarı açma tehlikesi" — standartlar ne diyor?</h2>
+  <div class="note danger">
+    <strong>Senaryonuz:</strong> Bakımda enerji kesilmedi, biri kapak üstünde — kapak açılırsa adamı götürür.
+  </div>
+  <p style="font-size:0.88rem;color:#c8d0dc;margin-bottom:14px">
+    Bu senaryo <strong>acil stop veya algılama davranışı ile değil</strong>, <strong>enerji izolasyonu (LOTO)</strong> ile yönetilir:
+  </p>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Standart</th><th>İlgili madde</th><th>Gereksinim</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="std-id">ISO 14118:2017</td>
+          <td>Tüm doküman</td>
+          <td>Bakım/servis öncesi tüm enerji kaynakları izole edilmeli; beklenmeyen başlatma önlenmeli</td>
+        </tr>
+        <tr>
+          <td class="std-id">ISO 12100:2010</td>
+          <td>§6.3.5.4</td>
+          <td>Enerji izolasyon ve boşaltma prosedürü</td>
+        </tr>
+        <tr>
+          <td class="std-id">ISO 13850:2015</td>
+          <td>§4.1.1.3</td>
+          <td>Acil stop, koruyucu önlemlerin yerine geçmez — LOTO ayrı katman</td>
+        </tr>
+        <tr>
+          <td class="std-id">ISO 4414:2010</td>
+          <td>Bakım bölümü</td>
+          <td>Basınçlı hava hapsolmuşsa manuel tahliye + LOTO</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.88rem;color:#c8d0dc;margin-bottom:14px">
+    <strong>Sonuç:</strong> Acil stop'ta kapak otomatik açılmaması doğru tercih. Algılama sırasında geri açılma yalnızca <em>normal operasyon + kapanma sekansı aktif</em> koşulunda, kontrollü ve reset'li olmalı — bakım senaryosu değil.
+  </p>
+
+  <h2>4 · Mevcut KBN vs hedef mimari</h2>
+  <div class="flow-compare">
+    <div class="flow-box">
+      <div class="title">MEVCUT — tüm olaylarda</div>Algılama → YV-K OFF → yerinde dur
+Acil stop → valf de-energize → yerinde dur
+Hava kes → çek valf → yerinde dur
+Elektrik kes → valf OFF → yerinde dur
+
+<span style="color:#f59e0b">△ Algılama: ezilme kuvveti devam edebilir</span>
+<span style="color:#2ecc71">✓ E-stop / enerji kaybı: uygun</span></div>
+    <div class="flow-box">
+      <div class="title">HEDEF — olay bazlı (standart uyumlu)</div>Algılama → YV-K OFF + <span style="color:#2ecc71">YV-A ON</span> → geri aç
+         → reset gerekli, otomatik tekrar kapanma YOK
+
+Acil stop → YV-K OFF + YV-A OFF → <span style="color:#60a5fa">çek valf tut</span>
+Hava/elektrik kes → çek valf tut (E merkez KULLANMA)
+
+<span style="color:#f87171">✗ E valf orta boşaltma → 105 kg düşme</span></div>
+  </div>
+
+  <h2>5 · Standart alıntıları (doğrulama için okuyun)</h2>
+
+  <h3>ISO 14120:2015 — §5.2.5.4 Power operated guards</h3>
+  <div class="quote">
+    "Where a guard is fitted with a protective device which <strong>automatically initiates re-opening</strong> of the guard, the closing force shall not exceed 150 N and the kinetic energy of the guard shall not exceed 10 J. Where <strong>no such protective device is fitted</strong>, these values shall be reduced to <strong>75 N and 4 J</strong> respectively."
+    <cite>ISO 14120:2015, §5.2.5.4 — EN ISO 14120:2015 (harmonize)</cite>
+  </div>
+
+  <h3>ISO 12100:2010 — §6.3.5.3 Sıkışan kişi</h3>
+  <div class="quote">
+    "Measures for the escape and rescue of trapped persons" — örnekler arasında: el ile hareket ettirme düzenlemesi, <strong>bazı elemanların geri hareketi (reversing)</strong>, kurtarma imkânı.
+    <cite>ISO 12100:2010, §6.3.5.3 — EN ISO 12100:2010+A1:2010</cite>
+  </div>
+
+  <h3>ISO 13850:2015 — §4.1.1.5 Acil stop davranışı</h3>
+  <div class="quote">
+    "Hazardous movements and operations of the machine are stopped in an appropriate manner, <strong>without creating additional hazards</strong> and without any further intervention." — Tutma cihazlarının (magnetic chucks, braking) etkinliği bozulmamalı (§4.1.1.4).
+    <cite>ISO 13850:2015 — EN ISO 13850:2015</cite>
+  </div>
+
+  <h3>ISO 14119 — Interlocking guard açılınca</h3>
+  <div class="quote">
+    "If the guard is opened while hazardous machine functions are operating, a <strong>stop command</strong> is given" — geri açma değil, dur komutu. (Kapanma sırasında algılama için ISO 14120 daha spesifik.)
+    <cite>ISO 14119:2013 / 2024 — EN ISO 14119</cite>
+  </div>
+
+  <h2>6 · İndirmeniz gereken standartlar</h2>
+  <p style="font-size:0.86rem;color:#8899aa;margin-bottom:12px">
+    CE / Makine Direktifi için <strong>EN ISO</strong> harmonize sürümlerini tercih edin. Aşağıda öncelik, okunacak bölüm ve ISO satın alma linki verilmiştir.
+  </p>
+
+  <h3>Öncelik 1 — Doğrudan cevap için zorunlu</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead>
+        <tr><th>Önc.</th><th>Standart</th><th>Harmonize EN</th><th>Okuyacağınız bölüm</th><th>Bu soruya katkısı</th><th>ISO link</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pri p1">P1</span></td>
+          <td class="std-id">ISO 14120:2015</td>
+          <td>EN ISO 14120:2015</td>
+          <td><strong>§5.2.5.4</strong> Power operated guards<br>§5.2.5 Ergonomic aspects<br>§3.3.1 power-operated guard</td>
+          <td>Algılama → re-opening; 4 J vs 10 J limitleri; kapanma kuvveti</td>
+          <td><a href="https://www.iso.org/standard/59545.html" target="_blank">iso.org/59545</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p1">P1</span></td>
+          <td class="std-id">ISO 12100:2010</td>
+          <td>EN ISO 12100:2010+A1:2010</td>
+          <td><strong>§6.3.5.3</strong> Escape/rescue trapped persons<br>§6.3.2.5 Protective devices<br>§6.3.5.2 Emergency stop ref.</td>
+          <td>Sıkışma kurtarma; geri hareket; genel risk azaltma çerçevesi</td>
+          <td><a href="https://www.iso.org/standard/51528.html" target="_blank">iso.org/51528</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p1">P1</span></td>
+          <td class="std-id">ISO 13850:2015</td>
+          <td>EN ISO 13850:2015</td>
+          <td><strong>§4.1.1.4–4.1.1.6</strong> E-stop design<br>§4.1.3 Stop category<br>§4.1.5 PLr ≥ c</td>
+          <td>Acil stop'ta ek tehlike yasağı; tutma cihazları; dur kategorisi</td>
+          <td><a href="https://www.iso.org/standard/59970.html" target="_blank">iso.org/59970</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p1">P1</span></td>
+          <td class="std-id">ISO 4414:2010</td>
+          <td>EN ISO 4414:2010</td>
+          <td>Beklenmeyen hareket<br>Basınç kaybı / acil durum<br>Çek valf, enerji tahliye<br>Bakım güvenliği</td>
+          <td>Hava kesilince düşme önleme; dikey silindir; LOTO</td>
+          <td><a href="https://www.iso.org/standard/38845.html" target="_blank">iso.org/38845</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Öncelik 2 — Emniyet fonksiyonu tasarımı</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead>
+        <tr><th>Önc.</th><th>Standart</th><th>Harmonize EN</th><th>Okuyacağınız bölüm</th><th>Katki</th><th>ISO link</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pri p2">P2</span></td>
+          <td class="std-id">ISO 13849-1:2023</td>
+          <td>EN ISO 13849-1:2023</td>
+          <td>Emniyet fonksiyonu tanımı<br>PLr, kategori<br>SRP/CS mimarisi</td>
+          <td>SF1–SF4 spesifikasyonu; algılama vs e-stop ayrı fonksiyon</td>
+          <td><a href="https://www.iso.org/standard/69883.html" target="_blank">iso.org/69883</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p2">P2</span></td>
+          <td class="std-id">ISO 14119:2013</td>
+          <td>EN ISO 14119:2013<br><em>(2024 yeni sürüm)</em></td>
+          <td>Interlocking guard davranışı<br>Stop command<br>§5.7.5 escape release (kilitli kapak)</td>
+          <td>Kapak açılınca stop; guard locking (KBN'de yok)</td>
+          <td><a href="https://www.iso.org/standard/53394.html" target="_blank">iso.org/53394</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p2">P2</span></td>
+          <td class="std-id">IEC 60204-1:2016+AMD1:2019</td>
+          <td>EN IEC 60204-1:2018</td>
+          <td>§9.2.2 Stop functions<br>Category 0 / 1<br>Pneumatic control circuits</td>
+          <td>Elektrik kesilince stop; valf sürücü davranışı</td>
+          <td><a href="https://webstore.iec.ch/en/publication/26041" target="_blank">iec.ch/60204-1</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p2">P2</span></td>
+          <td class="std-id">ISO 14118:2017</td>
+          <td>EN ISO 14118:2018</td>
+          <td>Enerji izolasyon<br>Beklenmeyen başlatma önleme</td>
+          <td>Bakımda kapak üstü tehlikesi → LOTO</td>
+          <td><a href="https://www.iso.org/standard/57185.html" target="_blank">iso.org/57185</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Öncelik 3 — Konfig B (ışık perdesi) ve tamamlayıcı</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead>
+        <tr><th>Önc.</th><th>Standart</th><th>Harmonize EN</th><th>Okuyacağınız bölüm</th><th>Katki</th><th>Link</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pri p3">P3</span></td>
+          <td class="std-id">ISO 13855:2010</td>
+          <td>EN ISO 13855:2010</td>
+          <td>S = K×T + C mesafe<br>Stop time (T) tanımı</td>
+          <td>Geri açılma hızı + algılama mesafesi</td>
+          <td><a href="https://www.iso.org/standard/44073.html" target="_blank">iso.org/44073</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p3">P3</span></td>
+          <td class="std-id">IEC 61496-3:2018</td>
+          <td>EN IEC 61496-3:2018</td>
+          <td>Type 4 AOPD<br>OSSD davranışı</td>
+          <td>F3SG perde spesifikasyonu</td>
+          <td><a href="https://webstore.iec.ch/en/publication/28608" target="_blank">iec.ch/61496-3</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p3">P3</span></td>
+          <td class="std-id">ISO 13851:2019</td>
+          <td>EN ISO 13851:2019</td>
+          <td>Çift el kontrol<br>Tip II / III</td>
+          <td>Kapak aç/kapa komutu güvenliği</td>
+          <td><a href="https://www.iso.org/standard/70939.html" target="_blank">iso.org/70939</a></td>
+        </tr>
+        <tr>
+          <td><span class="pri p3">P3</span></td>
+          <td class="std-id">ISO 13849-2:2012</td>
+          <td>EN ISO 13849-2:2012</td>
+          <td>Validation prosedürü</td>
+          <td>Her güvenli durum için test kanıtı</td>
+          <td><a href="https://www.iso.org/standard/52988.html" target="_blank">iso.org/52988</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Öncelik 4 — Referans / destekleyici</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Standart</th><th>Ne için</th></tr></thead>
+      <tbody>
+        <tr><td class="std-id">ISO 15552:2018</td><td>Pnömatik silindir (Ø50) — teknik referans</td></tr>
+        <tr><td class="std-id">ISO 13857:2019</td><td>Emniyet mesafeleri — ezilme noktaları</td></tr>
+        <tr><td class="std-id">ISO 4413:2010</td><td>Hidrolik (KBN'de yok — atlanabilir)</td></tr>
+        <tr><td class="std-id">2006/42/EC</td><td>Makine Direktifi — EHSR 1.2.2 (kontrol), 1.4 (koruyucular)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>7 · Proje klasörüne ekleme checklist</h2>
+  <div class="panel">
+    <ul class="checklist">
+      <li><span class="cb"></span><span><strong>EN ISO 14120:2015</strong> — §5.2.5.4 mutlaka — algılama davranışının ana kaynağı</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 12100:2010+A1</strong> — §6.3.5.3 sıkışma kurtarma</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 13850:2015</strong> — acil stop tasarım ilkeleri</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 4414:2010</strong> — pnömatik beklenmeyen hareket, çek valf</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 13849-1:2023</strong> — emniyet fonksiyonu spesifikasyonu (SF1 ayrı SF4 ayrı)</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 14119:2013</strong> (veya 2024) — interlock stop komutu</span></li>
+      <li><span class="cb"></span><span><strong>EN IEC 60204-1:2018</strong> — elektrik kesilince stop category</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 14118:2018</strong> — LOTO / bakım senaryosu</span></li>
+      <li><span class="cb"></span><span><strong>EN ISO 13855:2010</strong> — Konfig B stop time hesabı</span></li>
+      <li><span class="cb"></span><span><strong>EN IEC 61496-3:2018</strong> — F3SG Type 4 (Konfig B)</span></li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <strong>Dosya adlandırma önerisi</strong> (proje klasöründe):<br>
+    <code>standards/EN-ISO-14120-2015.pdf</code> ·
+    <code>standards/EN-ISO-12100-2010.pdf</code> ·
+    <code>standards/EN-ISO-13850-2015.pdf</code> ·
+    <code>standards/EN-ISO-4414-2010.pdf</code> · …
+  </div>
+
+  <h2>8 · Standartları okuduktan sonra netleştirilecek sorular</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>#</th><th>Soru</th><th>Hangi standart cevaplar</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Algılama anında basınç altında ezilme kuvveti ≤75 N mı? (4 J yolu)</td><td>ISO 14120 §5.2.5.4 + saha ölçümü</td></tr>
+        <tr><td>2</td><td>Geri açılma hızı ve mesafe yeterli mi?</td><td>ISO 13855 (T, S hesabı)</td></tr>
+        <tr><td>3</td><td>E-stop stop category 0 mı 1 mi?</td><td>IEC 60204-1 §9.2.2</td></tr>
+        <tr><td>4</td><td>Valf de-energize konumu: kapalı mı, E mi?</td><td>ISO 4414 + Festo/SMC emniyet devresi örnekleri</td></tr>
+        <tr><td>5</td><td>Çek valf basınç tutma süresi (10 dk test)</td><td>ISO 4414 + IEC 60204-1 controlled stop</td></tr>
+        <tr><td>6</td><td>Bakımda manuel valf tuşları LOTO ile çelişiyor mu?</td><td>ISO 14118 + ISO 12100 misuse</td></tr>
+        <tr><td>7</td><td>SF1 (geri aç) ve SF4 (e-stop tut) ayrı fonksiyon olarak PL validation</td><td>ISO 13849-1/2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>9 · Sonraki adım</h2>
+  <div class="note info">
+    Standart PDF'lerini proje klasörüne ekledikten sonra bu dokümanın <strong>§10 Kesin karar tablosu</strong> bölümü madde numaralarıyla doldurulabilir.
+    Şu anki taslak cevap: <strong>algılama → geri aç</strong>; <strong>e-stop / hava / elektrik → yerinde tut (çek valf)</strong>.
+    Mevcut KBN tasarımı ikinci grupta doğru; birinci grupta iyileştirme gerekiyor.
+  </div>
+
+  <div class="footer">
+    Yeni doküman — mevcut risk değerlendirme dosyalarına dokunulmadı ·
+    Taslak yorum — resmi PDF'lerle madde numarası doğrulaması gerekir ·
+    Hazırlayan: Fatih GÜRAL · 10.09.2026
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN Kapak Güvenliği — Ana Sayfa</title>
+  <link rel="stylesheet" href="kbn-nav.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 56px; line-height: 1.55; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.55rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.9rem; margin-bottom: 28px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 24px 0 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .card {
+      background: #1a2332; border: 1px solid #2a3a4d; border-radius: 12px;
+      padding: 18px 20px; text-decoration: none; color: inherit;
+      transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: block;
+    }
+    .card:hover {
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .card .tag { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 6px; }
+    .card h3 { font-size: 1rem; color: #93c5fd; margin-bottom: 8px; }
+    .card p { font-size: 0.84rem; color: #aab4c0; }
+    .card.primary { border-color: rgba(59,130,246,0.4); background: linear-gradient(135deg, rgba(59,130,246,0.08), #1a2332); }
+    .card.warn { border-color: rgba(245,158,11,0.3); }
+    .card.ok { border-color: rgba(46,204,113,0.25); }
+    .flow-strip {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      background: #121a24; border: 1px solid #2a3a4d; border-radius: 10px;
+      padding: 16px 18px; margin-bottom: 24px; font-size: 0.82rem; color: #8899aa;
+    }
+    .flow-strip span { color: #64748b; }
+    .flow-strip a { color: #60a5fa; text-decoration: none; font-weight: 600; }
+    .flow-strip a:hover { text-decoration: underline; }
+    .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #2a3a4d; font-size: 0.78rem; color: #64748b; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div id="kbn-nav-root"></div>
+  <script src="kbn-nav.js"></script>
+
+  <h1>KBN Serisi — Kapak Kapanma Hızı & Güvenlik</h1>
+  <p class="sub">Kabinli yıkama makinesi · Pnömatik dikey kapak · Risk değerlendirme çalışma seti</p>
+
+  <div class="flow-strip">
+    Önerilen okuma sırası:
+    <a href="KBN-Adim0-Veri-Tablosu.html">Adım 0</a> <span>→</span>
+    <a href="KBN-piston-pnomatik-hat.html">Pnömatik Hat</a> <span>→</span>
+    <a href="KBN-Kapak-Guvenli-Durum-Analizi.html">Güvenli Durum</a> <span>→</span>
+    <a href="KBN-ISO12100-Kapak-Risk-Degerlendirme.html">ISO 12100</a> <span>→</span>
+    <a href="KBN-ISO13849-Kapak-Risk-Degerlendirme.html">ISO 13849</a> <span>→</span>
+    <a href="KBN-PLr-D-Yol-Haritasi.html">PLr D Yol Haritası</a>
+  </div>
+
+  <h2>Risk değerlendirme</h2>
+  <div class="grid">
+    <a class="card primary" href="KBN-ISO12100-Kapak-Risk-Degerlendirme.html">
+      <div class="tag">Tam rapor</div>
+      <h3>ISO 12100 — Kapak Risk</h3>
+      <p>Tehlike tanımlama, risk matrisi, 3 adımlı azaltma, Konfig A/B kararı.</p>
+    </a>
+    <a class="card primary" href="KBN-ISO13849-Kapak-Risk-Degerlendirme.html">
+      <div class="tag">Tam rapor</div>
+      <h3>ISO 13849 — Emniyet Fonksiyonları</h3>
+      <p>SF1–SF5, PLr, mimari analiz, validation planı, test senaryoları.</p>
+    </a>
+    <a class="card warn" href="KBN-Kapak-Guvenli-Durum-Analizi.html">
+      <div class="tag">Karar rehberi</div>
+      <h3>Güvenli Durum Analizi</h3>
+      <p>Sensör / acil stop / hava kes / elektrik kes — kapak ne yapmalı? Standart listesi.</p>
+    </a>
+    <a class="card primary" href="KBN-Konfig-AB-Uygulama-Plani.html">
+      <div class="tag">Uygulama planı</div>
+      <h3>Konfig A (PL≥c) & B (PL≥d) Plan</h3>
+      <p>İki tier ayrı plan: el sensörü minimum PL c, ışık perdesi minimum PL d.</p>
+    </a>
+    <a class="card" href="KBN-PLr-D-Yol-Haritasi.html">
+      <div class="tag">Referans</div>
+      <h3>PLr D Yol Haritası</h3>
+      <p>Her iki konfig için PLr d analizi (önceki tier kararı öncesi).</p>
+    </a>
+    <a class="card" href="KBN-ISO12100-Risk-Degerlendirme.html">
+      <div class="tag">Taslak</div>
+      <h3>ISO 12100 — İlk Taslak</h3>
+      <p>Çalışmanın başlangıç noktası; kapak odaklı tam rapor yukarıda.</p>
+    </a>
+  </div>
+
+  <h2>Teknik veri & şemalar</h2>
+  <div class="grid">
+    <a class="card ok" href="KBN-Adim0-Veri-Tablosu.html">
+      <div class="tag">Veri tabanı</div>
+      <h3>Adım 0 Veri Tablosu</h3>
+      <p>Model matrisi, kütle, strok, pnömatik parametreler, 4 J limiti, koruma davranışı.</p>
+    </a>
+    <a class="card" href="KBN-piston-pnomatik-hat.html">
+      <div class="tag">Şema</div>
+      <h3>Pnömatik Hat</h3>
+      <p>D8/D4 hatları, valfler, çek valf, port yönleri — SVG şema.</p>
+    </a>
+    <a class="card" href="kabin-kapak-piston-valf.html">
+      <div class="tag">İnteraktif</div>
+      <h3>Kapak Simülasyonu</h3>
+      <p>Dikey kapak + çift piston görsel model; aç/kapa/durdur.</p>
+    </a>
+  </div>
+
+  <h2>Markdown kaynaklar</h2>
+  <div class="grid">
+    <a class="card" href="KBN-Risk-Degerlendirme-Bilgi-Formu.md">
+      <div class="tag">Form</div>
+      <h3>Kapak Bilgi Formu</h3>
+      <p>Doldurulmuş ISO 12100 bilgi toplama formu (MD).</p>
+    </a>
+    <a class="card" href="KBN-Tam-Makine-Risk-Degerlendirme-Bilgi-Formu.md">
+      <div class="tag">Form</div>
+      <h3>Tam Makine Bilgi Formu</h3>
+      <p>Kapak dışı tüm makine için risk değerlendirme soruları.</p>
+    </a>
+    <a class="card" href="KBN-ISO12100-Kapak-Risk-Degerlendirme.md">
+      <div class="tag">MD</div>
+      <h3>ISO 12100 Kapak (MD)</h3>
+      <p>HTML raporun markdown kaynağı.</p>
+    </a>
+    <a class="card" href="KBN-ISO13849-Kapak-Risk-Degerlendirme.md">
+      <div class="tag">MD</div>
+      <h3>ISO 13849 Kapak (MD)</h3>
+      <p>HTML raporun markdown kaynağı.</p>
+    </a>
+  </div>
+
+  <div class="footer">
+    KBN Kapak Güvenliği · Hazırlayan: Fatih GÜRAL · Bu sayfayı yer imlerine ekleyin — tüm dokümanlara üst menüden geçiş yapılır.
+  </div>
+</div>
+</body>
+</html>

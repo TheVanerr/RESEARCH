@@ -1,0 +1,61 @@
+.kbn-site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 20, 25, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #2a3a4d;
+  margin: -24px -20px 20px;
+  padding: 10px 20px;
+}
+.kbn-site-nav .nav-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.kbn-site-nav .nav-brand {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #93c5fd;
+  text-decoration: none;
+  padding: 6px 10px;
+  margin-right: 4px;
+  white-space: nowrap;
+}
+.kbn-site-nav .nav-brand:hover { color: #60a5fa; }
+.kbn-site-nav .nav-brand.active {
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid #60a5fa;
+  border-radius: 6px;
+  color: #93c5fd;
+}
+.kbn-site-nav .nav-sep {
+  width: 1px;
+  height: 20px;
+  background: #2a3a4d;
+  margin: 0 4px;
+}
+.kbn-site-nav a {
+  font-size: 0.76rem;
+  padding: 6px 11px;
+  border-radius: 6px;
+  background: #1a2332;
+  border: 1px solid #2a3a4d;
+  color: #8899aa;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.kbn-site-nav a:hover {
+  border-color: #60a5fa;
+  color: #e8ecf0;
+}
+.kbn-site-nav a.active {
+  background: rgba(59, 130, 246, 0.18);
+  border-color: #60a5fa;
+  color: #93c5fd;
+  font-weight: 600;
+}

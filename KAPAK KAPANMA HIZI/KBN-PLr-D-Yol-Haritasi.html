@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBN — PLr D Yol Haritası (Konfig A & B)</title>
+  <link rel="stylesheet" href="kbn-nav.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1419; color: #e8ecf0; padding: 24px 20px 56px; line-height: 1.55; }
+    .wrap { max-width: 1140px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin-bottom: 4px; }
+    .sub { color: #8899aa; font-size: 0.88rem; margin-bottom: 16px; }
+    h2 { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.07em; color: #6b8aad; margin: 28px 0 10px; }
+    h3 { font-size: 0.92rem; color: #93c5fd; margin: 16px 0 8px; font-weight: 600; }
+    .hero { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(168,85,247,0.06)); border: 1px solid rgba(59,130,246,0.3); border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; font-size: 0.88rem; color: #c8d0dc; }
+    .hero strong { color: #e8ecf0; }
+    .compare-top { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    @media (max-width: 760px) { .compare-top { grid-template-columns: 1fr; } }
+    .cfg-box { border-radius: 10px; padding: 16px 18px; border: 1px solid; }
+    .cfg-a { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.35); }
+    .cfg-b { background: rgba(59,130,246,0.06); border-color: rgba(59,130,246,0.35); }
+    .cfg-box h3 { margin: 0 0 10px; font-size: 0.95rem; }
+    .cfg-a h3 { color: #f87171; }
+    .cfg-b h3 { color: #60a5fa; }
+    .pl-row { display: flex; justify-content: space-between; font-size: 0.84rem; padding: 5px 0; border-bottom: 1px solid rgba(42,58,77,0.5); }
+    .pl-row:last-child { border-bottom: none; }
+    .panel { background: #1a2332; border: 1px solid #2a3a4d; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .panel-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 9px 11px; text-align: left; border-bottom: 1px solid #2a3a4d; vertical-align: top; }
+    th { background: #121a24; color: #8ab4d4; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,0.03); }
+    .ok { color: #2ecc71; font-weight: 600; }
+    .warn { color: #f59e0b; font-weight: 600; }
+    .bad { color: #f87171; font-weight: 600; }
+    .todo { color: #f87171; }
+    .done { color: #2ecc71; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.72rem; font-weight: 600; }
+    .b-p1 { background: rgba(239,68,68,0.2); color: #f87171; }
+    .b-p2 { background: rgba(245,158,11,0.2); color: #f59e0b; }
+    .b-p3 { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .b-plr { background: rgba(168,85,247,0.2); color: #c084fc; }
+    .arch { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 14px 16px; font-family: Consolas, monospace; font-size: 0.76rem; color: #aab4c0; line-height: 1.65; white-space: pre-wrap; margin-bottom: 14px; }
+    .arch .hl { color: #93c5fd; }
+    .arch .new { color: #2ecc71; }
+    .arch .del { color: #f87171; text-decoration: line-through; }
+    .note { background: #121a24; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: 0.84rem; color: #aab4c0; margin-bottom: 14px; }
+    .note strong { color: #e8ecf0; }
+    .note.danger { border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06); }
+    .pl-bar { display: flex; border-radius: 8px; overflow: hidden; height: 32px; font-size: 0.72rem; font-weight: 700; margin: 10px 0; }
+    .pl-bar span { flex: 1; display: flex; align-items: center; justify-content: center; border-right: 1px solid #0f1419; }
+    .pla { background: #374151; color: #9ca3af; }
+    .plb { background: #4b5563; color: #d1d5db; }
+    .plc { background: #6b7280; color: #f3f4f6; }
+    .pld { background: rgba(59,130,246,0.55); color: #fff; outline: 2px solid #60a5fa; outline-offset: -2px; }
+    .ple { background: rgba(46,204,113,0.35); color: #fff; }
+    .chk { width: 16px; height: 16px; border: 2px solid #475569; border-radius: 3px; display: inline-block; vertical-align: middle; margin-right: 6px; }
+    a { color: #60a5fa; }
+    .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid #2a3a4d; font-size: 0.78rem; color: #64748b; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div id="kbn-nav-root"></div>
+  <script src="kbn-nav.js"></script>
+
+  <h1>KBN — PLr D Yol Haritası</h1>
+  <p class="sub">Konfig A (el sensörü) & Konfig B (ışık perdesi) · SF1 ezilme koruması · ISO 13849-1 · 10.09.2026</p>
+
+  <div class="hero">
+    <strong>Hedef:</strong> SF1 (kapak kapanırken ezilme koruması) için <span class="badge b-plr">PLr = d</span>
+    — Risk grafik: S2 + F2 + P2 → PLr d<br><br>
+    <strong>Not:</strong> SF2/SF3 (kapak kapalı interlock) PLr = <strong>c</strong> yeterli; SF4 (acil stop) PLr = <strong>c</strong>.
+    Bu doküman SF1 = PL d odaklı; diğer fonksiyonlar tabloda ayrıca listelenir.
+  </div>
+
+  <div class="pl-bar">
+    <span class="pla">a</span><span class="plb">b</span><span class="plc">c</span><span class="pld">d ← hedef</span><span class="ple">e</span>
+  </div>
+
+  <div class="compare-top">
+    <div class="cfg-box cfg-a">
+      <h3>Konfig A — El sensörü (XUK1 ARCNL2)</h3>
+      <div class="pl-row"><span>SF1 mevcut PL</span><span class="bad">a – b</span></div>
+      <div class="pl-row"><span>SF1 hedef PLr</span><span class="badge b-plr">d</span></div>
+      <div class="pl-row"><span>Gap</span><span class="bad">2–3 kademe</span></div>
+      <div class="pl-row"><span>Değişiklik hacmi</span><span class="warn">Büyük (sensör sınıfı)</span></div>
+    </div>
+    <div class="cfg-box cfg-b">
+      <h3>Konfig B — Işık perdesi (F3SG + G9SX)</h3>
+      <div class="pl-row"><span>SF1 mevcut PL</span><span class="warn">d △ (validation yok)</span></div>
+      <div class="pl-row"><span>SF1 hedef PLr</span><span class="badge b-plr">d</span></div>
+      <div class="pl-row"><span>Gap</span><span class="warn">Küçük–orta</span></div>
+      <div class="pl-row"><span>Değişiklik hacmi</span><span class="ok">Yazılım + doğrulama</span></div>
+    </div>
+  </div>
+
+  <h2>1 · Emniyet fonksiyonları & PLr hedefleri</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>SF</th><th>Fonksiyon</th><th>PLr</th><th>Konfig A mevcut</th><th>Konfig B mevcut</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SF1</strong></td><td>Kapanma algılama → dur + geri aç</td><td class="badge b-plr">d</td><td class="bad">a–b ✗</td><td class="warn">d △</td></tr>
+        <tr><td>SF2</td><td>Kapak kapalı → cycle lock</td><td>c</td><td class="bad">a–b ✗</td><td class="bad">a–b ✗</td></tr>
+        <tr><td>SF3</td><td>Kapak açık → cycle stop</td><td>c</td><td class="bad">a–b ✗</td><td class="bad">a–b ✗</td></tr>
+        <tr><td>SF4</td><td>Acil stop</td><td>c</td><td class="warn">b △</td><td class="warn">b–c △</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>2 · Konfig A — PLr D için değiştirilmesi gerekenler</h2>
+
+  <div class="note danger">
+    <strong>Kritik:</strong> XUK1 ARCNL2 standart sensör — tek kanal PNP. Emniyet rölesi eklemek tek başına PL d vermez.
+    PL d için <strong>algılama cihazını değiştirmek veya yükseltmek</strong> şart.
+  </div>
+
+  <h3>2.1 Algılama katmanı (SF1) — DEĞİŞTİR</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>A1</td>
+          <td>XUK1 ARCNL2 — tek PNP, standart sensör, alt dar bölge</td>
+          <td class="new"><strong>Emniyet sınıfı algılama</strong> — seçenekler:<br>
+            • Dar alan <strong>Type 4 emniyet ışık perdesi</strong> (mini grid)<br>
+            • <strong>Çift OSSD</strong> emniyet through-beam / diffuse<br>
+            • 2 bağımsız emniyet sensörü + cross-monitor (validation zor)</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A2</td>
+          <td>Standart PLC DI girişi</td>
+          <td class="new">Sensör çıkışı → <strong>emniyet rölesi</strong> girişi (OSSD veya dual channel)</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A3</td>
+          <td>Koruma alanı: alt dar bölge (kısmi)</td>
+          <td class="new">ISO 13855 mesafe hesabı; koruma alanı tüm tehlike bölgesini kapsamalı veya 4 J kanıtı + dar alan gerekçesi</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 Mantık katmanı — EKLE / DEĞİŞTİR</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>A4</td>
+          <td>Emniyet rölesi / Safety PLC <strong>yok</strong></td>
+          <td class="new"><strong>Category 3 emniyet rölesi</strong> (ör. Pilz PNOZ s5/s6, MSI, Sick) veya Safety PLC<br>
+            Çift kanal giriş + test + emniyet çıkış</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A5</td>
+          <td>SF2/SF3: mekanik switch → standart PLC</td>
+          <td class="new"><strong>Çift kanallı emniyet kapı switch</strong> (1× 2NO veya 2× positive mode) → emniyet rölesi ayrı kanal</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A6</td>
+          <td>SF4: acil stop (doğrulanmamış mimari)</td>
+          <td class="new">Dual channel e-stop zinciri → aynı emniyet rölesi/ sistem (PL c min.)</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+        <tr>
+          <td>A7</td>
+          <td>1× basınç switch (opsiyonel enable)</td>
+          <td class="new">Basınç OK → emniyet rölesi enable (hareket izni); düşük basınçta kilitle</td>
+          <td><span class="badge b-p3">P3</span></td>
+        </tr>
+        <tr>
+          <td>A8</td>
+          <td>Reset / otomatik yeniden kapanma belirsiz</td>
+          <td class="new">Manuel reset butonu; algılama sonrası <strong>otomatik tekrar kapanma YOK</strong></td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.3 Çıkış & pnömatik katmanı — DEĞİŞTİR</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>A9</td>
+          <td>Algılama → yerinde dur</td>
+          <td class="new"><strong>YV-K OFF + YV-A ON</strong> (geri açılma) — 4V230E E merkez <strong>kullanma</strong></td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A10</td>
+          <td>Valf doğrudan PLC çıkışı</td>
+          <td class="new"><strong>Emniyet valf sürücü</strong> veya emniyet kontaktör (dual channel) → YV-K / YV-A</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>A11</td>
+          <td>Valf pozisyon geri okuma yok</td>
+          <td class="new">Mümkünse valf/solenoid geri okuma veya basınç switch doğrulama (DC artışı)</td>
+          <td><span class="badge b-p3">P3</span></td>
+        </tr>
+        <tr>
+          <td>A12</td>
+          <td>4 J enerji limiti — ölçülmedi</td>
+          <td class="new">Geri açılma ile <strong>10 J / 150 N</strong> yolu açılır; saha ölçüm raporu zorunlu</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.4 Konfig A — hedef mimari</h3>
+  <div class="arch"><span class="hl">MEVCUT:</span>
+XUK1 (tek PNP) → Standart PLC → YV-K / YV-A
+Mekanik switch → Standart PLC (cycle)
+E-stop → ?
+
+<span class="new">HEDEF (PLr d):</span>
+[Emniyet sensör Type4 veya dual OSSD] ──→ [Emniyet rölesi Cat.3]
+[Emniyet kapı switch 2 kanal]         ──→ [aynı röle / 2. kanal]
+[E-stop dual channel]                 ──→ [aynı röle]
+[Basınç OK]                           ──→ [enable]
+         ↓
+[Emniyet valf sürücü dual] → YV-K OFF + YV-A ON (algılama)
+                           → reset gerekli
+Standart PLC ← yalnızca monitoring (cycle seq, HMI, ısıtma, pompa)</div>
+
+  <h3>2.5 Konfig A — BOM değişiklik özeti</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th>İşlem</th><th>Bileşen</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td class="bad">ÇIKAR / değiştir</td><td>XUK1 ARCNL2 (SF1 algılama)</td><td>Standart sensör PL d yoluna uygun değil</td></tr>
+        <tr><td class="new">EKLE</td><td>Emniyet algılama cihazı (Type 4 mini perde veya dual OSSD)</td><td>IEC 61496-3 / ISO 13849 onaylı</td></tr>
+        <tr><td class="new">EKLE</td><td>Emniyet rölesi (Category 3, PL d/d)</td><td>Pilz PNOZ, Sick, MSI vb.</td></tr>
+        <tr><td class="new">EKLE / değiştir</td><td>Emniyet kapı switch (2 kanal)</td><td>SF2/SF3 için PL c</td></tr>
+        <tr><td class="new">EKLE</td><td>Emniyet valf sürücü veya dual kontaktör</td><td>SRP/CS çıkışı</td></tr>
+        <tr><td class="new">EKLE</td><td>Manuel reset butonu (emniyet)</td><td>SF1 reset</td></tr>
+        <tr><td class="warn">YAZILIM</td><td>Standart PLC programı</td><td>Cycle, SF2/SF3 emniyet rölesi çıkışından enable al</td></tr>
+        <tr><td class="warn">DOKÜMAN</td><td>ISO 13849-2 validation raporu</td><td>PFHd, PL hesap, test</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>3 · Konfig B — PLr D için değiştirilmesi gerekenler</h2>
+
+  <div class="note">
+    <strong>İyi haber:</strong> F3SG Type 4 + G9SX mimarisi PL d için doğru temel.
+    Eksikler çoğunlukla <strong>fonksiyon tanımı, yazılım, interlock ve validation</strong>.
+  </div>
+
+  <h3>3.1 Algılama katmanı (SF1) — DOĞRULA / KÜÇük AYAR</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>B1</td>
+          <td>F3SG-44RE0880P14-L Type 4 ✓</td>
+          <td class="done">Mevcut — değiştirme gerekmez; montaj + alignment doğrula</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+        <tr>
+          <td>B2</td>
+          <td>Perde ↔ tehlike mesafe: 50 mm (bildirilmiş)</td>
+          <td class="new"><strong>ISO 13855 resmi hesap</strong> S = K×T + C; stop time ölç → mesafe doğrula veya düzelt</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B3</td>
+          <td>Koruma yüksekliği 400 mm</td>
+          <td class="new">Tehlike bölgesi tam kapsanıyor mu — doğrula (3000 mm açıklık)</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+        <tr>
+          <td>B4</td>
+          <td>Muting / blanking bilinmiyor</td>
+          <td class="new">Dokümante et; muting varsa ISO 13855 + 14119 muting kuralları</td>
+          <td><span class="badge b-p3">P3</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.2 Mantık katmanı — TAMAMLA</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>B5</td>
+          <td>G9SX G9SPN20S Safety PLC ✓</td>
+          <td class="done">Mevcut — SF1 fonksiyonunu G9SX'te tanımla + SOF validation</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B6</td>
+          <td>SF2/SF3: 2× kapak switch → Safety PLC (planlı)</td>
+          <td class="new"><strong>Emniyet kapı switch</strong> (2 adet veya 1 dual) → G9SX girişi; standart PLC'den çıkar</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B7</td>
+          <td>2× basınç seri → Safety PLC ✓</td>
+          <td class="done">Mevcut — enable koşulu olarak SF1'e bağla</td>
+          <td><span class="badge b-p3">P3</span></td>
+        </tr>
+        <tr>
+          <td>B8</td>
+          <td>E-stop → Safety PLC (doğrulanacak)</td>
+          <td class="new">Dual channel e-stop → G9SX; PL c min. doğrula</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+        <tr>
+          <td>B9</td>
+          <td>Validation yapılmadı</td>
+          <td class="new"><strong>ISO 13849-2</strong> tam validation: yazılım + donanım + test raporu</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B10</td>
+          <td>PFHd / PL hesap bilinmiyor</td>
+          <td class="new">Omron G9SX + F3SG birleşik PL hesap (üretici araçları / SOFTEMA)</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.3 Çıkış & pnömatik — DEĞİŞTİR</h3>
+  <div class="panel panel-scroll">
+    <table>
+      <thead><tr><th>#</th><th>Mevcut</th><th>PLr d için gerekli</th><th>Öncelik</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>B11</td>
+          <td>Algılama → yerinde dur</td>
+          <td class="new"><strong>G9SX çıkış: YV-K OFF + YV-A ON</strong> (geri açılma); reset gerekli</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B12</td>
+          <td>Emniyet çıkış → valf (doğrulanacak)</td>
+          <td class="new">Emniyet kontaktör / emniyet valf sürücü dual channel; E merkez boşaltma yok</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B13</td>
+          <td>Stop time ölçülmedi</td>
+          <td class="new">F3SG OSSD kesilme → kapak durma süresi (ms) — ISO 13855 girdisi</td>
+          <td><span class="badge b-p1">P1</span></td>
+        </tr>
+        <tr>
+          <td>B14</td>
+          <td>4 J / 10 J ölçüm yok</td>
+          <td class="new">Geri açılma ile 10 J yolu; saha enerji/kuvvet ölçüm raporu</td>
+          <td><span class="badge b-p2">P2</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3.4 Konfig B — hedef mimari</h3>
+  <div class="arch"><span class="hl">MEVCUT:</span>
+F3SG Type4 → G9SX → emniyet çıkış → dur (yerinde)
+2× basınç seri → G9SX enable
+2× kapak switch → G9SX (planlı)
+Standart PLC → cycle
+
+<span class="new">HEDEF (PLr d — validation ile):</span>
+F3SG OSSD ──────────→ G9SX [SF1 logic]
+2× emniyet kapı SW ─→ G9SX [SF2/SF3]
+E-stop dual ────────→ G9SX [SF4]
+2× basınç seri ─────→ G9SX [enable]
+         ↓
+G9SX emniyet çıkış → dual kontaktör → YV-K / YV-A
+  ALGILAMA: YV-K OFF + YV-A ON (geri aç)
+  RESET: manuel, otomatik kapanma YOK
+         ↓
+Standart PLC ← cycle enable (G9SX OK çıkışından)</div>
+
+  <h2>4 · Yan yana — PLr D gap analizi</h2>
+  <div class="panel panel-scroll">
+    <table>
+      <thead>
+        <tr><th>Katman</th><th>Konfig A — ne değişmeli?</th><th>Konfig B — ne değişmeli?</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Algılama SF1</strong></td>
+          <td class="bad">Sensörü değiştir (XUK1 → emniyet sınıfı)</td>
+          <td class="ok">F3SG OK — mesafe + stop time doğrula</td>
+        </tr>
+        <tr>
+          <td><strong>Mantık</strong></td>
+          <td class="bad">Emniyet rölesi ekle (Safety PLC opsiyonel)</td>
+          <td class="ok">G9SX OK — SF1/SF2/SF3 fonksiyon tanımı</td>
+        </tr>
+        <tr>
+          <td><strong>Kapak switch SF2/3</strong></td>
+          <td class="bad">Emniyet switch → röle (PL c)</td>
+          <td class="warn">Emniyet switch → G9SX (standart PLC'den çıkar)</td>
+        </tr>
+        <tr>
+          <td><strong>Acil stop SF4</strong></td>
+          <td class="warn">Dual channel → röle</td>
+          <td class="warn">Dual channel → G9SX, doğrula</td>
+        </tr>
+        <tr>
+          <td><strong>Pnömatik çıkış</strong></td>
+          <td class="bad">Emniyet valf sürücü + geri açılma</td>
+          <td class="bad">Geri açılma (YV-A ON) — yazılım</td>
+        </tr>
+        <tr>
+          <td><strong>Adım 1 tasarım</strong></td>
+          <td class="warn">4 J veya 10 J saha ölçümü</td>
+          <td class="warn">10 J ölçüm (geri açılma ile)</td>
+        </tr>
+        <tr>
+          <td><strong>Validation</strong></td>
+          <td class="bad">ISO 13849-2 — sıfırdan</td>
+          <td class="warn">ISO 13849-2 — tamamlanacak</td>
+        </tr>
+        <tr>
+          <td><strong>Maliyet / efor</strong></td>
+          <td class="bad">Yüksek (sensör + röle + valf)</td>
+          <td class="ok">Düşük–orta (çoğunlukla yazılım + test)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>5 · Uygulama checklist</h2>
+
+  <h3>Konfig A — PLr D</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th></th><th>Aksiyon</th><th>PL etkisi</th></tr></thead>
+      <tbody>
+        <tr><td><span class="chk"></span></td><td>XUK1 → emniyet sınıfı sensör / mini Type 4 perde</td><td>SF1: a→d</td></tr>
+        <tr><td><span class="chk"></span></td><td>Emniyet rölesi Category 3 ekle</td><td>SF1 mantık</td></tr>
+        <tr><td><span class="chk"></span></td><td>Emniyet kapı switch (2 kanal) → röle</td><td>SF2/3: →c</td></tr>
+        <tr><td><span class="chk"></span></td><td>E-stop dual → röle</td><td>SF4: →c</td></tr>
+        <tr><td><span class="chk"></span></td><td>Emniyet valf sürücü dual channel</td><td>SF1 çıkış</td></tr>
+        <tr><td><span class="chk"></span></td><td>Algılama → YV-K OFF + YV-A ON (geri aç)</td><td>12100/14120</td></tr>
+        <tr><td><span class="chk"></span></td><td>Manuel reset; otomatik kapanma yok</td><td>14119</td></tr>
+        <tr><td><span class="chk"></span></td><td>ISO 13855 mesafe hesabı</td><td>13855</td></tr>
+        <tr><td><span class="chk"></span></td><td>Stop time + enerji ölçüm raporu</td><td>14120</td></tr>
+        <tr><td><span class="chk"></span></td><td>ISO 13849-2 validation + PL hesap dosyası</td><td>13849</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Konfig B — PLr D</h3>
+  <div class="panel">
+    <table>
+      <thead><tr><th></th><th>Aksiyon</th><th>PL etkisi</th></tr></thead>
+      <tbody>
+        <tr><td><span class="chk"></span></td><td>G9SX SF1: algılama → geri açılma programla</td><td>SF1 tamamlama</td></tr>
+        <tr><td><span class="chk"></span></td><td>Emniyet kapı switch → G9SX (2 kanal)</td><td>SF2/3: →c</td></tr>
+        <tr><td><span class="chk"></span></td><td>E-stop dual → G9SX doğrula</td><td>SF4: →c</td></tr>
+        <tr><td><span class="chk"></span></td><td>Emniyet valf çıkışı dual channel doğrula</td><td>SF1 çıkış</td></tr>
+        <tr><td><span class="chk"></span></td><td>Stop time ölç (F3SG → kapak durma)</td><td>13855</td></tr>
+        <tr><td><span class="chk"></span></td><td>ISO 13855 mesafe resmi hesap (50 mm doğrula)</td><td>13855</td></tr>
+        <tr><td><span class="chk"></span></td><td>10 fonksiyon test senaryosu (T1–T10)</td><td>13849-2</td></tr>
+        <tr><td><span class="chk"></span></td><td>Omron PFHd / PL birleşik hesap</td><td>13849-1</td></tr>
+        <tr><td><span class="chk"></span></td><td>SOF validation raporu (G9SX yazılım)</td><td>13849-2</td></tr>
+        <tr><td><span class="chk"></span></td><td>4 J / 10 J saha ölçüm raporu</td><td>14120</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>6 · Stratejik öneri</h2>
+  <div class="note">
+    <strong>Konfig B</strong> PLr d'ye ulaşmak için <strong>çok daha az donanım değişikliği</strong> gerektirir —
+    esas iş: geri açılma yazılımı, emniyet switch taşıma, validation.<br><br>
+    <strong>Konfig A</strong> ile PLr d hedefleniyorsa XUK1 pratikte <strong>aynı kalamaz</strong> —
+    maliyet farkı Safety PLC'ye yaklaşabilir; dar alan mini Type 4 perde değerlendirin.<br><br>
+    <strong>Alternatif:</strong> Konfig A'da PLr <strong>c</strong> kabul + güçlü Adım 1 (4 J kanıtı + geri açılma)
+    — resmi PL hesap ile gerekçelendir; müşteri / notified body onayı gerekir.
+  </div>
+
+  <div class="footer">
+    Referans: <a href="KBN-ISO13849-Kapak-Risk-Degerlendirme.html">ISO 13849 Kapak</a> ·
+    <a href="KBN-Kapak-Guvenli-Durum-Analizi.html">Güvenli Durum</a> ·
+    Hazırlayan: Fatih GÜRAL · 10.09.2026
+  </div>
+</div>
+</body>
+</html>
