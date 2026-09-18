@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapak neden geç veya sert hareket eder? — Sıfırdan giriş</title>
+  <style>
+    :root {
+      --bg: #0f1419; --card: #1a2332; --line: #2a3a4d; --text: #e8ecf0;
+      --muted: #8b9aab; --blue: #60a5fa; --green: #34d399; --amber: #f59e0b;
+      --red: #f87171; --panel: #121a24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.62; padding: 24px 16px 72px; }
+    .wrap { max-width: 820px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; }
+    h2 { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: #7aa2c8; margin: 36px 0 12px; }
+    h3 { font-size: 1.05rem; color: #93c5fd; margin: 18px 0 8px; }
+    p, li { font-size: .95rem; color: #c8d0dc; }
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0 0 12px 1.2rem; }
+    li { margin: 5px 0; }
+    .sub { color: var(--muted); font-size: .86rem; margin: 6px 0 16px; }
+    a { color: var(--blue); }
+    .hero { background: linear-gradient(135deg, rgba(59,130,246,.14), rgba(6,182,212,.07)); border: 1px solid rgba(59,130,246,.32); border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 8px; }
+    .nav a { font-size: .75rem; padding: 6px 11px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #7dd3fc; text-decoration: none; }
+    .lesson { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
+    .badge { display: inline-block; background: #1e3a5f; color: #93c5fd; font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+    .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: .88rem; color: #aab4c0; margin: 12px 0; }
+    .note strong { color: var(--text); }
+    .note.ok { border-color: rgba(52,211,153,.4); background: rgba(52,211,153,.07); }
+    .note.warn { border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.07); }
+    .note.bad { border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.07); }
+    .note.info { border-color: rgba(59,130,246,.4); background: rgba(59,130,246,.07); }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 10px 0; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: #8ab4d4; font-size: .7rem; text-transform: uppercase; }
+    .stepn { display: grid; grid-template-columns: 36px 1fr; gap: 10px; margin: 12px 0; }
+    .n { width: 28px; height: 28px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; margin-top: 2px; }
+    .n.ok { background: #14532d; color: #86efac; }
+    .n.bad { background: #7f1d1d; color: #fca5a5; }
+    .n.warn { background: #78350f; color: #fde68a; }
+    .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+    @media (max-width: 640px) { .photos { grid-template-columns: 1fr; } }
+    .photo { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .photo img { display: block; width: 100%; height: 180px; object-fit: cover; }
+    .photo .cap { padding: 8px 10px 10px; font-size: .8rem; color: #c8d0dc; }
+    .tag { display: inline-block; font-size: .66rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-bottom: 4px; }
+    .tag.on { background: #14532d; color: #86efac; }
+    .tag.off { background: #7f1d1d; color: #fca5a5; }
+    svg.fig { display: block; width: 100%; height: auto; background: #0b1016; border-radius: 10px; border: 1px solid #243044; margin: 12px 0; }
+    .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    button { border: none; border-radius: 8px; padding: 9px 14px; font-weight: 650; cursor: pointer; font-size: .82rem; }
+    .btn-open { background: #27ae60; color: #fff; }
+    .btn-close { background: #c0392b; color: #fff; }
+    .btn-mode { background: #1e3a5f; color: #93c5fd; border: 1px solid #2a3a4d; }
+    .btn-mode.on { background: #14532d; color: #86efac; border-color: #166534; }
+    .status { font-size: .84rem; color: #8b9aab; min-height: 1.4em; margin: 4px 0 8px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 640px) { .two { grid-template-columns: 1fr; } }
+    .word { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+    .word b { color: #e8ecf0; }
+    .word span { display: block; color: #8b9aab; font-size: .82rem; margin-top: 4px; }
+    .footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .76rem; color: #64748b; }
+    .check li { list-style: none; margin: 0 0 8px; padding: 8px 0 8px 28px; position: relative; border-bottom: 1px solid #2a3a4d; }
+    .check { margin-left: 0; }
+    .check li::before { content: "☐"; position: absolute; left: 0; color: #60a5fa; }
+    kbd { font-family: Consolas, monospace; background: #0f1419; border: 1px solid #2a3a4d; border-radius: 4px; padding: 1px 6px; font-size: .82rem; color: #a5f3fc; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Kapak neden 5–6 saniye bekleyip kalkıyor, ya da neden çarpıyor?</h1>
+  <p class="sub">Sıfırdan giriş · bu makine · LDNC 32×250-S · 4V230E-08 · menteşeli kapak</p>
+
+  <div class="hero">
+    Parçaların hepsi belli: kapak menteşeli, iki piston, valf, hortum. Yine de düğmeye basınca iki kötü şeyden biri oluyor:
+    <b>ya hava dolana kadar 5–6 saniye hiçbir şey olmuyor, sonra kapak fırlıyor;</b>
+    ya da <b>beklemıyor ama çok sert açılıp kapanıyor.</b>
+    Bu sayfa bitince ikisinin de nedeni ve ne takman gerektiği net olacak.
+    <p style="margin-top:10px"><a href="cizim.html">Makine çizimi, formüller ve hat şeması →</a></p>
+  </div>
+
+  <div class="nav">
+    <a href="#sorun">1. İki sorun</a>
+    <a href="#makine">2. Makine</a>
+    <a href="#kelime">3. Kelimeler</a>
+    <a href="#oda">4. İki oda</a>
+    <a href="#valf">5. Valf</a>
+    <a href="#gec">6. Neden geç</a>
+    <a href="#sert">7. Neden sert</a>
+    <a href="#demo">8. Canlı gör</a>
+    <a href="#tarif">9. Smooth tarif</a>
+    <a href="#ayar">10. Ayar sırası</a>
+  </div>
+
+  <h2 id="sorun">1. Senin gördüğün iki sorun</h2>
+  <div class="lesson">
+    <span class="badge">Aynı sistem, iki zıt şikayet</span>
+    <div class="two">
+      <div class="note warn">
+        <strong>Geç kalkıyor</strong>
+        Düğmeye basıyorsun. 5–6 saniye kapak yerinde duruyor. Sanki hava birikiyor. Sonra birden kalkıyor.
+      </div>
+      <div class="note bad">
+        <strong>Sert gidiyor</strong>
+        Bekleme yok. Kapak hemen gidiyor ama vurarak. Yataya inerken özellikle çarpıyor. Dikeyde de son anda vuruyor.
+      </div>
+    </div>
+    <p>İkisi de “valf bozuk” değil. İkisi de havanın <b>ne kadar dolması gerektiği</b> ile <b>kaçmasına izin verdiğin hız</b> yüzünden. Aşağıda önce makineyi, sonra havayı, sonra çözümü göreceksin.</p>
+  </div>
+
+  <h2 id="makine">2. Bu makinede kapak nasıl hareket eder?</h2>
+  <div class="lesson">
+    <span class="badge">Fotoğraftaki gerçek</span>
+    <div class="photos">
+      <div class="photo">
+        <img src="foto/kapak-yatay.png" alt="Kapak yatay">
+        <div class="cap"><span class="tag on">KAPALI</span><br>Kapak yatay, tankın üstünde. Piston mili <b>uzun</b>.</div>
+      </div>
+      <div class="photo">
+        <img src="foto/kapak-dikey.png" alt="Kapak dikey">
+        <div class="cap"><span class="tag off">AÇIK</span><br>Kapak dikey, yükleme. Piston mili <b>kısa</b>.</div>
+      </div>
+    </div>
+    <p>Kapak bir kapı gibi menteşeden döner. İki piston kapağın yanlarında. Unutma:</p>
+    <ul>
+      <li><b>Aç</b> (yükleme, dikey) = piston <b>kısalır</b> = mili içeri çeker.</li>
+      <li><b>Kapat</b> (banyo, yatay) = piston <b>uzar</b> = mili dışarı iter.</li>
+    </ul>
+    <div class="note info">
+      <strong>Yerçekimi kapatır.</strong> Kapak ağır. Menteşe arkada. Kendi haline bırakırsan yataya düşmek ister — yani kapanmak ister. Açmak = ağırlığı kaldırmak. Kapatmak = ağırlığın zaten gittiği yön. Bu yüzden kapanış her zaman daha tehlikeli ve daha sert olur.
+    </div>
+  </div>
+
+  <h2 id="kelime">3. Beş kelime, gerisi hikâye</h2>
+  <div class="lesson">
+    <div class="two" style="margin-bottom:10px">
+      <div class="word"><b>Piston / silindir</b><span>Luftec LDNC 32×250-S. İçinde bir mil var. Hava bir tarafa basılırsa mil uzar, diğer tarafa basılırsa kısalır. Çap 32 mm, mil en fazla 250 mm gider.</span></div>
+      <div class="word"><b>Valf</b><span>4V230E-08. Kumanda. “Aç” bobini veya “kapat” bobini hangisi enerjiliyse havayı o yöne yollar. Kendisi hız ayarlamaz, sadece yön seçer.</span></div>
+      <div class="word"><b>Oda</b><span>Pistonun içinde iki boşluk: kapak odası (mil uzar) ve mil odası (mil kısalır). Biri dolar, diğeri boşalır. İkisi birden dolu kalamaz hareket için.</span></div>
+      <div class="word"><b>Egzoz</b><span>Boşalan odadaki havanın valften dışarı çıkması. Hızı asıl egzoz belirler. Giren hava “iteç”, çıkan hava “fren”.</span></div>
+      <div class="word"><b>Kısıcı (iğne)</b><span>Hortumdaki musluk. Sıkınca hava zor geçer. Doğru yer: <u>çıkan</u> hava. Yanlış yer: <u>giren</u> hava — o zaman bekler, sonra fırlar.</span></div>
+      <div class="word"><b>Çek valf</b><span>Tek yönlü kilit. Hava bir taraftan girer, geri kaçmaz. Plot (ince D4 hortum) “kilidi aç” der. Kapak dikeyde kalsın diye mil odasına konur.</span></div>
+    </div>
+    <p>Hortum isimleri: <b>D8</b> kalın iş hattı, <b>D4</b> ince plot hattı. D8 işi yapar, D4 kilidi açar.</p>
+  </div>
+
+  <h2 id="oda">4. Pistonun iki girişi</h2>
+  <div class="lesson">
+    <span class="badge">LDNC 32×250-S · G1/8 iki port</span>
+    <svg class="fig" viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+      <text x="380" y="22" text-anchor="middle" fill="#7aa2c8" font-size="12" font-weight="700">tek piston — makinede bunun 2 adedi var</text>
+      <rect x="80" y="70" width="280" height="70" rx="6" fill="#64748b"/>
+      <rect x="360" y="88" width="150" height="34" rx="3" fill="#e2e8f0"/>
+      <line x1="250" y1="75" x2="250" y2="135" stroke="#1e293b" stroke-width="4"/>
+      <text x="165" y="112" text-anchor="middle" fill="#0f1419" font-size="13" font-weight="700">KAPAK ODASI</text>
+      <text x="435" y="110" text-anchor="middle" fill="#1e293b" font-size="13" font-weight="700">MİL</text>
+      <circle cx="80" cy="105" r="10" fill="#3b82f6"/>
+      <text x="80" y="160" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="700">port KAPAK</text>
+      <text x="80" y="178" text-anchor="middle" fill="#64748b" font-size="10">hava bas → mil UZAR</text>
+      <text x="80" y="194" text-anchor="middle" fill="#64748b" font-size="10">kapak YATAY (kapat)</text>
+      <circle cx="360" cy="105" r="10" fill="#f59e0b"/>
+      <text x="360" y="160" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">port MİL</text>
+      <text x="360" y="178" text-anchor="middle" fill="#64748b" font-size="10">hava bas → mil KISALIR</text>
+      <text x="360" y="194" text-anchor="middle" fill="#64748b" font-size="10">kapak DİKEY (aç)</text>
+      <text x="620" y="100" fill="#94a3b8" font-size="12">Aç = sarı porta bas</text>
+      <text x="620" y="120" fill="#94a3b8" font-size="12">Kapat = mavi porta bas</text>
+      <text x="620" y="148" fill="#fbbf24" font-size="12">Kilit ve fren:</text>
+      <text x="620" y="168" fill="#fbbf24" font-size="12">sarı (mil) portunda</text>
+    </svg>
+    <p>Hareket için her zaman <b>bir oda dolar, diğer oda boşalır</b>. Dolan taraf itme verir. Boşalan taraf fren yeridir. Kısıcıyı doldurulan porta koyarsan piston “hava biriksin, yeterince basınç olsun, sonra fırlasın” diye bekler. Kısıcıyı boşalan porta koyarsan baştan sona yavaş gider. Smooth’un bütün sırrı bu.</p>
+  </div>
+
+  <h2 id="valf">5. Valf ne yapar, ne yapmaz</h2>
+  <div class="lesson">
+    <span class="badge">4V230E-08 · 5/3 · orta E = boşaltma</span>
+    <p>Valfte iki bobin var. Biri Aç, biri Kapat. Katalog debisi ~890 NL/dk — Ø32 piston için bu bir yangın hortumu. Valf <b>hız kesmez</b>. Yön seçer, kapı gibi açılır, hava akar.</p>
+    <table>
+      <thead><tr><th>Bobin</th><th>Hava nereye</th><th>Kapak</th></tr></thead>
+      <tbody>
+        <tr><td>A (kapat)</td><td>Kapak odasına basar, mil odasını boşaltır</td><td>Yataya iner</td></tr>
+        <tr><td>B (aç)</td><td>Mil odasına basar, kapak odasını boşaltır</td><td>Dikeye kalkar</td></tr>
+        <tr><td>İkisi de kapalı (orta)</td><td>Bu valfte <b>E = iki oda da tahliye</b></td><td>Kilit yoksa kapak düşer</td></tr>
+      </tbody>
+    </table>
+    <div class="note bad">
+      <strong>Bu valfin ortası “dur” değildir.</strong> 4V230<b>E</b>’nin E harfi boşaltma demek. Düğmeyi bırakınca (yay merkeze alınca) her iki oda da dışarı açılır. Piston havasız kalır. Sonraki basışta hortum + oda sıfırdan dolar → 5–6 saniye bekleyişin en sık sebebi budur. Üstüne kilit yoksa kapak yataya düşer.
+    </div>
+    <p>Durdurmak istiyorsan valfin ortasına güvenme. Mil portuna <b>çek valf</b> koy: dikeyde mil odasındaki hava kilitlenir, kapak düşmez. Valfi hareket bitene kadar basılı tut; ortayı “park” sanma.</p>
+  </div>
+
+  <h2 id="gec">6. Neden 5–6 saniye hiçbir şey olmuyor?</h2>
+  <div class="lesson">
+    <span class="badge">Ölü zaman = basınç henüz ağırlığı yenemedi</span>
+    <p>Kapak yatayken yerçekimi momenti en büyük. Açmak için mil odasındaki basınç, ağırlığı yenecek kuvvete çıkmalı. O basınca gelene kadar mil kımıldamaz. Sen “bozuk” görürsün; aslında hortum ve oda doluyordur.</p>
+    <div class="stepn"><div class="n">1</div><div>Düğmeye bastın. Valf açıldı. Hava henüz pistonda değil, hortumun başında.</div></div>
+    <div class="stepn"><div class="n">2</div><div>D8 hortum (metrelerce) + mil odası doldurulur. Basınç 0’dan 4–5 bara tırmanır. Kapak duruyor.</div></div>
+    <div class="stepn"><div class="n">3</div><div>Basınç yeter. Kapak kalkmaya başlar. Kalkınca yerçekimi azalır (dikeye yaklaşır). Fren yoksa birden hızlanır — “bekledi, fırladı”.</div></div>
+    <h3>Bunu uzatan şeyler</h3>
+    <ul>
+      <li><b>Valf orta E.</b> Her bırakışta odalar boşalır. Her açışta sıfırdan dolum.</li>
+      <li><b>Uzun / kalın hacim.</b> D8 4 m × 2 piston = doldurulacak çok litre.</li>
+      <li><b>Kısıcı yanlış yerde (meter-in).</b> Giren havayı kısarsan basınç yavaş yükselir. 5–6 saniye birikir, sonra egzoz açıksa fırlar. Tam senin tarifin.</li>
+      <li><b>Çek valfin plot’u geç açılıyor.</b> Kapatırken mil odasının boşalması D4 plot + iğneye bağlı. Plot yoksa veya tıkalıysa kapanmaz / geç kapanır. Açılışta çek valf doldurmayı engellemez (serbest yön); gecikme açılıştaysa asıl sebep dolum + meter-in + boşaltılmış odalar.</li>
+    </ul>
+    <div class="note warn">
+      <strong>Kural:</strong> Bekleyip fırlıyorsa kısıcıyı <b>girişten çıkar, çıkışa al</b>. Hızı kısacaksan her zaman <b>boşalan odanın egzozunu</b> kıs (meter-out).
+    </div>
+  </div>
+
+  <h2 id="sert">7. Neden çok sert açılıp kapanıyor?</h2>
+  <div class="lesson">
+    <span class="badge">Valf yangın hortumu · yerçekimi yardımcı · yastık yok</span>
+    <p>Kısıcı yoksa süre, valfin ve hortumun izin verdiği kadar kısadır — genelde 1 saniyenin altı. Kapak çarpar.</p>
+    <ul>
+      <li><b>Kapatırken</b> yerçekimi aynı yönde. Egzoz (mil odası) serbestse kapak kendi ağırlığıyla düşer. Piston sadece “yol açmış” olur. Fren = mil portunun egzozu.</li>
+      <li><b>Açarken</b> bir kere koptu mu yerçekimi azalır, valf hâlâ tam açık, hız artar. Fren = kapak portunun egzozu.</li>
+      <li><b>LDNC …-S</b> yastıksız gövde. Strok sonunda yumuşatma yok. Son 2 cm’yi iğne halleder.</li>
+    </ul>
+    <div class="note ok">
+      <strong>Kapı durdurucusu gibi düşün.</strong> Kapıyı iten sen (giren hava), kapanış hızını ayarlayan yavaşlatıcı kol (çıkan hava). Kolu kapı koluna değil menteşe amortisörüne koyarsın. Pistonda amortisör = egzoz kısıcısı.
+    </div>
+  </div>
+
+  <h2 id="demo">8. Üç hâli kendi gözünle gör</h2>
+  <div class="lesson">
+    <span class="badge">Aynı kapak, üç ayar</span>
+    <p>Yeşil = aç (dikey). Kırmızı = kapat (yatay). Önce mod seç, sonra tuşa bas.</p>
+    <div class="btns">
+      <button class="btn-mode on" id="mDelay" type="button">Mod: geç + fırla</button>
+      <button class="btn-mode" id="mSlam" type="button">Mod: sert</button>
+      <button class="btn-mode" id="mSmooth" type="button">Mod: smooth</button>
+    </div>
+    <div class="btns">
+      <button class="btn-open" id="goOpen" type="button">Aç — dikey</button>
+      <button class="btn-close" id="goClose" type="button">Kapat — yatay</button>
+    </div>
+    <p class="status" id="demoMsg">Mod: kısıcı girişte / odalar boş. 5 saniye dolum, sonra fırlar.</p>
+    <svg class="fig" id="demoSvg" viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="200" width="280" height="70" rx="4" fill="#3a4654" stroke="#94a3b8"/>
+      <text x="180" y="242" text-anchor="middle" fill="#94a3b8" font-size="13">TANK</text>
+      <g id="lidG" transform="translate(80,200) rotate(0)">
+        <rect x="0" y="-14" width="220" height="14" rx="2" fill="#38bdf8"/>
+        <circle cx="0" cy="-7" r="8" fill="#fbbf24"/>
+      </g>
+      <text x="80" y="188" fill="#fbbf24" font-size="11">H</text>
+      <rect x="400" y="40" width="200" height="16" rx="4" fill="#1e293b" stroke="#2a3a4d"/>
+      <rect id="bar" x="400" y="40" width="0" height="16" rx="4" fill="#38bdf8"/>
+      <text x="500" y="76" text-anchor="middle" fill="#8b9aab" font-size="11" id="barLbl">hava dolumu</text>
+      <text x="500" y="120" text-anchor="middle" fill="#64748b" font-size="12" id="angLbl">θ = 0° yatay</text>
+      <text x="500" y="200" text-anchor="middle" fill="#64748b" font-size="11">sol: kapak · sağ: ne oluyor</text>
+    </svg>
+    <p style="font-size:.84rem;color:#8b9aab">Geç+fırla = senin mevcut şikayet. Sert = kısıcısız valf. Smooth = egzozda iğne, odalar her seferinde sıfırlanmıyor.</p>
+  </div>
+
+  <h2 id="tarif">9. Smooth için takman gerekenler</h2>
+  <div class="lesson">
+    <span class="badge">Parça listesi bu makineye özel</span>
+    <p>Piston ve valfi değiştirme. Hızı ve kilidi <b>piston girişine</b> koy.</p>
+    <table>
+      <thead><tr><th>Ne</th><th>Nereye</th><th>Neden</th></tr></thead>
+      <tbody>
+        <tr><td>Çek valf + iğne × 2</td><td>Her pistonin <b>mil portu</b></td><td>Dikeyde tutar. Kapatırken egzozu iğneden geçirir = inme hızı.</td></tr>
+        <tr><td>Tek yönlü kısıcı (ASC) × 2</td><td>Her pistonin <b>kapak portu</b> egzoz yönü</td><td>Açılış hızı. Meter-out: dolum serbest, çıkış kısık.</td></tr>
+        <tr><td>D8 eşit boy</td><td>Valf → her port, sol = sağ</td><td>Biri kısa biri uzunsa kapak yamulur, bir taraf geç kalır.</td></tr>
+        <tr><td>D4 plot × 4</td><td>Her portta ince dirsek, çapraz T</td><td>Karşı hattın çek valfini açar. KBN’deki mantığın aynısı; burada “alt” = mil portu.</td></tr>
+        <tr><td>T1 / T2</td><td>T1 = kapak D8 + mil D4 → valf A<br>T2 = mil D8 + kapak D4 → valf B</td><td>Çapraz: iş havası bir porttan, kilidi açan plot diğerinden.</td></tr>
+      </tbody>
+    </table>
+    <svg class="fig" viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg">
+      <text x="380" y="20" text-anchor="middle" fill="#7aa2c8" font-size="12" font-weight="700">kısa hat — her girişte D8 + D4</text>
+      <rect x="430" y="50" width="200" height="50" rx="5" fill="#64748b"/>
+      <rect x="630" y="62" width="80" height="26" fill="#e2e8f0"/>
+      <rect x="40" y="40" width="160" height="70" rx="6" fill="#121a24" stroke="#3b82f6"/>
+      <text x="120" y="62" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="700">PORT KAPAK</text>
+      <text x="120" y="80" text-anchor="middle" fill="#64748b" font-size="9">D8 + D4 · ASC kısıcı</text>
+      <text x="120" y="96" text-anchor="middle" fill="#64748b" font-size="9">açılış freni (egzoz)</text>
+      <rect x="40" y="125" width="160" height="70" rx="6" fill="#121a24" stroke="#f59e0b"/>
+      <text x="120" y="147" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">PORT MİL</text>
+      <text x="120" y="165" text-anchor="middle" fill="#64748b" font-size="9">çek valf + iğne + D8 + D4</text>
+      <text x="120" y="181" text-anchor="middle" fill="#64748b" font-size="9">kilit + kapanış freni</text>
+      <line x1="200" y1="70" x2="430" y2="70" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="200" y1="160" x2="630" y2="75" stroke="#f59e0b" stroke-width="3"/>
+      <text x="430" y="175" fill="#94a3b8" font-size="11">Tam şema ve ürün adetleri: cizim.html en alt</text>
+    </svg>
+    <div class="note info">
+      <strong>Neden mil portu kilit?</strong> Dikeyde mil kısa, mil odası dolu. Yerçekimi mili uzatmak (kapatmak) ister. Valf ortası E boşaltırsa o oda kaçarsa kapak düşer. Çek valf kaçışı keser. Kapatmak istediğinde D4 plot kilidi açar, iğne yavaş indirir.
+    </div>
+  </div>
+
+  <h2 id="ayar">10. Makinenin başında sıra</h2>
+  <div class="lesson">
+    <span class="badge">Sırayı atlama — yoksa yine fırlar</span>
+    <div class="stepn"><div class="n ok">1</div><div><b>Hortum.</b> Sol ve sağ D8’i aynı boyda kes. Valfi pistona mümkün olduğunca yaklaştır. Her açışta sıfırdan dolum olmasın diye valfi hareket bitene kadar basılı tut; ortayı durak sanma.</div></div>
+    <div class="stepn"><div class="n ok">2</div><div><b>Kısıcı yeri.</b> Varsa girişteki iğneleri sök, egzoza al. Kapak portu = açılış freni. Mil portu = kapanış freni + çek valf.</div></div>
+    <div class="stepn"><div class="n ok">3</div><div><b>İğneleri kapat.</b> Önce neredeyse tam sık. İlk hareket çok yavaş olsun. Hiç hareket yoksa yarım tur aç — hâlâ 5 saniye bekleyip fırlıyorsa o iğne hâlâ giriştedir, yerini kontrol et.</div></div>
+    <div class="stepn"><div class="n ok">4</div><div><b>Önce açılışı ayarla.</b> Dikey 4–6 saniyede bitsin. İki tarafın tur sayısı aynı. Kapak yamuluyorsa bir tarafın D8’i kısa veya iğnesi daha açık demektir.</div></div>
+    <div class="stepn"><div class="n ok">5</div><div><b>Sonra kapanışı ayarla.</b> Yataya inme de aynı süre. Burası yerçekimi yüzünden daha açık iğne ister gibi gelir — aldanma, mil egzozunu daha sıkı tut. Çarpıyorsa sık.</div></div>
+    <div class="stepn"><div class="n warn">6</div><div><b>Son 20 mm.</b> S gövde yastıksız. İğne tüm stroğu yavaşlatır; son vuruş hâlâ varsa iğneyi biraz daha sık veya PPV’li gövdeye geç. Basıncı 6 barın üstüne çıkarma — kuvvet artar, hız da artar.</div></div>
+    <div class="stepn"><div class="n bad">7</div><div><b>Geç kalkış bitmedi mi?</b> Valf gerçekten hareket boyunca enerjili mi? Hortum metresi? Girişte kısıcı kaldı mı? FRL tıkalı mı, su var mı? Bunlar duruyorsa 5–6 saniye dolum normaldir — hacmi küçült (hortumu kısalt), dolumu kısma.</div></div>
+  </div>
+
+  <h2>Tek sayfada özet</h2>
+  <div class="lesson">
+    <ul class="check">
+      <li>Aç = mil kısalır. Kapat = mil uzar. Yerçekimi kapatır.</li>
+      <li>Valf yön seçer, hız kesmez. 4V230E orta konum odaları boşaltır — durdurmaz, sonraki açışı geciktirir.</li>
+      <li>5–6 saniye bekleyip fırlama = oda boş + hortum dolumu, çoğu zaman girişteki kısıcı.</li>
+      <li>Sert gitme = egzoz serbest + yerçekimi. Fren = çıkan hava.</li>
+      <li>Mil portuna çek valf + iğne. Kapak portuna meter-out kısıcı. D8 sol/sağ eşit.</li>
+      <li>İğneyi kapalıdan aç. Önce açılış, sonra kapanış, aynı süre, aynı tur.</li>
+    </ul>
+    <p><a href="cizim.html">Çizim, canlı formül ve D8/D4 şeması → cizim.html</a></p>
+  </div>
+
+  <div class="footer">Rotational pnomatik / Giris.html · sıfırdan anlatım · çizim ayrı dosya</div>
+</div>
+
+<script>
+const lidG = document.getElementById("lidG");
+const bar = document.getElementById("bar");
+const barLbl = document.getElementById("barLbl");
+const angLbl = document.getElementById("angLbl");
+const demoMsg = document.getElementById("demoMsg");
+const modes = { delay: "mDelay", slam: "mSlam", smooth: "mSmooth" };
+let mode = "delay";
+let theta = 0;
+let anim = null;
+
+const copy = {
+  delay: "Mod: kısıcı girişte / odalar boş. 5 saniye dolum, sonra fırlar.",
+  slam: "Mod: kısıcı yok, valf tam açık. Yerçekimi de yardım eder — çarpar.",
+  smooth: "Mod: egzozda iğne. Dolum seri, hareket 5 saniye, vuruş yok."
+};
+
+function setMode(m) {
+  mode = m;
+  Object.entries(modes).forEach(([k, id]) => {
+    document.getElementById(id).classList.toggle("on", k === m);
+  });
+  demoMsg.textContent = copy[m];
+  bar.setAttribute("width", "0");
+  barLbl.textContent = m === "delay" ? "hava dolumu bekleniyor" : m === "slam" ? "fren yok" : "egzoz kontrollü";
+}
+
+function draw(th) {
+  theta = th;
+  lidG.setAttribute("transform", `translate(80,200) rotate(${-th})`);
+  angLbl.textContent = `θ = ${th.toFixed(0)}°  ${th < 45 ? "yatay / kapalı" : "dikey / açık"}`;
+}
+
+function run(to) {
+  if (anim) cancelAnimationFrame(anim);
+  const from = theta;
+  const fill = mode === "delay" ? 5000 : 0;
+  const move = mode === "slam" ? 380 : mode === "delay" ? 420 : 5000;
+  const t0 = performance.now();
+  demoMsg.textContent = fill
+    ? "Hava hortuma ve odaya doluyor — kapak henüz kımıldamıyor…"
+    : mode === "slam" ? "Hareket başladı — fren yok." : "Egzoz iğneden geçiyor, kapak düz gidiyor.";
+  barLbl.textContent = fill ? "hava dolumu" : "hareket";
+  const tick = now => {
+    const dt = now - t0;
+    if (dt < fill) {
+      bar.setAttribute("width", String(200 * dt / fill));
+      bar.setAttribute("fill", "#f59e0b");
+      anim = requestAnimationFrame(tick);
+      return;
+    }
+    const u = Math.min(1, (dt - fill) / move);
+    bar.setAttribute("width", "200");
+    bar.setAttribute("fill", mode === "slam" ? "#f87171" : "#34d399");
+    const e = mode === "smooth"
+      ? u * u * (3 - 2 * u)
+      : mode === "slam"
+        ? u * u
+        : u < 0.15 ? 0 : Math.min(1, Math.pow((u - 0.15) / 0.85, 0.45));
+    draw(from + (to - from) * e);
+    if (u < 1) anim = requestAnimationFrame(tick);
+    else {
+      demoMsg.textContent = mode === "smooth"
+        ? "Bitti. Vuruş yok. İki yön de aynı süre."
+        : mode === "slam"
+          ? "Çarptı. Valf yetti, fren yoktu."
+          : "Önce bekledi, sonra fırladı. Kısıcı girişteydi.";
+      barLbl.textContent = "bitti";
+    }
+  };
+  anim = requestAnimationFrame(tick);
+}
+
+document.getElementById("mDelay").onclick = () => setMode("delay");
+document.getElementById("mSlam").onclick = () => setMode("slam");
+document.getElementById("mSmooth").onclick = () => setMode("smooth");
+document.getElementById("goOpen").onclick = () => run(90);
+document.getElementById("goClose").onclick = () => run(0);
+draw(8);
+</script>
+</body>
+</html>

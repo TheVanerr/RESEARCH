@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elektrik Kutusu / Pano Kliması — Standart Araştırma Raporu</title>
+  <style>
+    :root {
+      --bg: #0f1419; --card: #1a2332; --line: #2a3a4d; --text: #e8ecf0;
+      --muted: #8b9aab; --blue: #60a5fa; --cyan: #22d3ee; --green: #34d399;
+      --amber: #f59e0b; --red: #f87171; --panel: #121a24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.55; padding: 24px 16px 72px; }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    h1 { font-size: 1.55rem; letter-spacing: -0.02em; }
+    h2 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: .08em; color: #7aa2c8; margin: 36px 0 12px; }
+    h3 { font-size: 1.02rem; color: #93c5fd; margin: 20px 0 8px; font-weight: 650; }
+    h4 { font-size: .9rem; color: #c8d5e4; margin: 14px 0 6px; }
+    p, li { font-size: .9rem; color: #c8d0dc; }
+    .sub { color: var(--muted); font-size: .86rem; margin: 6px 0 18px; }
+    a { color: var(--blue); }
+    .hero { background: linear-gradient(135deg, rgba(59,130,246,.14), rgba(6,182,212,.07)); border: 1px solid rgba(59,130,246,.32); border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; }
+    .hero p { margin-top: 10px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 8px; }
+    .nav a { font-size: .75rem; padding: 6px 11px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #7dd3fc; text-decoration: none; }
+    .nav a:hover { border-color: #60a5fa; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 14px 0; }
+    .card { border-radius: 10px; padding: 15px 16px; border: 1px solid; }
+    .card h4 { margin: 0 0 6px; font-size: .86rem; }
+    .card .big { font-size: 1.12rem; font-weight: 750; margin: 6px 0 8px; }
+    .card ul { margin: 6px 0 0 1rem; font-size: .8rem; }
+    .c-ok { background: rgba(52,211,153,.08); border-color: rgba(52,211,153,.35); }
+    .c-ok h4, .c-ok .big { color: var(--green); }
+    .c-info { background: rgba(59,130,246,.08); border-color: rgba(59,130,246,.35); }
+    .c-info h4, .c-info .big { color: var(--blue); }
+    .c-warn { background: rgba(245,158,11,.08); border-color: rgba(245,158,11,.35); }
+    .c-warn h4, .c-warn .big { color: var(--amber); }
+    .c-bad { background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.35); }
+    .c-bad h4, .c-bad .big { color: var(--red); }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+    .panel-h { padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--line); font-size: .82rem; font-weight: 650; color: #93c5fd; }
+    .panel-b { padding: 14px 16px; }
+    .scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: var(--panel); color: #8ab4d4; font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(59,130,246,.04); }
+    .std { font-family: Consolas, "Cascadia Mono", monospace; color: #93c5fd; font-weight: 650; white-space: nowrap; }
+    .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: .84rem; color: #aab4c0; margin: 12px 0; }
+    .note strong { color: var(--text); }
+    .note.danger { border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.07); }
+    .note.info { border-color: rgba(59,130,246,.4); background: rgba(59,130,246,.07); }
+    .note.ok { border-color: rgba(52,211,153,.4); background: rgba(52,211,153,.07); }
+    .quote { border-left: 3px solid var(--blue); padding: 8px 14px; margin: 10px 0; background: rgba(59,130,246,.05); font-size: .84rem; color: #c8d0dc; font-style: italic; }
+    .quote cite { display: block; margin-top: 5px; font-style: normal; font-size: .74rem; color: #64748b; }
+    .tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: .68rem; font-weight: 700; }
+    .t1 { background: rgba(248,113,113,.2); color: #f87171; }
+    .t2 { background: rgba(245,158,11,.2); color: #f59e0b; }
+    .t3 { background: rgba(59,130,246,.2); color: #93c5fd; }
+    .t4 { background: rgba(52,211,153,.2); color: #34d399; }
+    .flow { display: grid; gap: 8px; margin: 12px 0; }
+    .step { display: grid; grid-template-columns: 42px 1fr; gap: 10px; align-items: start; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; }
+    .n { width: 32px; height: 32px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85rem; }
+    .calc { display: grid; grid-template-columns: 1.15fr .85fr; gap: 14px; }
+    label { display: block; font-size: .72rem; color: #8ab4d4; text-transform: uppercase; letter-spacing: .04em; margin: 8px 0 4px; }
+    input, select { width: 100%; background: #0f1419; border: 1px solid #2a3a4d; color: var(--text); border-radius: 6px; padding: 8px 10px; font-size: .88rem; }
+    input:focus, select:focus { outline: 1px solid #60a5fa; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .result { background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px; margin-bottom: 8px; }
+    .result .k { font-size: .72rem; color: #8ab4d4; text-transform: uppercase; }
+    .result .v { font-size: 1.25rem; font-weight: 750; margin-top: 2px; }
+    .formula { font-family: Consolas, monospace; background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 10px 12px; font-size: .8rem; color: #a5f3fc; margin: 8px 0; overflow-x: auto; }
+    .footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .76rem; color: #64748b; }
+    .check { list-style: none; }
+    .check li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .84rem; }
+    .cb { width: 16px; height: 16px; border: 2px solid #3a4d63; border-radius: 3px; flex-shrink: 0; margin-top: 3px; }
+    ol.std-list { margin-left: 1.15rem; }
+    ol.std-list li { margin: 6px 0; }
+    @media (max-width: 860px) { .calc, .pair { grid-template-columns: 1fr; } }
+    @media print {
+      body { background: #fff; color: #111; padding: 0; }
+      .hero, .panel, .card, .note, .step, .result { break-inside: avoid; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Elektrik Kutusu / Pano Kliması Araştırma Raporu</h1>
+  <p class="sub">Standart envanteri · hangi şartlarda klima gerekir · ısıl doğrulama ve seçim yöntemi · tek dosya rapor · 18.09.2026</p>
+
+  <div class="hero">
+    <strong>Net cevap.</strong> Hiçbir IEC / TS EN standardı “her elektrik kutusuna klima takın” demez. Zorunlu olan sonuçtur: en kötü ortam ve yük altında bileşen sıcaklık sınırları, pano sıcaklık artışı, IP koruması ve yoğuşma kontrolü sağlanmalıdır. Klima yalnızca bu sonucu doğal yayılım, fan veya eşanjörün veremediği durumlarda seçilir.
+    <p>Karar iki aşamalıdır: (1) iklimlendirme gerekli mi, (2) gerekliyse fan mı, hava-hava eşanjör mü, kompresörlü pano kliması mı, hava-su eşanjör mü.</p>
+  </div>
+
+  <div class="nav">
+    <a href="#cevap">Karar</a>
+    <a href="#standartlar">Standartlar</a>
+    <a href="#sartlar">Şartlar</a>
+    <a href="#dogrulama">Doğrulama</a>
+    <a href="#hesap">Hesap</a>
+    <a href="#arac">Hesap aracı</a>
+    <a href="#teknoloji">Teknoloji</a>
+    <a href="#ornek">Örnekler</a>
+    <a href="#kurulum">Kurulum</a>
+    <a href="#check">Kontrol listesi</a>
+    <a href="#kaynak">Kaynaklar</a>
+  </div>
+
+  <h2 id="cevap">1. Karar özeti</h2>
+  <div class="grid">
+    <div class="card c-ok">
+      <h4>Klima gerekmez</h4>
+      <div class="big">Pasif yeter</div>
+      <ul>
+        <li>Doğal yayılım Q<sub>s</sub> ≥ toplam kayıp Q<sub>v</sub></li>
+        <li>Tüm cihazlar üretici sınırının altında</li>
+        <li>Lokal sıcak nokta yok</li>
+        <li>Yoğuşma yönetiliyor</li>
+        <li>IEC 61439 doğrulaması kayıtlı</li>
+      </ul>
+    </div>
+    <div class="card c-info">
+      <h4>Fan / eşanjör</h4>
+      <div class="big">T<sub>u</sub> &lt; T<sub>i</sub></div>
+      <ul>
+        <li>Temiz-kuru hava → filtre fan</li>
+        <li>Kirli hava, IP korunacak → hava-hava eşanjör</li>
+        <li>Fan, panoyu ortamın altına indiremez</li>
+        <li>Yıkama / deterjan / yağda fan uygun değil</li>
+      </ul>
+    </div>
+    <div class="card c-warn">
+      <h4>Pano kliması</h4>
+      <div class="big">T<sub>u</sub> ≥ T<sub>i</sub> veya kapalı çevrim</div>
+      <ul>
+        <li>Ortam hedef iç sıcaklığa eşit / yüksek</li>
+        <li>Yüksek IP + yüksek ısı yükü (VFD, servo)</li>
+        <li>Dış ortam, güneş, toz, kimyasal</li>
+        <li>Elektronik 35 °C civarında tutulacak</li>
+      </ul>
+    </div>
+    <div class="card c-bad">
+      <h4>Klima yetmez / yasak</h4>
+      <div class="big">Özel çözüm</div>
+      <ul>
+        <li>ATEX / IEC 60079: standart klima kullanılamaz</li>
+        <li>Süreç suyu varsa hava-su daha verimli olabilir</li>
+        <li>Isı yok ama çiğ noktası var → ısıtıcı</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note info">
+    <strong>Türkiye uygulaması.</strong> Makine panosu için çatı standart TS EN 60204-1, AG pano için TS EN IEC 61439-1/2’dir. EMO otomasyon panosu asgari şartnamesi her hücreye yoğuşmaya karşı termostat kontrollü ısıtma, soğutma ve/veya havalandırma ister; mahfaza asgari IP54, havalandırma IP’yi bozmamalıdır. Bu, “her zaman kompresörlü klima” anlamına gelmez; ihtiyaca göre ısıtıcı, fan veya klima seçilir.
+  </div>
+
+  <h2 id="standartlar">2. Standart envanteri</h2>
+  <p>Aşağıdaki liste, elektrik kutusunda klima olup olmamasını belirleyen veya seçilen iklimlendirme çözümünü bağlayan belgelerdir. Telifli tam metin yerine kamuya açık kapsam özetleri ve üretici uygulama kılavuzları kullanılmıştır. Sözleşmede güncel TS EN / EN sürümü esas alınmalıdır.</p>
+
+  <h3>2.1 Çatı standartlar — pano ve makine</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Standart</th><th>Kapsam</th><th>Klima kararına etkisi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="std">TS EN IEC 61439-1:2021<br>(IEC 61439-1:2020)</td>
+        <td>AG anahtarlama ve kontrol düzeni panoları — genel kurallar. Servis şartları (Madde 7 / Tablo 15), sıcaklık artışı sınırları (Tablo 6), tasarım doğrulaması (Madde 10.10).</td>
+        <td>Klima takma zorunluluğu koymaz. Pano, doğrulanmış sıcaklık artışı sınırlarını aşmamalıdır. Aktif soğutma (fan, klima, eşanjör) doğrulamanın parçası olabilir.</td>
+      </tr>
+      <tr>
+        <td class="std">TS EN IEC 61439-2:2021<br>(IEC 61439-2:2020)</td>
+        <td>Güç anahtarlama ve kontrol düzenekleri (PSC). Aktif soğutma tanımı (3.4.101). Madde 10.10.4.101 doğal soğutmalı &gt;1600 A; 10.10.4.102 aktif soğutmalı ≤1600 A hesapla doğrulama. Madde 10.3: IP testi soğutma ünitesi enerjisizken.</td>
+        <td>Klima/fanlı panoda hesapla doğrulama 1600 A’e kadar. IP5X/IP6X için soğutma ekipmanı üreticisinden IP onayı. Fotovoltaik panolar (PVA) da bu bölüme alındı.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC TR 60890:2022<br>(eski IEC 890)</td>
+        <td>Mahfaza içi hava sıcaklık artışı hesap yöntemi. 2022: güneş radyasyonu, malzeme, doğal/zorlanmış havalandırma, bitişik duvar, düzensiz kayıp dağılımı ekleri. Geçerlilik 3200 A’e genişletildi.</td>
+        <td>Klima ihtiyacının nicel kararı buradan çıkar: Q<sub>v</sub> ile mahfazanın yayabileceği ısı karşılaştırılır. Tam yöntem, kaba k·A·ΔT yaklaşımının üzerindedir.</td>
+      </tr>
+      <tr>
+        <td class="std">TS EN 60204-1:2018<br>(IEC 60204-1:2016+A1:2021)</td>
+        <td>Makine elektrik donanımı. Madde 4.4.3 ortam sıcaklığı (mahfaza dışı +5…+40 °C). Madde 4.4.4 nem. Madde 4.4.5 rakım 1000 m. Soğutma düzeninin bozulmaması dokümantasyonda yer alır.</td>
+        <td>Zararlı yoğuşma tasarımla veya ek önlemle (ısıtıcı, klima, drenaj deliği) önlenir. Fan/klima cihazı kapı/kapak üzerine, sökülecek kapaklara konulmamalıdır (cihaz yerleşimi).</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 61439-3…7</td>
+        <td>DBO (konut tipi), şantiye ACS, şebeke dağıtımı, bara yolu, EV şarj / marina panoları.</td>
+        <td>Aynı ısıl doğrulama mantığı; dış ortam ve halka açık yerlerde yoğuşma/güneş daha kritik.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>2.2 Mahfaza, IP, darbe, boş kabin</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Standart</th><th>Kapsam</th><th>Klima kararına etkisi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="std">TS EN 60529<br>IEC 60529</td>
+        <td>IP kodu (toz / su).</td>
+        <td>Yüksek IP (54/55/65/66) doğal ve fanlı havalandırmayı kısıtlar → kapalı çevrim klima veya eşanjör. IEC 61439-2: IP deneyi klima enerjisizken yapılır; fan-filtre IP’si ayrıca belgelenir.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 62208</td>
+        <td>AG panolar için boş mahfazalar.</td>
+        <td>Klima kesitinin kesilmesi IP, IK ve ısıl yayımı değiştirir; boş kabin belgesi tek başına yetmez.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 62262<br>(EN 50102)</td>
+        <td>IK darbe kodu (IK00–IK10).</td>
+        <td>Dış ortam / yıkanabilir alanda klima kapakları zayıf halkadır; IK hedefi klima ile birlikte doğrulanır.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 61969 serisi</td>
+        <td>Dış ortam elektronik mahfazaları.</td>
+        <td>Güneş, yağmur, UV, rüzgâr; çift cidar ve klima seçimini etkiler.</td>
+      </tr>
+      <tr>
+        <td class="std">UL 50 / NEMA 250<br>UL 508A</td>
+        <td>Kuzey Amerika mahfaza tipleri ve endüstriyel kontrol panoları.</td>
+        <td>Type 4/4X/12, IEC IP ile birebir eşdeğer değildir. İhracat panolarında ayrı belgelenir.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>2.3 Ortam, yoğuşma, çevresel sınıflandırma</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Standart</th><th>Kapsam</th><th>Klima kararına etkisi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="std">IEC 60721-3-3 / 3-4<br>IEC 60721-2-4</td>
+        <td>Sabit kullanım (hava korumalı / açık) çevre sınıfları; doğal güneş radyasyonu.</td>
+        <td>Dış kutu için 700–1120 W/m² güneş; IEC TR 60890 2022 eki ile ek sıcaklık artışı hesaba katılır.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 60068-2-30</td>
+        <td>Döngüsel nemli ısı (Db) — yoğuşma deneyi.</td>
+        <td>Klima + ısıtıcı tasarımının yoğuşma iddiasını doğrulamak için kullanılır.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 60364-5-51<br>TS HD 60364-5-51</td>
+        <td>Tesisatta dış etkilerin sınıflandırılması (AA sıcaklık, AB nem, AE toz, AF korozyon, AN güneş).</td>
+        <td>Proje şartnamesinde ortam kodu yazılmazsa klima kararı spekülatif kalır.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 60664-1</td>
+        <td>Yalıtım koordinasyonu, kirlilik derecesi.</td>
+        <td>Yoğuşma kirlilik derecesini yükseltir; endüstriyel pano varsayılanı kirlilik 3.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>2.4 Cihaz sıcaklık sınırları (klima set noktası buradan gelir)</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Standart</th><th>Cihaz</th><th>Pratik sınır</th></tr></thead>
+    <tbody>
+      <tr><td class="std">IEC 60947 serisi</td><td>Kontaktör, şalter, ayırıcı</td><td>Tipik mahfaza içi 40–55 °C; üzeri de-rating. Bağlantı ucu sıcaklık artışı 61439 Tablo 6 ile birlikte.</td></tr>
+      <tr><td class="std">IEC 61800 serisi</td><td>VFD / servo sürücü</td><td>Çoğu sürücü 40 °C anma, 50 °C’de ciddi de-rating. Kayıp ≈ motor gücünün %2–5’i. En büyük klima sürücüsü.</td></tr>
+      <tr><td class="std">IEC 61131-2</td><td>PLC donanımı</td><td>Tipik 0–55 °C; elektrolitik kondansatör ömrü her 10 K’de yaklaşık yarıya iner.</td></tr>
+      <tr><td class="std">IEC 61921:2017</td><td>Kompanzasyon kümeleri</td><td>61439-1 Madde 8.5.9 atıfı. Kondansatör bankı panoları yüksek kayıplıdır; klima veya zorlanmış havalandırma sık gerekir.</td></tr>
+      <tr><td class="std">IEC 62368-1 / SMPS üretici verisi</td><td>24 V güç kaynakları</td><td>Verim %85–94; kayıp = P<sub>out</sub>×(1/η−1). 40–50 °C üzeri ömür düşer.</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>2.5 Pano kliması ürün ve soğutucu gaz standartları</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Standart / mevzuat</th><th>Kapsam</th><th>Klima kararına etkisi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="std">DIN EN 14511-1…4</td>
+        <td>Klima / ısı pompası soğutma kapasitesinin ölçümü (TÜV onaylı pano klimalarında anılır).</td>
+        <td>Katalogdaki W değeri A35/A35 veya L35/L35 gibi standart noktadadır. Asıl seçim en kötü T<sub>i</sub>/T<sub>u</sub> noktasındaki kapasiteden yapılır (A35/A50).</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 60335-2-40<br>UL 60335-2-40</td>
+        <td>Isı pompası, klima ve nem alıcı güvenlik.</td>
+        <td>R-1234yf (A2L, hafif yanıcı) geçişinde eşik 1,734 kg; pano klimaları genellikle bu eşiğin altında.</td>
+      </tr>
+      <tr>
+        <td class="std">EN 378 serisi</td>
+        <td>Soğutma sistemleri — güvenlik ve çevre.</td>
+        <td>Makine dairesi hacmine göre soğutucu şarj sınırı.</td>
+      </tr>
+      <tr>
+        <td class="std">(AB) 2024/573 F-Gaz</td>
+        <td>Florlu sera gazları. 1 Ocak 2027’den itibaren piyasaya yeni cihazlarda GWP &lt; 150 (istisnalarda 750).</td>
+        <td>R-134a / R-410A yeni pano klimalarında sona eriyor; R-513A (GWP 631) geçiş, R-1234yf (GWP 0,5) hedef. Mevcut cihazlar 2032’ye kadar bakılabilir (GWP&gt;750 bakım yasağı).</td>
+      </tr>
+      <tr>
+        <td class="std">ISO 817 / ASHRAE 34</td>
+        <td>Soğutucu sınıflandırması (A1, A2L…).</td>
+        <td>Yeni nesil pano kliması seçiminde güvenlik sınıfı.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>2.6 Patlayıcı ortam, EMC, Türkiye mevzuatı</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Belge</th><th>Kapsam</th><th>Klima kararına etkisi</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="std">IEC 60079-0 / -14<br>2014/34/AB ATEX</td>
+        <td>Ex ekipman ve tesisat.</td>
+        <td>Standart pano kliması Zone 1/2 veya 21/22’de kullanılamaz. Ex iklimlendirme veya panoyu bölge dışına alma.</td>
+      </tr>
+      <tr>
+        <td class="std">IEC 61000-6-2/4<br>EN 61587-3</td>
+        <td>EMC bağışıklık/yayınım; kabin zayıflatması.</td>
+        <td>Filtre fan EMC zayıflatmasını düşürür; EMC panosunda kapalı çevrim tercih.</td>
+      </tr>
+      <tr>
+        <td class="std">Elektrik İç Tesisleri Yön.<br>EKATY · Topraklamalar Yön.<br>Binaların Yangından Korunması</td>
+        <td>Türkiye tesisat mevzuatı.</td>
+        <td>Pano imalatını bağlar; klima kablolaması, yangın yükü ve kaçak akım ayrı ele alınır.</td>
+      </tr>
+      <tr>
+        <td class="std">ÇŞB Genel Teknik Şartname<br>Bölüm 11 — Elektrik Panoları</td>
+        <td>Kamu / yapı işleri pano şartnamesi.</td>
+        <td>Proje özelinde havalandırma ve IP maddeleri yazılır.</td>
+      </tr>
+      <tr>
+        <td class="std">EMO — Otomasyon Panoları<br>Asgari Teknik Özellikler</td>
+        <td>PLC / MCC otomasyon panoları. TS EN 61439, 60204-1, 60529 listesi.</td>
+        <td>Madde 8.1.2: her hücreye yoğuşmaya karşı termostatlı ısıtma, soğutma ve/veya havalandırma. Sıcaklık artışı TS EN 61439. Mahfaza ≥ IP54. Havalandırma IP’yi bozmamalı.</td>
+      </tr>
+      <tr>
+        <td class="std">2014/35/AB LVD<br>2006/42/AT Makine</td>
+        <td>CE çerçevesi.</td>
+        <td>Pano + klima, makine elektrik donanımının parçasıdır; ısıl risk analizi teknik dosyada durur.</td>
+      </tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h2 id="sartlar">3. Klima kararı hangi şartlara bağlıdır</h2>
+
+  <h3>3.1 Standart servis şartları (IEC 61439-1 Madde 7 / Tablo 15)</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Parametre</th><th>İç ortam (normal)</th><th>Dış ortam (normal)</th><th>Aşılırsa</th></tr></thead>
+    <tbody>
+      <tr><td>Ortam hava sıcaklığı</td><td>−5…+40 °C, 24 saat ortalama ≤ 35 °C</td><td>−25…+40 °C, 24 saat ortalama ≤ 35 °C</td><td>Özel servis şartı: de-rating veya aktif soğutma. Türkiye yazın gölgede 40 °C, güneşte mahfaza yüzeyi 60–70 °C’ye çıkabilir.</td></tr>
+      <tr><td>Bağıl nem</td><td>%50 @ 40 °C veya %90 @ 20 °C (seyrek yoğuşma)</td><td>%100 @ 25 °C (sık çiğ)</td><td>Higrostatlı ısıtıcı ve/veya nem alan klima.</td></tr>
+      <tr><td>Rakım</td><td colspan="2">≤ 2000 m (60204-1: 1000 m)</td><td>Hava incelir, soğutma düşer; fan debisi k faktörü ile artırılır (3000 m’de k ≈ 0,71).</td></tr>
+      <tr><td>Kirlilik derecesi</td><td colspan="2">Endüstriyel varsayılan 3</td><td>Toz/yağda açık çevrim fan filtreyi tıkar.</td></tr>
+      <tr><td>Güneş / yağış</td><td>Yok</td><td>Doğrudan güneş ve yağış varsayılır</td><td>UV boya, IPX4+, çift cidar, ek Q<sub>güneş</sub>.</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <p>IEC 60204-1 mahfaza <em>dışı</em> asgari doğru çalışma aralığını +5…+40 °C verir. Pano <em>içi</em> hava, kayıplar nedeniyle bunun üzerindedir. Hedef iç sıcaklık, en hassas cihazın üretici maksimumunun altında seçilir; elektronik için yaygın mühendislik hedefi <strong>35 °C</strong>’dir (Siemens: 5 K düşüş ≈ %20 ömür artışı).</p>
+
+  <h3>3.2 Sıcaklık artışı sınırları (IEC 61439-1 Tablo 6, 35 °C referans)</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Bölüm</th><th>İzin verilen artış</th><th>Mutlak (35 °C ortamda)</th></tr></thead>
+    <tbody>
+      <tr><td>Gömülü cihazlar</td><td>Ürün standardı / üretici</td><td>Genelde 50–70 °C mahfaza içi hava sınırı</td></tr>
+      <tr><td>Dış yalıtımlı iletken terminalleri</td><td>70 K</td><td>105 °C</td></tr>
+      <tr><td>Çıplak bakır bara (diğer kriterler sağlanırsa tavan)</td><td>105 K</td><td>140 °C</td></tr>
+      <tr><td>Erişilebilir metal yüzey / sap</td><td>30 K / 15 K (tipik)</td><td>Dokunma güvenliği</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+  <div class="note">En düşük geçerli sınır hükmeder. Bara 105 K kaldırsa bile şalter terminali 70–85 K ise bağlantı o sınıra iner. Klima set noktası Tablo 6’yı “otomatik çözen” bir değer değildir; cihaz üretici sınırını korumak içindir.</div>
+
+  <h3>3.3 Karar matrisi</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Koşul</th><th>İklimlendirme</th><th>Çözüm</th><th>Neden</th></tr></thead>
+    <tbody>
+      <tr><td>Q<sub>s</sub> ≥ Q<sub>v</sub>, hotspot yok, yoğuşma yok</td><td><span class="tag t4">Hayır</span></td><td>Pasif mahfaza</td><td>Standart sonuç zaten sağlanıyor</td></tr>
+      <tr><td>Q<sub>s</sub> &lt; Q<sub>v</sub>, T<sub>u</sub> &lt; T<sub>i</sub>, hava temiz-kuru, IP düşük/orta</td><td><span class="tag t3">Evet</span></td><td>Termostatlı filtre fan</td><td>Açık çevrim, ucuz; filtre bakımı şart</td></tr>
+      <tr><td>Q<sub>s</sub> &lt; Q<sub>v</sub>, T<sub>u</sub> &lt; T<sub>i</sub>, toz/yağ/IP54+</td><td><span class="tag t3">Evet</span></td><td>Hava-hava eşanjör</td><td>İki ayrı devre; dış hava panoya girmez</td></tr>
+      <tr><td>T<sub>u</sub> ≥ T<sub>i</sub> hedefi</td><td><span class="tag t2">Evet</span></td><td>Kompresörlü pano kliması veya hava-su</td><td>Fan fizik olarak ortamın altına inemez</td></tr>
+      <tr><td>Yıkama, deterjan, iletken toz, gıda hijyen</td><td><span class="tag t2">Evet</span></td><td>Kapalı çevrim klima, IP56 / Type 4X</td><td>Fan kirleticiyi içeri taşır</td></tr>
+      <tr><td>Dış ortam + güneş + elektronik</td><td><span class="tag t2">Evet</span></td><td>Klima + güneş siper / çift cidar</td><td>Yüzey ısınması Q<sub>s</sub>’yi negatif yapar</td></tr>
+      <tr><td>Yüksek VFD kaybı, proses soğutma suyu var</td><td><span class="tag t2">Evet</span></td><td>Hava-su eşanjör + chiller</td><td>Mahal ısısını odaya basmaz</td></tr>
+      <tr><td>Isı düşük, duruşta çiğ noktası</td><td><span class="tag t3">Isıtıcı</span></td><td>Higrostat / termostatlı ısıtıcı</td><td>Sorun soğutma değil yoğuşma</td></tr>
+      <tr><td>Kış −25 °C dış, yaz +45 °C</td><td><span class="tag t2">Her ikisi</span></td><td>Klima + ısıtıcı</td><td>61439 dış ortam nemi %100 @ 25 °C</td></tr>
+      <tr><td>ATEX Zone</td><td><span class="tag t1">Özel</span></td><td>Ex klima veya pano bölge dışı</td><td>Kompresör kıvılcım / sıcak yüzey kaynağı</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h2 id="dogrulama">4. IEC 61439 sıcaklık artışı doğrulaması</h2>
+  <p>İklimlendirme, 10.10 maddesinin yerine geçmez; onun aracıdır. Orijinal imalatçı yöntem seçer (Şekil O.1):</p>
+  <div class="flow">
+    <div class="step"><div class="n">1</div><div><strong>Deney.</strong> En ağır kombinasyon (üstte şalt, Form 4B, yüksek IP). Akım yükleyerek Tablo 6.</div></div>
+    <div class="step"><div class="n">2</div><div><strong>Türetme.</strong> Denenmiş benzer tasarımdan. Aynı veya daha büyük mahfaza, aynı veya daha iyi soğutma, aynı veya daha az iç ayırma ve kayıp.</div></div>
+    <div class="step"><div class="n">3</div><div><strong>Hesap.</strong> Tek hücre ≤ 630 A (cihazlar %80 de-rate, iletken %125 kesit kuralı) veya pano ≤ 1600 A. Aktif soğutmalı panoda IEC 61439-2:2020 Madde 10.10.4.102: hesap 1600 A’e kadar. Üzeri deney.</div></div>
+  </div>
+
+  <h4>Aktif soğutmalı pano hesap adımları (IEC 61439-2 / EAE uygulaması)</h4>
+  <ol class="std-list">
+    <li>İzin verilen iç hava artışı = en düşük cihaz max. işletme havası − mahfaza dışı max. ortam.</li>
+    <li>Toplam etkin kayıp: tüm devreler grup anma akımında (RDF / eşzamanlılık). Kablo + bara dâhil (61439-1 10.10.4.1).</li>
+    <li>Mahfazanın doğal yayabileceği max. kayıp: IEC TR 60890 veya kabin üreticisi P<sub>diss</sub>.</li>
+    <li>Aktif soğutmanın atması gereken güç = toplam kayıp − doğal yayılım. T<sub>i</sub> &lt; T<sub>u</sub> ise mahfaza ısı <em>alır</em>; bu terim toplama eklenir.</li>
+    <li>Soğutma cihazı üretici eğrisinden, iç hava artışını aşmadan bu gücü atan fan / klima / eşanjör seçilir.</li>
+  </ol>
+  <div class="quote">Assembly is verified if the cooling means (active and natural) are sufficient to ensure the air temperature within the enclosure does not exceed the maximum permissible operating air temperature for any device… when the ambient air temperature outside the enclosure is in accordance with Table 15.<cite>IEC 61439-2:2020 Madde 10.10.4.102.3 — kamuya açık alıntı özeti</cite></div>
+
+  <div class="note danger"><strong>IP tuzağı.</strong> Aktif soğutmalı mahfazada IP5X/IP6X, soğutma ünitesi <em>kapalıyken</em> IEC 60529’a göre denenir. Fan ve filtre varsa orijinal imalatçı, soğutma ekipmanı imalatçısından gerekli IP onayını alır. Klima kesiti, boş kabinin IP54 belgesini geçersiz kılar; montaj sonrası sistem IP’si yazılmalıdır.</div>
+
+  <h2 id="hesap">5. Hesap yöntemi</h2>
+
+  <h3>5.1 Etkin yüzey (IEC 890 / TR 60890 yerleşim tipleri)</h3>
+  <p>A, geometrik 6 yüzey değildir. Bitişik duvar ve komşu hücreler katsayı düşürür. Taban genelde 0 (zemin).</p>
+  <div class="formula">A = 1.4·Aü + fön·Aön + farka·Aarka + fsol·Asol + fsağ·Asağ
+Aü = G·D    Aön = Aarka = Y·G    Asol = Asağ = Y·D</div>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Tip</th><th>Yerleşim</th><th>Üst</th><th>Ön</th><th>Arka</th><th>Sol</th><th>Sağ</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Tek, her yanı açık</td><td>1.4</td><td>0.9</td><td>0.9</td><td>0.9</td><td>0.9</td></tr>
+      <tr><td>2</td><td>Tek, duvara montaj</td><td>1.4</td><td>0.9</td><td>0.5</td><td>0.9</td><td>0.9</td></tr>
+      <tr><td>3</td><td>Sıra başı/sonu, serbest</td><td>1.4</td><td>0.9</td><td>0.9</td><td>0.5</td><td>0.9</td></tr>
+      <tr><td>4</td><td>Sıra başı/sonu, duvar</td><td>1.4</td><td>0.9</td><td>0.5</td><td>0.5</td><td>0.9</td></tr>
+      <tr><td>5</td><td>Sıra ortası, serbest</td><td>1.4</td><td>0.9</td><td>0.9</td><td>0</td><td>0</td></tr>
+      <tr><td>6</td><td>Sıra ortası, duvar</td><td>1.4</td><td>0.9</td><td>0.5</td><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>5.2 Isı geçiş katsayısı k</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Mahfaza</th><th>k (W/m²K)</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Boyalı sac</td><td>5.5</td><td>Rittal / IEC 890 pratik değeri; durgun iç hava</td></tr>
+      <tr><td>Paslanmaz çelik</td><td>3.7–4.5</td><td>Daha kötü yayılım</td></tr>
+      <tr><td>Alüminyum</td><td>~12</td><td>İyi yayılım</td></tr>
+      <tr><td>Plastik / polikarbonat</td><td>~3.5</td><td>Küçük kutularda klima yerine büyük yüzey veya fan</td></tr>
+      <tr><td>Çift cidar / yalıtımlı dış kabin</td><td>~2.5</td><td>Güneşi keser ama iç ısıyı da hapseder → klima ihtimali artar</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h3>5.3 Temel denklemler</h3>
+  <div class="formula">ΔT = Ti − Tu
+Qs = k · A · ΔT          (Qs &lt; 0 ise dışarıdan ısı girer)
+Qe = Qv + Qgüneş − Qs    (klima/eşanjörün atması gereken net güç)
+V̇  = 3.1 · Qe / ΔT      (m³/h, yalnız fan; ΔT &gt; 0)
+QH = k · A · |ΔT|        (ısıtıcı; kışın Ti &gt; Tu tutulacaksa, dış hava hareketliyse ×2)
+çiy = Magnus(Tu, RH)
+Ti,min ≈ çiy + 3 K</div>
+  <div class="note">k·A·ΔT ön boyutlandırmadır. IEC TR 60890 iç hava tabakaları, havalandırma açıklıkları, düzensiz kayıp ve güneş ekleri kullanır. Form 4 iç ayırma hava akışını kestiği için hesap varsayımlarını bozar. Nihai seçim RiTherm / PanelTemp / üretici eğrisi + 61439 doğrulamasıdır.</div>
+
+  <h3>5.4 Kayıp (Q<sub>v</sub>) nasıl bulunur</h3>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Cihaz</th><th>Kaba kayıp</th><th>Kaynak</th></tr></thead>
+    <tbody>
+      <tr><td>VFD / servo</td><td>Motor anma gücünün %2–5’i (yüksek verimli %2–3)</td><td>IEC 61800 katalog “power loss”</td></tr>
+      <tr><td>24 V PSU</td><td>P<sub>out</sub> × (1/η − 1)</td><td>%90 verimde 240 W çıkış → 27 W</td></tr>
+      <tr><td>PLC + I/O</td><td>CPU 8–25 W + modül başına 2–8 W</td><td>IEC 61131-2 / katalog</td></tr>
+      <tr><td>Kontaktör</td><td>Bobin 3–8 W + kontak 1–4 W</td><td>IEC 60947</td></tr>
+      <tr><td>Trafo</td><td>Boşta + yükte, %3–8</td><td>Üretici</td></tr>
+      <tr><td>Bara / kablo</td><td>I²R, 61439 Ek H/K (iç hava 55 °C varsayımı yaygın)</td><td>RDF ile çarp</td></tr>
+      <tr><td>Kompanzasyon</td><td>kvar başına birkaç W + reaktör</td><td>IEC 61921</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+  <p>Kayıp yoksa: aynı pano geometrisinde ölçülen ΔT’den Q<sub>v</sub> ≈ k·A·ΔT geri hesaplanır (Rittal yöntemi). En kötü koşul: yaz tepe T<sub>u</sub>, RDF=1 veya şartnamedeki eşzamanlılık, güneş, rakım, kirli filtre.</p>
+
+  <h3>5.5 Fan debisi ve rakım</h3>
+  <p>Serbest hava debisi değil, filtre + ızgara karşı basıncındaki debi kullanılır. 6 ay kirli filtre debisi 1/3’e inebilir (EAE örneği: 540 → 445 → 180 m³/h). Tercih: alttan basma, üstten tahliye; üstten emme kaçaklardan kirli hava çeker.</p>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Rakım (m)</th><th>0</th><th>500</th><th>1000</th><th>1500</th><th>2000</th><th>2500</th><th>3000</th></tr></thead>
+    <tbody>
+      <tr><td>k (debi çarpanı, 1/k kadar artır)</td><td>1.00</td><td>0.95</td><td>0.89</td><td>0.84</td><td>0.80</td><td>0.75</td><td>0.71</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h2 id="arac">6. Canlı ön boyutlandırma aracı</h2>
+  <div class="note info">Sarı alan yok; soldaki girdileri değiştirin. Sonuç ön tasarımdır, 61439 belgesi değildir. Marj varsayılan %20.</div>
+  <div class="panel"><div class="panel-b">
+    <div class="calc">
+      <div>
+        <div class="pair">
+          <div><label>Genişlik (mm)</label><input id="w" type="number" value="800" oninput="calc()"></div>
+          <div><label>Yükseklik (mm)</label><input id="h" type="number" value="2000" oninput="calc()"></div>
+        </div>
+        <div class="pair">
+          <div><label>Derinlik (mm)</label><input id="d" type="number" value="600" oninput="calc()"></div>
+          <div><label>Yerleşim tipi</label>
+            <select id="typ" onchange="calc()">
+              <option value="1">1 — Tek, her yanı açık</option>
+              <option value="2" selected>2 — Tek, duvar</option>
+              <option value="3">3 — Sıra başı, serbest</option>
+              <option value="4">4 — Sıra başı, duvar</option>
+              <option value="5">5 — Sıra ortası, serbest</option>
+              <option value="6">6 — Sıra ortası, duvar</option>
+            </select>
+          </div>
+        </div>
+        <div class="pair">
+          <div><label>Malzeme k</label>
+            <select id="k" onchange="calc()">
+              <option value="5.5" selected>Sac 5.5</option>
+              <option value="4.5">Paslanmaz 4.5</option>
+              <option value="12">Alüminyum 12</option>
+              <option value="3.5">Plastik 3.5</option>
+              <option value="2.5">Çift cidar 2.5</option>
+            </select>
+          </div>
+          <div><label>Toplam kayıp Qv (W)</label><input id="qv" type="number" value="800" oninput="calc()"></div>
+        </div>
+        <div class="pair">
+          <div><label>Max. ortam Tu (°C)</label><input id="tu" type="number" value="40" oninput="calc()"></div>
+          <div><label>Hedef iç Ti (°C)</label><input id="ti" type="number" value="35" oninput="calc()"></div>
+        </div>
+        <div class="pair">
+          <div><label>Güneş / harici (W)</label><input id="qs" type="number" value="0" oninput="calc()"></div>
+          <div><label>Bağıl nem (%)</label><input id="rh" type="number" value="50" oninput="calc()"></div>
+        </div>
+        <div class="pair">
+          <div><label>Emniyet marjı (%)</label><input id="m" type="number" value="20" oninput="calc()"></div>
+          <div><label>Ortam</label>
+            <select id="env" onchange="calc()">
+              <option>Temiz-kuru iç</option>
+              <option>Tozlu / yağlı iç</option>
+              <option>Yıkama / gıda</option>
+              <option>Dış ortam</option>
+              <option>Korozif / tuz</option>
+              <option>ATEX</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="result"><div class="k">Etkin yüzey A</div><div class="v" id="rA">—</div></div>
+        <div class="result"><div class="k">Doğal yayılım Qs</div><div class="v" id="rQs">—</div></div>
+        <div class="result"><div class="k">Net atılacak Qe (marjsız)</div><div class="v" id="rQe">—</div></div>
+        <div class="result"><div class="k">Önerilen kapasite (marjlı)</div><div class="v" id="rSel">—</div></div>
+        <div class="result"><div class="k">Çiğ noktası / min. Ti</div><div class="v" id="rDew">—</div></div>
+        <div class="result" id="rBox" style="border-width:2px"><div class="k">Karar</div><div class="v" id="rDec" style="font-size:1.02rem">—</div></div>
+      </div>
+    </div>
+    <p id="rWhy" style="margin-top:10px;font-size:.84rem;color:#aab4c0"></p>
+  </div></div>
+
+  <h2 id="teknoloji">7. Soğutma teknolojileri</h2>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Teknoloji</th><th>Fizik şartı</th><th>IP / kirlilik</th><th>Enerji</th><th>Ne zaman</th></tr></thead>
+    <tbody>
+      <tr><td>Doğal konveksiyon</td><td>Ti &gt; Tu, Qs ≥ Qv</td><td>Yüksek IP korunur</td><td>0</td><td>Küçük röle kutusu, düşük kayıp</td></tr>
+      <tr><td>Filtre fan</td><td>Ti &gt; Tu</td><td>Açık çevrim; IP düşer, filtre tıkanır</td><td>Düşük</td><td>Temiz elektrik odası</td></tr>
+      <tr><td>Hava-hava eşanjör</td><td>Ti &gt; Tu</td><td>Kapalı iç devre</td><td>Düşük-orta</td><td>Tozlu atölye, Tu yeterince düşük</td></tr>
+      <tr><td>Kompresörlü pano kliması</td><td>Ti &lt; Tu mümkün</td><td>İç IP54–66, dış IP34+</td><td>Yüksek; inverter (Blue e+) daha iyi</td><td>Yaz 40 °C, VFD, dış kabin</td></tr>
+      <tr><td>Hava-su eşanjör</td><td>Soğuk su devresi</td><td>Tam kapalı</td><td>Pano tarafı çok verimli</td><td>Yüksek kW, küçük oda, proses suyu</td></tr>
+      <tr><td>Peltier</td><td>Ti &lt; Tu, düşük W</td><td>Kapalı</td><td>Kötü COP</td><td>&lt; 200 W küçük kutu, titreşimsiz</td></tr>
+      <tr><td>Isıtıcı</td><td>Ti &lt; çiy veya cihaz min.</td><td>—</td><td>Düşük</td><td>Dış kabin kış, duruş yoğuşması</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h4>Katalog A35/A35 ≠ saha</h4>
+  <p>Üreticiler soğutmayı L35 L35 (iç 35 / dış 35) verir. Dış 50 °C’de kapasite yarıya inebilir (Pfannenberg DTS 3181 örneği: 1235 W A35/A35 → 570 W A35/A50). Seçim her zaman uygulama noktasındaki eğriden.</p>
+
+  <h4>Ürün ailesi (örnek, model teyidi şart)</h4>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Aile</th><th>Tipik aralık</th><th>Uygun ortam</th></tr></thead>
+    <tbody>
+      <tr><td>Rittal Blue e+ S / Blue e+</td><td>0,3–5,5 kW, inverter, paslanmaz seçenek</td><td>Endüstri iç / orta-yüksek yük, enerji önceliği</td></tr>
+      <tr><td>Pfannenberg DTS 3xxx outdoor</td><td>~0,5–2 kW, IP56, Type 4/4X</td><td>Yıkama, gıda, dış ortam</td></tr>
+      <tr><td>Seifert SOLITHERM PROTEC</td><td>0,6–4 kW, AISI 316, kaplı dış devre</td><td>Klorür, kıyı, kimya</td></tr>
+      <tr><td>nVent HOFFMAN SpectraCool</td><td>Geniş, NEMA 4X</td><td>UL/NEMA şartı</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h2 id="ornek">8. Çalışılmış örnekler</h2>
+
+  <h3>Örnek A — Duvar tipi MCC, yaz 40 °C, hedef 35 °C</h3>
+  <p>2000×800×600 mm sac, tip 2, k=5.5, Qv=800 W, güneş yok.</p>
+  <div class="formula">A ≈ 1.4·0.48 + 0.9·1.60 + 0.5·1.60 + 0.9·1.20 + 0.9·1.20 = 5.07 m²
+Qs = 5.5 · 5.07 · (35−40) = −139 W   (dışarıdan ısı girer)
+Qe = 800 − (−139) = 939 W
+Marj %20 → seçim ≥ 1130 W  @ Ti=35 / Tu=40</div>
+  <p><strong>Karar:</strong> Fan imkânsız (Tu &gt; Ti). Kompresörlü pano kliması, A35/A40 eğrisinde ≥ 1,2 kW. Elektrik odası küçükse mahal ısısını odaya basmamak için hava-su düşünülür.</p>
+
+  <h3>Örnek B — Temiz oda, Tu=25 °C, Ti=35 °C, Qv=400 W, aynı pano</h3>
+  <div class="formula">Qs = 5.5 · 5.07 · 10 = 279 W
+Qe = 400 − 279 = 121 W
+V̇ = 3.1 · 121 / 10 ≈ 38 m³/h  → kirli filtre payı ile 80–120 m³/h fan</div>
+  <p><strong>Karar:</strong> Filtre fan yeterli. IP54 korunacaksa çıkış filtresi + düzenli bakım. VFD varsa yine hotspot kontrolü.</p>
+
+  <h3>Örnek C — Küçük kutu 400×300×200 mm, PLC+PSU 45 W, Tu=30 °C</h3>
+  <div class="formula">A ≈ 0.35 m² (tip 2 kaba)
+Qs ≈ 5.5 · 0.35 · 5 = 10 W  (Ti=35)
+Qe ≈ 35 W</div>
+  <p>Küçük kutuda yüzey yetmez. Seçenek: daha büyük mahfaza, fan (ortam temizse) veya 100–200 W Peltier/mini klima. “Klima şart” değil; yüzey büyütmek çoğu zaman yeter.</p>
+
+  <h3>Örnek D — Dış ortam PV / saha kutusu</h3>
+  <p>IEC 60721 güneş 700–1120 W/m². Koyu sac + doğrudan güneş, iç hava 15–25 K ekler. 61439 normal dış max. +40 °C çoğu Türkiye sahasında yazın aşılır → özel servis şartı. Çift cidar güneşi keser ama k’yi düşürür; elektronik varsa klima + siper + açık renk boya paketi. Gece çiğ için ısıtıcı neredeyse her dış kabinde gerekir.</p>
+
+  <h2 id="kurulum">9. Kurulum, yoğuşma, işletme</h2>
+  <div class="grid">
+    <div class="card c-info">
+      <h4>Hava yolu</h4>
+      <ul>
+        <li>İç emiş/üfleme &gt; 200 mm açık</li>
+        <li>Klimayı montaj plakasının arkasına gömme</li>
+        <li>VFD kendi fanı klima akışına ters olmasın</li>
+        <li>Soğuk havayı cihaza doğrudan üfleme (yoğuşma)</li>
+        <li>Dış kondenser &gt; 200 mm duvar boşluğu</li>
+      </ul>
+    </div>
+    <div class="card c-warn">
+      <h4>Yoğuşma</h4>
+      <ul>
+        <li>Klima iç havayı kurutur; evaporatörde su oluşur</li>
+        <li>Drenaj veya buharlaştırıcı şart</li>
+        <li>Kapı açıkken klima durmalı (kapı kontağı)</li>
+        <li>Set ≥ çiğ + 3 K</li>
+        <li>Duruşta higrostatlı ısıtıcı</li>
+      </ul>
+    </div>
+    <div class="card c-bad">
+      <h4>Elektrik / güvenlik</h4>
+      <ul>
+        <li>Tüm kutuplu ayırıcı ≥ 3 mm</li>
+        <li>Tip etiketindeki koruma elemanı</li>
+        <li>Yüksek sıcaklık alarmı + makine kilidi</li>
+        <li>F-Gaz: 2027 GWP &lt; 150 yeni cihaz</li>
+        <li>ATEX’te standart klima yasak</li>
+      </ul>
+    </div>
+  </div>
+  <div class="note">EMO: havalandırma IP’yi bozmamalı. 60204-1: soğutma düzeninin bozulmaması için montaj talimatı kullanıcıya verilir. Fanlı tasarımın ömrü filtre bakımına bağlıdır; bakımsız fan, 61439 doğrulamasını sahada geçersiz kılar.</div>
+
+  <h2>10. Sık yanılgılar</h2>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Yanılgı</th><th>Gerçek</th></tr></thead>
+    <tbody>
+      <tr><td>“IP54 pano = klima zorunlu”</td><td>IP, kirlilik ve havalandırma yolunu kısıtlar; karar hâlâ Qe işaretine bağlıdır.</td></tr>
+      <tr><td>“VFD’nin kendi fanı panoyu soğutur”</td><td>Yalnız cihaz içini homojenler; ısıyı mahfazadan atmaz (EAE / 61439 uygulaması).</td></tr>
+      <tr><td>“Katalog 1500 W yeter”</td><td>A35/A50’de 600 W kalabilir. Eğri şart.</td></tr>
+      <tr><td>“Klima yoğuşmayı bitirir”</td><td>Kapı açılınca nem girer; duruşta ısıtıcı gerekir.</td></tr>
+      <tr><td>“Hesap = belgelenmiş pano”</td><td>1600 A üstü aktif soğutmada deney. Hesap varsayımları (Form, RDF, homojen kayıp) tutulmazsa geçersiz.</td></tr>
+      <tr><td>“NEMA 4X = IP66”</td><td>Test yöntemleri farklı; ikisi ayrı yazılır.</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <h2 id="check">11. Tasarım kontrol listesi</h2>
+  <div class="panel"><div class="panel-b">
+    <ul class="check">
+      <li><span class="cb"></span><span><strong>Girdi.</strong> Tüm cihaz + kablo/bara kayıpları üretici W cinsinden; RDF/eşzamanlılık yazılı.</span></li>
+      <li><span class="cb"></span><span><strong>Ortam.</strong> Max Tu, 24 saat ortalama, RH, rakım, güneş, toz/yağ/yıkama/kimyasal, ATEX bölgesi.</span></li>
+      <li><span class="cb"></span><span><strong>Hedef Ti.</strong> En hassas cihaz max. işletme havasının altında (elektronik için 35 °C yaygın).</span></li>
+      <li><span class="cb"></span><span><strong>Pasif yeterlilik.</strong> IEC TR 60890 veya üretici yazılımı; Qe ≤ 0 ise cihaz takılmaz, hesap arşivlenir.</span></li>
+      <li><span class="cb"></span><span><strong>Teknoloji.</strong> Tu&lt;Ti ve temiz → fan; kirli ve Tu&lt;Ti → hava-hava; Tu≥Ti veya yıkama → klima/hava-su.</span></li>
+      <li><span class="cb"></span><span><strong>Kapasite.</strong> Uygulama noktası (ör. A35/A40) ≥ Qe × (1+marj). DIN EN 14511 değerini A35/A35 ile karıştırma.</span></li>
+      <li><span class="cb"></span><span><strong>IP/IK.</strong> Klima montajı sonrası sistem IP; IEC 61439-2 10.3 (ünite kapalıyken). Yıkamada IP56/Type 4X teyidi.</span></li>
+      <li><span class="cb"></span><span><strong>Yoğuşma.</strong> Çiğ + 3 K; drenaj; kapı kontağı; kış ısıtıcısı.</span></li>
+      <li><span class="cb"></span><span><strong>61439 dosyası.</strong> Deney / türetme / hesap. 1600 A üstü aktif soğutma = deney.</span></li>
+      <li><span class="cb"></span><span><strong>Alarm.</strong> İç sıcaklık yüksek, klima arıza, filtre tıkalı → makine duruş veya uyarı politikası.</span></li>
+      <li><span class="cb"></span><span><strong>F-Gaz / ATEX.</strong> 2027 GWP; Zone varsa Ex uzmanı.</span></li>
+      <li><span class="cb"></span><span><strong>Saha testi.</strong> Tam yük kararlı durumda limitler; yıkama sonrası iç kuruluk.</span></li>
+      <li><span class="cb"></span><span><strong>Değişiklik.</strong> Sonradan VFD/PSU eklenirse hesap yenilenir.</span></li>
+    </ul>
+  </div></div>
+
+  <h2 id="kaynak">12. Kaynaklar</h2>
+  <div class="panel"><div class="scroll">
+  <table>
+    <thead><tr><th>Kaynak</th><th>Kullanılan bilgi</th><th>Erişim</th></tr></thead>
+    <tbody>
+      <tr><td>IEC 61439-1:2020 / TS EN IEC 61439-1</td><td>Servis şartları, Tablo 6, 10.10</td><td><a href="https://webstore.iec.ch/en/publication/32338">webstore.iec.ch</a></td></tr>
+      <tr><td>IEC 61439-2:2020</td><td>Aktif soğutma, 10.10.4.102, IP 10.3</td><td><a href="https://webstore.iec.ch/publication/59964">webstore.iec.ch</a></td></tr>
+      <tr><td>IEC TR 60890:2022</td><td>Sıcaklık artışı hesabı, güneş ve fan ekleri</td><td><a href="https://webstore.iec.ch/en/publication/66007">webstore.iec.ch</a></td></tr>
+      <tr><td>IEC 60204-1:2016+A1:2021</td><td>4.4.3–4.4.5 sıcaklık, nem, yoğuşma</td><td><a href="https://webstore.iec.ch/en/publication/71256">webstore.iec.ch</a></td></tr>
+      <tr><td>IEC 60529 / IP ratings</td><td>IP kodu</td><td><a href="https://iec.ch/ip-ratings">iec.ch/ip-ratings</a></td></tr>
+      <tr><td>IEC 60079-0 / 60079-14</td><td>Ex ekipman ve tesisat</td><td>IEC webstore</td></tr>
+      <tr><td>DIN EN 14511</td><td>Klima kapasite ölçümü</td><td>DIN / CEN</td></tr>
+      <tr><td>(AB) 2024/573</td><td>F-Gaz 2027 GWP sınırı</td><td><a href="https://eur-lex.europa.eu/eli/reg/2024/573/oj/eng">EUR-Lex</a></td></tr>
+      <tr><td>EAE — Forced ventilation airflow</td><td>61439-2 aktif soğutma 5 adım, fan örneği, rakım k</td><td><a href="https://www.eaeelektroteknik.com/en/blog/ventilation-airflow">eaeelektroteknik.com</a></td></tr>
+      <tr><td>ETP — Metin Akay, 61439 doğrulama</td><td>10.10 yöntemleri, 35/40 °C varsayımı, 2020 revizyonları</td><td><a href="https://www.elektriktesisatportali.com/alcak-gerilim-tip-testli-pano-tasarim-dogrulama-bolum-2.html">elektriktesisatportali.com</a></td></tr>
+      <tr><td>ABB TAP No.11 / 61439 workbook</td><td>Tablo 6, iç/dış servis, yoğuşma önlemleri</td><td>ABB library</td></tr>
+      <tr><td>Rittal Technical Cooling Catalog / RiTherm</td><td>k=5.5, Qe=Qv−kAΔT, IEC 890 yüzey, montaj boşlukları</td><td><a href="https://www.rittal.com/com-en/Software/RiTherm">rittal.com</a></td></tr>
+      <tr><td>EMO Otomasyon Panoları Asgari Teknik Özellikler</td><td>Termostatlı ısıtma/soğutma/havalandırma, IP54</td><td><a href="https://www.emo.org.tr/ekler/8e3a1590e15ed69_ek.pdf">emo.org.tr</a></td></tr>
+      <tr><td>Siemens IEC 60204 / 61439 uygulama</td><td>5 K ≈ %20 ömür; 61439 ısıl doğrulama zorunluluğu</td><td>siemens.com</td></tr>
+    </tbody>
+  </table>
+  </div></div>
+
+  <div class="note danger">
+    <strong>Sınır.</strong> Bu rapor mühendislik ön tasarımı ve standart haritasıdır. IEC/TS tam metinleri teliflidir; ihale, CE dosyası ve imalat doğrulaması lisanslı standart + orijinal imalatçı belgelerine dayanmalıdır. Hesap aracı IEC TR 60890’ın yerine geçmez.
+  </div>
+
+  <div class="footer">
+    RESEARCH / ELEKTRİK KUTUSU KLİMA — Elektrik-Kutusu-Klima-Arastirma-Raporu.html<br>
+    Derleme: 18.09.2026 · Kapsam: AG elektrik kutusu ve pano iklimlendirmesi (fan, klima, eşanjör, ısıtıcı)<br>
+    Önceki iç not: Pano Klima.xlsx (21.08.2026) ile birleştirildi ve standart envanteri genişletildi.
+  </div>
+</div>
+
+<script>
+const FACT = {
+  1: {t:1.4,f:0.9,r:0.9,l:0.9,ri:0.9},
+  2: {t:1.4,f:0.9,r:0.5,l:0.9,ri:0.9},
+  3: {t:1.4,f:0.9,r:0.9,l:0.5,ri:0.9},
+  4: {t:1.4,f:0.9,r:0.5,l:0.5,ri:0.9},
+  5: {t:1.4,f:0.9,r:0.9,l:0,ri:0},
+  6: {t:1.4,f:0.9,r:0.5,l:0,ri:0}
+};
+function dewpoint(t, rh) {
+  const g = Math.log(Math.max(rh, 0.1) / 100) + (17.62 * t) / (243.12 + t);
+  return 243.12 * g / (17.62 - g);
+}
+function calc() {
+  const W = (+document.getElementById('w').value || 0) / 1000;
+  const H = (+document.getElementById('h').value || 0) / 1000;
+  const D = (+document.getElementById('d').value || 0) / 1000;
+  const f = FACT[document.getElementById('typ').value];
+  const k = +document.getElementById('k').value;
+  const Qv = +document.getElementById('qv').value || 0;
+  const Tu = +document.getElementById('tu').value;
+  const Ti = +document.getElementById('ti').value;
+  const Qsun = +document.getElementById('qs').value || 0;
+  const rh = +document.getElementById('rh').value || 0;
+  const mar = (+document.getElementById('m').value || 0) / 100;
+  const env = document.getElementById('env').value;
+  const At = W * D, Af = H * W, As = H * D;
+  const A = f.t * At + f.f * Af + f.r * Af + f.l * As + f.ri * As;
+  const dT = Ti - Tu;
+  const Qs = k * A * dT;
+  const Qe = Qv + Qsun - Qs;
+  const QeM = Qe * (1 + mar);
+  const Td = dewpoint(Tu, rh);
+  const TiMin = Td + 3;
+  document.getElementById('rA').textContent = A.toFixed(2) + ' m²';
+  document.getElementById('rQs').textContent = Qs.toFixed(0) + ' W' + (Qs < 0 ? ' (ısı girişi)' : '');
+  document.getElementById('rQe').textContent = Math.max(Qe, 0).toFixed(0) + ' W';
+  document.getElementById('rSel').textContent = (Qe <= 0 ? '0 W — pasif yeter' : '≥ ' + Math.ceil(QeM / 50) * 50 + ' W');
+  document.getElementById('rDew').textContent = Td.toFixed(1) + ' °C  /  ' + TiMin.toFixed(1) + ' °C';
+
+  let dec, why, col = '#60a5fa';
+  const dirty = /Yıkama|Tozlu|Dış|Korozif/.test(env);
+  const atex = env === 'ATEX';
+  if (atex) {
+    dec = 'Standart klima YASAK — Ex çözüm veya pano bölge dışı';
+    why = 'IEC 60079 / ATEX: kompresörlü standart pano kliması tutuşturma kaynağıdır.';
+    col = '#f87171';
+  } else if (Ti < TiMin) {
+    dec = 'Hedef Ti çiğ noktasının altında — seti yükselt veya ısıtıcı ekle';
+    why = 'Soğutma kararı doğru olsa bile yoğuşma IEC 60204-1 4.4.4’ü ihlal eder. Ti ≥ çiğ + 3 K.';
+    col = '#f59e0b';
+  } else if (Qe <= 0) {
+    dec = 'Klima/fan gerekmez (bu ön hesaba göre)';
+    why = 'Doğal yayılım kaybı karşılıyor. Yine de hotspot ve 61439 doğrulaması gerekir. Yoğuşma için ısıtıcı ayrı bakılır.';
+    col = '#34d399';
+  } else if (dT <= 0) {
+    dec = 'Kompresörlü pano kliması veya hava-su eşanjör';
+    why = 'Tu ≥ Ti: fan ve hava-hava eşanjör panoyu ortamın altına indiremez. Kapasiteyi A' + Ti + '/A' + Tu + ' eğrisinden seçin.';
+    col = '#f59e0b';
+  } else if (dirty || env === 'Yıkama / gıda') {
+    dec = 'Kapalı çevrim klima veya hava-hava/hava-su eşanjör';
+    why = 'Tu < Ti olsa da açık çevrim fan kirletici ve nemi içeri alır. Yıkama/dış/korozifte klima veya eşanjör.';
+    col = '#f59e0b';
+  } else {
+    const v = 3.1 * Qe / Math.max(dT, 1);
+    dec = 'Termostatlı filtre fan yeterli olabilir';
+    why = 'Teorik debi ≈ ' + v.toFixed(0) + ' m³/h (filtre kaybı yok). Kirli filtre için 2–3 kat seçin. EMC/IP54 korunacaksa eşanjöre kayın.';
+    col = '#60a5fa';
+  }
+  document.getElementById('rDec').textContent = dec;
+  document.getElementById('rDec').style.color = col;
+  document.getElementById('rBox').style.borderColor = col;
+  document.getElementById('rWhy').textContent = why;
+}
+calc();
+</script>
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotational Pnömatik — Makine Çizimi</title>
+  <style>
+    :root {
+      --bg: #0f1419; --card: #1a2332; --line: #2a3a4d; --text: #e8ecf0;
+      --muted: #8b9aab; --panel: #121a24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 20px 14px 56px; }
+    .wrap { max-width: 1280px; margin: 0 auto; }
+    h1 { font-size: 1.32rem; }
+    h2 { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: #7aa2c8; margin: 22px 0 10px; }
+    h3 { font-size: 1rem; color: #93c5fd; margin: 0 0 8px; }
+    p, li { font-size: .9rem; color: #c8d0dc; }
+    p { margin: 0 0 8px; }
+    .sub { color: var(--muted); font-size: .84rem; margin: 4px 0 14px; }
+    .hero { background: rgba(52,211,153,.08); border: 1px solid rgba(52,211,153,.32); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+    .layout { display: grid; grid-template-columns: 1fr 320px; gap: 12px; }
+    @media (max-width: 1020px) { .layout { grid-template-columns: 1fr; } }
+    .panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+    .panel h2 { margin: 0 0 8px; }
+    svg { display: block; width: 100%; height: auto; background: #0b1016; border-radius: 10px; border: 1px solid #243044; }
+    label { display: block; font-size: .68rem; color: #8ab4d4; text-transform: uppercase; letter-spacing: .04em; margin: 8px 0 3px; }
+    input[type="range"] { width: 100%; accent-color: #60a5fa; }
+    input[type="number"], select { width: 100%; background: #0f1419; border: 1px solid #2a3a4d; color: var(--text); border-radius: 6px; padding: 6px 8px; font-size: .86rem; }
+    select { cursor: pointer; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px; }
+    .stepn { display: grid; grid-template-columns: 28px 1fr; gap: 8px; margin: 8px 0; }
+    .n { width: 24px; height: 24px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .72rem; margin-top: 2px; }
+    .n.ok { background: #14532d; color: #86efac; }
+    .n.bad { background: #7f1d1d; color: #fca5a5; }
+    .n.warn { background: #78350f; color: #fde68a; }
+    .fstep { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; margin: 0 0 12px; }
+    .fstep h3 { font-size: .95rem; margin: 0; }
+    .fhead { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .fnum { flex: 0 0 28px; width: 28px; height: 28px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .82rem; }
+    .fwhy { color: #8b9aab; font-size: .82rem; margin: 6px 0 0; }
+    .legend-row { display: flex; flex-wrap: wrap; gap: 10px 16px; font-size: .8rem; color: #9aa8b8; margin: 10px 0 0; }
+    .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+    .how { counter-reset: how; margin: 0; padding: 0; }
+    .how li { list-style: none; position: relative; padding: 8px 0 8px 36px; border-bottom: 1px solid #2a3a4d; color: #c8d0dc; font-size: .88rem; }
+    .how li:last-child { border-bottom: none; }
+    .how li::before { counter-increment: how; content: counter(how); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; font-size: .72rem; font-weight: 800; line-height: 24px; text-align: center; }
+    .note.warn { border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.07); }
+    .note.bad { border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.07); }
+    .note.info { border-color: rgba(59,130,246,.4); background: rgba(59,130,246,.07); }
+    .cyl-shot { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; border: 1px solid #2a3a4d; margin: 6px 0 8px; }
+    .row { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid #2a3a4d; font-size: .82rem; }
+    .row:last-child { border-bottom: none; }
+    .lbl { color: var(--muted); }
+    .val { font-weight: 650; font-variant-numeric: tabular-nums; }
+    .btns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 8px 0 4px; }
+    button { border: none; border-radius: 8px; padding: 9px 6px; font-weight: 650; cursor: pointer; font-size: .75rem; }
+    .btn-open { background: #27ae60; color: #fff; }
+    .btn-close { background: #c0392b; color: #fff; }
+    .btn-stop { background: #4a5568; color: #ddd; }
+    .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: .84rem; color: #aab4c0; margin: 10px 0; }
+    .note strong { color: var(--text); }
+    .note.ok { border-color: rgba(52,211,153,.4); background: rgba(52,211,153,.07); }
+    .formula { font-family: Consolas, monospace; background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 10px 12px; font-size: .84rem; color: #a5f3fc; margin: 8px 0; line-height: 1.65; }
+    .math { background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 10px 12px; font-size: .84rem; margin: 8px 0; }
+    .math .line { font-family: Consolas, monospace; color: #e8ecf0; margin: 2px 0; }
+    .math .why { color: #8b9aab; font-size: .78rem; margin: 1px 0 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: .82rem; margin: 8px 0; }
+    th, td { padding: 6px 8px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: #8ab4d4; font-size: .66rem; text-transform: uppercase; }
+    .photos { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 720px) { .photos { grid-template-columns: 1fr; } }
+    .photo { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .photo img { display: block; width: 100%; height: 240px; object-fit: cover; }
+    .photo .cap { padding: 8px 10px 10px; font-size: .8rem; color: #c8d0dc; }
+    .tag { display: inline-block; font-size: .66rem; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-bottom: 4px; }
+    .tag.on { background: #14532d; color: #86efac; }
+    .tag.off { background: #7f1d1d; color: #fca5a5; }
+    .footer { margin-top: 22px; padding-top: 10px; border-top: 1px solid var(--line); font-size: .72rem; color: #64748b; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Rotational pnömatik — fotoğraftaki makine</h1>
+  <p class="sub">3/4 görünüş foto 1 kamerası. İki silindir, L ayak, kulak, makara, orta dikme. Stick-figure değil. · <a href="Giris.html" style="color:#7dd3fc">Sıfırdan giriş — neden geç / neden sert</a></p>
+
+  <div class="hero">
+    Piston <b>uzar</b> → kapak tankın üstüne <b>yatay</b> (foto 1, banyo kapalı).
+    Piston <b>kısalır</b> → kapak <b>dikeye</b> kalkar (foto 2, yükleme açık).
+    Menteşe tank ağzının <b>arka kenarı</b>. Silindirler kapağın film yüzünde.
+  </div>
+
+  <div class="photos">
+    <div class="photo">
+      <img src="foto/kapak-yatay.png" alt="Kapak yatay">
+      <div class="cap"><span class="tag on">FOTO 1 · PİSTON AÇIK</span><br>Kapak yatay, mil uzun, iki kulak kapak üstünde.</div>
+    </div>
+    <div class="photo">
+      <img src="foto/kapak-dikey.png" alt="Kapak dikey">
+      <div class="cap"><span class="tag off">FOTO 2 · PİSTON KAPALI</span><br>Kapak dikey, mil kısa, L ayak tankta, makara menteşede.</div>
+    </div>
+  </div>
+
+  <h2>Makine — 3/4 (foto 1 açı) + yan kesit</h2>
+  <div class="layout">
+    <div>
+      <div class="panel" style="margin-bottom:12px">
+        <h2>3/4 görünüş</h2>
+        <svg id="svg3d" viewBox="0 0 1100 640"></svg>
+      </div>
+      <div class="panel">
+        <h2>Yan kesit — HAB üçgeni fotoğraftaki yerinde</h2>
+        <svg id="svgSide" viewBox="0 0 980 420"></svg>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Hareket</h2>
+      <div class="btns">
+        <button class="btn-open" id="btnOpen">Foto 1<br>yatay</button>
+        <button class="btn-close" id="btnClose">Foto 2<br>dikey</button>
+        <button class="btn-stop" id="btnStop">Dur</button>
+      </div>
+      <label>θ — 0° yatay · 90° dikey — <span id="thLbl">0</span>°</label>
+      <input id="th" type="range" min="0" max="90" step="0.4" value="8">
+      <div class="pair">
+        <div><label>Kapak boyu L mm</label><input id="L" type="number" value="900"></div>
+        <div><label>H–B r mm (kulak)</label><input id="r" type="number" value="680"></div>
+      </div>
+      <div class="pair">
+        <div><label>A öne (mm)</label><input id="Ax" type="number" value="90"></div>
+        <div><label>A yukarı (mm)</label><input id="Ay" type="number" value="280"></div>
+      </div>
+      <div class="pair">
+        <div><label>Kapak m kg</label><input id="m" type="number" value="50"></div>
+        <div><label>Karşı ağırlık kg</label><input id="mcw" type="number" value="0"></div>
+      </div>
+      <div class="pair">
+        <div><label>p bar</label><input id="p" type="number" value="6" step="0.1"></div>
+        <div><label>Piston adet</label><input id="nCyl" type="number" value="2" min="1" max="4"></div>
+      </div>
+      <label>Piston</label>
+      <select id="cylSel">
+        <option value="ldnc32" selected>Luftec LDNC 32×250-S (bu makine)</option>
+        <option value="custom">Özel — çap ve strok gir</option>
+      </select>
+      <div class="triple" id="cylCustom">
+        <div><label>Ø D mm</label><input id="D" type="number" value="32"></div>
+        <div><label>Strok mm</label><input id="stCyl" type="number" value="250"></div>
+        <div><label>Mil Ø d mm</label><input id="drod" type="number" value="12"></div>
+      </div>
+      <label>Valf</label>
+      <select id="valveSel">
+        <option value="4V230E-08" selected>AIRTAC/Luftec 4V230E-08 (5/3 E boşaltma)</option>
+      </select>
+      <div class="pair">
+        <div><label>Valf adet</label><input id="nValve" type="number" value="1" min="1" max="4"></div>
+        <div><label>D8 boyu m (bir silindir)</label><input id="hoseL" type="number" value="2" step="0.1" min="0.2"></div>
+      </div>
+      <div class="pair">
+        <div><label>D8 iç çap mm</label><input id="hoseID" type="number" value="5" step="0.1"></div>
+        <div><label>Hedef süre s (90°)</label><input id="tTarget" type="number" value="5" step="0.5"></div>
+      </div>
+      <div style="margin-top:10px" id="readout"></div>
+    </div>
+  </div>
+
+  <h2>Pnömatik — piston, valf, D8</h2>
+  <div class="panel">
+    <div class="pair" style="grid-template-columns: 200px 1fr; align-items: start; margin-bottom: 12px;">
+      <img class="cyl-shot" src="foto/ldnc-32x250.png" alt="Luftec LDNC 32X250-S etiket">
+      <div>
+        <h3>Bu makinedeki piston</h3>
+        <p><strong>Luftec LDNC 32×250-S</strong> · ISO 15552 · Ø32 · strok 250 mm · mil Ø12 · port G1/8. Fotoğraftaki etiket. S = standart gövde (PPV yastık bu kodda yok).</p>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Parça</th><th>Kod</th><th>Ne işe yarar</th></tr></thead>
+      <tbody>
+        <tr><td>Piston</td><td><b>LDNC 32×250-S</b> × n</td><td>Mil uzar → kapak yatay. Mil kısalır → kapak dikey.</td></tr>
+        <tr><td>Valf</td><td><b>4V230E-08</b></td><td>5/3, çift bobin, port 1/4". Orta konum <b>E = boşaltma</b>. Katalog debi ~890 NL/dk.</td></tr>
+        <tr><td>Hortum</td><td><b>D8</b></td><td>PU 8 mm dış, varsayılan iç 5 mm. Boy sağ panelden değişir. Sol / sağ eşit olsun.</td></tr>
+      </tbody>
+    </table>
+    <div id="pneuOut"></div>
+  </div>
+
+  <h2>Smooth hareket — yapman gerekenler</h2>
+  <div class="panel" id="smoothOut"></div>
+
+  <h2>Formüller — adım adım</h2>
+  <p class="sub">Yedi adım: nokta → silindir boyu → strok → kol → yerçekimi → kuvvet → süre. Sağdaki ölçüler “Bu anda” kutusunu doldurur.</p>
+  <div class="panel" style="padding:16px">
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">1</span><h3>Noktaları koy</h3></div>
+      <p>Menteşe <b>H</b> orijin. Kapak yalnız H etrafında döner. θ = 0° yatay (tank kapalı), θ = 90° dikey (yükleme).</p>
+      <p><b>B</b> = piston kulağı, H’den r. <b>A</b> = L-ayak, tankta sabit.</p>
+      <div class="formula">B<sub>x</sub> = r · cos θ &nbsp;&nbsp;&nbsp; B<sub>y</sub> = r · sin θ
+A = (A<sub>x</sub> , A<sub>y</sub>)</div>
+      <p class="fwhy">Çıktı: her açıda B’nin yeri. A değişmez.</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">2</span><h3>Silindir boyunu ölç — s(θ)</h3></div>
+      <p>Piston yalnız A ile B arasındaki mesafeyi değiştirir.</p>
+      <div class="formula">s(θ) = √[(B<sub>x</sub> − A<sub>x</sub>)² + (B<sub>y</sub> − A<sub>y</sub>)²]</div>
+      <p class="fwhy">θ = 0° → s uzun (mil dışarı, kapak yatay). θ = 90° → s kısa (mil içeri, kapak dikey).</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">3</span><h3>Strok sığar mı?</h3></div>
+      <p>Pistonun gitmesi gereken yol, iki uçtaki s farkıdır. Katalog stroğundan küçük kalmalı; pay ≥ 8 mm.</p>
+      <div class="formula">strok<sub>gerek</sub> = s(0°) − s(90°)
+strok<sub>gerek</sub> ≤ strok<sub>piston</sub> &nbsp;&nbsp; (LDNC 32×250-S → 250 mm)</div>
+      <p class="fwhy">Pay negatifse 90° bitmez. Pay &lt; 8 mm ise montaj + yastıksız S gövde riskli.</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">4</span><h3>Kuvvet kolu h</h3></div>
+      <p>Silindir kuvveti A–B doğrusunda. Moment kolu, H’den bu doğruya inen diktir.</p>
+      <div class="formula">h(θ) = |A<sub>x</sub> B<sub>y</sub> − A<sub>y</sub> B<sub>x</sub>| / s</div>
+      <p class="fwhy">h küçülürse aynı tork için daha çok F gerekir. h ≈ 0 ise ölü nokta.</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">5</span><h3>Yerçekimi momenti</h3></div>
+      <p>Ağırlık merkezi H’den L/2. Moment kapağı <b>yataya</b> çevirir (tankı kapatır).</p>
+      <div class="formula">M<sub>g</sub>(θ) = m · g · (L/2) · cos θ</div>
+      <p class="fwhy">Yatayda (0°) en büyük. Dikeyde (90°) neredeyse sıfır — dikeyde tutmak kolay, yataya bırakmak tehlikeli.</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">6</span><h3>Kaldırmak = çekmek</h3></div>
+      <p>Dikeye kaldırmak milin kısalmasıdır → mil odası kuvveti <b>F<sub>çekme</sub></b>. n silindir paylaşır, güvenlik 1,3.</p>
+      <div class="formula">F<sub>gerek</sub> = M<sub>g</sub> / h
+F<sub>çekme</sub> = p · π · (D² − d²) / 4 &nbsp;&nbsp; (bir silindir)
+n · F<sub>çekme</sub> ≥ F<sub>gerek</sub> · 1,3</div>
+      <p class="fwhy">Yetmezse çap büyüt. 6 barı zorlama. Uzama (yataya inme) yerçekimi yardımcı olduğu için ayrı kontrol edilmez — fren gerekir (Adım 7 + şema).</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">7</span><h3>Debi ve süre</h3></div>
+      <p>4V230E-08 ≈ 890 NL/dk. D8 uzadıkça efektif debi düşer. Kısıcısız süre hedeften kısaysa kapak çarpar.</p>
+      <div class="formula">Q<sub>valf</sub> = 890 · n<sub>valf</sub>
+f<sub>D8</sub> = 1 / √[1 + 0,08 · L<sub>m</sub> · (5 / d<sub>iç</sub>)⁵]
+Q<sub>eff</sub> = Q<sub>valf</sub> · f<sub>D8</sub>
+V<sub>NL</sub> = (V<sub>oda</sub> + V<sub>hortum</sub>) · p<sub>abs</sub> / 1,013
+t<sub>min</sub> = 60 · V<sub>NL</sub> / Q<sub>eff</sub></div>
+      <p class="fwhy">t<sub>min</sub> &lt; t<sub>hedef</sub> ise egzoza kısıcı (meter-out) koy; iğne ile t → t<sub>hedef</sub>.</p>
+    </div>
+
+    <div class="fstep">
+      <div class="fhead"><span class="fnum">=</span><h3>Bu anda — senin sayılar</h3></div>
+      <div id="liveMath" class="math" style="margin:0"></div>
+    </div>
+  </div>
+
+  <h2>Piston girişleri — D8 hava + D4 plot şeması</h2>
+  <div class="panel">
+    <p>Her LDNC girişinde <b>iki hortum</b> vardır: kalın <b>D8 esas</b> (iş havası) ve ince <b>D4 plot</b> (çek valfi açan pilot). Makinede 2 piston; şema birini gösterir, diğeri aynı, T1/T2’ye paralel bağlanır.</p>
+    <svg viewBox="0 0 940 460" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrP" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#a855f7"/></marker>
+        <linearGradient id="cylV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#64748b"/><stop offset="50%" stop-color="#94a3b8"/><stop offset="100%" stop-color="#64748b"/>
+        </linearGradient>
+      </defs>
+
+      <text x="470" y="18" text-anchor="middle" fill="#7aa2c8" font-size="12" font-weight="700">BİR LDNC 32×250-S — makinede 2 adet (sol + sağ), aynı hat</text>
+
+      <rect x="548" y="36" width="32" height="30" fill="#e2e8f0" stroke="#94a3b8"/>
+      <text x="564" y="32" text-anchor="middle" fill="#8899aa" font-size="9">mil → kulak</text>
+      <rect x="530" y="64" width="64" height="268" rx="5" fill="url(#cylV)" stroke="#94a3b8" stroke-width="1.8"/>
+      <rect x="534" y="68" width="9" height="260" rx="2" fill="#cbd5e1" opacity="0.28"/>
+      <line x1="534" y1="168" x2="590" y2="168" stroke="#334155" stroke-width="3"/>
+      <text x="562" y="138" text-anchor="middle" fill="#1e293b" font-size="8" font-weight="700">MİL ODASI</text>
+      <text x="562" y="250" text-anchor="middle" fill="#1e293b" font-size="8" font-weight="700">KAPAK ODASI</text>
+      <text x="562" y="348" text-anchor="middle" fill="#64748b" font-size="8">arka kapak</text>
+
+      <rect x="278" y="58" width="188" height="96" rx="6" fill="#121a24" stroke="#f59e0b" stroke-width="1.6"/>
+      <text x="372" y="76" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">PORT MİL · G1/8</text>
+      <text x="372" y="90" text-anchor="middle" fill="#64748b" font-size="8">tutma + inme hızı</text>
+      <rect x="318" y="96" width="108" height="30" rx="4" fill="#1e293b" stroke="#f59e0b"/>
+      <path d="M 336 111 L 356 101 L 356 121 Z" fill="#f59e0b"/>
+      <line x1="360" y1="101" x2="360" y2="121" stroke="#f59e0b" stroke-width="2"/>
+      <rect x="366" y="105" width="42" height="12" rx="2" fill="#b45309"/>
+      <text x="372" y="142" text-anchor="middle" fill="#fbbf24" font-size="8">çek valf + iğne</text>
+      <line x1="426" y1="111" x2="530" y2="111" stroke="#475569" stroke-width="4"/>
+      <circle cx="390" cy="111" r="5" fill="#3b82f6"/>
+      <line x1="390" y1="111" x2="426" y2="111" stroke="#3b82f6" stroke-width="5"/>
+      <text x="400" y="106" fill="#93c5fd" font-size="9" font-weight="700">D8</text>
+      <path d="M 304 111 L 290 111 L 290 146" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="290" cy="146" r="4" fill="#22d3ee"/>
+      <text x="276" y="140" fill="#22d3ee" font-size="9" font-weight="700">D4</text>
+
+      <rect x="278" y="268" width="188" height="70" rx="6" fill="#121a24" stroke="#3b82f6" stroke-width="1.6"/>
+      <text x="372" y="286" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="700">PORT KAPAK · G1/8</text>
+      <text x="372" y="300" text-anchor="middle" fill="#64748b" font-size="8">arka kapak — çek valf yok</text>
+      <line x1="466" y1="312" x2="530" y2="312" stroke="#475569" stroke-width="4"/>
+      <line x1="378" y1="312" x2="466" y2="312" stroke="#3b82f6" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="378" cy="312" r="5" fill="#3b82f6"/>
+      <text x="388" y="307" fill="#93c5fd" font-size="9" font-weight="700">D8</text>
+      <path d="M 318 312 L 318 328 L 294 328" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="294" cy="328" r="4" fill="#22d3ee"/>
+      <text x="280" y="323" fill="#22d3ee" font-size="9" font-weight="700">D4</text>
+
+      <circle cx="178" cy="188" r="14" fill="#1e293b" stroke="#e879f9" stroke-width="2"/>
+      <text x="178" y="192" text-anchor="middle" fill="#e879f9" font-size="10" font-weight="800">T1</text>
+      <line x1="378" y1="312" x2="378" y2="188" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="378" y1="188" x2="192" y2="188" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="290" y1="146" x2="178" y2="146" stroke="#22d3ee" stroke-width="2.2" stroke-dasharray="5 4"/>
+      <line x1="178" y1="146" x2="178" y2="174" stroke="#22d3ee" stroke-width="2.2" stroke-dasharray="5 4"/>
+      <line x1="164" y1="188" x2="108" y2="188" stroke="#a855f7" stroke-width="4" marker-end="url(#arrP)"/>
+      <text x="10" y="176" fill="#c084fc" font-size="10" font-weight="700">HAT A</text>
+      <text x="10" y="190" fill="#64748b" font-size="8">kapak D8 + mil D4</text>
+      <text x="10" y="204" fill="#64748b" font-size="8">uzama / yatay</text>
+
+      <circle cx="178" cy="400" r="14" fill="#1e293b" stroke="#e879f9" stroke-width="2"/>
+      <text x="178" y="404" text-anchor="middle" fill="#e879f9" font-size="10" font-weight="800">T2</text>
+      <line x1="390" y1="111" x2="504" y2="111" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="504" y1="111" x2="504" y2="430" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="504" y1="430" x2="178" y2="430" stroke="#3b82f6" stroke-width="4"/>
+      <line x1="178" y1="430" x2="178" y2="414" stroke="#3b82f6" stroke-width="4"/>
+      <path d="M 294 328 L 96 328 L 96 400 L 164 400" fill="none" stroke="#22d3ee" stroke-width="2.2" stroke-dasharray="5 4"/>
+      <line x1="164" y1="400" x2="108" y2="400" stroke="#a855f7" stroke-width="4" marker-end="url(#arrP)"/>
+      <text x="10" y="388" fill="#c084fc" font-size="10" font-weight="700">HAT B</text>
+      <text x="10" y="402" fill="#64748b" font-size="8">mil D8 + kapak D4</text>
+      <text x="10" y="416" fill="#64748b" font-size="8">çekme / dikey</text>
+
+      <rect x="72" y="248" width="38" height="72" rx="5" fill="#1e293b" stroke="#64748b"/>
+      <text x="91" y="270" text-anchor="middle" fill="#93c5fd" font-size="7" font-weight="700">4V230</text>
+      <text x="91" y="282" text-anchor="middle" fill="#93c5fd" font-size="7" font-weight="700">E-08</text>
+      <text x="91" y="300" text-anchor="middle" fill="#64748b" font-size="7">A / B</text>
+      <line x1="108" y1="188" x2="91" y2="256" stroke="#a855f7" stroke-width="2"/>
+      <line x1="108" y1="400" x2="91" y2="312" stroke="#a855f7" stroke-width="2"/>
+
+      <rect x="620" y="58" width="304" height="128" rx="8" fill="#121a24" stroke="#2a3a4d"/>
+      <text x="772" y="80" text-anchor="middle" fill="#7aa2c8" font-size="11" font-weight="700">HER GİRİŞTE NE VAR</text>
+      <text x="634" y="102" fill="#93c5fd" font-size="11">Kapak portu: D8 rakor + D4 dirsek</text>
+      <text x="634" y="120" fill="#fbbf24" font-size="11">Mil portu: çek valf + iğne</text>
+      <text x="634" y="136" fill="#fbbf24" font-size="11">+ D8 rakor + D4 dirsek</text>
+      <text x="634" y="158" fill="#94a3b8" font-size="11">D8 = iş havası · D4 = plot</text>
+
+      <rect x="620" y="200" width="304" height="148" rx="8" fill="#121a24" stroke="#2a3a4d"/>
+      <text x="772" y="222" text-anchor="middle" fill="#7aa2c8" font-size="11" font-weight="700">ÇAPRAZ T</text>
+      <text x="634" y="244" fill="#c084fc" font-size="11">T1 → valf A : kapak D8 + mil D4</text>
+      <text x="634" y="262" fill="#94a3b8" font-size="11">Bobin A: mil uzar, kapak YATAY</text>
+      <text x="634" y="286" fill="#c084fc" font-size="11">T2 → valf B : mil D8 + kapak D4</text>
+      <text x="634" y="304" fill="#94a3b8" font-size="11">Bobin B: mil kısalır, kapak DİKEY</text>
+      <text x="634" y="328" fill="#64748b" font-size="10">Plot, karşı portun çek valfini açar.</text>
+    </svg>
+    <div class="legend-row">
+      <span><i class="sw" style="background:#3b82f6;width:18px;height:6px;border-radius:2px"></i> D8 esas hat</span>
+      <span><i class="sw" style="background:#22d3ee;width:18px;height:3px;border-radius:2px"></i> D4 plot / pilot</span>
+      <span><i class="sw" style="background:#f59e0b"></i> Çek valf + iğne (yalnız mil portu)</span>
+      <span><i class="sw" style="background:#e879f9"></i> T1 / T2 çapraz</span>
+      <span><i class="sw" style="background:#a855f7"></i> 4V230E-08 A / B</span>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:12px">
+    <h2>Nasıl çalışır</h2>
+    <ol class="how">
+      <li><b>Bobin A (HAT A).</b> Kapak odasına D8 basılır. Aynı anda mil-D4 plot, mil portundaki çek valfi açar. Mil odası iğneden egzoz olur → mil uzar, kapak yerçekimiyle <b>yataya</b> iner. İğne = inme hızı.</li>
+      <li><b>Bobin B (HAT B).</b> Mil odasına D8 basılır; çek valf serbest doldurur (yay yönü). Kapak odası D8 + D4 ile boşalır → mil kısalır, kapak <b>dikeye</b> kalkar.</li>
+      <li><b>Valf orta E veya hava kes.</b> 4V230E her iki odayı tahliye eder. Çek valf mil odasını kilitler: kapak dikeyde kalır, yataya düşmez. Orta konumu durdurucu sanma — kilidi valf değil çek valf yapar.</li>
+      <li><b>İkinci piston.</b> Aynı şema. Sol ve sağ D8’ler T1/T2’ye paralel, eşit boy. İğne turları aynı; yoksa kapak yamulur.</li>
+    </ol>
+  </div>
+
+  <div class="panel" style="margin-top:12px">
+    <h2>Kullanılacak ürünler</h2>
+    <table>
+      <thead><tr><th>Ürün</th><th>Kod / ölçü</th><th>Adet</th><th>Nereye</th></tr></thead>
+      <tbody>
+        <tr><td>Silindir</td><td>Luftec <b>LDNC 32×250-S</b> · G1/8</td><td>2</td><td>Sol + sağ</td></tr>
+        <tr><td>Yön valfi</td><td>AIRTAC / Luftec <b>4V230E-08</b> · 5/3 E · 1/4"</td><td>1</td><td>Ortak A / B</td></tr>
+        <tr><td>Esas hortum</td><td>PU <b>D8</b> (8×5)</td><td>4 × boy</td><td>Her piston, 2 port</td></tr>
+        <tr><td>Plot hortum</td><td>PU <b>D4</b> (4×2,5)</td><td>4 × kısa</td><td>Her port dirsek → karşı T</td></tr>
+        <tr><td>D8 rakor</td><td>G1/8 → D8</td><td>4</td><td>İki piston × iki port</td></tr>
+        <tr><td>D4 plot dirsek</td><td>G1/8 → D4</td><td>4</td><td>Her girişte ince dirsek</td></tr>
+        <tr><td>Çek valf + iğne</td><td>G1/8 PCV / ASC tipi</td><td>2</td><td>Her pistonin <b>mil portu</b></td></tr>
+        <tr><td>T birleştirme</td><td>D8 + D4 çapraz</td><td>2</td><td>T1 ve T2, valfe gidiş</td></tr>
+        <tr><td>Tek yönlü kısıcı</td><td>ASC G1/8 meter-out</td><td>2–4</td><td>Mil egzoz şart; kapak odası opsiyon</td></tr>
+      </tbody>
+    </table>
+    <div class="note info">
+      <strong>Neden mil portu?</strong> Kapak dikeyken mil kısalmış, mil odası dolu. Yerçekimi milin uzamasını ister. Hava kesilince 4V230E orta E her iki odayı boşaltır — mil odası tahliye olursa kapak yataya düşer. Çek valf mil odasını kilitler. D4 plot, kapak odasına D8 basılınca çek valfi açar; ancak o zaman kontrollü iner.
+    </div>
+    <div class="note">
+      <strong>Çapraz T:</strong> T1 = kapak-D8 + mil-D4 → valf A (uzama / yatay). T2 = mil-D8 + kapak-D4 → valf B (çekme / dikey). Plot, karşı portun esas hattını açar. KBN dikey kayar kapaktaki ile aynı mantık; oradaki “alt port” burada mil portudur.
+    </div>
+  </div>
+
+  <div class="note ok">L, r, A fotoğraftan kaba. Şerit metre ile dört sayı: L, r, A öne, A yukarı — strok ve kuvvet kilitlenir. Makara karşı ağırlık değilse 0 bırak.</div>
+  <div class="footer">Rotational pnomatik / cizim.html · fotoğraftaki makine</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const g = 9.81;
+let anim = null, animDir = 0;
+
+const VALVE = { name: "4V230E-08", Q: 890, Cv: 0.67, area: 12, port: "1/4\"" };
+const ROD_ISO = { 32: 12, 40: 16, 50: 20, 63: 20, 80: 25 };
+
+function applyCyl() {
+  const sel = $("cylSel").value;
+  const lock = sel === "ldnc32";
+  if (lock) {
+    $("D").value = 32;
+    $("stCyl").value = 250;
+    $("drod").value = 12;
+  }
+  ["D", "stCyl", "drod"].forEach(id => { $(id).disabled = lock; });
+  draw();
+}
+
+["th","L","r","Ax","Ay","m","nCyl","p","D","drod","mcw","stCyl","nValve","hoseL","hoseID","tTarget","valveSel"].forEach(id => {
+  $(id).addEventListener("input", draw);
+});
+$("cylSel").addEventListener("change", applyCyl);
+$("D").addEventListener("input", () => {
+  if ($("cylSel").value === "custom") {
+    const d = +$("D").value;
+    if (ROD_ISO[d]) $("drod").value = ROD_ISO[d];
+    draw();
+  }
+});
+$("btnOpen").onclick = () => startAnim(-1);
+$("btnClose").onclick = () => startAnim(1);
+$("btnStop").onclick = () => { animDir = 0; };
+
+function startAnim(dir) {
+  animDir = dir;
+  if (anim) return;
+  const tick = () => {
+    if (!animDir) { anim = null; return; }
+    const el = $("th");
+    let v = +el.value + animDir * 0.55;
+    if (v >= +el.max) { v = +el.max; animDir = 0; }
+    if (v <= +el.min) { v = +el.min; animDir = 0; }
+    el.value = v;
+    draw();
+    anim = requestAnimationFrame(tick);
+  };
+  anim = requestAnimationFrame(tick);
+}
+
+function fmt(n, d) {
+  return Number(n).toLocaleString("tr-TR", { maximumFractionDigits: d, minimumFractionDigits: d });
+}
+
+function draw() {
+  const thDeg = +$("th").value;
+  const th = thDeg * Math.PI / 180;
+  const L = +$("L").value, r = +$("r").value;
+  const Ax = +$("Ax").value, Ay = +$("Ay").value;
+  const m = +$("m").value, nCyl = Math.max(1, +$("nCyl").value || 2);
+  const pBar = +$("p").value, D = +$("D").value, drod = +$("drod").value;
+  const mcw = +$("mcw").value || 0;
+  const stCyl = Math.max(1, +$("stCyl").value || 250);
+  const nValve = Math.max(1, +$("nValve").value || 1);
+  const hoseL = Math.max(0.1, +$("hoseL").value || 2);
+  const hoseID = Math.max(1, +$("hoseID").value || 5);
+  const tTarget = Math.max(0.5, +$("tTarget").value || 5);
+  $("thLbl").textContent = fmt(thDeg, 1);
+
+  const W = 1300, TD = 1080, TH = 760, inset = 70, lidT = 22;
+  const lidW = W - 2 * inset;
+  const zH = TD - inset;
+  const xMid = W / 2;
+  const vCyl = lidW * 0.36;
+
+  function lidXYZ(u, v, film) {
+    const t = film ? lidT : 0;
+    return {
+      x: xMid + v,
+      y: TH + u * Math.sin(th) + t * Math.cos(th),
+      z: zH - u * Math.cos(th) - t * Math.sin(th)
+    };
+  }
+
+  const Axyz = v => ({ x: xMid + v, y: TH + Ay, z: zH - Ax });
+  const Bxyz = v => lidXYZ(r, v, true);
+
+  const Bx = r * Math.cos(th), By = r * Math.sin(th);
+  const s = Math.hypot(Bx - Ax, By - Ay);
+  const h = Math.abs(Ax * By - Ay * Bx) / Math.max(s, 1e-9);
+  const mNet = Math.max(0, m - mcw);
+  const Mg = mNet * g * (L / 2000) * Math.cos(th);
+  const FgTot = h > 1e-6 ? Mg / (h / 1000) : Infinity;
+  const FgOne = FgTot / nCyl;
+  const pPa = pBar * 1e5;
+  const Fcek = pPa * Math.PI * (Math.pow(D / 1000, 2) - Math.pow(drod / 1000, 2)) / 4;
+  const Fitme = pPa * Math.PI * Math.pow(D / 1000, 2) / 4;
+  const ok = nCyl * Fcek >= FgTot * 1.3;
+  const sH = Math.hypot(r - Ax, -Ay);
+  const sV = Math.hypot(-Ax, r - Ay);
+  const stroke = sH - sV;
+  const pistonOpen = thDeg < 45;
+  const stateCol = pistonOpen ? "#34d399" : "#f87171";
+  const stateTxt = pistonOpen
+    ? "FOTO 1  ·  piston açık  ·  mil uzun  ·  kapak YATAY  ·  tank kapalı"
+    : "FOTO 2  ·  piston kapalı  ·  mil kısa  ·  kapak DİKEY  ·  yükleme açık";
+
+  const geom = { W, TD, TH, inset, lidW, lidT, zH, xMid, vCyl, L, r, th, thDeg, lidXYZ, Axyz, Bxyz, s, stateTxt, stateCol, Ax, Ay };
+  draw3D(geom);
+  drawSide(geom);
+
+  const ratio = isFinite(FgTot) && FgTot > 0 ? (nCyl * Fcek) / FgTot : Infinity;
+  const strokeFit = stCyl - stroke;
+  const pAbs = pBar + 1.013;
+  const A_cap = Math.PI * Math.pow(D / 2000, 2);
+  const A_rod = Math.PI * (Math.pow(D / 2000, 2) - Math.pow(drod / 2000, 2));
+  const Vcap = nCyl * A_cap * (stCyl / 1000);
+  const Vrod = nCyl * A_rod * (stCyl / 1000);
+  const Ahose = Math.PI * Math.pow(hoseID / 2000, 2);
+  const Vhose1 = nCyl * Ahose * hoseL;
+  const fHose = 1 / Math.sqrt(1 + 0.08 * hoseL * Math.pow(5 / hoseID, 5));
+  const Qvalve = VALVE.Q * nValve;
+  const Qeff = Qvalve * fHose;
+  const VextNL = (Vcap + Vhose1) * 1000 * pAbs / 1.013;
+  const VretNL = (Vrod + Vhose1) * 1000 * pAbs / 1.013;
+  const tExtS = Qeff > 0 ? 60 * VextNL / Qeff : Infinity;
+  const tRetS = Qeff > 0 ? 60 * VretNL / Qeff : Infinity;
+  const Qneed = (Math.max(VextNL, VretNL) * 60) / tTarget;
+  const throttle = Qeff > Qneed ? (Qneed / Qeff) : 1;
+  const slam = Math.min(tExtS, tRetS) < tTarget * 0.6;
+  const strokeBad = stroke > stCyl;
+  const forceOk = ok;
+
+  $("readout").innerHTML = `
+    <div class="row"><span class="lbl">durum</span><span class="val" style="color:${stateCol}">${pistonOpen ? "foto 1" : "foto 2"}</span></div>
+    <div class="row"><span class="lbl">HAB strok</span><span class="val">${fmt(stroke,0)} mm</span></div>
+    <div class="row"><span class="lbl">piston strok / pay</span><span class="val" style="color:${strokeBad?"#f87171":strokeFit<8?"#f59e0b":"#34d399"}">${fmt(stCyl,0)} / ${fmt(strokeFit,0)} mm</span></div>
+    <div class="row"><span class="lbl">F gerek / n×çekme</span><span class="val">${fmt(FgTot,0)} / ${fmt(nCyl*Fcek,0)} N</span></div>
+    <div class="row"><span class="lbl">kuvvet payı</span><span class="val" style="color:${forceOk?"#34d399":"#f87171"}">${isFinite(ratio)?fmt(ratio,2):"—"}</span></div>
+    <div class="row"><span class="lbl">Qeff valf+D8</span><span class="val">${fmt(Qeff,0)} NL/dk</span></div>
+    <div class="row"><span class="lbl">t min uzama / çekme</span><span class="val">${fmt(tExtS,2)} / ${fmt(tRetS,2)} s</span></div>
+  `;
+  $("liveMath").innerHTML = `
+    <div class="line">1 · B = (${fmt(Bx,0)}, ${fmt(By,0)}) mm &nbsp; A = (${fmt(Ax,0)}, ${fmt(Ay,0)}) mm &nbsp; θ = ${fmt(thDeg,1)}°</div>
+    <div class="line">2 · s(θ) = ${fmt(s,0)} mm &nbsp; s(0°)=${fmt(sH,0)} &nbsp; s(90°)=${fmt(sV,0)}</div>
+    <div class="line">3 · strok<sub>gerek</sub> = ${fmt(stroke,0)} mm &nbsp; piston ${fmt(stCyl,0)} mm &nbsp; pay ${fmt(strokeFit,0)} mm ${strokeBad ? "← KISA" : strokeFit < 8 ? "← dar" : "← tamam"}</div>
+    <div class="line">4 · h = ${fmt(h,0)} mm</div>
+    <div class="line">5 · M<sub>g</sub> = ${fmt(Mg,1)} N·m &nbsp; (m=${fmt(m,0)} kg, L=${fmt(L,0)} mm)</div>
+    <div class="line">6 · F<sub>gerek</sub> = ${fmt(FgTot,0)} N &nbsp; F<sub>çekme</sub>×${nCyl} = ${fmt(nCyl*Fcek,0)} N &nbsp; pay ${isFinite(ratio)?fmt(ratio,2):"—"} ${forceOk ? "← yeter" : "← YETMEZ"}</div>
+    <div class="line">7 · Q<sub>eff</sub> = ${fmt(Qeff,0)} NL/dk &nbsp; t<sub>uzama</sub>=${fmt(tExtS,2)} s &nbsp; t<sub>çekme</sub>=${fmt(tRetS,2)} s &nbsp; hedef ${fmt(tTarget,1)} s</div>
+    <div class="why">${forceOk ? "Kuvvet yeter." : "Kuvvet yetmez — çap veya n büyüt."} Kısıcısız süre hedeften ${slam ? "kısa — mil egzozuna kısıcı şart, yoksa çarpar." : "uygun / yavaş."}</div>
+  `;
+
+  $("pneuOut").innerHTML = `
+    <table>
+      <thead><tr><th>Hesap</th><th>Değer</th><th>Ne demek</th></tr></thead>
+      <tbody>
+        <tr><td>Piston</td><td>${$("cylSel").value === "ldnc32" ? "LDNC 32×250-S" : "Özel"} · ${nCyl} adet · Ø${fmt(D,0)} × ${fmt(stCyl,0)}</td><td>mil Ø${fmt(drod,0)} mm</td></tr>
+        <tr><td>Valf</td><td>${nValve} × 4V230E-08 · ${fmt(Qvalve,0)} NL/dk</td><td>5/3 E boşaltma · Cv ${VALVE.Cv} · ${VALVE.area} mm² · ${VALVE.port}</td></tr>
+        <tr><td>D8</td><td>${fmt(hoseL,1)} m × iç Ø${fmt(hoseID,1)} · ${nCyl} hat</td><td>katsayı ${fmt(fHose,2)} → Qeff ${fmt(Qeff,0)} NL/dk</td></tr>
+        <tr><td>Hacim kapak / mil</td><td>${fmt(Vcap*1e6,0)} / ${fmt(Vrod*1e6,0)} cm³ + hortum ${fmt(Vhose1*1e6,0)}</td><td>uzama doldurur kapak odasını, çekme mil odasını</td></tr>
+        <tr><td>Kısıcısız süre</td><td>uzama ${fmt(tExtS,2)} s · çekme ${fmt(tRetS,2)} s</td><td>hedef ${fmt(tTarget,1)} s</td></tr>
+        <tr><td>Kısıcı</td><td>valf debisinin ~%${fmt(throttle*100,0)} kadarı</td><td>egzozda meter-out</td></tr>
+      </tbody>
+    </table>
+    <div class="note ${strokeBad ? "bad" : strokeFit < 8 ? "warn" : "ok"}">
+      <strong>Strok uyumu.</strong> Mekanizma ${fmt(stroke,0)} mm istiyor, piston ${fmt(stCyl,0)} mm.
+      ${strokeBad ? "Piston kısa — 90° bitmez. Strok büyüt veya r/A değiştir." :
+        strokeFit < 8 ? "Pay &lt; 8 mm. Montaj + yastıksız S gövde riskli; r veya A milimetrik." :
+        "Pay " + fmt(strokeFit,0) + " mm."}
+    </div>
+  `;
+
+  const items = [
+    { n:"1", cls: strokeBad ? "bad" : strokeFit < 8 ? "warn" : "ok",
+      t: "<b>Strok.</b> HAB stroku ≤ piston stroğu, pay ≥ 8 mm. LDNC 32×250-S = 250 mm. Şimdi pay " + fmt(strokeFit,0) + " mm." },
+    { n:"2", cls: forceOk ? "ok" : "bad",
+      t: "<b>Kuvvet.</b> Dikeye kaldırmak çekmedir. " + nCyl + " × Fçekme ≥ Fgerek × 1,3. Pay " + (isFinite(ratio)?fmt(ratio,2):"—") + ". Yetmezse çap büyüt; 6 barı zorlama." },
+    { n:"3", cls: slam ? "warn" : "ok",
+      t: "<b>Yataya inme = fren.</b> Piston uzarken yerçekimi yardımcı. Kısıcısız ~" + fmt(tExtS,2) + " s — çarpar. Her silindirin <b>mil tarafı egzozuna</b> tek yönlü hız ayar (ASC/SC, meter-out) koy." },
+    { n:"4", cls: "warn",
+      t: "<b>Dikeye kalkma.</b> Kapak odası egzozuna da kısıcı. İki yönü de ~" + fmt(tTarget,1) + " s yap. Kısıcı ≈ valf debisinin %" + fmt(throttle*100,0) + "’i." },
+    { n:"5", cls: "bad",
+      t: "<b>4V230E-08 orta E hareket durdurmaz.</b> Nötr = iki oda tahliye → kapak yataya düşer. Durduracaksan 4V230C (kapalı merkez) veya mil hattına pilotlu çek valf." },
+    { n:"6", cls: nValve < nCyl ? "warn" : "ok",
+      t: "<b>Valf paylaşımı.</b> " + nValve + " valf / " + nCyl + " piston. Tek valf + T olur; debi paylaşılır (Qeff " + fmt(Qeff,0) + " NL/dk). Senkron: sol/sağ D8 eşit, kısıcı ayrı." },
+    { n:"7", cls: hoseL > 3 ? "warn" : "ok",
+      t: "<b>D8 boyu.</b> " + fmt(hoseL,1) + " m / silindir, iç Ø" + fmt(hoseID,1) + " mm. Uzadıkça gecikme ve sol-sağ farkı artar. Kısa tut, boyları eşit kes." },
+    { n:"8", cls: "warn",
+      t: "<b>Yastık.</b> LDNC 32×250-S standart — PPV yok. Strok sonu kısıcıya kalır. İğneyi son 20 mm’de sıkı tut veya PPV-A sipariş et." },
+    { n:"9", cls: "ok",
+      t: "<b>Ayar sırası.</b> D8 eşit kes → her silindire 2 kısıcı → çekme (foto 2) iğnesini " + fmt(tTarget,1) + " s yap → uzama (foto 1) iğnesini aynı süreye çek → sol/sağ tur sayısı aynı." }
+  ];
+  $("smoothOut").innerHTML = items.map(it =>
+    `<div class="stepn"><div class="n ${it.cls}">${it.n}</div><div>${it.t}</div></div>`
+  ).join("") + `<div class="note info"><strong>Hat.</strong> FRL → 4V230E-08 → D8 ${fmt(hoseL,1)} m → kısıcı → LDNC × ${nCyl}. Bobin A: mil uzar / kapak yatay. Bobin B: mil kısalır / kapak dikey. Orta konum: kullanma.</div>`;
+}
+
+function fit(rawPts, vw, vh, pad) {
+  const p = typeof pad === "number"
+    ? { t: pad, r: pad, b: pad, l: pad }
+    : { t: pad.t ?? 40, r: pad.r ?? 40, b: pad.b ?? 40, l: pad.l ?? 40 };
+  const xs = rawPts.map(q => q[0]), ys = rawPts.map(q => q[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const sc = Math.min((vw - p.l - p.r) / Math.max(maxX - minX, 1), (vh - p.t - p.b) / Math.max(maxY - minY, 1));
+  const ox = p.l - minX * sc, oy = p.t - minY * sc;
+  return q => [ox + q[0] * sc, oy + q[1] * sc];
+}
+
+function poly(pts, fill, stroke, sw, extra) {
+  return `<polygon points="${pts.map(p => p.join(",")).join(" ")}" fill="${fill}" stroke="${stroke}" stroke-width="${sw || 1}" ${extra || ""}/>`;
+}
+function line(a, b, stroke, sw, cap) {
+  return `<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="${cap || "round"}"/>`;
+}
+function circ(p, rad, fill, stroke, sw) {
+  return `<circle cx="${p[0]}" cy="${p[1]}" r="${rad}" fill="${fill}" stroke="${stroke}" stroke-width="${sw || 1}"/>`;
+}
+function txt(p, s, fill, size, w, anchor, halo) {
+  const h = halo ? `stroke="#0b1016" stroke-width="4" paint-order="stroke fill"` : "";
+  return `<text x="${p[0]}" y="${p[1]}" fill="${fill}" font-size="${size}" font-weight="${w || 600}" text-anchor="${anchor || "start"}" font-family="Segoe UI" ${h}>${s}</text>`;
+}
+
+function draw3D(M) {
+  const { W, TD, TH, inset, lidW, lidT, zH, xMid, vCyl, L, r, th, lidXYZ, Axyz, Bxyz, stateTxt, stateCol } = M;
+  const raw = (x, y, z) => [x - 0.46 * z, -y + 0.24 * z];
+  const samples = [];
+  [[0,0,0],[W,0,0],[W,0,TD],[0,0,TD],[0,TH,0],[W,TH,0],[W,TH,TD],[0,TH,TD]].forEach(p => samples.push(raw(...p)));
+  [0, L].forEach(u => [-lidW/2, lidW/2].forEach(v => {
+    const q = lidXYZ(u, v, true);
+    samples.push(raw(q.x, q.y, q.z));
+  }));
+  [-vCyl, vCyl].forEach(v => {
+    const a = Axyz(v), b = Bxyz(v);
+    samples.push(raw(a.x, a.y, a.z), raw(b.x, b.y, b.z));
+  });
+  samples.push(raw(xMid, TH + 70, zH + 80), raw(xMid, TH - 70, zH - 80));
+  const P0 = fit(samples, 1100, 640, { t: 78, r: 92, b: 46, l: 56 });
+  const P = (x, y, z) => P0(raw(x, y, z));
+  const PQ = o => P(o.x, o.y, o.z);
+
+  const tank = {
+    ftl: P(0, TH, 0), ftr: P(W, TH, 0), fbl: P(0, 0, 0), fbr: P(W, 0, 0),
+    btl: P(0, TH, TD), btr: P(W, TH, TD), bbl: P(0, 0, TD), bbr: P(W, 0, TD)
+  };
+  const ox0 = P(inset, TH, inset), ox1 = P(W - inset, TH, inset);
+  const ox2 = P(W - inset, TH, zH), ox3 = P(inset, TH, zH);
+
+  function face(a,b,c,d, fill, stroke) { return poly([a,b,c,d], fill, stroke, 1.2); }
+
+  const hw = lidW / 2;
+  const film = [lidXYZ(0,-hw,true), lidXYZ(L,-hw,true), lidXYZ(L,hw,true), lidXYZ(0,hw,true)].map(PQ);
+  const inner = [lidXYZ(0,-hw,false), lidXYZ(L,-hw,false), lidXYZ(L,hw,false), lidXYZ(0,hw,false)].map(PQ);
+  const edgeL = [lidXYZ(0,-hw,false), lidXYZ(L,-hw,false), lidXYZ(L,-hw,true), lidXYZ(0,-hw,true)].map(PQ);
+  const edgeF = [lidXYZ(L,-hw,false), lidXYZ(L,hw,false), lidXYZ(L,hw,true), lidXYZ(L,-hw,true)].map(PQ);
+  const edgeR = [lidXYZ(0,hw,false), lidXYZ(L,hw,false), lidXYZ(L,hw,true), lidXYZ(0,hw,true)].map(PQ);
+
+  const rib = [lidXYZ(30,-28,true), lidXYZ(L-20,-28,true), lidXYZ(L-20,28,true), lidXYZ(30,28,true)].map(PQ);
+
+  let bolts = "";
+  for (let i = 0; i <= 10; i++) {
+    const u = 25 + i * (L - 50) / 10;
+    bolts += circ(PQ(lidXYZ(u, -hw + 22, true)), 2.4, "#cbd5e1", "#64748b", 0.6);
+    bolts += circ(PQ(lidXYZ(u,  hw - 22, true)), 2.4, "#cbd5e1", "#64748b", 0.6);
+  }
+  for (let i = 1; i <= 7; i++) {
+    const v = -hw + 40 + i * (lidW - 80) / 8;
+    bolts += circ(PQ(lidXYZ(22, v, true)), 2.4, "#cbd5e1", "#64748b", 0.6);
+    bolts += circ(PQ(lidXYZ(L - 22, v, true)), 2.4, "#cbd5e1", "#64748b", 0.6);
+  }
+
+  let hinge = "";
+  for (let i = 0; i <= 8; i++) {
+    const x = inset + 40 + i * (lidW - 80) / 8;
+    hinge += circ(P(x, TH + 8, zH), 7, "#cbd5e1", "#64748b", 1);
+  }
+  hinge += line(P(inset, TH + 8, zH), P(W - inset, TH + 8, zH), "#94a3b8", 5);
+
+  let pulley = "";
+  const ppts = [];
+  for (let i = 0; i <= 28; i++) {
+    const a = i / 28 * Math.PI * 2;
+    ppts.push(P(xMid, TH + 8 + 62 * Math.sin(a), zH + 18 + 62 * Math.cos(a)));
+  }
+  pulley += `<polygon points="${ppts.map(p=>p.join(",")).join(" ")}" fill="#111827" stroke="#a78bfa" stroke-width="2.4"/>`;
+  pulley += circ(P(xMid, TH + 8, zH + 18), 10, "#c4b5fd", "#a78bfa", 2);
+
+  function cyl(v) {
+    const A = Axyz(v), B = Bxyz(v);
+    const pa = PQ(A), pb = PQ(B);
+    const dx = B.x - A.x, dy = B.y - A.y, dz = B.z - A.z;
+    const len = Math.hypot(dx, dy, dz) || 1;
+    const bEnd = { x: A.x + dx * 0.55, y: A.y + dy * 0.55, z: A.z + dz * 0.55 };
+    const pbe = PQ(bEnd);
+    const foot = P(A.x, TH, zH - 20);
+    const knee = P(A.x, A.y, zH - 20);
+    let o = "";
+    o += line(P(A.x, TH, zH), foot, "#94a3b8", 7);
+    o += line(foot, knee, "#cbd5e1", 9);
+    o += line(knee, pa, "#cbd5e1", 8);
+    o += line(pa, pbe, "#d97706", 18);
+    o += line(pa, pbe, "#78350f", 10);
+    o += line(pbe, pb, "#e2e8f0", 6);
+    o += circ(pa, 8, "#0f1419", "#f59e0b", 2.5);
+    o += circ(pb, 7, "#0f1419", "#38bdf8", 2.5);
+    const port = { x: A.x + dx * 0.18, y: A.y + dy * 0.18 + 18, z: A.z + dz * 0.18 };
+    o += circ(PQ(port), 3.2, "#38bdf8", "#7dd3fc", 1);
+    return { html: o, pa, pb, port: PQ(port) };
+  }
+  const cL = cyl(-vCyl), cR = cyl(vCyl);
+  const valve = P(W - 40, TH + 40, 180);
+
+  let html = `
+    <defs>
+      <linearGradient id="st" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d5dce3"/><stop offset="100%" stop-color="#8a98a4"/>
+      </linearGradient>
+      <linearGradient id="st2" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#9aa7b2"/><stop offset="100%" stop-color="#c5ced6"/>
+      </linearGradient>
+      <linearGradient id="lidg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#e8f6ff"/><stop offset="55%" stop-color="#7dd3fc"/><stop offset="100%" stop-color="#0369a1"/>
+      </linearGradient>
+    </defs>
+    ${face(tank.btl, tank.btr, tank.bbr, tank.bbl, "#3a4654", "#64748b")}
+    ${face(tank.ftl, tank.btl, tank.bbl, tank.fbl, "#4b5968", "#64748b")}
+    ${face(tank.ftl, tank.ftr, tank.btr, tank.btl, "url(#st)", "#94a3b8")}
+    ${poly([ox0, ox1, ox2, ox3], "#141c24", "#334155", 1)}
+    ${face(tank.ftr, tank.btr, tank.bbr, tank.fbr, "url(#st2)", "#94a3b8")}
+    ${face(tank.ftl, tank.ftr, tank.fbr, tank.fbl, "#b7c2cb", "#94a3b8")}
+    ${txt(P(xMid, TH * 0.45, 40), "TANK", "#5b6773", 18, 700, "middle")}
+    ${hinge}${pulley}
+    ${poly(inner, "#334155", "#64748b", 1)}
+    ${poly(edgeL, "#64748b", "#94a3b8", 1)}
+    ${poly(edgeF, "#788590", "#94a3b8", 1)}
+    ${poly(edgeR, "#8a96a0", "#94a3b8", 1)}
+    ${poly(film, "url(#lidg)", "#7dd3fc", 1.4)}
+    ${poly(rib, "#94a3b8", "#cbd5e1", 1.2)}
+    ${bolts}
+    ${cL.html}${cR.html}
+    ${line(cR.port, valve, "#38bdf8", 2.2)}
+    ${line(cL.port, P(40, TH + 30, 200), "#38bdf8", 2.2)}
+    ${circ(valve, 11, "#1e293b", "#38bdf8", 2)}
+    <rect x="0" y="0" width="1100" height="62" fill="#0b1016"/>
+    <rect x="0" y="610" width="1100" height="30" fill="#0b1016"/>
+    ${txt([16, 26], "3/4 · kamera önden-sağ · foto 1 ile aynı bakış", "#64748b", 13, 500)}
+    ${txt([16, 50], stateTxt, stateCol, 16, 800)}
+    ${txt([valve[0]+10, valve[1]-8], "valf", "#7dd3fc", 11, 600, "start", true)}
+    ${txt([cL.pa[0]-8, cL.pa[1]-12], "A", "#f59e0b", 16, 800, "end", true)}
+    ${txt([cR.pa[0]+10, cR.pa[1]-12], "A", "#f59e0b", 16, 800, "start", true)}
+    ${txt([cL.pb[0]-6, cL.pb[1]+18], "B kulak", "#7dd3fc", 13, 800, "end", true)}
+    ${txt([cR.pb[0]+8, cR.pb[1]+18], "B kulak", "#7dd3fc", 13, 800, "start", true)}
+    ${txt([P(xMid - 90, TH - 8, zH)[0], P(xMid - 90, TH - 8, zH)[1]], "H menteşe", "#fbbf24", 14, 800, "start", true)}
+    ${txt([P(xMid + 40, TH + 80, zH)[0], P(xMid + 40, TH + 80, zH)[1]], "makara", "#c4b5fd", 12, 600, "start", true)}
+    ${txt([16, 628], "sol + sağ silindir  ·  L ayak tankta  ·  kulak kapakta  ·  orta dikme kapakla döner", "#64748b", 12, 400)}
+  `;
+  $("svg3d").innerHTML = html;
+}
+
+function drawSide(M) {
+  const { TD, TH, lidT, zH, vCyl, L, r, th, lidXYZ, Axyz, Bxyz, Ax, Ay } = M;
+  const raw = (x, y, z) => [z, -y];
+  const A3 = Axyz(vCyl), B3 = Bxyz(vCyl);
+  const samples = [];
+  [[0, 0, 0], [0, 0, TD], [0, TH, 0], [0, TH, TD]].forEach(p => samples.push(raw(...p)));
+  [0, L].forEach(u => {
+    const f = lidXYZ(u, 0, true), inn = lidXYZ(u, 0, false);
+    samples.push(raw(f.x, f.y, f.z), raw(inn.x, inn.y, inn.z));
+  });
+  samples.push(raw(A3.x, A3.y, A3.z), raw(B3.x, B3.y, B3.z));
+  const P0 = fit(samples, 980, 420, { t: 38, r: 100, b: 40, l: 40 });
+  const P = (x, y, z) => P0(raw(x, y, z));
+  const PQ = o => P(o.x, o.y, o.z);
+
+  const lidNow = [
+    lidXYZ(0, 0, false), lidXYZ(L, 0, false), lidXYZ(L, 0, true), lidXYZ(0, 0, true)
+  ].map(PQ);
+
+  function lidAng(ang, film) {
+    const t = film ? lidT : 0;
+    return (u) => ({
+      x: 0,
+      y: TH + u * Math.sin(ang) + t * Math.cos(ang),
+      z: zH - u * Math.cos(ang) - t * Math.sin(ang)
+    });
+  }
+  const g0 = lidAng(0, true), g0i = lidAng(0, false);
+  const g1 = lidAng(Math.PI / 2, true), g1i = lidAng(Math.PI / 2, false);
+  const ghostH = [g0i(0), g0i(L), g0(L), g0(0)].map(PQ);
+  const ghostV = [g1i(0), g1i(L), g1(L), g1(0)].map(PQ);
+
+  const pa = PQ(A3), pb = PQ(B3);
+  const dx = B3.x - A3.x, dy = B3.y - A3.y, dz = B3.z - A3.z;
+  const len = Math.hypot(dx, dy, dz) || 1;
+  const bEnd = { x: A3.x + dx * 0.55, y: A3.y + dy * 0.55, z: A3.z + dz * 0.55 };
+  const pbe = PQ(bEnd);
+  const foot = P(A3.x, TH, zH - 20);
+  const knee = P(A3.x, A3.y, zH - 20);
+  const Hh = P(0, TH, zH);
+
+  const ABx = B3.z - A3.z, ABy = B3.y - A3.y;
+  const tPerp = ((zH - A3.z) * ABx + (TH - A3.y) * ABy) / Math.max(ABx * ABx + ABy * ABy, 1e-9);
+  const F = P(0, A3.y + tPerp * ABy, A3.z + tPerp * ABx);
+
+  const arc = [];
+  for (let i = 0; i <= 20; i++) {
+    const a = (i / 20) * th;
+    const p = lidAng(a, false)(90);
+    arc.push(P(0, p.y, p.z).join(","));
+  }
+
+  const T0 = P(0, TH, 0), T1 = P(0, TH, TD), T2 = P(0, 0, TD), T3 = P(0, 0, 0);
+  const rib0 = PQ(lidXYZ(30, 0, true)), rib1 = PQ(lidXYZ(L - 20, 0, true));
+
+  $("svgSide").innerHTML = `
+    ${poly([T0, T1, T2, T3], "#1e293b", "#94a3b8", 1.6)}
+    ${txt(P(0, TH * 0.45, TD * 0.45), "TANK", "#475569", 14, 700, "middle")}
+    ${line(P(0, TH, 0), P(0, TH, zH), "#38bdf8", 1.2)}
+    ${poly(ghostH, "none", "#64748b", 1.3, 'stroke-dasharray="6 5" opacity=".5"')}
+    ${poly(ghostV, "none", "#64748b", 1.3, 'stroke-dasharray="6 5" opacity=".5"')}
+    ${line(P(A3.x, TH, zH), foot, "#94a3b8", 6)}
+    ${line(foot, knee, "#cbd5e1", 8)}
+    ${line(knee, pa, "#cbd5e1", 8)}
+    ${poly(lidNow, "#38bdf8", "#7dd3fc", 1.3)}
+    ${line(rib0, rib1, "#94a3b8", 6)}
+    <polyline points="${arc.join(" ")}" fill="none" stroke="#fbbf24" stroke-width="1.6"/>
+    ${line(Hh, F, "#34d399", 2)}
+    ${circ(F, 3, "#34d399", "#34d399", 0)}
+    ${line(pa, pbe, "#d97706", 16)}
+    ${line(pa, pbe, "#78350f", 8)}
+    ${line(pbe, pb, "#e2e8f0", 5)}
+    ${circ(Hh, 14, "#111827", "#a78bfa", 2.4)}
+    ${circ(Hh, 4, "#fbbf24", "#fbbf24", 0)}
+    ${circ(pa, 8, "#0f1419", "#f59e0b", 2.5)}
+    ${circ(pb, 7, "#0f1419", "#38bdf8", 2.5)}
+    <rect x="0" y="0" width="980" height="32" fill="#0b1016"/>
+    <rect x="0" y="392" width="980" height="28" fill="#0b1016"/>
+    ${txt([14, 22], "2D = 3D yan izdüşüm · z–y · aynı noktalar · değişiklik yok", "#64748b", 13, 500)}
+    ${txt(PQ(g0(L)), "foto 1 yatay", "#94a3b8", 11, 500, "start", true)}
+    ${txt(PQ(g1(L)), "foto 2 dikey", "#94a3b8", 11, 500, "start", true)}
+    ${txt([(Hh[0] + F[0]) / 2 + 6, (Hh[1] + F[1]) / 2], "h", "#34d399", 12, 700, "start", true)}
+    ${txt([Hh[0] + 12, Hh[1] + 22], "H", "#fbbf24", 16, 800, "start", true)}
+    ${txt([pa[0] - 8, pa[1] - 12], "A", "#f59e0b", 14, 800, "end", true)}
+    ${txt([pb[0] + 10, pb[1] - 10], "B", "#7dd3fc", 14, 800, "start", true)}
+    ${txt([16, 408], "A = (zH−" + Ax + ", TH+" + Ay + ")  ·  B = lidXYZ(r)  ·  3D ile aynı", "#64748b", 12, 400)}
+  `;
+}
+
+applyCyl();
+</script>
+</body>
+</html>

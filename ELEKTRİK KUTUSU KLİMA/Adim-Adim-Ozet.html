@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elektrik Kutusu Kliması — Adım Adım Özet (Yeni Başlayan)</title>
+  <style>
+    :root {
+      --bg: #0f1419; --card: #1a2332; --line: #2a3a4d; --text: #e8ecf0;
+      --muted: #8b9aab; --blue: #60a5fa; --green: #34d399; --amber: #f59e0b;
+      --red: #f87171; --panel: #121a24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.62; padding: 24px 16px 72px; }
+    .wrap { max-width: 820px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; }
+    h2 { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: #7aa2c8; margin: 36px 0 12px; }
+    h3 { font-size: 1.05rem; color: #93c5fd; margin: 18px 0 8px; }
+    p, li { font-size: .95rem; color: #c8d0dc; }
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0 0 12px 1.2rem; }
+    li { margin: 4px 0; }
+    .sub { color: var(--muted); font-size: .86rem; margin: 6px 0 16px; }
+    a { color: var(--blue); }
+    .hero { background: linear-gradient(135deg, rgba(59,130,246,.14), rgba(6,182,212,.07)); border: 1px solid rgba(59,130,246,.32); border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 8px; }
+    .nav a { font-size: .75rem; padding: 6px 11px; border-radius: 6px; background: #1a2332; border: 1px solid #2a3a4d; color: #7dd3fc; text-decoration: none; }
+    .lesson { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
+    .badge { display: inline-block; background: #1e3a5f; color: #93c5fd; font-size: .72rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-bottom: 8px; }
+    .note { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: .88rem; color: #aab4c0; margin: 12px 0; }
+    .note strong { color: var(--text); }
+    .note.ok { border-color: rgba(52,211,153,.4); background: rgba(52,211,153,.07); }
+    .note.warn { border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.07); }
+    .note.info { border-color: rgba(59,130,246,.4); background: rgba(59,130,246,.07); }
+    .formula { font-family: Consolas, "Cascadia Mono", monospace; background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: .86rem; color: #a5f3fc; margin: 10px 0; line-height: 1.7; }
+    .math { background: #0f1419; border: 1px solid #2a3a4d; border-radius: 8px; padding: 12px 14px; font-size: .88rem; margin: 10px 0; }
+    .math .line { font-family: Consolas, monospace; color: #e8ecf0; margin: 3px 0; }
+    .math .why { color: #8b9aab; font-size: .82rem; margin: 2px 0 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; margin: 10px 0; }
+    th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: #8ab4d4; font-size: .7rem; text-transform: uppercase; }
+    .stepn { display: grid; grid-template-columns: 36px 1fr; gap: 10px; margin: 10px 0; }
+    .n { width: 28px; height: 28px; border-radius: 50%; background: #1e3a5f; color: #93c5fd; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .8rem; margin-top: 2px; }
+    label { display: block; font-size: .72rem; color: #8ab4d4; text-transform: uppercase; letter-spacing: .04em; margin: 8px 0 4px; }
+    input, select { width: 100%; background: #0f1419; border: 1px solid #2a3a4d; color: var(--text); border-radius: 6px; padding: 8px 10px; font-size: .9rem; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .teach { background: #0f1419; border: 1px solid #2a3a4d; border-radius: 10px; padding: 14px 16px; margin-top: 12px; }
+    .teach h4 { color: #34d399; font-size: .82rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; }
+    .teach p { font-size: .88rem; margin-bottom: 8px; }
+    .verdict { font-size: 1.05rem; font-weight: 750; margin: 8px 0; }
+    details { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; margin: 8px 0; }
+    details summary { cursor: pointer; color: #93c5fd; font-weight: 650; }
+    details p { margin-top: 8px; }
+    .footer { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: .76rem; color: #64748b; }
+    @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Elektrik kutusuna klima gerekir mi?</h1>
+  <p class="sub">Yeni başlayan rehberi · adım adım · formüller açık · orijinal araştırma raporu ayrı duruyor</p>
+
+  <div class="hero">
+    <strong>Bu sayfa ne işe yarar?</strong>
+    Konuyu hiç bilmiyorsan buradan başla. Amaç: sayfayı bitirince “ısı nereden geliyor, kutunun duvarı ne kadar atar, fan mı klima mı” sorusunu kendi başına cevaplayabilmek.
+    <p style="margin-top:10px"><a href="Elektrik-Kutusu-Klima-Arastirma-Raporu.html">Standartların tam listesi ve ayrıntılı rapor →</a> (bu özet onu bozmaz, ayrı dosyadır)</p>
+  </div>
+
+  <div class="nav">
+    <a href="#nedir">1. Konu nedir</a>
+    <a href="#kelimeler">2. Kelimeler</a>
+    <a href="#is">3. İş sırası</a>
+    <a href="#formul">4. Formüller</a>
+    <a href="#ornek1">5. Küçük örnek</a>
+    <a href="#ornek2">6. Sıcak oda</a>
+    <a href="#canli">7. Canlı hesap</a>
+    <a href="#secim">8. Fan mı klima mı</a>
+  </div>
+
+  <!-- 1 -->
+  <h2 id="nedir">Ders 1 — Konu nedir?</h2>
+  <div class="lesson">
+    <span class="badge">Önce hikâye, sonra hesap</span>
+    <h3>Elektrik kutusu (pano) nedir?</h3>
+    <p>Makinenin PLC’si, sürücüsü, kontaktörü, 24 V güç kaynağı bir sac kutunun içine konur. Bu kutuya pano veya elektrik kutusu denir. Kapak kapanınca içerisi neredeyse kapalı bir odadır.</p>
+    <h3>Neden ısınır?</h3>
+    <p>Elektrik cihazlarının hepsi aldıkları enerjinin bir kısmını işe çevirir, kalanını <strong>ısı</strong> olarak bırakır. Ampul de ısınır, dizüstü bilgisayar da. Sürücü (VFD) en çok ısı üretenlerden biridir: 7,5 kW motor sürücüsü kabaca 200–400 W ısı bırakabilir. Bu, içeride birkaç ütü kadar sürekli ısı demektir.</p>
+    <h3>Isı kaçmazsa ne olur?</h3>
+    <p>Kutu kapalıysa ısı içeride birikir. PLC, güç kaynağı, sürücü ısındıkça ömrü kısalır, arıza artar, bazen makine durur. Standartların istediği şey “mutlaka klima tak” değil. İstediği şey: <strong>en sıcak günde, tam yükte, içindeki her cihaz kendi izin verilen sıcaklığının altında kalsın.</strong></p>
+    <h3>Pano kliması nedir?</h3>
+    <p>Oda kliması değildir. Panonun kapısına veya yanına takılan küçük bir soğutucudur. İç havayı alıp soğutup panoya geri basar. Dışarıdaki toz ve nem içeri girmez (kapalı çevrim). Fan ise pencere açmak gibidir: dışarıdaki havayı içeri üfler.</p>
+    <div class="note ok"><strong>Tek cümle.</strong> Klima her kutuya takılmaz. Üretilen ısı, kutunun duvarlarından kendi başına kaçabiliyorsa hiçbir şey takmana gerek yoktur.</div>
+  </div>
+
+  <!-- 2 -->
+  <h2 id="kelimeler">Ders 2 — 6 kelime yeter</h2>
+  <div class="lesson">
+    <table>
+      <thead><tr><th>Kısaltma</th><th>Türkçesi</th><th>Ne anlama gelir</th></tr></thead>
+      <tbody>
+        <tr><td><strong>T<sub>u</sub></strong></td><td>Ortam (dış) sıcaklığı</td><td>Kutunun durduğu odanın en kötü (en sıcak) havası. Yazın 40 °C olabilir.</td></tr>
+        <tr><td><strong>T<sub>i</sub></strong></td><td>Hedef iç sıcaklık</td><td>Kutunun içinde görmek istediğin hava. Elektronik için genelde <strong>35 °C</strong> seçilir.</td></tr>
+        <tr><td><strong>ΔT</strong></td><td>Fark</td><td>T<sub>i</sub> − T<sub>u</sub>. İçeri, dışarıdan kaç derece farklı olsun.</td></tr>
+        <tr><td><strong>Q<sub>v</sub></strong></td><td>Üretilen ısı</td><td>İçindeki cihazların toplam kayıp gücü. Birimi Watt (W). 100 W ≈ 100 Joule/saniye ısı.</td></tr>
+        <tr><td><strong>Q<sub>s</sub></strong></td><td>Duvarların attığı ısı</td><td>Sacın kendiliğinden dışarı verdiği (veya dışarıdan aldığı) Watt.</td></tr>
+        <tr><td><strong>Q<sub>e</sub></strong></td><td>Aktif olarak atılması gereken ısı</td><td>Fan veya klimanın yapmak zorunda olduğu iş. 0 veya negatifse cihaz takılmaz.</td></tr>
+      </tbody>
+    </table>
+    <div class="note info"><strong>k nedir?</strong> Sacın “ısıyı ne kadar iyi geçirdiği”. Boyalı çelik için pratik değer <strong>5,5 W/m²K</strong>. Anlamı: 1 m² sac, içerisi dışarıdan 1 °C sıcaksana 5,5 Watt ısı kaçırır. 10 °C fark varsa 55 W kaçar.</div>
+    <p>Watt’ı hissetmek için: küçük bir LED lamba ~10 W, ütü ~1000 W. Pano hesabında 50 W ile 1500 W arası sayılar görürsün.</p>
+  </div>
+
+  <!-- 3 -->
+  <h2 id="is">Ders 3 — İlk işinde sırayla ne yapacaksın</h2>
+  <div class="lesson">
+    <p>Hesaba atlama. Önce veri topla. Her adım bir sonrakinin girdisidir.</p>
+    <div class="stepn"><div class="n">1</div><div><strong>Kutuyu ölç.</strong> Dıştan genişlik × yükseklik × derinlik (mm). Duvara mı asılı, yerde serbest mi, yanına başka pano var mı — bunu da not et. Duvar ve komşu pano, o yüzeyi “kör” yapar, ısı oradan zor kaçar.</div></div>
+    <div class="stepn"><div class="n">2</div><div><strong>En kötü oda sıcaklığını yaz.</strong> “Şimdi 22 °C” yetmez. Yazın o oda kaç derece olur? Güneş vuruyor mu? Bu sayı T<sub>u</sub>.</div></div>
+    <div class="stepn"><div class="n">3</div><div><strong>Hedef iç sıcaklığı seç.</strong> Katalogda en hassas cihazın max. çalışma sıcaklığına bak (çoğu 40–55 °C). Güvenli hedef olarak <strong>35 °C</strong> kullan. Bu T<sub>i</sub>.</div></div>
+    <div class="stepn"><div class="n">4</div><div><strong>İçindeki her cihazın kayıp Watt’ını topla.</strong> Katalogda “power dissipation / power loss / kayıp güç” satırı. Bulamazsan kaba kural:
+      <ul>
+        <li>24 V güç kaynağı: çıkış gücünün %10’u kadar ısı (100 W çıkış ≈ 10 W kayıp, verim %90 ise aslında ~11 W)</li>
+        <li>PLC + birkaç I/O: 15–40 W</li>
+        <li>Sürücü (VFD): motor gücünün yaklaşık %3’ü (10 kW motor → ~300 W ısı)</li>
+      </ul>
+      Toplam = Q<sub>v</sub>. Bu adımı atlama; yanlış Q<sub>v</sub> bütün kararı bozar.
+    </div></div>
+    <div class="stepn"><div class="n">5</div><div><strong>Duvarların kaç Watt atabileceğini hesapla</strong> (Q<sub>s</sub>). Formül bir sonraki derste. Ara adımlar: yüzeyler → etkin alan A → k × A × ΔT.</div></div>
+    <div class="stepn"><div class="n">6</div><div><strong>Karşılaştır.</strong> Q<sub>e</sub> = Q<sub>v</sub> − Q<sub>s</sub>. Sonuç ≤ 0 ise pasif yeter. Sonuç > 0 ise soğutma gerekir.</div></div>
+    <div class="stepn"><div class="n">7</div><div><strong>Cihaz tipini seç.</strong> Oda, hedeften serinse ve hava temizse fan. Oda hedeften sıcaksa veya ortam kirli/ıslaksa pano kliması. Isı yok ama kışın terleme (yoğuşma) varsa ısıtıcı.</div></div>
+    <div class="stepn"><div class="n">8</div><div><strong>Bir kâğıda yaz.</strong> Sayılar, varsayımlar, seçilen cihaz. Sonradan kutuya sürücü eklenirse hesabı baştan yap.</div></div>
+  </div>
+
+  <!-- 4 -->
+  <h2 id="formul">Ders 4 — Formüller, yavaş</h2>
+  <div class="lesson">
+    <span class="badge">Her sembolü tek tek</span>
+
+    <h3>Adım A — Sıcaklık farkı</h3>
+    <div class="formula">ΔT = T<sub>i</sub> − T<sub>u</sub></div>
+    <p>Örnek: içeride 35 °C istiyorsun, oda 25 °C → ΔT = 35 − 25 = <strong>+10 K</strong> (1 Kelvin = 1 °C fark). İçeri dışarıdan 10 derece sıcak. Isı içeriden dışarı kaçar. Bu iyi.</p>
+    <p>Örnek: içeride 35 °C istiyorsun, oda 40 °C → ΔT = 35 − 40 = <strong>−5 K</strong>. Dışarı daha sıcak. Isı <em>dışarıdan içeri girer</em>. Fan bunu çözemez; fan ancak dışarıdaki 40 °C havayı içeri taşır.</p>
+
+    <h3>Adım B — Altı yüzeyin alanı</h3>
+    <p>Ölçüler metre cinsinden olmalı. 800 mm = 0,80 m.</p>
+    <div class="formula">Üst (ve taban) = genişlik × derinlik     →  G × D
+Ön  (ve arka) = yükseklik × genişlik    →  Y × G
+Sol (ve sağ)  = yükseklik × derinlik    →  Y × D</div>
+    <p>Gerçek hayatta taban çoğu zaman zemine oturur, oradan ısı kaçmaz diye <strong>tabanı 0 sayarız</strong>.</p>
+
+    <h3>Adım C — Etkin alan A (neden düz toplam değil?)</h3>
+    <p>Her yüzey aynı işi yapmaz. Isı yukarı çıkar, üst yüzey daha değerlidir (katsayı 1,4). Duvara yaslı arka yüzey kördür (0,5). Yerde duran taban 0’dır.</p>
+    <p>Duvara asılı <strong>tek kutu</strong> (en sık durum, tip 2):</p>
+    <div class="formula">A = 1,4×üst + 0,9×ön + 0,5×arka + 0,9×sol + 0,9×sağ</div>
+    <p>Diğer yerleşimler (sıranın ortası, her yanı açık) tam rapordaki tabloda. İlk işinde tip 2 ile başla.</p>
+
+    <h3>Adım D — Duvarların attığı ısı</h3>
+    <div class="formula">Q<sub>s</sub> = k × A × ΔT</div>
+    <p>k = 5,5 (boyalı sac). A metre kare, ΔT derece, sonuç Watt.</p>
+    <ul>
+      <li>Q<sub>s</sub> pozitif: kutu ısı <strong>veriyor</strong> (içeri daha sıcak).</li>
+      <li>Q<sub>s</sub> negatif: kutu ısı <strong>alıyor</strong> (oda daha sıcak). Bu Watt, yüke eklenir.</li>
+    </ul>
+
+    <h3>Adım E — Fan veya klimanın işi</h3>
+    <div class="formula">Q<sub>e</sub> = Q<sub>v</sub> − Q<sub>s</sub></div>
+    <p>Q<sub>e</sub> ≤ 0 → duvarlar yetiyor, cihaz takma.<br>
+       Q<sub>e</sub> > 0 → bu kadar Watt’ı aktif atman lazım.</p>
+    <p>Güvenlik için %20 pay koy:</p>
+    <div class="formula">Seçilecek kapasite ≥ Q<sub>e</sub> × 1,20</div>
+
+    <h3>Adım F — Yalnızca fan seçildiyse debi</h3>
+    <p>Fan, dışarıdaki havayı içeri üfler. Oda hedef iç sıcaklıktan soğuk olmalı (ΔT > 0). Pratik formül:</p>
+    <div class="formula">Debi (m³/saat) = 3,1 × Q<sub>e</sub> / ΔT</div>
+    <p>3,1 sayısı havanın yoğunluğu ve ısısından gelir; ezberlemen yeterli. Filtre kirlendikçe debi düşer, bu yüzden hesaplanan değerin 2 katı civarı fan seçilir.</p>
+  </div>
+
+  <!-- 5 -->
+  <h2 id="ornek1">Ders 5 — Küçük örnek (elle, her satır)</h2>
+  <div class="lesson">
+    <p><strong>Durum:</strong> Duvara asılı küçük kutu. İçinde PLC + 24 V güç kaynağı. Oda temiz, 25 °C. Hedef 35 °C.</p>
+    <table>
+      <tr><th>Girdi</th><th>Değer</th></tr>
+      <tr><td>Ölçü (G × Y × D)</td><td>500 × 400 × 250 mm</td></tr>
+      <tr><td>Yerleşim</td><td>Duvar (tip 2)</td></tr>
+      <tr><td>Malzeme</td><td>Sac, k = 5,5</td></tr>
+      <tr><td>Cihaz kayıpları Q<sub>v</sub></td><td>50 W</td></tr>
+      <tr><td>T<sub>u</sub> / T<sub>i</sub></td><td>25 °C / 35 °C</td></tr>
+    </table>
+
+    <p><strong>1) Metreye çevir</strong></p>
+    <div class="math">
+      <div class="line">G = 500 / 1000 = 0,50 m</div>
+      <div class="line">Y = 400 / 1000 = 0,40 m</div>
+      <div class="line">D = 250 / 1000 = 0,25 m</div>
+    </div>
+
+    <p><strong>2) Ham yüzeyler</strong></p>
+    <div class="math">
+      <div class="line">üst  = 0,50 × 0,25 = 0,125 m²</div>
+      <div class="why">genişlik × derinlik</div>
+      <div class="line">ön   = 0,40 × 0,50 = 0,200 m²</div>
+      <div class="why">yükseklik × genişlik  (arka da aynı 0,200)</div>
+      <div class="line">sol  = 0,40 × 0,25 = 0,100 m²</div>
+      <div class="why">yükseklik × derinlik  (sağ da aynı 0,100)</div>
+    </div>
+
+    <p><strong>3) Etkin alan A (tip 2 katsayıları)</strong></p>
+    <div class="math">
+      <div class="line">üst  1,4 × 0,125 = 0,175</div>
+      <div class="line">ön   0,9 × 0,200 = 0,180</div>
+      <div class="line">arka 0,5 × 0,200 = 0,100   ← duvara yaslı, yarı puan</div>
+      <div class="line">sol  0,9 × 0,100 = 0,090</div>
+      <div class="line">sağ  0,9 × 0,100 = 0,090</div>
+      <div class="line">A = 0,175+0,180+0,100+0,090+0,090 = <strong>0,635 m²</strong></div>
+    </div>
+
+    <p><strong>4) ΔT ve Q<sub>s</sub></strong></p>
+    <div class="math">
+      <div class="line">ΔT = 35 − 25 = 10 K</div>
+      <div class="line">Q<sub>s</sub> = 5,5 × 0,635 × 10</div>
+      <div class="line">     = 5,5 × 6,35</div>
+      <div class="line">     = <strong>34,9 W</strong></div>
+      <div class="why">Kutu kendi başına yaklaşık 35 W kaçırabiliyor.</div>
+    </div>
+
+    <p><strong>5) Karşılaştır</strong></p>
+    <div class="math">
+      <div class="line">Q<sub>e</sub> = 50 − 34,9 = <strong>15,1 W</strong></div>
+      <div class="why">15 W’ı duvar atamıyor. Az bir şey; oda temiz ve 25 °C olduğu için küçük bir fan yeter.</div>
+      <div class="line">Debi = 3,1 × 15,1 / 10 = 4,7 m³/h</div>
+      <div class="why">Çok küçük. Piyasadaki en küçük filtre fanın kat kat altında. Yine de filtreli tak, IP’yi delme.</div>
+    </div>
+    <div class="note ok"><strong>Karar.</strong> Klima yok. Temiz odada küçük fan (veya kutuyu biraz büyütüp fanı da kaldırmak). 15 W için klima israf.</div>
+  </div>
+
+  <!-- 6 -->
+  <h2 id="ornek2">Ders 6 — Aynı kutu, yazın 40 °C oda</h2>
+  <div class="lesson">
+    <p>Ölçü ve 50 W aynı. Sadece oda 40 °C, hedef hâlâ 35 °C.</p>
+    <div class="math">
+      <div class="line">ΔT = 35 − 40 = −5 K</div>
+      <div class="line">Q<sub>s</sub> = 5,5 × 0,635 × (−5) = <strong>−17,5 W</strong></div>
+      <div class="why">Eksi: oda kutuya 17,5 W ısı basıyor. Duvarlar artık dost değil, düşman.</div>
+      <div class="line">Q<sub>e</sub> = 50 − (−17,5) = 50 + 17,5 = <strong>67,5 W</strong></div>
+      <div class="line">%20 pay → 67,5 × 1,20 = <strong>81 W</strong></div>
+    </div>
+    <div class="note warn"><strong>Karar.</strong> Fan yasak: fan 40 °C havayı içeri üfler, 35 °C’ye inemez. Mini pano kliması veya (pratikte) daha büyük bir 300 W’lık ünite — piyasada 80 W’lık pano kliması nadirdir, eldeki en küçük modeli alırsın. Asıl ders: <em>oda hedefi geçerse fizik değişir.</em></div>
+  </div>
+
+  <!-- 7 -->
+  <h2 id="canli">Ders 7 — Kendi sayınla dene</h2>
+  <div class="lesson">
+    <p>Sayıları değiştir. Altta öğretmen gibi, her ara adım yazılır. Duvar tipi (tip 2) ve sac (k = 5,5) sabit; ilk işin için yeterli.</p>
+    <div class="pair">
+      <div><label>Genişlik mm</label><input id="w" type="number" value="800" oninput="go()"></div>
+      <div><label>Yükseklik mm</label><input id="h" type="number" value="2000" oninput="go()"></div>
+    </div>
+    <div class="pair">
+      <div><label>Derinlik mm</label><input id="d" type="number" value="600" oninput="go()"></div>
+      <div><label>Cihaz kayıpları Qv (W)</label><input id="qv" type="number" value="800" oninput="go()"></div>
+    </div>
+    <div class="pair">
+      <div><label>Oda Tu (°C)</label><input id="tu" type="number" value="40" oninput="go()"></div>
+      <div><label>Hedef iç Ti (°C)</label><input id="ti" type="number" value="35" oninput="go()"></div>
+    </div>
+    <div class="pair">
+      <div><label>Ortam</label>
+        <select id="env" onchange="go()">
+          <option>Temiz elektrik odası</option>
+          <option>Tozlu / yağlı atölye</option>
+          <option>Yıkama / ıslak</option>
+        </select>
+      </div>
+      <div><label>Marj %</label><input id="m" type="number" value="20" oninput="go()"></div>
+    </div>
+    <div class="teach" id="out"></div>
+  </div>
+
+  <!-- 8 -->
+  <h2 id="secim">Ders 8 — Fan mı, klima mı, ısıtıcı mı?</h2>
+  <div class="lesson">
+    <p>Hesap bittikten sonra tek bakış:</p>
+    <table>
+      <thead><tr><th>Gördüğün şey</th><th>Ne takarsın</th><th>Neden, tek cümle</th></tr></thead>
+      <tbody>
+        <tr><td>Q<sub>e</sub> ≤ 0 ve yoğuşma yok</td><td>Hiçbir şey</td><td>Duvarlar yetiyor</td></tr>
+        <tr><td>Q<sub>e</sub> > 0, oda &lt; hedef, hava temiz</td><td>Filtre fan</td><td>Pencere açmak gibi; ucuz</td></tr>
+        <tr><td>Q<sub>e</sub> > 0, oda &lt; hedef, hava tozlu</td><td>Hava-hava eşanjör veya klima</td><td>Fan tozu içeri alır</td></tr>
+        <tr><td>Oda ≥ hedef iç sıcaklık</td><td>Pano kliması</td><td>Fan odayı panodan soğuk yapamaz</td></tr>
+        <tr><td>Yıkama, deterjan, ıslak</td><td>Kapalı çevrim klima</td><td>Fan su/kimyasalı içeri taşır</td></tr>
+        <tr><td>Isı az, kışın içerisi terliyor</td><td>Termostatlı ısıtıcı</td><td>Sorun sıcaklık değil nem</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>Yoğuşma (terleme).</strong> Soğuk kutu, nemli odaya açılınca cam gibi terler. Su + elektrik = korozyon ve kaçak. Klima çalışırken kapı kapalı olmalı. Kışın dış kabinde küçük ısıtıcı neredeyse her zaman gerekir.</div>
+    <h3>Sürücünün kendi fanı panoyu soğutmaz</h3>
+    <p>VFD üzerindeki pervaneler cihazın içini karıştırır. Isı yine panonun içinde kalır. Panodan atmak ayrı iştir: duvar, pano fanı veya klima.</p>
+    <h3>Katalog tuzağı</h3>
+    <p>“1500 W klima” yazısı genelde <strong>iç 35 / dış 35</strong> noktasındadır. Dış 50 °C olunca aynı cihaz 600 W’a düşebilir. Seçimi senin T<sub>i</sub> / T<sub>u</sub> çiftine göre eğriden yap.</p>
+  </div>
+
+  <h2>Kendini test et</h2>
+  <div class="lesson">
+    <details>
+      <summary>1) 30 °C odada, hedef 35 °C, Qe = 0 çıktı. Klima takar mısın?</summary>
+      <p>Hayır. Duvarlar yetiyor. Sayıları bir kâğıda koy. Yazın oda 40 olursa hesabı tekrarla — cevap değişebilir.</p>
+    </details>
+    <details>
+      <summary>2) Oda 42 °C, hedef 35 °C. Büyük fan iş görür mü?</summary>
+      <p>Görmez. Fan 42 °C hava üfler. 35 °C’ye inmenin tek yolu klima (veya soğuk sulu eşanjör).</p>
+    </details>
+    <details>
+      <summary>3) Qv’yi bilmiyorum, ne yapayım?</summary>
+      <p>Katalog “power loss”. Yoksa: PSU için (1/verim − 1) × çıkış, VFD için motor kW × 0,03, PLC için 20–40 W kaba. Topla. Bilmiyorsan tahmini yüksek tut; düşük tutmak tehlikeli.</p>
+    </details>
+    <details>
+      <summary>4) IP54 kutu = otomatik klima mi?</summary>
+      <p>Değil. IP, fan delmenin toz/su korumasını bozacağını söyler. Isı hâlâ Qe ile bakılır. Yüksek IP + yüksek ısı genelde klimaya iter; küçük röle kutusunda gerekmeyebilir.</p>
+    </details>
+  </div>
+
+  <div class="note info">
+    <strong>Bundan sonra.</strong> Bu özet ön boyutlandırmadır. Gerçek pano dosyasında IEC 61439 doğrulaması (hesap veya test) istenir. Standart maddeleri, 1600 A sınırı, F-Gaz, ATEX:
+    <a href="Elektrik-Kutusu-Klima-Arastirma-Raporu.html">tam araştırma raporu</a>.
+  </div>
+
+  <div class="footer">
+    ELEKTRİK KUTUSU KLİMA / Adim-Adim-Ozet.html · 18.09.2026<br>
+    Orijinal rapor ayrı dosyada duruyor, bu sayfa onu değiştirmez.
+  </div>
+</div>
+
+<script>
+function go() {
+  const mm = id => (+document.getElementById(id).value || 0) / 1000;
+  const G = mm('w'), Y = mm('h'), D = mm('d');
+  const Qv = +document.getElementById('qv').value || 0;
+  const Tu = +document.getElementById('tu').value;
+  const Ti = +document.getElementById('ti').value;
+  const env = document.getElementById('env').value;
+  const mar = (+document.getElementById('m').value || 0) / 100;
+  const k = 5.5;
+  const ust = G * D, on = Y * G, yan = Y * D;
+  const A = 1.4*ust + 0.9*on + 0.5*on + 0.9*yan + 0.9*yan;
+  const dT = Ti - Tu;
+  const Qs = k * A * dT;
+  const Qe = Qv - Qs;
+  const sel = Qe > 0 ? Qe * (1 + mar) : 0;
+  const debi = (Qe > 0 && dT > 0) ? 3.1 * Qe / dT : 0;
+  const dirty = env !== 'Temiz elektrik odası';
+
+  let karar, renk;
+  if (Qe <= 0) {
+    karar = 'Klima/fan gerekmez. Duvarlar bu yükü atıyor.';
+    renk = '#34d399';
+  } else if (dT <= 0) {
+    karar = 'Pano kliması. Fan fiziken yetmez (oda, hedeften sıcak veya eşit).';
+    renk = '#f59e0b';
+  } else if (dirty) {
+    karar = 'Kapalı çevrim (klima veya eşanjör). Ortam kirli/ıslak, fan tozu içeri alır.';
+    renk = '#f59e0b';
+  } else {
+    karar = 'Küçük filtre fan yeterli olabilir. Debiyi filtre kirliliği için 2 katına yuvarla.';
+    renk = '#60a5fa';
+  }
+
+  document.getElementById('out').innerHTML =
+    '<h4>Ara adımlar (senin sayıların)</h4>' +
+    '<p>1) Metre: ' + G.toFixed(3) + ' × ' + Y.toFixed(3) + ' × ' + D.toFixed(3) + ' m</p>' +
+    '<p>2) Yüzeyler: üst ' + ust.toFixed(3) + ' · ön/arka ' + on.toFixed(3) + ' · sol/sağ ' + yan.toFixed(3) + ' m²</p>' +
+    '<p>3) Etkin alan A = 1,4×' + ust.toFixed(3) + ' + 0,9×' + on.toFixed(3) + ' + 0,5×' + on.toFixed(3) + ' + 0,9×' + yan.toFixed(3) + ' + 0,9×' + yan.toFixed(3) + ' = <strong>' + A.toFixed(2) + ' m²</strong></p>' +
+    '<p>4) ΔT = ' + Ti + ' − ' + Tu + ' = <strong>' + dT.toFixed(1) + ' K</strong>' +
+      (dT > 0 ? ' (içeri daha sıcak, ısı dışarı kaçar)' : dT < 0 ? ' (oda daha sıcak, ısı içeri girer)' : ' (fark yok, duvar ısı taşımaz)') + '</p>' +
+    '<p>5) Qs = 5,5 × ' + A.toFixed(2) + ' × (' + dT.toFixed(1) + ') = <strong>' + Qs.toFixed(0) + ' W</strong></p>' +
+    '<p>6) Qe = ' + Qv + ' − (' + Qs.toFixed(0) + ') = <strong>' + Qe.toFixed(0) + ' W</strong>' +
+      (Qe <= 0 ? ' → aktif soğutma 0' : ' → bu Watt atılmalı') + '</p>' +
+    (Qe > 0 ? '<p>7) Marjlı seçim ≥ ' + sel.toFixed(0) + ' W' +
+      (dT > 0 && !dirty ? ' · teorik fan ' + debi.toFixed(0) + ' m³/h' : '') + '</p>' : '') +
+    '<p class="verdict" style="color:' + renk + '">' + karar + '</p>';
+}
+go();
+</script>
+</body>
+</html>
