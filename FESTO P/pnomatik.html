@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pnömatik</title>
+  <style>
+    :root {
+      --bg: #f6f7f9; --card: #fff; --text: #1a1a1a; --muted: #5c6570;
+      --border: #d8dee6; --accent: #2563eb; --accent2: #059669;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .site-nav {
+      background: #1e293b; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center;
+      position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #334155;
+    }
+    .site-nav a { color: #cbd5e1; text-decoration: none; font-size: 0.875rem; padding: 4px 8px; border-radius: 6px; }
+    .site-nav a:hover { background: #334155; color: #fff; }
+    .site-nav a.active { background: var(--accent); color: #fff; }
+    .site-nav .brand { color: #fff; font-weight: 700; margin-right: 12px; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+    h1 { font-size: 1.75rem; margin: 0 0 8px; }
+    h2 { font-size: 1.2rem; margin: 0 0 12px; }
+    .subtitle { color: var(--muted); margin: 0 0 24px; }
+    section[id], .anchor { scroll-margin-top: 72px; }
+    section {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; margin-bottom: 20px;
+    }
+    section h2 { font-size: 1.125rem; margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    section h3 { font-size: 1rem; margin: 18px 0 8px; color: #334155; }
+    section p, .info p { margin: 0 0 10px; font-size: 0.95rem; }
+    .note { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; margin: 12px 0; }
+    .warn-box { background: #fff7ed; border: 1px solid #fdba74; border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 0.9rem; }
+    .ok-box { background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 10px; padding: 14px 16px; margin: 12px 0; font-size: 0.9rem; }
+    .flow {
+      font-family: Consolas, "Courier New", monospace; font-size: 0.85rem;
+      background: #0f172a; color: #94a3b8; padding: 16px 20px; border-radius: 8px;
+      line-height: 1.8; overflow-x: auto; white-space: pre;
+    }
+    .mini-diagram { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 16px; font-family: Consolas, monospace; font-size: 0.82rem; line-height: 1.7; color: #334155; overflow-x: auto; white-space: pre; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 12px 0; }
+    th, td { border: 1px solid var(--border); padding: 10px 12px; text-align: left; vertical-align: top; }
+    th { background: #f0f4f8; font-weight: 600; }
+    tr:nth-child(even) td { background: #fafbfc; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+    .stat-val { font-size: 1.35rem; font-weight: 700; color: var(--accent2); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card-link {
+      display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px; text-decoration: none; color: inherit;
+    }
+    .card-link:hover { border-color: var(--accent); }
+    .card-link h2 { margin: 0 0 8px; font-size: 1.05rem; color: var(--accent); border: 0; padding: 0; }
+    .card-link p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+    .tag { display: inline-block; margin-top: 12px; font-size: 0.75rem; background: #ecfdf5; color: #059669; padding: 3px 8px; border-radius: 4px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .info { background: #fafbfc; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .info h3 { margin: 0 0 8px; }
+    .product-card { border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 16px; background: #fafbfc; }
+    .product-card h3 { margin: 0 0 4px; font-size: 1rem; color: #1e40af; }
+    .product-card .code { font-family: Consolas, monospace; font-size: 0.85rem; color: var(--muted); margin-bottom: 12px; }
+    .badge { display: inline-block; background: #dbeafe; color: #1d4ed8; font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+    ol.steps { margin: 8px 0 0; padding-left: 1.2rem; }
+    ol.steps li { margin: 0 0 8px; }
+
+    .sim-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+    @media (max-width: 820px) { .sim-layout { grid-template-columns: 1fr; } }
+    .sim-controls { display: flex; flex-direction: column; gap: 14px; }
+    .sim-group { background: #fafbfc; border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+    .sim-group h4 { margin: 0 0 10px; font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .sim-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+    .sim-btn { padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: white; cursor: pointer; font-size: 0.85rem; font-family: inherit; }
+    .sim-btn:hover { border-color: var(--accent); }
+    .sim-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .sim-btn.success.active { background: #16a34a; border-color: #16a34a; }
+    .sim-btn.danger.active { background: #dc2626; border-color: #dc2626; }
+    .sim-btn.warn.active { background: #d97706; border-color: #d97706; }
+    .sim-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .sim-status { font-size: 0.85rem; background: #f0f4f8; border-radius: 8px; padding: 12px; min-height: 90px; line-height: 1.6; }
+    .sim-status .ok { color: #16a34a; font-weight: 600; }
+    .sim-status .warn { color: #d97706; font-weight: 600; }
+    .sim-status .err { color: #dc2626; font-weight: 600; }
+    .sim-canvas { width: 100%; max-width: 760px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; display: block; }
+    .pipe { stroke: #475569; stroke-width: 6; fill: none; }
+    .pipe.flow { stroke-dasharray: 8 6; animation: flowAnim 0.6s linear infinite; }
+    @keyframes flowAnim { to { stroke-dashoffset: -14; } }
+    .valve-body { fill: #334155; stroke: #64748b; stroke-width: 2; }
+    .valve-coil { fill: #475569; stroke: #64748b; stroke-width: 1; }
+    .valve-coil.on, .valve-unit.on .valve-coil { fill: #fbbf24; stroke: #f59e0b; }
+    .valve-coil.b2.on { fill: #f87171; stroke: #ef4444; }
+    .valve-spool { stroke: #64748b; stroke-width: 4; stroke-linecap: round; pointer-events: none; }
+    .valve-label { fill: #e2e8f0; font-size: 10px; font-weight: 600; }
+    .valve-sub { fill: #94a3b8; font-size: 8px; }
+    .cyl-barrel { fill: #1e293b; stroke: #94a3b8; stroke-width: 2; }
+    .cyl-cap { fill: #64748b; stroke: #cbd5e1; stroke-width: 1.5; }
+    .cyl-rod { fill: #e2e8f0; stroke: #cbd5e1; stroke-width: 1; }
+    .cyl-label { fill: #94a3b8; font-size: 9px; font-weight: 600; }
+    .door-panel { transition: transform 0.05s linear; }
+    .sensor-gauge { fill: #0f172a; stroke: #64748b; stroke-width: 1.5; }
+    .sensor-val { fill: #34d399; font-size: 10px; font-weight: 700; }
+    .led { transition: fill 0.3s; }
+    .led.on { fill: #22c55e; }
+    .led.off { fill: #475569; }
+    .lock-pin { transition: cx 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .sim-biz .pipe.flow { stroke: #34d399; }
+    .sim-biz .valve-unit.on .valve-body { fill: #059669; stroke: #6ee7b7; }
+    .sim-biz .valve-unit.on .valve-spool { stroke: #6ee7b7; }
+    .sim-plc .pipe.flow { stroke: #38bdf8; }
+    .sim-plc .valve-unit.on .valve-body { fill: #1d4ed8; stroke: #60a5fa; }
+    .sim-plc .valve-unit.on .valve-spool { stroke: #93c5fd; }
+    .sim-plc .door-panel { transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <span class="brand">Pnömatik</span>
+  <a href="#ozet">Özet</a>
+  <a href="#bizim">Bizim hat</a>
+  <a href="#gecis">Ne değişir</a>
+  <a href="#plc">PLC’li plan</a>
+  <a href="#plcsiz">PLC’siz plan</a>
+  <a href="#bizim-sim">Bizim simülasyon</a>
+  <a href="#plc-sim">Festo simülasyon</a>
+  <a href="#smc">SMC parçalar</a>
+</nav>
+<div class="wrap">
+
+<section id="ozet">
+  <h1>Kapak pnömatiği</h1>
+  <p class="subtitle">Mevcut hat, müşteri planları ve SMC frenli / yumuşak kalkış seti. Tek sayfa.</p>
+  <div class="ok-box"><strong>Kısa cevap:</strong> Elektrik kutusu baştan kurulmaz. 5/3 valfin iki bobini durur. Üstüne yumuşak kalkış için 1 çıkış ve basınç anahtarı için 1 giriş gelir. Asıl iş, hava hazırlık grubunu değiştirmek ve iki Luftec’i kilitli silindirle değiştirmektir. Müşterinin PLC’li planındaki 4 kesme valfi ve 6 konum sensörü bu SMC setinin parçası değildir.</div>
+  <div class="cards">
+    <a class="card-link" href="#bizim"><h2>Bizim hat</h2><p>Regülatör öncesi hava-var, iki basınç sensörü, 5/3, iki Luftec. Kapanışta çekvalf.</p><span class="tag">Mevcut</span></a>
+    <a class="card-link" href="#gecis"><h2>Ne değişir</h2><p>Hangi parça kalır, elektrik kutusuna ne eklenir, kilit havası nasıl bağlanır.</p><span class="tag">Geçiş</span></a>
+    <a class="card-link" href="#plc"><h2>PLC’li Festo</h2><p>Y2 emniyet valfi, 5/3 kapalı orta, silindir üstünde VBOC kesme, konum sensörleri.</p><span class="tag">Pneumatikplan 1</span></a>
+    <a class="card-link" href="#plcsiz"><h2>PLC’siz Festo</h2><p>Kapak silindirinde pilotlu çekvalf (HGL). Konum sensörü yok.</p><span class="tag">Pneumatikplan 2</span></a>
+    <a class="card-link" href="#smc"><h2>SMC seti</h2><p>Kilitli silindir, yumuşak kalkış, basınç anahtarı, elle boşaltma.</p><span class="tag">İstenen ürün</span></a>
+  </div>
+</section>
+
+<section id="bizim">
+  <h2>Şu anki hat</h2>
+  <p>Tek parça kapak, iki silindir birlikte yürür. Yön valfi 5/3 çift bobin (AIRTAC 4V230E-08). Bobinler kalkış ve inişi seçer. Orta konumda valf son sinyalini tutar; yay ile ortaya dönmez.</p>
+  <div class="flow">Şebeke
+  ↓
+Hava-var sensörü          regülatörden ÖNCE — hava bağlı mı, bar ölçmez
+  ↓
+Regülatör
+  ↓
+Basınç sensörü            ana valf öncesi
+  ↓
+Ana valf
+  ↓
+Basınç sensörü            5/3 öncesi
+  ↓
+5/3 çift bobin
+  ├─ açılış hattı         sadece rakor
+  └─ kapanış hattı        çekvalf
+        ↓
+LDNC 50×1200  × 2        tek kapak</div>
+  <table>
+    <thead><tr><th>Parça</th><th>Elektrik</th><th>Görevi</th></tr></thead>
+    <tbody>
+      <tr><td>Hava-var sensörü</td><td>1 giriş</td><td>Regülatöre hava gelmiş mi</td></tr>
+      <tr><td>Regülatör</td><td>Yok</td><td>Çalışma basıncı</td></tr>
+      <tr><td>Basınç sensörü ×2</td><td>2 giriş</td><td>Ana valf öncesi ve 5/3 öncesi</td></tr>
+      <tr><td>Ana valf</td><td>Varsa 1 çıkış</td><td>Hattı keser</td></tr>
+      <tr><td>5/3 çift bobin</td><td>2 çıkış</td><td>Kapağı açar / kapatır</td></tr>
+      <tr><td>Çekvalf (kapanış)</td><td>Yok</td><td>Kapanış hattında. Açılış hattı düz rakor.</td></tr>
+      <tr><td>LDNC ×2</td><td>Bu hatta sensör yok</td><td>Mıknatıslı gövde olabilir; sensör takılı değil</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Kapanıştaki çekvalf hız veya geri akış içindir. Hava kesilince kapağı mekanik olarak tutan bir fren değildir. Açılış rakoru düz geçiş olduğu için kaldırma hattında hava hapsedilmez.</div>
+</section>
+
+<section id="gecis">
+  <h2>SMC setine geçiş — büyük değişiklik yok</h2>
+  <p>Müşterinin istediği set, PLC’li plandaki emniyet PLC’sinin kopyası değildir. PLC’siz plandaki “hava gidince kapak düşmesin” işini mekanik frene, yumuşak doldurmayı da AV valfine verir.</p>
+  <table>
+    <thead><tr><th>Bugün</th><th>Yerine</th><th>Elektrik kutusu</th></tr></thead>
+    <tbody>
+      <tr><td>Regülatör</td><td>AW40-F04CE-D filtre + regülatör</td><td>Aynı, elektriksiz</td></tr>
+      <tr><td>Ana valf</td><td>AV4000 yumuşak kalkış + VHS40 elle boşaltma</td><td>AV için 24 VDC, 1 çıkış. Ana valf zaten bobinliyse o çıkış AV’ye kayar.</td></tr>
+      <tr><td>5/3 öncesi basınç sensörü</td><td>IS10E basınç anahtarı</td><td>1 giriş. Reed kontak, 24 V’ta en fazla ~50 mA. Eski sensör kalabilir.</td></tr>
+      <tr><td>Hava-var sensörü</td><td>Aynı yerde durur</td><td>Giriş aynı</td></tr>
+      <tr><td>5/3 çift bobin</td><td>Aynı valf durur</td><td>2 çıkış aynı</td></tr>
+      <tr><td>LDNC ×2</td><td>CP96NDB50-1200C ×2</td><td>Bobin yok, sensör yok</td></tr>
+      <tr><td>Kapanış çekvalfi</td><td>Hız ayarlı çekvalf olarak kalabilir</td><td>Yok</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Yeni hava sırası</h3>
+  <div class="flow">Şebeke → hava-var sensörü → VHS40 (elle kes / boşalt)
+    → AW40 (filtre + regülatör) → IS10E (basınç var)
+    → AV4000 (24 V, yavaş doldur / kesince hızlı boşalt)
+    → 5/3
+    → iki kilitli silindir
+Kilit portu: aşağıya bak.</div>
+
+  <h3>Kilit havası — tek dikkat edilecek bağ</h3>
+  <p>Fren, silindirin ayrı kilit portuna en az 0,3 MPa gelince açılır. Port boşalınca yay mili tutar. Fren bobini yoktur. Teklifte kilit valfi de yoktur.</p>
+  <div class="grid-2">
+    <div class="info">
+      <h3>Ekstra bobin istemeyen bağ</h3>
+      <p>5/3 orta konumu egzoz ise (4V230E): her silindirin A ve B hatlarından birer çekvalf ile kilit portuna OR yapılır. Bir taraf basınçlıyken fren açılır, valf ortada her iki tarafı boşaltınca fren kilitler.</p>
+      <p>Kilit portunu sürekli beslemeye bağlama. Yumuşak kalkış açıkken fren de sürekli açık kalır. Orta konum egzozsa kapak düşer.</p>
+    </div>
+    <div class="info">
+      <h3>Orta konum kapalıysa</h3>
+      <p>4V230C orta konumda A ve B’yi tıkar. O zaman OR bağı freni ortada da açık tutar. Bu valfte kilit portuna ayrı 3/2 gerekir: sadece hareket komutunda enerjilenir. Silindir başına veya ikisine ortak 1 çıkış.</p>
+    </div>
+  </div>
+
+  <h3>Sıra</h3>
+  <ol class="steps">
+    <li>Hava-var girişi tamam.</li>
+    <li>AV4000 çıkışı çekilir, hat yavaş dolar.</li>
+    <li>IS10E “basınç var” der.</li>
+    <li>Ancak ondan sonra 5/3 bobinine izin verilir. Hareketle birlikte kilit havası da gelir.</li>
+    <li>Elektrik veya AV düşünce kilit portu boşalır, fren mili tutar.</li>
+  </ol>
+  <div class="warn-box">Düz çekvalf kapanış odasının egzozunu tıkıyorsa kapak açılmaz. O parça kısma + çekvalf (inişte yavaşlatma) ise yerinde kalır. Düz çekvalfse kilitli silindire geçerken çıkart.</div>
+  <p>PLC’li plandaki 4 adet VBOC, 6 konum sensörü ve ayrı sepet kilidi bu geçişte takılmaz. Onlar PLd izlemeli bir emniyet devresidir. SMC kodunda fren durumu ve kapak konumu sinyali yoktur. Konum istenirse silindir başına 2 manyetik sensör ayrıca sipariş edilir; gövdede mıknatıs hazırdır.</p>
+</section>
+
+<section id="plc">
+  <h2>Müşteri — PLC’li plan</h2>
+  <p class="subtitle" style="margin-top:-8px">Pneumatikplan_1_with PLC.pdf · kapı sayfası. Temizlik üfleme hatları (FR2, FR3) kapaktan bağımsız.</p>
+  <div class="flow">Kompresör → FR1 (MSB4)
+    → BP1 basınç anahtarı (SPBA, M12) + elle boşaltma tapası
+    → Y2  3/2 NC, yay geri, bobinli   hattı ancak enerji varken besler
+         ├─ Y1.1 / Y1.2   5/3, orta konum kapalı (VUVS P53C) → kapı
+         │     her silindir portunda VBOC 2/2 NC (Y4 Y5 Y6 Y7)
+         │     PV1.L ve PV1.P   DSBC Ø50 × 1350, sensörlü
+         └─ Y3.1 / Y3.2   5/2 çift bobin → PV2 sepet kilidi Ø32 × 50, sensörlü</div>
+  <table>
+    <thead><tr><th>Kod</th><th>Ne</th><th>Elektrik</th></tr></thead>
+    <tbody>
+      <tr><td>Y2</td><td>Emniyet beslemesi. Enerjisizken hat boşalır.</td><td>1 çıkış</td></tr>
+      <tr><td>Y1.1 / Y1.2</td><td>Kapı yönü. Orta konum tüm portlar kapalı.</td><td>2 çıkış</td></tr>
+      <tr><td>Y4–Y7</td><td>VBOC. Silindir portuna vidalı 2/2, normalde kapalı. Pilot hava ile açılır. M8 soketi bobin değil, “kapalı” konum geri bildirimidir.</td><td>4 giriş</td></tr>
+      <tr><td>SQ / SMT-8M</td><td>Kapı silindirlerinde uç konum + kilit silindirinde 2 sensör. Toplam 6.</td><td>6 giriş</td></tr>
+      <tr><td>BP1</td><td>Basınç yeterli mi.</td><td>1 giriş</td></tr>
+      <tr><td>Y3.1 / Y3.2</td><td>Sepet pimi. Kapak freni değildir.</td><td>2 çıkış</td></tr>
+    </tbody>
+  </table>
+  <div class="note">Plan, güvenli duruş ve beklenmeyen kalkış için PLd, fren izleme için PLe yazar. Bunu SMC frenli silindir tek başına karşılamaz: VBOC’un konum anahtarı ve silindir sensörleri PLC’de çapraz izlenir. ISO 4414 notu: elle basınç boşaltma olmalı ve işaretli olmalı. VHS40 bu işin SMC karşılığıdır.</div>
+</section>
+
+<section id="plcsiz">
+  <h2>Müşteri — PLC’siz plan</h2>
+  <p class="subtitle" style="margin-top:-8px">Pneumatikplan_2_without_PLC.pdf · kapak kısmı sayfa 1. Sonraki sayfalar yıkama pompaları ve küresel vana adalarıdır, kapağa bağlı değildir.</p>
+  <div class="flow">Hava hazırlık MS6-LFR-1/2
+    → valf adası VTUG (bobinler duruyor, emniyet PLC’si yok)
+    → iki kapak silindiri paralel  DSBC-63 × 1170
+         port 2 (tutma tarafı): HGL pilotlu çekvalf
+         her iki port: GRLA hız ayarlı çekvalf
+Konum sensörü yok. Ayrı kesme valfi yok. Sepet kilidi yok.</div>
+  <p>HGL, karşı hattın pilotu varken kaldırma odasının havasını bırakır. Hava kesilince çekvalf kapanır, oda dolu kalır, kapak düşmez. Elektrik girişi yoktur. SMC’deki yaylı mil freni bu işi havanın içeride hapsolmasına bırakmadan yapar. Hortum patlarsa HGL’nin tuttuğu oda da boşalabilir; mil freni gövde üzerinde kaldığı için o arızada da mili tutar.</p>
+  <div class="grid-2">
+    <div class="info">
+      <h3>PLC’li plan</h3>
+      <p>Elektrikli Y2, izlenen VBOC, konum sensörleri, ayrı kilit silindiri. Kutu ve yazılım büyür.</p>
+    </div>
+    <div class="info">
+      <h3>PLC’siz plan ve SMC seti</h3>
+      <p>Tutma işi pnömatiktir. SMC’de tutan parça HGL değil, silindirin kendi freni. Yumuşak kalkış ve basınç anahtarı eklenir. Konum sensörü şart değildir.</p>
+    </div>
+  </div>
+</section>
+
+<div id="bizim-sim" class="anchor sim-biz">
+<section id="biz-simSection">
+      <h2>İnteraktif Simülasyon</h2>
+      <p class="desc">Regülatör ve ana valf açıkken 5/3 bobinleri kapağı yürütür. Regülatör öncesi hava-var sensörü bu çizimde yok; o sensör bar ölçmez, hava bağlı mı diye bakar.</p>
+
+      <div class="sim-layout">
+        <div class="sim-controls">
+          <div class="sim-group">
+            <h4>Besleme</h4>
+            <div class="sim-btns">
+              <button class="sim-btn active" id="biz-btnReg" type="button">Regülatör (0–10 bar)</button>
+              <button class="sim-btn" id="biz-btnMain" type="button">Ana Valf</button>
+            </div>
+          </div>
+          <div class="sim-group">
+            <h4>5/3 — Yön Valfi</h4>
+            <div class="sim-btns">
+              <button class="sim-btn success" id="biz-btnUp" type="button" disabled>Bobin A — Yukarı</button>
+              <button class="sim-btn danger" id="biz-btnDown" type="button" disabled>Bobin B — Aşağı</button>
+            </div>
+          </div>
+          <div class="sim-group">
+            <h4>Diğer</h4>
+            <div class="sim-btns">
+              <button class="sim-btn" id="biz-btnReset" type="button">Sıfırla</button>
+            </div>
+          </div>
+          <div class="sim-status" id="biz-simStatus">Regülatör aktif. Ana valf kapalı.</div>
+        </div>
+
+        <div>
+          <svg class="sim-canvas" id="biz-simCanvas" viewBox="0 0 760 480" xmlns="http://www.w3.org/2000/svg">
+            <!-- Şebeke -->
+            <rect x="330" y="8" width="100" height="34" rx="6" fill="#2563eb"/>
+            <text x="380" y="30" text-anchor="middle" fill="white" font-size="11" font-weight="600">Şebeke Havası</text>
+
+            <line id="biz-pipe0" class="pipe" x1="380" y1="42" x2="380" y2="58"/>
+            <!-- Regülatör -->
+            <rect x="340" y="58" width="80" height="36" rx="5" fill="#065f46" stroke="#10b981" stroke-width="2"/>
+            <text x="380" y="74" text-anchor="middle" fill="#d1fae5" font-size="10" font-weight="600">Regülatör</text>
+            <text x="380" y="86" text-anchor="middle" fill="#6ee7b7" font-size="8">0–10 bar</text>
+
+            <line id="biz-pipe1" class="pipe" x1="380" y1="94" x2="380" y2="112"/>
+            <!-- PS1 giriş -->
+            <rect class="sensor-gauge" x="350" y="112" width="60" height="28" rx="4"/>
+            <text x="380" y="124" text-anchor="middle" fill="#94a3b8" font-size="7">PS1 GİRİŞ</text>
+            <text id="biz-ps1Text" class="sensor-val" x="380" y="136" text-anchor="middle">0.0 bar</text>
+
+            <line id="biz-pipe2" class="pipe" x1="380" y1="140" x2="380" y2="158"/>
+            <!-- Ana valf -->
+            <g class="valve-unit" id="biz-valveUnitMain">
+              <rect class="valve-coil" x="358" y="148" width="44" height="10" rx="2"/>
+              <rect x="350" y="158" width="60" height="30" rx="4" class="valve-body" id="biz-valveMain"/>
+              <line class="valve-spool" x1="362" y1="173" x2="398" y2="173"/>
+              <text x="380" y="172" text-anchor="middle" class="valve-label">Ana Valf</text>
+              <text x="380" y="182" text-anchor="middle" class="valve-sub">Kesme</text>
+            </g>
+
+            <line id="biz-pipe3" class="pipe" x1="380" y1="188" x2="380" y2="206"/>
+            <!-- PS2 çıkış -->
+            <rect class="sensor-gauge" x="350" y="206" width="60" height="28" rx="4"/>
+            <text x="380" y="218" text-anchor="middle" fill="#94a3b8" font-size="7">PS2 ÇIKIŞ</text>
+            <text id="biz-ps2Text" class="sensor-val" x="380" y="230" text-anchor="middle">0.0 bar</text>
+
+            <line id="biz-pipe4" class="pipe" x1="380" y1="234" x2="380" y2="252"/>
+            <!-- 5/3 -->
+            <g class="valve-unit" id="biz-valveUnitDir">
+              <rect class="valve-coil" id="biz-coilA" x="332" y="246" width="36" height="10" rx="2"/>
+              <rect class="valve-coil b2" id="biz-coilB" x="392" y="246" width="36" height="10" rx="2"/>
+              <rect x="340" y="256" width="80" height="34" rx="4" class="valve-body" id="biz-valveDir"/>
+              <line class="valve-spool" x1="352" y1="273" x2="408" y2="273"/>
+              <text x="380" y="272" text-anchor="middle" class="valve-label">5/3</text>
+              <text x="350" y="284" text-anchor="middle" class="valve-sub">A↑</text>
+              <text x="410" y="284" text-anchor="middle" class="valve-sub">B↓</text>
+            </g>
+
+            <!-- Split to cylinders -->
+            <line id="biz-pipe5" class="pipe" x1="380" y1="290" x2="380" y2="304"/>
+            <line id="biz-pipe6" class="pipe" x1="140" y1="304" x2="620" y2="304"/>
+            <line id="biz-pipe7" class="pipe" x1="140" y1="304" x2="140" y2="330"/>
+            <line id="biz-pipe8" class="pipe" x1="620" y1="304" x2="620" y2="330"/>
+
+            <!-- Sol silindir LDNC -->
+            <g id="biz-cylLeft">
+              <rect class="cyl-cap" x="118" y="328" width="44" height="6" rx="2"/>
+              <rect class="cyl-barrel" x="120" y="334" width="40" height="100" rx="3"/>
+              <rect class="cyl-cap" x="118" y="434" width="44" height="6" rx="2"/>
+              <rect id="biz-rodLeft" class="cyl-rod" x="136" y="318" width="8" height="16" rx="2"/>
+              <text class="cyl-label" x="140" y="324" text-anchor="middle">LDNC-50</text>
+              <text x="140" y="452" text-anchor="middle" fill="#64748b" font-size="8">Sol silindir</text>
+            </g>
+
+            <!-- Sağ silindir LDNC -->
+            <g id="biz-cylRight">
+              <rect class="cyl-cap" x="598" y="328" width="44" height="6" rx="2"/>
+              <rect class="cyl-barrel" x="600" y="334" width="40" height="100" rx="3"/>
+              <rect class="cyl-cap" x="598" y="434" width="44" height="6" rx="2"/>
+              <rect id="biz-rodRight" class="cyl-rod" x="616" y="318" width="8" height="16" rx="2"/>
+              <text class="cyl-label" x="620" y="324" text-anchor="middle">LDNC-50</text>
+              <text x="620" y="452" text-anchor="middle" fill="#64748b" font-size="8">Sağ silindir</text>
+            </g>
+
+            <!-- Tek parça kapı -->
+            <g id="biz-doorPanel" class="door-panel">
+              <rect x="200" y="200" width="360" height="28" rx="4" fill="#94a3b8" stroke="#e2e8f0" stroke-width="2"/>
+              <rect x="210" y="228" width="340" height="90" rx="3" fill="#64748b" stroke="#cbd5e1" stroke-width="2"/>
+              <text x="380" y="280" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="700">TEK PARÇA KAPAK</text>
+              <!-- Bağlantı kolları -->
+              <line x1="140" y1="214" x2="200" y2="214" stroke="#cbd5e1" stroke-width="3"/>
+              <line x1="560" y1="214" x2="620" y2="214" stroke="#cbd5e1" stroke-width="3"/>
+            </g>
+
+            <!-- Kılavuz raylar -->
+            <line x1="190" y1="160" x2="190" y2="420" stroke="#475569" stroke-width="4"/>
+            <line x1="570" y1="160" x2="570" y2="420" stroke="#475569" stroke-width="4"/>
+            <text x="380" y="155" text-anchor="middle" fill="#64748b" font-size="9">YUKARI ↑</text>
+            <text x="380" y="445" text-anchor="middle" fill="#64748b" font-size="9">AŞAĞI ↓</text>
+            <text id="biz-doorStatusText" x="380" y="468" text-anchor="middle" fill="#64748b" font-size="11">Kapak: AŞAĞIDA (KAPALI)</text>
+
+            <!-- LED -->
+            <circle id="biz-ledPs1" class="led off" cx="30" cy="130" r="6"/>
+            <text x="30" y="148" text-anchor="middle" fill="#64748b" font-size="8">PS1 OK</text>
+            <circle id="biz-ledPs2" class="led off" cx="30" cy="220" r="6"/>
+            <text x="30" y="238" text-anchor="middle" fill="#64748b" font-size="8">PS2 OK</text>
+            <circle id="biz-ledUp" class="led off" cx="730" cy="200" r="6"/>
+            <text x="730" y="218" text-anchor="middle" fill="#64748b" font-size="8">Yukarı</text>
+            <circle id="biz-ledDown" class="led off" cx="730" cy="240" r="6"/>
+            <text x="730" y="258" text-anchor="middle" fill="#64748b" font-size="8">Aşağı</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (function () {
+    const MAX_BAR = 10;
+    const SETPOINT = 6;
+
+    const state = {
+      regOn: true,
+      mainOpen: false,
+      doorCmd: null,
+      doorPos: 0,
+      ps1: 0,
+      ps2: 0,
+    };
+
+    const els = {
+      btnReg: document.getElementById('biz-btnReg'),
+      btnMain: document.getElementById('biz-btnMain'),
+      btnUp: document.getElementById('biz-btnUp'),
+      btnDown: document.getElementById('biz-btnDown'),
+      btnReset: document.getElementById('biz-btnReset'),
+      status: document.getElementById('biz-simStatus'),
+      doorPanel: document.getElementById('biz-doorPanel'),
+      rodLeft: document.getElementById('biz-rodLeft'),
+      rodRight: document.getElementById('biz-rodRight'),
+      ps1Text: document.getElementById('biz-ps1Text'),
+      ps2Text: document.getElementById('biz-ps2Text'),
+      doorStatusText: document.getElementById('biz-doorStatusText'),
+      valveMain: document.getElementById('biz-valveMain'),
+      valveDir: document.getElementById('biz-valveDir'),
+      coilA: document.getElementById('biz-coilA'),
+      coilB: document.getElementById('biz-coilB'),
+      ledPs1: document.getElementById('biz-ledPs1'),
+      ledPs2: document.getElementById('biz-ledPs2'),
+      ledUp: document.getElementById('biz-ledUp'),
+      ledDown: document.getElementById('biz-ledDown'),
+      pipes: ['biz-pipe0','biz-pipe1','biz-pipe2','biz-pipe3','biz-pipe4','biz-pipe5','biz-pipe6','biz-pipe7','biz-pipe8'],
+    };
+
+    function downstreamReady() {
+      return state.regOn && state.mainOpen && state.ps2 > 1.5;
+    }
+
+    function setValve(bodyEl, on) {
+      const unit = bodyEl.closest('.valve-unit');
+      if (unit) { unit.classList.toggle('on', on); unit.classList.toggle('off', !on); }
+    }
+
+    function setFlow(ids, on) {
+      ids.forEach(function (id) {
+        const p = document.getElementById(id);
+        if (!p) return;
+        if (on) p.classList.add('flow'); else p.classList.remove('flow');
+      });
+    }
+
+    function fmt(v) { return v.toFixed(1) + ' bar'; }
+
+    function updateStatus() {
+      const lines = [];
+      if (!state.regOn) lines.push('<span class="err">Regülatör kapalı</span>');
+      else lines.push('<span class="ok">Regülatör aktif</span> — PS1: ' + fmt(state.ps1));
+      if (!state.mainOpen) lines.push('<span class="warn">Ana valf kapalı — PS2 basıncı yok</span>');
+      else lines.push('<span class="ok">Ana valf açık</span> — PS2: ' + fmt(state.ps2));
+      if (state.doorCmd === 'up') lines.push('Bobin A aktif → kapak yukarı');
+      else if (state.doorCmd === 'down') lines.push('Bobin B aktif → kapak aşağı');
+      els.status.innerHTML = lines.join('<br>');
+    }
+
+    function render() {
+      els.btnReg.classList.toggle('active', state.regOn);
+      els.btnMain.classList.toggle('active', state.mainOpen);
+      els.btnUp.classList.toggle('active', state.doorCmd === 'up');
+      els.btnDown.classList.toggle('active', state.doorCmd === 'down');
+      els.btnUp.disabled = !downstreamReady();
+      els.btnDown.disabled = !downstreamReady();
+
+      setValve(els.valveMain, state.mainOpen);
+      setValve(els.valveDir, downstreamReady() && !!state.doorCmd);
+      els.coilA.classList.toggle('on', state.doorCmd === 'up');
+      els.coilB.classList.toggle('on', state.doorCmd === 'down');
+
+      setFlow(['biz-pipe0','biz-pipe1'], state.regOn);
+      setFlow(['biz-pipe2'], state.regOn && state.ps1 > 0.5);
+      setFlow(['biz-pipe3','biz-pipe4','biz-pipe5','biz-pipe6','biz-pipe7','biz-pipe8'], state.mainOpen && state.ps2 > 0.5);
+      if (downstreamReady() && state.doorCmd) {
+        ['biz-pipe5','biz-pipe6','biz-pipe7','biz-pipe8'].forEach(function (id) {
+          document.getElementById(id).classList.add('flow');
+        });
+      }
+
+      els.ps1Text.textContent = fmt(state.ps1);
+      els.ps2Text.textContent = fmt(state.ps2);
+      els.ledPs1.classList.toggle('on', state.ps1 > 4);
+      els.ledPs1.classList.toggle('off', state.ps1 <= 4);
+      els.ledPs2.classList.toggle('on', state.ps2 > 4);
+      els.ledPs2.classList.toggle('off', state.ps2 <= 4);
+
+      const lift = state.doorPos * 1.1;
+      els.doorPanel.setAttribute('transform', 'translate(0,' + (-lift) + ')');
+      els.rodLeft.setAttribute('y', 318 - lift);
+      els.rodLeft.setAttribute('height', 16 + lift);
+      els.rodRight.setAttribute('y', 318 - lift);
+      els.rodRight.setAttribute('height', 16 + lift);
+
+      if (state.doorPos > 85) {
+        els.doorStatusText.textContent = 'Kapak: YUKARIDA (AÇIK)';
+        els.doorStatusText.setAttribute('fill', '#22c55e');
+        els.ledUp.classList.add('on'); els.ledUp.classList.remove('off');
+        els.ledDown.classList.remove('on'); els.ledDown.classList.add('off');
+      } else if (state.doorPos < 15) {
+        els.doorStatusText.textContent = 'Kapak: AŞAĞIDA (KAPALI)';
+        els.doorStatusText.setAttribute('fill', '#64748b');
+        els.ledDown.classList.add('on'); els.ledDown.classList.remove('off');
+        els.ledUp.classList.remove('on'); els.ledUp.classList.add('off');
+      } else {
+        els.doorStatusText.textContent = 'Kapak: HAREKET EDİYOR';
+        els.doorStatusText.setAttribute('fill', '#f59e0b');
+      }
+
+      updateStatus();
+    }
+
+    function tick() {
+      if (state.regOn) {
+        state.ps1 = Math.min(SETPOINT, state.ps1 + 0.15);
+      } else {
+        state.ps1 = Math.max(0, state.ps1 - 0.25);
+        state.mainOpen = false;
+        state.doorCmd = null;
+      }
+
+      if (state.mainOpen && state.ps1 > 0.5) {
+        state.ps2 = Math.min(state.ps1, state.ps2 + 0.12);
+      } else {
+        state.ps2 = Math.max(0, state.ps2 - 0.2);
+        state.doorCmd = null;
+      }
+
+      if (downstreamReady() && state.doorCmd === 'up') {
+        state.doorPos = Math.min(100, state.doorPos + 0.9);
+      } else if (downstreamReady() && state.doorCmd === 'down') {
+        state.doorPos = Math.max(0, state.doorPos - 0.9);
+      }
+
+      render();
+      requestAnimationFrame(tick);
+    }
+
+    els.btnReg.addEventListener('click', function () {
+      state.regOn = !state.regOn;
+    });
+
+    els.btnMain.addEventListener('click', function () {
+      if (!state.regOn) return;
+      state.mainOpen = !state.mainOpen;
+      if (!state.mainOpen) state.doorCmd = null;
+    });
+
+    els.btnUp.addEventListener('click', function () {
+      state.doorCmd = state.doorCmd === 'up' ? null : 'up';
+    });
+
+    els.btnDown.addEventListener('click', function () {
+      state.doorCmd = state.doorCmd === 'down' ? null : 'down';
+    });
+
+    els.btnReset.addEventListener('click', function () {
+      state.regOn = true;
+      state.mainOpen = false;
+      state.doorCmd = null;
+      state.doorPos = 0;
+      state.ps1 = 0;
+      state.ps2 = 0;
+    });
+
+    tick();
+  })();
+  </script>
+</div>
+
+<div id="plc-sim" class="anchor sim-plc">
+<section id="plc-simSection">
+      <h2>İnteraktif Simülasyon — Çalışma Prensibi</h2>
+      <p class="desc">PLC’li kapı planının basitleştirilmiş hali. Önce ana hava ve Y2 açık olmalı. Y4–Y7 kesme valfleri bu animasyonda ayrı çizilmez; gerçek planda her silindir portundadır.</p>
+
+      <div class="sim-layout">
+        <div class="sim-controls">
+          <div class="sim-group">
+            <h4>Hava Hazırlık</h4>
+            <div class="sim-btns">
+              <button class="sim-btn" id="plc-btnAir" type="button">Y1 — Ana Hava</button>
+              <button class="sim-btn" id="plc-btnY2" type="button">Y2 — Güvenlik</button>
+            </div>
+          </div>
+          <div class="sim-group">
+            <h4>Kapı Valfi (Y1.1 / Y1.2)</h4>
+            <div class="sim-btns">
+              <button class="sim-btn success" id="plc-btnDoorOpen" type="button" disabled>Y1.1 — Kapı Aç</button>
+              <button class="sim-btn danger" id="plc-btnDoorClose" type="button" disabled>Y1.2 — Kapı Kapat</button>
+            </div>
+          </div>
+          <div class="sim-group">
+            <h4>Kilit Valfi (Y3.1 / Y3.2)</h4>
+            <div class="sim-btns">
+              <button class="sim-btn warn" id="plc-btnLock" type="button" disabled>Y3.1 — Kilitle</button>
+              <button class="sim-btn" id="plc-btnUnlock" type="button" disabled>Y3.2 — Kilit Aç</button>
+            </div>
+          </div>
+          <div class="sim-group">
+            <h4>Diğer</h4>
+            <div class="sim-btns">
+              <button class="sim-btn" id="plc-btnReset" type="button">Sıfırla</button>
+            </div>
+          </div>
+          <div class="sim-status" id="plc-simStatus">Sistem kapalı. Ana hava verilmedi.</div>
+        </div>
+
+        <div>
+          <svg class="sim-canvas" id="plc-simCanvas" viewBox="0 0 760 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- Kompresör & FR1 -->
+            <rect x="340" y="16" width="80" height="36" rx="6" fill="#2563eb"/>
+            <text x="380" y="38" text-anchor="middle" fill="white" font-size="11" font-weight="600">Kompresör</text>
+
+            <line id="plc-pipeMain1" class="pipe" x1="380" y1="52" x2="380" y2="72"/>
+            <g class="valve-unit" id="plc-valveUnitY1">
+              <rect class="valve-coil" x="358" y="58" width="44" height="12" rx="2"/>
+              <rect x="350" y="72" width="60" height="32" rx="4" class="valve-body" id="plc-valveY1"/>
+              <line class="valve-spool" x1="362" y1="88" x2="398" y2="88"/>
+              <text x="380" y="88" text-anchor="middle" class="valve-label">Y1</text>
+              <text x="380" y="98" text-anchor="middle" class="valve-sub">FR1</text>
+            </g>
+
+            <line id="plc-pipeMain2" class="pipe" x1="380" y1="104" x2="380" y2="124"/>
+            <g class="valve-unit" id="plc-valveUnitY2">
+              <rect class="valve-coil" x="358" y="110" width="44" height="12" rx="2"/>
+              <rect x="350" y="124" width="60" height="32" rx="4" class="valve-body" id="plc-valveY2"/>
+              <line class="valve-spool" x1="362" y1="140" x2="398" y2="140"/>
+              <text x="380" y="140" text-anchor="middle" class="valve-label">Y2</text>
+              <text x="380" y="150" text-anchor="middle" class="valve-sub">Güvenlik</text>
+            </g>
+
+            <!-- Split -->
+            <line id="plc-pipeDoor" class="pipe" x1="380" y1="156" x2="380" y2="170"/>
+            <line id="plc-pipeDoorH" class="pipe" x1="180" y1="170" x2="580" y2="170"/>
+            <line id="plc-pipeDoorL" class="pipe" x1="180" y1="170" x2="180" y2="195"/>
+            <line id="plc-pipeLockR" class="pipe" x1="580" y1="170" x2="580" y2="195"/>
+
+            <!-- Kapı valfi -->
+            <g class="valve-unit" id="plc-valveUnitY11">
+              <rect class="valve-coil" x="158" y="181" width="44" height="12" rx="2"/>
+              <rect x="150" y="195" width="60" height="32" rx="4" class="valve-body" id="plc-valveY11"/>
+              <line class="valve-spool" x1="162" y1="211" x2="198" y2="211"/>
+              <text x="180" y="211" text-anchor="middle" class="valve-label">Y1.1/2</text>
+              <text x="180" y="221" text-anchor="middle" class="valve-sub">Kapı</text>
+            </g>
+            <line id="plc-pipeDoor2" class="pipe" x1="180" y1="227" x2="180" y2="250"/>
+
+            <!-- Kilit valfi -->
+            <g class="valve-unit" id="plc-valveUnitY31">
+              <rect class="valve-coil" x="558" y="181" width="44" height="12" rx="2"/>
+              <rect x="550" y="195" width="60" height="32" rx="4" class="valve-body" id="plc-valveY31"/>
+              <line class="valve-spool" x1="562" y1="211" x2="598" y2="211"/>
+              <text x="580" y="211" text-anchor="middle" class="valve-label">Y3.1/2</text>
+              <text x="580" y="221" text-anchor="middle" class="valve-sub">Kilit</text>
+            </g>
+            <line id="plc-pipeLock2" class="pipe" x1="580" y1="227" x2="580" y2="300"/>
+
+            <!-- Basınç göstergesi -->
+            <circle cx="480" cy="136" r="22" fill="#0f172a" stroke="#64748b" stroke-width="2"/>
+            <text x="480" y="132" text-anchor="middle" fill="#94a3b8" font-size="8">BASINÇ (max 10)</text>
+            <text id="plc-pressureText" x="480" y="146" text-anchor="middle" fill="#38bdf8" font-size="13" font-weight="700">0 bar</text>
+            <line id="plc-pipeBP" class="pipe" x1="410" y1="140" x2="458" y2="140" stroke-width="4"/>
+
+            <!-- Kapı silindirleri PV1.L / PV1.P -->
+            <g id="plc-cylLeft">
+              <rect class="cyl-cap" x="58" y="248" width="54" height="6" rx="2"/>
+              <rect class="cyl-barrel" x="60" y="254" width="50" height="72" rx="3"/>
+              <rect class="cyl-cap" x="58" y="326" width="54" height="6" rx="2"/>
+              <rect id="plc-rodLeft" class="cyl-rod" x="108" y="282" width="8" height="14" rx="2"/>
+              <text class="cyl-label" x="85" y="244" text-anchor="middle">PV1.L</text>
+              <text x="85" y="342" text-anchor="middle" fill="#64748b" font-size="8">Sol silindir</text>
+            </g>
+            <g id="plc-cylRight">
+              <rect class="cyl-cap" x="248" y="248" width="54" height="6" rx="2"/>
+              <rect class="cyl-barrel" x="250" y="254" width="50" height="72" rx="3"/>
+              <rect class="cyl-cap" x="248" y="326" width="54" height="6" rx="2"/>
+              <rect id="plc-rodRight" class="cyl-rod" x="242" y="282" width="8" height="14" rx="2"/>
+              <text class="cyl-label" x="275" y="244" text-anchor="middle">PV1.P</text>
+              <text x="275" y="342" text-anchor="middle" fill="#64748b" font-size="8">Sağ silindir</text>
+            </g>
+
+            <!-- Kapı panelleri -->
+            <g id="plc-doorLeft" class="door-panel">
+              <rect x="115" y="268" width="55" height="120" rx="3" fill="#94a3b8" stroke="#cbd5e1" stroke-width="2"/>
+              <text x="142" y="330" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="600">SOL</text>
+            </g>
+            <g id="plc-doorRight" class="door-panel">
+              <rect x="190" y="268" width="55" height="120" rx="3" fill="#94a3b8" stroke="#cbd5e1" stroke-width="2"/>
+              <text x="217" y="330" text-anchor="middle" fill="#1e293b" font-size="10" font-weight="600">SAĞ</text>
+            </g>
+            <!-- Kapı boşluğu -->
+            <rect x="170" y="260" width="20" height="8" fill="#0f172a"/>
+            <text x="180" y="405" text-anchor="middle" fill="#64748b" font-size="10" id="plc-doorStatusText">Kapılar: KAPALI</text>
+
+            <!-- Kilit silindiri PV2 -->
+            <g id="plc-cylLock">
+              <rect class="cyl-cap" x="528" y="298" width="6" height="44" rx="2"/>
+              <rect class="cyl-barrel" x="534" y="300" width="72" height="40" rx="3"/>
+              <rect class="cyl-cap" x="606" y="298" width="6" height="44" rx="2"/>
+              <rect id="plc-rodLock" class="cyl-rod" x="598" y="314" width="14" height="12" rx="2"/>
+              <text class="cyl-label" x="570" y="292" text-anchor="middle">PV2 — Sepet Kilidi</text>
+            </g>
+            <!-- Sepet -->
+            <rect x="620" y="285" width="70" height="50" rx="6" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3"/>
+            <text x="655" y="315" text-anchor="middle" fill="#64748b" font-size="9">SEPET</text>
+            <!-- Kilit pini -->
+            <circle id="plc-lockPin" class="lock-pin" cx="560" cy="310" r="8" fill="#f59e0b" stroke="#fbbf24" stroke-width="2"/>
+            <text x="580" y="405" text-anchor="middle" fill="#64748b" font-size="10" id="plc-lockStatusText">Kilit: AÇIK</text>
+
+            <!-- LED sensörler -->
+            <circle id="plc-ledDoorOpen" class="led off" cx="30" cy="300" r="6"/>
+            <text x="30" y="318" text-anchor="middle" fill="#64748b" font-size="8">Açık</text>
+            <circle id="plc-ledDoorClosed" class="led off" cx="30" cy="340" r="6"/>
+            <text x="30" y="358" text-anchor="middle" fill="#64748b" font-size="8">Kapalı</text>
+            <circle id="plc-ledLock" class="led off" cx="700" cy="300" r="6"/>
+            <text x="700" y="318" text-anchor="middle" fill="#64748b" font-size="8">Kilitli</text>
+            <circle id="plc-ledPressure" class="led off" cx="700" cy="340" r="6"/>
+            <text x="700" y="358" text-anchor="middle" fill="#64748b" font-size="8">Basınç OK</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+  (function () {
+    const state = {
+      air: false,
+      y2: false,
+      doorCmd: null,
+      lockCmd: null,
+      doorPos: 0,
+      lockPos: 0,
+      pressure: 0,
+    };
+
+    const els = {
+      btnAir: document.getElementById('plc-btnAir'),
+      btnY2: document.getElementById('plc-btnY2'),
+      btnDoorOpen: document.getElementById('plc-btnDoorOpen'),
+      btnDoorClose: document.getElementById('plc-btnDoorClose'),
+      btnLock: document.getElementById('plc-btnLock'),
+      btnUnlock: document.getElementById('plc-btnUnlock'),
+      btnReset: document.getElementById('plc-btnReset'),
+      status: document.getElementById('plc-simStatus'),
+      doorLeft: document.getElementById('plc-doorLeft'),
+      doorRight: document.getElementById('plc-doorRight'),
+      rodLeft: document.getElementById('plc-rodLeft'),
+      rodRight: document.getElementById('plc-rodRight'),
+      rodLock: document.getElementById('plc-rodLock'),
+      lockPin: document.getElementById('plc-lockPin'),
+      pressureText: document.getElementById('plc-pressureText'),
+      doorStatusText: document.getElementById('plc-doorStatusText'),
+      lockStatusText: document.getElementById('plc-lockStatusText'),
+      valveY1: document.getElementById('plc-valveY1'),
+      valveY2: document.getElementById('plc-valveY2'),
+      valveY11: document.getElementById('plc-valveY11'),
+      valveY31: document.getElementById('plc-valveY31'),
+      ledDoorOpen: document.getElementById('plc-ledDoorOpen'),
+      ledDoorClosed: document.getElementById('plc-ledDoorClosed'),
+      ledLock: document.getElementById('plc-ledLock'),
+      ledPressure: document.getElementById('plc-ledPressure'),
+      pipes: ['plc-pipeMain1','plc-pipeMain2','plc-pipeDoor','plc-pipeDoorH','plc-pipeDoorL','plc-pipeLockR','plc-pipeDoor2','plc-pipeLock2','plc-pipeBP'],
+    };
+
+    function systemReady() { return state.air && state.y2; }
+
+    function toggleBtn(btn, on) {
+      btn.classList.toggle('active', on);
+    }
+
+    function setValve(el, on) {
+      const unit = el.closest('.valve-unit');
+      if (unit) {
+        unit.classList.toggle('on', on);
+        unit.classList.toggle('off', !on);
+      }
+    }
+
+    function setFlow(on) {
+      els.pipes.forEach(id => {
+        const p = document.getElementById(id);
+        if (!p) return;
+        if (on) p.classList.add('flow');
+        else p.classList.remove('flow');
+      });
+    }
+
+    function setDoorFlow(on) {
+      ['plc-pipeDoor','plc-pipeDoorH','plc-pipeDoorL','plc-pipeDoor2'].forEach(id => {
+        const p = document.getElementById(id);
+        if (!p) return;
+        if (on && systemReady() && state.doorCmd) p.classList.add('flow');
+        else p.classList.remove('flow');
+      });
+    }
+
+    function setLockFlow(on) {
+      ['plc-pipeLockR','plc-pipeLock2'].forEach(id => {
+        const p = document.getElementById(id);
+        if (!p) return;
+        if (on && systemReady() && state.lockCmd) p.classList.add('flow');
+        else p.classList.remove('flow');
+      });
+    }
+
+    function updateButtons() {
+      const ready = systemReady();
+      els.btnDoorOpen.disabled = !ready;
+      els.btnDoorClose.disabled = !ready;
+      els.btnLock.disabled = !ready;
+      els.btnUnlock.disabled = !ready;
+      els.btnY2.disabled = !state.air;
+    }
+
+    function updateStatus() {
+      const lines = [];
+      if (!state.air) {
+        lines.push('<span class="err">Ana hava kapalı (Y1)</span>');
+      } else {
+        lines.push('<span class="ok">Ana hava açık</span> — basınç: ' + state.pressure.toFixed(1) + ' bar');
+      }
+      if (state.air && !state.y2) {
+        lines.push('<span class="warn">Y2 güvenlik valfi kapalı — kapı/kilit çalışmaz</span>');
+      } else if (state.y2) {
+        lines.push('<span class="ok">Y2 güvenlik izni verildi</span>');
+      }
+      if (state.doorCmd === 'open') lines.push('Y1.1 aktif → kapılar açılıyor');
+      else if (state.doorCmd === 'close') lines.push('Y1.2 aktif → kapılar kapanıyor');
+      if (state.lockCmd === 'lock') lines.push('Y3.1 aktif → kilit pini dışarı');
+      else if (state.lockCmd === 'unlock') lines.push('Y3.2 aktif → kilit pini geri');
+      if (state.doorPos > 80 && state.lockPos > 60) {
+        lines.push('<span class="warn">Uyarı: Kapı açıkken kilit takılı!</span>');
+      }
+      els.status.innerHTML = lines.join('<br>') || 'Hazır.';
+    }
+
+    function render() {
+      const ready = systemReady();
+
+      toggleBtn(els.btnAir, state.air);
+      toggleBtn(els.btnY2, state.y2);
+      toggleBtn(els.btnDoorOpen, state.doorCmd === 'open');
+      toggleBtn(els.btnDoorClose, state.doorCmd === 'close');
+      toggleBtn(els.btnLock, state.lockCmd === 'lock');
+      toggleBtn(els.btnUnlock, state.lockCmd === 'unlock');
+
+      setValve(els.valveY1, state.air);
+      setValve(els.valveY2, state.y2);
+      setValve(els.valveY11, ready && !!state.doorCmd);
+      setValve(els.valveY31, ready && !!state.lockCmd);
+
+      setFlow(state.air);
+      setDoorFlow(true);
+      setLockFlow(true);
+
+      els.pressureText.textContent = state.pressure.toFixed(1) + ' bar';
+      els.ledPressure.classList.toggle('on', state.pressure > 5);
+      els.ledPressure.classList.toggle('off', state.pressure <= 5);
+
+      const doorOffset = state.doorPos * 0.45;
+      els.doorLeft.setAttribute('transform', 'translate(' + (-doorOffset) + ',0)');
+      els.doorRight.setAttribute('transform', 'translate(' + doorOffset + ',0)');
+
+      const rodExtend = doorOffset * 0.85;
+      els.rodLeft.setAttribute('x', 110 - rodExtend);
+      els.rodLeft.setAttribute('width', 8 + rodExtend);
+      els.rodRight.setAttribute('x', 242 - rodExtend);
+      els.rodRight.setAttribute('width', 8 + rodExtend);
+
+      if (state.doorPos > 85) {
+        els.doorStatusText.textContent = 'Kapılar: AÇIK';
+        els.doorStatusText.setAttribute('fill', '#22c55e');
+        els.ledDoorOpen.classList.add('on'); els.ledDoorOpen.classList.remove('off');
+        els.ledDoorClosed.classList.remove('on'); els.ledDoorClosed.classList.add('off');
+      } else if (state.doorPos < 15) {
+        els.doorStatusText.textContent = 'Kapılar: KAPALI';
+        els.doorStatusText.setAttribute('fill', '#64748b');
+        els.ledDoorClosed.classList.add('on'); els.ledDoorClosed.classList.remove('off');
+        els.ledDoorOpen.classList.remove('on'); els.ledDoorOpen.classList.add('off');
+      } else {
+        els.doorStatusText.textContent = 'Kapılar: HAREKET EDİYOR';
+        els.doorStatusText.setAttribute('fill', '#f59e0b');
+      }
+
+      const pinX = 520 + state.lockPos * 0.55;
+      els.lockPin.setAttribute('cx', pinX);
+      const rodX = Math.min(pinX - 4, 560);
+      els.rodLock.setAttribute('x', rodX);
+      els.rodLock.setAttribute('width', Math.max(14, 564 - rodX));
+
+      if (state.lockPos > 80) {
+        els.lockStatusText.textContent = 'Kilit: TAKILI';
+        els.lockStatusText.setAttribute('fill', '#f59e0b');
+        els.ledLock.classList.add('on'); els.ledLock.classList.remove('off');
+      } else {
+        els.lockStatusText.textContent = 'Kilit: AÇIK';
+        els.lockStatusText.setAttribute('fill', '#64748b');
+        els.ledLock.classList.remove('on'); els.ledLock.classList.add('off');
+      }
+
+      updateButtons();
+      updateStatus();
+    }
+
+    function tick() {
+      if (state.air) {
+        state.pressure = Math.min(10, state.pressure + 0.2);
+      } else {
+        state.pressure = Math.max(0, state.pressure - 0.3);
+        state.doorCmd = null;
+        state.lockCmd = null;
+      }
+
+      if (!systemReady()) {
+        state.doorCmd = null;
+        state.lockCmd = null;
+      }
+
+      if (systemReady() && state.doorCmd === 'open') {
+        state.doorPos = Math.min(100, state.doorPos + 1.2);
+      } else if (systemReady() && state.doorCmd === 'close') {
+        state.doorPos = Math.max(0, state.doorPos - 1.2);
+      }
+
+      if (systemReady() && state.lockCmd === 'lock') {
+        state.lockPos = Math.min(100, state.lockPos + 2);
+      } else if (systemReady() && state.lockCmd === 'unlock') {
+        state.lockPos = Math.max(0, state.lockPos - 2);
+      }
+
+      render();
+      requestAnimationFrame(tick);
+    }
+
+    els.btnAir.addEventListener('click', () => {
+      state.air = !state.air;
+      if (!state.air) { state.y2 = false; state.doorCmd = null; state.lockCmd = null; }
+    });
+
+    els.btnY2.addEventListener('click', () => {
+      if (!state.air) return;
+      state.y2 = !state.y2;
+      if (!state.y2) { state.doorCmd = null; state.lockCmd = null; }
+    });
+
+    els.btnDoorOpen.addEventListener('click', () => {
+      state.doorCmd = state.doorCmd === 'open' ? null : 'open';
+    });
+
+    els.btnDoorClose.addEventListener('click', () => {
+      state.doorCmd = state.doorCmd === 'close' ? null : 'close';
+    });
+
+    els.btnLock.addEventListener('click', () => {
+      state.lockCmd = state.lockCmd === 'lock' ? null : 'lock';
+    });
+
+    els.btnUnlock.addEventListener('click', () => {
+      state.lockCmd = state.lockCmd === 'unlock' ? null : 'unlock';
+    });
+
+    els.btnReset.addEventListener('click', () => {
+      state.air = false;
+      state.y2 = false;
+      state.doorCmd = null;
+      state.lockCmd = null;
+      state.doorPos = 0;
+      state.lockPos = 0;
+      state.pressure = 0;
+    });
+
+    tick();
+  })();
+  </script>
+</div>
+
+<section id="smc">
+  <h2>SMC parçalar</h2>
+  <p>Festo Önerilen Ürünler.pdf listesi. Silindir adedi makineye göre 2’dir; kapakta iki piston var.</p>
+<section>
+    <h2>Ürün Listesi</h2>
+    <table>
+      <thead><tr><th>#</th><th>Parça No</th><th>Açıklama</th><th>Adet</th></tr></thead>
+      <tbody><tr><td>1</td><td><strong>CP96NDB50-1200C</strong></td><td>Kilitli Pnömatik Silindir</td><td>2</td></tr>
+<tr><td>2</td><td><strong>VHS40-F04-D</strong></td><td>Basınç Tahliye Valfi (3 Yollu)</td><td>1</td></tr>
+<tr><td>3</td><td><strong>AW40-F04CE-D</strong></td><td>Modüler Filtre + Regülatör</td><td>1</td></tr>
+<tr><td>4</td><td><strong>AV4000-F04-5DZB-A</strong></td><td>Yavaş Başlatma Valfi</td><td>1</td></tr>
+<tr><td>5</td><td><strong>IS10E-40-F04-6L-D</strong></td><td>Modüler Basınç Anahtarı</td><td>1</td></tr>
+<tr><td>6</td><td><strong>AN30-03</strong></td><td>Susturucu 3/8"</td><td>1</td></tr>
+<tr><td>7</td><td><strong>Y400T-D</strong></td><td>Spacer + Montaj Braketi</td><td>2</td></tr>
+<tr><td>8</td><td><strong>Y400-D</strong></td><td>Spacer (Bracketsiz)</td><td>1</td></tr>
+<tr><td>9</td><td><strong>AN40-04</strong></td><td>Susturucu 1/2"</td><td>1</td></tr>
+</tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Ürün Detayları</h2>
+    
+    <div class="product-card" id="CP96NDB50-1200C">
+      <h3>Kilitli Pnömatik Silindir</h3>
+      <div class="code">CP96NDB50-1200C · Adet: 2 (makinedeki iki piston)</div>
+      <table><tr><td>Seri</td><td>CP96N (ISO 15552)</td></tr><tr><td>Tip</td><td>Çift etkili, tek millili, kilit üniteli</td></tr><tr><td>Çap / Strok</td><td>50 mm / 1200 mm</td></tr><tr><td>Kilit tipi</td><td>Egzoz kilitleme</td></tr><tr><td>Tutma kuvveti</td><td>~1570 N</td></tr><tr><td>Çalışma basıncı</td><td>0,08 – 1,0 MPa</td></tr><tr><td>Piston hızı</td><td>50 – 1000 mm/s</td></tr><tr><td>Sıcaklık</td><td>-10 °C … +70 °C</td></tr></table>
+      <p><strong>Kullanım:</strong> Doğrusal hareket, dikey yüklerde düşme önleme, uzun strok uygulamaları.</p>
+      <p><strong>Çalışma:</strong> Kilit portundaki hava boşalınca yay freni mili tutar. Porta en az 0,3 MPa verilince fren açılır. Bu kodda sensör yok; gövdede mıknatıs var, sensör sonradan takılır.</p>
+    </div>
+    <div class="product-card" id="VHS40-F04-D">
+      <h3>Basınç Tahliye Valfi (3 Yollu)</h3>
+      <div class="code">VHS40-F04-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Basınç</td><td>0,1 – 1,0 MPa</td></tr><tr><td>Kontrol</td><td>Manuel döner kol (kilitlenebilir)</td></tr><tr><td>Maks. debi</td><td>~14.098 L/dk</td></tr><tr><td>Sıcaklık</td><td>-5 °C … +60 °C</td></tr></table>
+      <p><strong>Kullanım:</strong> Hattı izole etme, kalıntı basıncı tahliye, bakım güvenliği (LOTO).</p>
+      <p><strong>Çalışma:</strong> Kol çevrilince giriş kapanır, çıkış basıncı egzoza boşaltılır.</p>
+    </div>
+    <div class="product-card" id="AW40-F04CE-D">
+      <h3>Modüler Filtre + Regülatör</h3>
+      <div class="code">AW40-F04CE-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Filtreleme</td><td>5 µm</td></tr><tr><td>Maks. basınç</td><td>10 bar</td></tr><tr><td>Regülatör</td><td>Relieving</td></tr><tr><td>Montaj</td><td>Modüler FRL uyumlu</td></tr></table>
+      <p><strong>Kullanım:</strong> Hava filtreleme, çıkış basıncını sabitleme.</p>
+      <p><strong>Çalışma:</strong> Fazla basınç otomatik tahliye edilir.</p>
+    </div>
+    <div class="product-card" id="AV4000-F04-5DZB-A">
+      <h3>Yavaş Başlatma Valfi</h3>
+      <div class="code">AV4000-F04-5DZB-A · Adet: 1</div>
+      <table><tr><td>Port</td><td>1/2"</td></tr><tr><td>Besleme</td><td>24 VDC</td></tr><tr><td>Terminal</td><td>DIN konnektör</td></tr><tr><td>Override</td><td>Push-turn kilitlemeli</td></tr><tr><td>Güç</td><td>~0,35 W</td></tr></table>
+      <p><strong>Kullanım:</strong> Açılışta basınç şokunu önleme, kontrollü devreye alma.</p>
+      <p><strong>Çalışma:</strong> 24 VDC ile kademeli açılır; enerji kesilince hızla egzoz.</p>
+    </div>
+    <div class="product-card" id="IS10E-40-F04-6L-D">
+      <h3>Modüler Basınç Anahtarı</h3>
+      <div class="code">IS10E-40-F04-6L-D · Adet: 1</div>
+      <table><tr><td>Port</td><td>G 1/2"</td></tr><tr><td>Set aralığı</td><td>0,1 – 0,6 MPa</td></tr><tr><td>Kablo</td><td>3 m</td></tr><tr><td>Çıkış</td><td>Reed switch, NO</td></tr><tr><td>Koruma</td><td>IP40</td></tr></table>
+      <p><strong>Kullanım:</strong> Hat basıncı izleme, düşük basınç alarm/interlock.</p>
+      <p><strong>Çalışma:</strong> Basınç pistonu reed switch'i tetikler.</p>
+    </div>
+    <div class="product-card" id="AN30-03">
+      <h3>Susturucu 3/8"</h3>
+      <div class="code">AN30-03 · Adet: 1</div>
+      <table><tr><td>Port</td><td>R/G 3/8"</td></tr><tr><td>Gürültü azaltma</td><td>~30 dB(A)</td></tr><tr><td>Efektif alan</td><td>35 mm²</td></tr><tr><td>Maks. basınç</td><td>1,0 MPa</td></tr></table>
+      <p><strong>Kullanım:</strong> Valf/silindir egzoz gürültüsünü azaltma.</p>
+      <p><strong>Çalışma:</strong> Egzoz havası ses emici elemandan geçer.</p>
+    </div>
+    <div class="product-card" id="Y400T-D">
+      <h3>Spacer + Montaj Braketi</h3>
+      <div class="code">Y400T-D · Adet: 2</div>
+      <table><tr><td>Gövde</td><td>40 (AC40 uyumlu)</td></tr><tr><td>Tip</td><td>Spacer + duvar braketi</td></tr></table>
+      <p><strong>Kullanım:</strong> VHS40 ve diğer modülleri FRL hattına bağlama.</p>
+      <p><strong>Çalışma:</strong> Modüler montaj arayüzü.</p>
+    </div>
+    <div class="product-card" id="Y400-D">
+      <h3>Spacer (Bracketsiz)</h3>
+      <div class="code">Y400-D · Adet: 1</div>
+      <table><tr><td>Gövde</td><td>40</td></tr><tr><td>Maks. basınç</td><td>1,0 MPa</td></tr></table>
+      <p><strong>Kullanım:</strong> Modüler FRL bileşenleri arası bağlantı.</p>
+      <p><strong>Çalışma:</strong> O-ring sızdırmazlık.</p>
+    </div>
+    <div class="product-card" id="AN40-04">
+      <h3>Susturucu 1/2"</h3>
+      <div class="code">AN40-04 · Adet: 1</div>
+      <table><tr><td>Port</td><td>R/G 1/2"</td></tr><tr><td>Gürültü azaltma</td><td>~30 dB(A)</td></tr><tr><td>Efektif alan</td><td>60 mm²</td></tr><tr><td>Önerilen debi</td><td>≤ 5 m³/dk</td></tr></table>
+      <p><strong>Kullanım:</strong> 1/2" egzoz hatları (VHS40 EXH, büyük valfler).</p>
+      <p><strong>Çalışma:</strong> AN30-03'e göre daha yüksek debi.</p>
+    </div>
+  </section>
+
+
+</section>
+
+</div>
+<script>
+(function () {
+  var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav a'));
+  function mark() {
+    var id = (location.hash || '#ozet').slice(1);
+    links.forEach(function (a) {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+    });
+  }
+  window.addEventListener('hashchange', mark);
+  links.forEach(function (a) {
+    a.addEventListener('click', function () {
+      links.forEach(function (x) { x.classList.remove('active'); });
+      a.classList.add('active');
+    });
+  });
+  mark();
+})();
+</script>
+
+</body>
+</html>
