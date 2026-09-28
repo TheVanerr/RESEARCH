@@ -128,6 +128,8 @@
   <a href="#bizim-sim">Bizim simülasyon</a>
   <a href="#plc-sim">Festo simülasyon</a>
   <a href="#smc">SMC parçalar</a>
+  <a href="#plan1-detay">Plan 1 kapak detay</a>
+  <a href="#semboller">Plan sembolleri</a>
 </nav>
 <div class="wrap">
 
@@ -141,6 +143,8 @@
     <a class="card-link" href="#plc"><h2>PLC’li Festo</h2><p>Y2 emniyet valfi, 5/3 kapalı orta, silindir üstünde VBOC kesme, konum sensörleri.</p><span class="tag">Pneumatikplan 1</span></a>
     <a class="card-link" href="#plcsiz"><h2>PLC’siz Festo</h2><p>Kapak silindirinde pilotlu çekvalf (HGL). Konum sensörü yok.</p><span class="tag">Pneumatikplan 2</span></a>
     <a class="card-link" href="#smc"><h2>SMC seti</h2><p>Kilitli silindir, yumuşak kalkış, basınç anahtarı, elle boşaltma.</p><span class="tag">İstenen ürün</span></a>
+    <a class="card-link" href="#plan1-detay"><h2>Plan 1 kapak detay</h2><p>Sadece makine kapağı: hava yolu, parçalar, PLC — sade anlatım.</p><span class="tag">Rehber</span></a>
+    <a class="card-link" href="#semboller"><h2>Plan sembolleri</h2><p>İki pnömatik plandaki ISO semboller ve etiketler (Y, PV, SQ…) — okuma rehberi.</p><span class="tag">Rehber</span></a>
   </div>
 </section>
 
@@ -1085,6 +1089,252 @@ Konum sensörü yok. Ayrı kesme valfi yok. Sepet kilidi yok.</div>
   </section>
 
 
+</section>
+
+<section id="plan1-detay">
+  <h1>Müşteri Plan 1 — sadece makine kapağı</h1>
+  <p class="subtitle">Pneumatikplan_1_with PLC.pdf · Bu sayfa yalnızca kapak pnömatiğini anlatır. Plana ait diğer hatlar (temizlik üfleme vb.) burada yok.</p>
+
+  <div class="ok-box"><strong>Bir cümle:</strong> Makine kapağı <strong>iki silindir</strong> ile hareket eder. Hava önce hazırlanır ve filtrelenir, sonra <strong>emniyet valfi (Y2)</strong> geçerse <strong>yön valfine (Y1)</strong> gelir; valf havanı silindirlere yollar. Silindir girişlerinde <strong>kesme valfleri (VBOC)</strong> vardır. Hepsi PLC ile izlenir.</div>
+
+  <h2>Kapak nasıl hareket ediyor?</h2>
+  <p>Plan 1’de kapak <strong>PV1.L</strong> (sol) ve <strong>PV1.P</strong> (sağ) adlı iki silindire bağlıdır. İkisi de <strong>DSBC, Ø50 mm çap, 1350 mm strok</strong>. Operatör “aç” veya “kapat” dediğinde PLC ilgili bobini çeker; hava silindirin bir tarafına girer, mil hareket eder, kapak birlikte gider.</p>
+  <p>Plan sadece “silindir it sin” demez: acil stop veya arıza olunca hattın boşalması ve kapının beklenmedik hareket etmemesi için <strong>Y2</strong> ve <strong>VBOC</strong> kullanılır. Silindir üzerindeki <strong>manyetik sensörler</strong> kapının gerçekten açık veya kapalı olduğunu PLC’ye bildirir.</p>
+
+  <h2>Hava nereden nereye gidiyor?</h2>
+  <p>Hortumları tek bir zincir gibi düşünün — basınçlı hava <strong>sırayla</strong> şu parçalardan geçer:</p>
+  <div class="flow">Kompresör
+  → FR1 (MSB4)          filtre + basınç ayarı
+  → BP1 + boşaltma tapası   basınç kontrolü, bakımda tahliye
+  → Y2                    emniyet: elektrik yoksa buradan sonrası boşalır
+  → Y1 (5/3 valf)         aç komutu veya kapat komutu — hangi yöne hava gidecek
+  → VBOC (4 adet)         her silindir portunda kesme valfi
+  → PV1.L ve PV1.P        kapak silindirleri</div>
+  <p class="note"><strong>Pratik resim:</strong> Y2 kapalıysa Y1’e hava hiç ulaşmaz — kapak çalışmaz. Y2 açıksa Y1 hangi bobinin aktif olduğuna göre silindirleri yukarı/aç veya aşağı/kapat yönüne besler. Her silindirin A ve B portunun önünde bir VBOC olduğu için PLC, hareket izni vermeden önce veya durdurduğunda bu valfleri de kontrol eder.</p>
+
+  <h2>Parçalar — ne işe yarar?</h2>
+  <table>
+    <thead><tr><th>Parça</th><th>Basit anlamı</th><th>Elektrik (PLC)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FR1 / MSB4</strong></td><td>Kirli hava temizlenir, çalışma basıncı ayarlanır.</td><td>Yok</td></tr>
+      <tr><td><strong>BP1</strong></td><td>“Hat basıncı yeterli mi?” — düşükse kapak hareketine izin verilmez.</td><td>1 giriş</td></tr>
+      <tr><td><strong>Boşaltma tapası</strong></td><td>Bakımcı hattı elle boşaltır (plan / ISO gereği).</td><td>Yok</td></tr>
+      <tr><td><strong>Y2</strong></td><td>Ana emniyet vanası. Bobin kapalı → kapak hattı boşalır (acil stop gibi).</td><td>1 çıkış</td></tr>
+      <tr><td><strong>Y1</strong> (VUVS 5/3)</td><td>Kapak valfi. Bir bobin aç, diğeri kapat. Ortada iken çıkışlar kapalı (orta konum kapalı).</td><td>2 çıkış (Y1.1 aç, Y1.2 kapat)</td></tr>
+      <tr><td><strong>VBOC</strong> ×4</td><td>Silindir portundaki kesme valfi. Kapalıyken odaya hava gitmez. PLC “kapalı konumda” sinyali alır.</td><td>4 giriş</td></tr>
+      <tr><td><strong>PV1.L / PV1.P</strong></td><td>Kapak pistonları — mekanik hareket burada oluşur.</td><td>Sensörler: genelde silindir başına 2 (açık / kapalı) → kapak için <strong>4 giriş</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Bağlantı — valften silindire</h2>
+  <div class="mini-diagram">Y2 çıkışı ──► Y1 besleme girişi (P)
+
+Y1 çıkış A ──► VBOC ──► PV1.L port (ör. açık yön)
+Y1 çıkış B ──► VBOC ──► PV1.L diğer port (ör. kapalı yön)
+
+Aynı düzen PV1.P için tekrarlanır (toplam 4 VBOC: Y4…Y7).</div>
+  <p>Çizimde hangi port “aç” hangi port “kapat” ise plan PDF’indeki A/B işaretine bakılır; mantık her iki silindir için aynıdır.</p>
+
+  <h2>Normal çalışma sırası (kapak aç örneği)</h2>
+  <ol class="steps">
+    <li>Kompresör çalışıyor, FR1 basıncı ayarlı.</li>
+    <li>BP1 PLC’ye “basınç tamam” der.</li>
+    <li>Emniyet devresi OK → <strong>Y2</strong> bobini enerjili, kapak hattına hava gelir.</li>
+    <li>PLC koşulları uygunsa <strong>VBOC</strong>’lara izin verilir ve <strong>Y1.1</strong> (aç) çekilir.</li>
+    <li>Hava silindirlere gider, sensörler kapının açıldığını doğrular.</li>
+    <li><strong>Acil stop:</strong> Y2 düşer → hat boşalır; VBOC’lar keser — kapak emniyet senaryosuna göre durur.</li>
+  </ol>
+
+  <h2>PLC kablosu — kapak için özet</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">giriş · BP1 basınç</div></div>
+    <div class="stat"><div class="stat-val">1</div><div class="stat-label">çıkış · Y2 emniyet</div></div>
+    <div class="stat"><div class="stat-val">2</div><div class="stat-label">çıkış · Y1 aç / kapat</div></div>
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">giriş · VBOC geri bildirim</div></div>
+    <div class="stat"><div class="stat-val">4</div><div class="stat-label">giriş · kapak sensörleri (2 silindir)</div></div>
+  </div>
+  <p class="subtitle">Toplam kabaca: <strong>5 çıkış, 9 giriş</strong> (yalnızca kapak kolu; emniyet PLC’sinin diğer girişleri makineye göre artabilir).</p>
+
+  <h2>Bizim mevcut hat ile fark</h2>
+  <table>
+    <thead><tr><th>Bizde</th><th>Plan 1 kapak</th></tr></thead>
+    <tbody>
+      <tr><td>5/3 valf, kapanış hattında çekvalf</td><td>5/3 <strong>orta kapalı</strong> + önce <strong>Y2</strong></td></tr>
+      <tr><td>LDNC 50×1200, sensör takılı değil</td><td>DSBC 50×<strong>1350</strong>, sensör <strong>zorunlu</strong></td></tr>
+      <tr><td>Portta kesme valfi yok</td><td>Her porta <strong>VBOC</strong>, PLC izliyor</td></tr>
+      <tr><td>Tek parça kapak, iki silindir</td><td>Yine iki silindir (PV1.L / PV1.P); plan çiziminde paneller ayrı gösterilir</td></tr>
+    </tbody>
+  </table>
+
+  <h2>SMC seti bu kapak planının aynısı mı?</h2>
+  <div class="warn-box"><strong>Hayır — farklı mimari.</strong> SMC önerisi hava hazırlığı + yumuşak kalkış + <strong>kilitli silindir</strong> ile daha sade bir hat kurar. Plan 1’deki <strong>Y2, Y1 (Festo 5/3), 4× VBOC</strong> ve emniyet PLC mantığı SMC listesinde yok. Aynı kapak güvenlik seviyesini SMC seti tek başına vermez; alternatif çözüm olarak değerlendirilir.</div>
+  <p class="subtitle" style="margin-top:20px"><a href="#plc">PLC’li plan özet</a> · <a href="#plc-sim">Simülasyon</a> · <a href="#smc">SMC parçalar</a> · <a href="#semboller">Plan sembolleri</a></p>
+</section>
+
+<section id="semboller">
+  <h1>Pnömatik plan sembolleri — okuma rehberi</h1>
+  <p class="subtitle">Kaynak: <strong>Pneumatikplan_1_with PLC.pdf</strong> (3 sayfa) ve <strong>Pneumatikplan_2_without_PLC.pdf</strong> (6 sayfa). Çizimler ISO pnömatik sembolleri kullanır; etiketler Festo / makine kodlarıdır.</p>
+
+  <div class="ok-box"><strong>Nasıl okuyacağım?</strong> Soldan sağa veya alttan üste <strong>basınçlı hava yolu</strong>nu takip edin. <strong>Kalın sürekli çizgi</strong> = ana hava. <strong>Kesik çizgi</strong> = pilot (kontrol) havası. <strong>Y…</strong> = bobinli valf (elektrik). <strong>PV / MM</strong> = silindir veya aktüatör. <strong>SQ</strong> = konum sensörü. Sayfa köşesindeki <strong>A–F / 1–8</strong> ızgarası konum referansıdır; <strong>/2.E1</strong> gibi notlar başka sayfaya devam eder.</div>
+
+  <h2>Ortak ISO sembolleri (her iki planda)</h2>
+  <table>
+    <thead><tr><th>Sembol (şemada)</th><th>Adı</th><th>Ne işe yarar?</th></tr></thead>
+    <tbody>
+      <tr><td>◇ içinde kesik çizgi</td><td>Filtre / su ayırıcı</td><td>Havadaki kir ve nemi tutar.</td></tr>
+      <tr><td>Kare + yay + ok</td><td>Basınç regülatörü</td><td>Çalışma basıncını ayarlar; yanında manometre (daire + ibre) olabilir.</td></tr>
+      <tr><td>Kol / düğme + 3/2 kutu</td><td>Elle aç-kapa (3/2)</td><td>Bakım için hattı keser; egzozda susturucu (üçgen tırtıklı) olur.</td></tr>
+      <tr><td>Üçgen (tırtıklı)</td><td>Susturucu (Schalldämpfer, U-…)</td><td>Egzoz gürültüsünü azaltır.</td></tr>
+      <tr><td>Dikdörtgen + piston + mil</td><td>Çift etkili silindir</td><td>Her iki tarafa hava verilerek mil iki yöne gider.</td></tr>
+      <tr><td>Mil üstü çapraz oklar</td><td>Pnömatik tampon (PPVA / PPV)</td><td>Strok sonunda yumuşak durma.</td></tr>
+      <tr><td>Üç kare (5/3) ortası çizgili</td><td>5/3 yön valfi, <strong>orta konum kapalı</strong></td><td>Aç / kapat / <strong>dur</strong> (ortada A ve B kapalı).</td></tr>
+      <tr><td>İki kare (5/2)</td><td>5/2 yön valfi</td><td>İki konum; tek veya çift bobin.</td></tr>
+      <tr><td>Kutu + çizgi (bobin)</td><td>Solenoid bobin</td><td>Elektrik verildiğinde valf konumu değişir; plan etiketi <strong>Y…</strong> veya <strong>MB1</strong>.</td></tr>
+      <tr><td>Zikzak yanında</td><td>Yay geri dönüş</td><td>Bobin kesildiğinde valf varsayılan konuma döner.</td></tr>
+      <tr><td>İki kare (3/2), NC</td><td>3/2 normalde kapalı</td><td>Enerji yokken besleme kesilir — emniyet beslemesi (Plan 1: <strong>Y2</strong>).</td></tr>
+      <tr><td>Üçgen + top + kesik pilot</td><td>Pilot kumandalı çekvalf (HGL)</td><td>Bir yönde serbest, pilot yokken ters yön kilitli (Plan 2 kapak).</td></tr>
+      <tr><td>Kısma + paralel çekvalf</td><td>Tek yönlü akış kontrol (GRLA)</td><td>Bir yönde hız kısma, diğer yönde serbest geçiş.</td></tr>
+      <tr><td>Küçük kare, diyagonal</td><td>Yaklaşım sensörü (SMT-8M)</td><td>Silindir gövdesinde mıknatıs konumunu okur → PLC.</td></tr>
+      <tr><td>Daire + üçgen yukarı</td><td>Membran pompa (DP…)</td><td>Hava ile sıvı pompalar (Plan 2 yıkama hatları).</td></tr>
+      <tr><td>Yarım daire + V küresel vana</td><td>Küresel vana aktüatörü (MM…)</td><td>Döner pnömatik aktüatör + süreç vanası.</td></tr>
+      <tr><td>Dikey çizgi + yatay çubuk (T)</td><td>Kör tapa / kullanılmayan port</td><td>O port bağlı değil.</td></tr>
+      <tr><td>Ok ucu / QS, QSY</td><td>Hızlı bağlantı (Steckverschraubung)</td><td>Hortum bağlantı elemanı; sembol bazen sadece hat sonu oku.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Plan 1 — sayfa özeti</h2>
+  <table>
+    <thead><tr><th>Sayfa</th><th>İçerik</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Ana hat: FR1, emniyet, <strong>Türsteuerung</strong> (kapı/kapak), <strong>Korbverriegelung</strong> (sepet). Alt kısımda emniyet notları (ISO 13849, PLd/PLe).</td></tr>
+      <tr><td><strong>2</strong></td><td>İki ayrı hava hazırlık: <strong>FR2</strong>, <strong>FR3</strong> — el hava tabancası, cam yıkama / üfleme noktaları (kapağa bağlı değil).</td></tr>
+      <tr><td><strong>3</strong></td><td>Parça listesi (BOM): tüm Festo sipariş numaraları.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Plan 1 — etiket ve sembol listesi</h2>
+  <p class="note">Kapak için önemli satırlar <strong>kalın</strong>. Aynı harf birden fazla parçada kullanılabilir: örneğin <strong>Y1.1/Y1.2</strong> kapak valfinin bobinleri, ana emniyet ise <strong>Y2</strong>.</p>
+
+  <h3>Hava hazırlık ve emniyet (sayfa 1, sol)</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Parça (plandan)</th><th>Sembol / rol</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FR1</strong></td><td>MSB4-1/4:C3:J1:D14-WP</td><td>Service unit kombinasyonu</td><td>Filtre + regülatör + manuel kesme + boşaltma; sistemin girişi.</td></tr>
+      <tr><td>—</td><td>U-1/4</td><td>Susturucu</td><td>Manuel valf ve egzoz hatlarında.</td></tr>
+      <tr><td><strong>BP1</strong></td><td>SPBA-P2R-G18-W-M12-0,25X</td><td>Basınç anahtarı</td><td>Basınç yeterli mi → PLC girişi.</td></tr>
+      <tr><td><strong>Y2</strong></td><td>3/2 NC solenoid (yay geri)</td><td>Emniyet besleme valfi</td><td>Bobin kapalı → kapı ve sepet hattı boşalır.</td></tr>
+      <tr><td>BP2</td><td>—</td><td>Manuel bypass / test</td><td>Bakım notlarında geçer; emniyet devresine müdahale için işaretlenmiş nokta.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="sembol-plan1-kapak">Kapak / kapı (Türsteuerung Auf/Ab) — sayfa 1</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Parça</th><th>Sembol</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Y1.1 / Y1.2</strong></td><td>VUVS-L25-P53C-MD-G14-F8-1C1</td><td>5/3, orta kapalı, 2 bobin</td><td>Kapak aç (Y1.1) / kapak kapat (Y1.2). Ortada hava yönü kesilir.</td></tr>
+      <tr><td><strong>Y4–Y7</strong></td><td>VBOC-L2-E-S7-P-M8-G14-E</td><td>2/2 kesme + geri bildirim</td><td>Her silindir portunda; pilot ile açılır; M8 = “kapalı” konum sinyali (PLC).</td></tr>
+      <tr><td><strong>PV1.L</strong></td><td>DSBC-50-1350-PPVA-N3</td><td>Çift etkili silindir</td><td>Sol kapak silindiri; SNCL-50 flanş, SGS milleri.</td></tr>
+      <tr><td><strong>PV1.P</strong></td><td>DSBC-50-1350-PPVA-N3</td><td>Çift etkili silindir</td><td>Sağ kapak silindiri.</td></tr>
+      <tr><td><strong>SQ1.1L / SQ1.2L</strong></td><td>SMT-8M-A-PS-24V-E-0,3-M8D</td><td>Manyetik sensör</td><td>PV1.L uç konumları (açık / kapalı).</td></tr>
+      <tr><td><strong>SQ1.1P / SQ1.2P</strong></td><td>SMT-8M…</td><td>Manyetik sensör</td><td>PV1.P uç konumları.</td></tr>
+      <tr><td><strong>SQ2.xL/P</strong></td><td>VBOC üzerinde</td><td>Kesme valfi bloğu</td><td>Sembolde throttle + 2/2 bir arada; hız ayarı ve emniyet kesmesi.</td></tr>
+      <tr><td>—</td><td>GRLA-1/8-QS-6-D</td><td>Akış kontrol</td><td>Kapak hattında iniş/çıkış hızı (plan BOM).</td></tr>
+      <tr><td>—</td><td>KMEB-1-24-5-LED</td><td>Bobin fişi</td><td>24 V bobin konnektörü + LED (elektrik sembolü, valf yanında).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Sepet kilidi (Korbverriegelung) — sayfa 1 (kapak değil)</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Parça</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td>Y3.1 / Y3.2</td><td>VUVS-L20-B52-D-G18-F7-1C1 (5/2 çift bobin)</td><td>Sepet pim silindirine hava yönü.</td></tr>
+      <tr><td>PV2</td><td>DSNU-32-50-PPV-A</td><td>Küçük çift etkili silindir — sepet kilidi.</td></tr>
+      <tr><td>SQ3.1 / SQ3.2</td><td>SMT-8M…</td><td>Sepet pim konumu.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Üfleme / el hava hatları — sayfa 2</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Parça</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FR2</strong></td><td>MSB4-1/4:C3:J1-WP</td><td>Üst hat: HANDLUFTGEWEHR (el hava tabancası).</td></tr>
+      <tr><td><strong>FR3</strong></td><td>MSB4… + QSLV2-G1/4-10</td><td>Alt hat: cam yıkama / düse üfleme — çoklu dağıtıcı.</td></tr>
+      <tr><td>—</td><td>Hat üstü kısma sembolü</td><td>Uç noktada debi / hız kısma (şemada çarpı veya orifis).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Plan 1 — alt bilgi kutusu (sayfa 1)</h3>
+  <p>Çizim altındaki metin emniyet fonksiyonlarını özetler: <strong>SSC</strong> (güvenli durdurma/kapama), <strong>PUS</strong> (beklenmeyen kalkışın önlenmesi), <strong>ISO 13849-1 PLd / PLe</strong>. Valf tablosu Y4–Y7’yi <em>2/2 absperrventil</em> (kesme valfi) olarak listeler — okurken sembolü bu tabloyla eşleştirin.</p>
+
+  <h2>Plan 2 — sayfa özeti</h2>
+  <table>
+    <thead><tr><th>Sayfa</th><th>İçerik</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td><strong>Kapak silindirleri MM1/MM2</strong>, valf adası AZ1 (QM1–QM3), 10 küçük silindir bankı MM3–MM12, hava hazırlık GQ1.</td></tr>
+      <tr><td><strong>2–5</strong></td><td>VTUG manifold devamı: pompalar (DP…), küresel vanalar (MM13–MM22), tank vanaları, buhar fanı vb.</td></tr>
+      <tr><td><strong>6</strong></td><td>Manifold sonu: susturucular, hat sonlandırma (XX).</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Plan 2 — valf adası sembolleri (VTUG)</h2>
+  <p>Plan 2’de çoğu valf tek bir <strong>-AZ1</strong> terminalinde toplanır. Model: <strong>VTUG-14-VRPT-B1T-Q10-U-Q8S-GG14M</strong>.</p>
+  <table>
+    <thead><tr><th>Şemadaki hat</th><th>Anlamı</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>Ana basınç beslemesi (manifold galerisi).</td></tr>
+      <tr><td><strong>3, 5</strong></td><td>Ortak egzoz hatları (sağda susturucular).</td></tr>
+      <tr><td><strong>12/14</strong></td><td>Dış pilot hava beslemesi (kesik çizgi).</td></tr>
+      <tr><td><strong>82/84</strong></td><td>Pilot egzozu.</td></tr>
+      <tr><td><strong>2, 4</strong></td><td>Valf çıkışları → silindir / aktüatör A ve B.</td></tr>
+      <tr><td><strong>-AZ1-XM3</strong></td><td>Valf dilimi / bağlantı modülü (her QM… bir dilim).</td></tr>
+      <tr><td><strong>MB1</strong></td><td>O dilimdeki bobin (elektrik — PLC’siz planda saha IO).</td></tr>
+      <tr><td><strong>/1.E8 → /3.E1</strong></td><td>Sayfalar arası devam: aynı manifold hattı başka sayfada sürer.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Plan 2 — etiket listesi (sayfa 1: kapak + özet)</h2>
+  <h3>Makine kapağı (MM1, MM2) — öncelikli</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Parça</th><th>Sembol</th><th>Açıklama</th></tr></thead>
+    <tbody>
+      <tr><td><strong>-GQ1</strong></td><td>MS6-LFR-1/2-D7-ERV-AS</td><td>FRL ünitesi</td><td>Filtre + regülatör; kapak hattının hava girişi.</td></tr>
+      <tr><td><strong>-KH1</strong></td><td>Manuel 2/2</td><td>Elle kesme</td><td>Bakımda hattı kapatma.</td></tr>
+      <tr><td><strong>-AZ1-QM1</strong></td><td>5/3 orta kapalı</td><td>Yön valfi</td><td>MM1 ve MM2’yi birlikte sürer (aç/kapat/dur).</td></tr>
+      <tr><td><strong>-MM1 / -MM2</strong></td><td>DSBC-63-1170-C-PPVA</td><td>Çift etkili silindir</td><td>İki kapak pistonu; Plan 1’den farklı: Ø63, strok 1170.</td></tr>
+      <tr><td><strong>-RM1 / -RM2</strong></td><td>HGL-1/4-B</td><td>Pilotlu çekvalf</td><td>Hava kesilince kapak odasında basıncı tutmaya yardım — mekanik fren yok.</td></tr>
+      <tr><td><strong>-RN1…RN4</strong></td><td>GRLA-1/4-QS-8-D</td><td>Tek yönlü kısma</td><td>Açılış/kapanış hızı ayrı ayarlanır.</td></tr>
+    </tbody>
+  </table>
+  <div class="note"><strong>Plan 1 vs Plan 2 kapak:</strong> Plan 1’de <strong>Y2 + VBOC + sensör + PLC emniyeti</strong> var. Plan 2 sayfa 1’de <strong>HGL + GRLA</strong>, ayrı kesme valfi ve konum sensörü sembolü <strong>yok</strong> — daha sade, “PLC’siz” hat.</div>
+
+  <h3>Plan 2 — diğer aktüatörler (sayfa 1 ve devamı)</h3>
+  <table>
+    <thead><tr><th>Etiket</th><th>Tip</th><th>Görev (plandaki İngilizce etiket)</th></tr></thead>
+    <tbody>
+      <tr><td>-AZ1-QM2</td><td>5/3 orta kapalı</td><td>MM3–MM12 (10× ADNGF-32-20) paralel bank — yıkama mekanizması.</td></tr>
+      <tr><td>-AZ1-QM3 … QM16</td><td>5/2 tek bobin, yay geri</td><td>Sayfa 2–6: pompalar, küresel vanalar, tank iade vanaları, buhar fanı.</td></tr>
+      <tr><td>-DP1, -DP2, -DP3</td><td>Membran pompa</td><td>Yıkama / durulama pompaları.</td></tr>
+      <tr><td>-MM13 … -MM22</td><td>Küresel vana ünitesi</td><td>Proses hatları vanaları (ör. Cover Discharge Valve = kapak boşaltma vanası, kapak stroku değil).</td></tr>
+      <tr><td>-MM17, -MM18</td><td>DSBC-32-150</td><td>Yıkama / durulama tank iade vanaları.</td></tr>
+      <tr><td>-MM19, -MM20</td><td>DSBC-32-230</td><td>Kabin taze hava / buhar fanı vanaları.</td></tr>
+      <tr><td>-MM21</td><td>DSBC-32-230</td><td>Steam fan valve (sayfa 6).</td></tr>
+      <tr><td>FR-8-1/8, QSLV2-3/8-8</td><td>Dağıtıcı / bağlantı</td><td>10 silindir bankına paralel dağıtım.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Hızlı karşılaştırma: kapak sembolleri</h2>
+  <table>
+    <thead><tr><th>Konu</th><th>Plan 1 (PLC)</th><th>Plan 2 (sayfa 1 kapak)</th></tr></thead>
+    <tbody>
+      <tr><td>Silindir</td><td>PV1.L / PV1.P · DSBC-50-1350</td><td>MM1 / MM2 · DSBC-63-1170</td></tr>
+      <tr><td>Yön valfi</td><td>Y1 · 5/3 orta kapalı</td><td>QM1 · 5/3 orta kapalı</td></tr>
+      <tr><td>Emniyet kesme</td><td>Y2 + 4× VBOC (Y4–Y7)</td><td>Yok — HGL çekvalf</td></tr>
+      <tr><td>Konum sensörü</td><td>SQ1.xL/P (SMT-8M)</td><td>Şemada yok</td></tr>
+      <tr><td>Hız</td><td>VBOC içi + GRLA</td><td>4× GRLA (RN1–RN4)</td></tr>
+    </tbody>
+  </table>
+
+  <p class="subtitle" style="margin-top:20px"><a href="#plan1-detay">Plan 1 kapak detay (Türkçe akış)</a> · <a href="#plc">PLC’li özet</a> · <a href="#plcsiz">PLC’siz özet</a></p>
 </section>
 
 </div>

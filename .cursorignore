@@ -1,0 +1,15 @@
+﻿# Yalnızca "FESTO P" okunabilir. Diğer üst klasörler ve içleri tamamen kapalı.
+
+/ÇEVİRİ/
+/ELEKTRİK KUTUSU KLİMA/
+/KAPAK KAPANMA HIZI/
+/Plans/
+/Rotational pnomatik/
+
+/CE STANDARTLARIMIZ.xlsx
+/Pano Klima.xlsx
+/ULTTextLib.csv
+/ULTTextLib.csv.tmp
+
+!FESTO P/
+!FESTO P/**
