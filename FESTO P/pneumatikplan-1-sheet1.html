@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pneumatikplan 1</title>
+  <style>
+    @page { size: A3 landscape; margin: 6mm; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #c8ccd2; font-family: Arial, Helvetica, sans-serif; }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10;
+      background: #1e293b; color: #e2e8f0; padding: 10px 16px;
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      font-size: 0.85rem;
+    }
+    .toolbar-left { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; flex: 1; min-width: 200px; }
+    .toolbar a { color: #93c5fd; text-decoration: none; }
+    .toolbar button.print-btn {
+      padding: 6px 14px; border: 1px solid #475569; border-radius: 6px;
+      background: #334155; color: #fff; cursor: pointer; font-size: 0.85rem;
+    }
+    .toolbar button.print-btn:hover { background: #475569; }
+    .lang-switch {
+      display: flex; gap: 4px; align-items: center;
+      background: #0f172a; padding: 4px 8px; border-radius: 8px; border: 1px solid #475569;
+    }
+    .lang-switch span.lang-label { font-size: 0.75rem; color: #94a3b8; margin-right: 4px; }
+    .lang-btn {
+      border: 2px solid transparent; background: transparent; cursor: pointer;
+      font-size: 1.35rem; line-height: 1; padding: 2px 6px; border-radius: 6px;
+    }
+    .lang-btn:hover { background: #334155; }
+    .lang-btn.active { border-color: #38bdf8; background: #1e3a5f; }
+    .sheet-wrap { padding: 16px; display: flex; justify-content: center; }
+    .sheet {
+      width: 420mm; height: 297mm; background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,.22);
+    }
+    svg.plan { display: block; width: 100%; height: 100%; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none; }
+      .sheet-wrap { padding: 0; }
+      .sheet { box-shadow: none; width: 100%; height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <strong id="ui-plan-title">Pneumatikplan 1</strong>
+      <span id="ui-plan-subtitle"></span>
+      <button type="button" class="print-btn" id="ui-print"></button>
+      <a href="pnomatik.html#plc" id="ui-docs"></a>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <span class="lang-label" id="ui-lang-label">DE</span>
+      <button type="button" class="lang-btn" data-lang="de" title="Deutsch">&#127465;&#127466;</button>
+      <button type="button" class="lang-btn" data-lang="en" title="English">&#127468;&#127463;</button>
+      <button type="button" class="lang-btn" data-lang="tr" title="Türkçe">&#127481;&#127479;</button>
+    </div>
+  </div>
+  <div class="sheet-wrap">
+    <div class="sheet">
+      <svg class="plan" id="plan" viewBox="55 50 1585 1125" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+  </div>
+  <script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('plan');
+  var currentLang = 'de';
+
+  var i18n = {
+    de: {
+      pageTitle: 'Pneumatikplan 1 \u2013 Blatt 1 \u2013 T\u00fcrsteuerung / Korbverriegelung',
+      planTitle: 'Pneumatikplan 1',
+      planSubtitle: 'Blatt 1/1 \u2013 Kapak + Korb (nach Pneumatikplan_1_with PLC.pdf)',
+      print: 'Drucken / PDF',
+      docs: '\u2190 Dokumentation',
+      langLabel: 'Sprache',
+      supply: '\u2190 Druckluftnetz / Kompressor',
+      valve53: '5/3 Wegeventil, Mitte geschlossen',
+      safetyValve: 'Sicherheitsventil 3/2 NC',
+      afterY2: 'Verteiler nach Y2',
+      doorCtrl: 'T\u00fcrsteuerung Auf/Ab',
+      basketLock: 'Korbverriegelung',
+      grlaNote: 'GRLA-1/8-QS-6-D an jedem Zylinderport (Plan-BOM)',
+      plcTitle: 'SPS / Safety-PLC',
+      plcOut: 'OUT: Y2, Y1.1, Y1.2, Y3.1, Y3.2',
+      plcIn: 'IN: BP1, Y4\u2013Y7, SQ1.*, SQ3.*',
+      plcKm: 'KMEB-1-24-5-LED an Magneten',
+      legend: 'Legende',
+      legendLine1: '\u2501\u2501 Hauptdruck \u00b7 \u2500\u2500 Pilot / Elektrik',
+      legendLine2: 'PPVA = Puffer \u00b7 VBOC = Absperr+Feedback',
+      tbTitle: 'Pneumatikplan 1 \u2013 mit SPS',
+      tbFunc: 'T\u00fcrsteuerung Auf/Ab \u00b7 Korbverriegelung',
+      tbRef: 'Bezug: Pneumatikplan_1_with PLC.pdf Blatt 1',
+      tbNorm: 'Norm: ISO 1219-1 \u00b7 ISO 4414 (Entl\u00fcftung kennzeichnen)',
+      tbScale: 'Ma\u00dfstab: \u2014 \u00b7 Blatt 1 von 1 \u00b7 Rev. 00',
+      tbProject: 'Projekt',
+      tbProjectVal: 'FESTO P / Kapak pneumatik',
+      tbDrawn: 'Gezeichnet',
+      tbDrawnVal: 'Cursor \u2013 Rekonstruktion',
+      tbDate: 'Datum',
+      tbDoc: 'Dok.-Nr.',
+      tbSafety: 'Sicherheit',
+      safetyHead: 'Hinweise (Auszug Plan)',
+      safety1: 'SSC \u2013 Sicherer Stop / sichere Abschaltung der Druckluftzufuhr (Y2). PUS \u2013 unbeabsichtigtes Anfahren verhindern (VBOC + Ventil Mitte zu + Sensoren).',
+      safety2: 'Y4\u2013Y7: 2/2-Absperrventile mit R\u00fcckmeldung \u201egeschlossen\u201c (M8, nicht Ventilmagnet). SQ1.x: Endlagen SMT-8M an PV1.L / PV1.P.',
+      safety3: 'Betriebsdruck gem\u00e4\u00df MSB4 / Regler. Wartung: FR1 Handentl\u00fcftung + BP1-Bereich. Korbverriegelung PV2 unabh\u00e4ngig von T\u00fcrhaltung \u2013 nur Sepet.'
+    },
+    en: {
+      pageTitle: 'Pneumatic plan 1 \u2013 Sheet 1 \u2013 Door / basket interlock',
+      planTitle: 'Pneumatic plan 1',
+      planSubtitle: 'Sheet 1/1 \u2013 Hood + basket (per Pneumatikplan_1_with PLC.pdf)',
+      print: 'Print / PDF',
+      docs: '\u2190 Documentation',
+      langLabel: 'Language',
+      supply: '\u2190 Plant air / compressor',
+      valve53: '5/3 directional valve, closed centre',
+      safetyValve: 'Safety valve 3/2 NC',
+      afterY2: 'Manifold after Y2',
+      doorCtrl: 'Door up / down',
+      basketLock: 'Basket interlock',
+      grlaNote: 'GRLA-1/8-QS-6-D on each cylinder port (BOM)',
+      plcTitle: 'PLC / safety PLC',
+      plcOut: 'OUT: Y2, Y1.1, Y1.2, Y3.1, Y3.2',
+      plcIn: 'IN: BP1, Y4\u2013Y7, SQ1.*, SQ3.*',
+      plcKm: 'KMEB-1-24-5-LED on solenoids',
+      legend: 'Legend',
+      legendLine1: '\u2501\u2501 Main pressure \u00b7 \u2500\u2500 Pilot / electrical',
+      legendLine2: 'PPVA = cushion \u00b7 VBOC = shut-off + feedback',
+      tbTitle: 'Pneumatic plan 1 \u2013 with PLC',
+      tbFunc: 'Door up / down \u00b7 Basket interlock',
+      tbRef: 'Reference: Pneumatikplan_1_with PLC.pdf sheet 1',
+      tbNorm: 'Standards: ISO 1219-1 \u00b7 ISO 4414 (mark vent points)',
+      tbScale: 'Scale: NTS \u00b7 Sheet 1 of 1 \u00b7 Rev. 00',
+      tbProject: 'Project',
+      tbProjectVal: 'FESTO P / hood pneumatics',
+      tbDrawn: 'Drawn by',
+      tbDrawnVal: 'Cursor \u2013 reconstruction',
+      tbDate: 'Date',
+      tbDoc: 'Doc. no.',
+      tbSafety: 'Safety',
+      safetyHead: 'Notes (excerpt from plan)',
+      safety1: 'SSC \u2013 safe stop / safe isolation of air supply (Y2). PUS \u2013 prevent unexpected motion (VBOC + valve centre closed + sensors).',
+      safety2: 'Y4\u2013Y7: 2/2 shut-off valves with \u201cclosed\u201d feedback (M8, not solenoid). SQ1.x: end switches SMT-8M on PV1.L / PV1.P.',
+      safety3: 'Working pressure per MSB4 / regulator. Maintenance: FR1 manual vent + BP1 range. Basket lock PV2 independent of door hold \u2013 basket only.'
+    },
+    tr: {
+      pageTitle: 'Pn\u00f6matik plan 1 \u2013 Sayfa 1 \u2013 Kapak / sepet kilidi',
+      planTitle: 'Pn\u00f6matik plan 1',
+      planSubtitle: 'Sayfa 1/1 \u2013 Kapak + sepet (Pneumatikplan_1_with PLC.pdf)',
+      print: 'Yazd\u0131r / PDF',
+      docs: '\u2190 Dok\u00fcmantasyon',
+      langLabel: 'Dil',
+      supply: '\u2190 \u015eebeke havas\u0131 / kompres\u00f6r',
+      valve53: '5/3 y\u00f6n valfi, orta konum kapal\u0131',
+      safetyValve: 'Emniyet valfi 3/2 NC',
+      afterY2: 'Y2 sonras\u0131 da\u011f\u0131t\u0131m',
+      doorCtrl: 'Kapak a\u00e7 / kapa',
+      basketLock: 'Sepet kilidi',
+      grlaNote: 'Her silindir portunda GRLA-1/8-QS-6-D (BOM)',
+      plcTitle: 'PLC / emniyet PLC',
+      plcOut: '\u00c7IKI\u015e: Y2, Y1.1, Y1.2, Y3.1, Y3.2',
+      plcIn: 'G\u0130R\u0130\u015e: BP1, Y4\u2013Y7, SQ1.*, SQ3.*',
+      plcKm: 'Bobinlerde KMEB-1-24-5-LED',
+      legend: 'A\u00e7\u0131klama',
+      legendLine1: '\u2501\u2501 Ana bas\u0131n\u00e7 \u00b7 \u2500\u2500 Pilot / elektrik',
+      legendLine2: 'PPVA = tampon \u00b7 VBOC = kesme + geri bildirim',
+      tbTitle: 'Pn\u00f6matik plan 1 \u2013 PLC ile',
+      tbFunc: 'Kapak a\u00e7/kapa \u00b7 Sepet kilidi',
+      tbRef: 'Kaynak: Pneumatikplan_1_with PLC.pdf sayfa 1',
+      tbNorm: 'Norm: ISO 1219-1 \u00b7 ISO 4414 (bo\u015faltma i\u015faretle)',
+      tbScale: '\u00d6l\u00e7ek: yok \u00b7 Sayfa 1 / 1 \u00b7 Rev. 00',
+      tbProject: 'Proje',
+      tbProjectVal: 'FESTO P / kapak pn\u00f6mati\u011fi',
+      tbDrawn: 'Haz\u0131rlayan',
+      tbDrawnVal: 'Cursor \u2013 rekonstr\u00fcksiyon',
+      tbDate: 'Tarih',
+      tbDoc: 'Dok. no',
+      tbSafety: 'Emniyet',
+      safetyHead: 'Notlar (plandan \u00f6zet)',
+      safety1: 'SSC \u2013 g\u00fcvenli durdurma / hava beslemesinin g\u00fcvenli kesilmesi (Y2). PUS \u2013 beklenmeyen hareketin \u00f6nlenmesi (VBOC + valf orta kapal\u0131 + sens\u00f6rler).',
+      safety2: 'Y4\u2013Y7: \u201ekapal\u0131\u201c geri bildirimli 2/2 kesme (M8, bobin de\u011fil). SQ1.x: PV1.L / PV1.P u\u00e7 konum SMT-8M.',
+      safety3: '\u00c7al\u0131\u015fma bas\u0131nc\u0131 MSB4 / reg\u00fclat\u00f6re g\u00f6re. Bak\u0131m: FR1 elle bo\u015faltma + BP1. Sepet PV2 kapak tutmadan ba\u011f\u0131ms\u0131z \u2013 sadece sepet.'
+    }
+  };
+
+  function t(key) {
+    var pack = i18n[currentLang] || i18n.de;
+    return pack[key] != null ? pack[key] : (i18n.de[key] || key);
+  }
+
+  var layerGrid, layerPipe, layerSym, layerElec, layerTxt, layerFrame;
+
+  function el(tag, attrs, parent) {
+    var node = document.createElementNS(NS, tag);
+    if (attrs) {
+      Object.keys(attrs).forEach(function (k) {
+        if (k === 'text') node.textContent = attrs[k];
+        else node.setAttribute(k, attrs[k]);
+      });
+    }
+    (parent || svg).appendChild(node);
+    return node;
+  }
+
+  function g(id, parent) {
+    return el('g', id ? { id: id } : {}, parent);
+  }
+
+  function initLayers() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    layerGrid = g('grid');
+    layerPipe = g('pipes');
+    layerSym = g('symbols');
+    layerElec = g('electrical');
+    layerTxt = g('labels');
+    layerFrame = g('frame');
+  }
+
+  function stylePipe(node, main) {
+    node.setAttribute('fill', 'none');
+    node.setAttribute('stroke', '#000');
+    node.setAttribute('stroke-width', main ? '2.2' : '1.35');
+    node.setAttribute('stroke-linecap', 'square');
+    node.setAttribute('stroke-linejoin', 'miter');
+  }
+
+  function orthoPath(points) {
+    if (points.length < 2) return '';
+    var d = 'M' + points[0][0] + ',' + points[0][1];
+    for (var i = 1; i < points.length; i++) d += ' L' + points[i][0] + ',' + points[i][1];
+    return d;
+  }
+
+  function pipe(points, main) {
+    var p = el('path', { d: orthoPath(points) }, layerPipe);
+    stylePipe(p, main);
+    return p;
+  }
+
+  function pipePilot(points) {
+    return el('path', {
+      d: orthoPath(points), fill: 'none', stroke: '#000',
+      'stroke-width': '1', 'stroke-dasharray': '6 4'
+    }, layerElec);
+  }
+
+  function label(x, y, text, opts) {
+    opts = opts || {};
+    var tnode = el('text', {
+      x: x, y: y,
+      'text-anchor': opts.anchor || 'start',
+      'font-family': opts.mono ? 'Consolas, monospace' : 'Arial, Helvetica, sans-serif',
+      'font-size': opts.size || 11,
+      'font-weight': opts.bold ? '700' : '400',
+      fill: '#000'
+    }, layerTxt);
+    tnode.textContent = text;
+    if (opts.rotate) tnode.setAttribute('transform', 'rotate(' + opts.rotate + ' ' + x + ' ' + y + ')');
+    return tnode;
+  }
+
+  function portNum(x, y, n) {
+    label(x, y, String(n), { size: 9, anchor: 'middle' });
+  }
+
+  function drawGrid() {
+    var cols = 'ABCDEFGHI'.split('');
+    var x0 = 70, y0 = 65, x1 = 1650, y1 = 1145, step = 50;
+    for (var x = x0; x <= x1; x += step) {
+      el('line', {
+        x1: x, y1: y0, x2: x, y2: y1,
+        stroke: x % 250 === 0 ? '#bbb' : '#ebebeb',
+        'stroke-width': x % 250 === 0 ? 0.9 : 0.4
+      }, layerGrid);
+    }
+    for (var y = y0; y <= y1; y += step) {
+      el('line', {
+        x1: x0, y1: y, x2: x1, y2: y,
+        stroke: y % 250 === 0 ? '#bbb' : '#ebebeb',
+        'stroke-width': y % 250 === 0 ? 0.9 : 0.4
+      }, layerGrid);
+    }
+    cols.forEach(function (c, i) {
+      label(x0 + i * 250 + 125, y0 - 28, c, { anchor: 'middle', size: 10, bold: true });
+    });
+    for (var r = 1; r <= 5; r++) {
+      label(x0 - 35, y0 + (r - 1) * 250 + 125, String(r), { anchor: 'middle', size: 10, bold: true });
+    }
+    el('rect', {
+      x: x0, y: y0, width: x1 - x0, height: y1 - y0,
+      fill: 'none', stroke: '#000', 'stroke-width': 2
+    }, layerFrame);
+  }
+
+  function silencer(x, y) {
+    var grp = g(null, layerSym);
+    el('polygon', {
+      points: x + ',' + y + ' ' + (x + 22) + ',' + (y - 10) + ' ' + (x + 22) + ',' + (y + 10),
+      fill: '#fff', stroke: '#000', 'stroke-width': 1.2
+    }, grp);
+    for (var i = 0; i < 4; i++) {
+      el('line', {
+        x1: x + 6 + i * 4, y1: y - 6, x2: x + 6 + i * 4, y2: y + 6,
+        stroke: '#000', 'stroke-width': 0.8
+      }, grp);
+    }
+    return { exhaust: [x, y] };
+  }
+
+  function isoFilter(x, y) {
+    var grp = g(null, layerSym);
+    el('polygon', {
+      points: x + ',' + (y + 20) + ' ' + (x + 18) + ',' + y + ' ' + (x + 36) + ',' + (y + 20) + ' ' + (x + 18) + ',' + (y + 40),
+      fill: '#fff', stroke: '#000', 'stroke-width': 1.2
+    }, grp);
+    el('line', {
+      x1: x + 8, y1: y + 12, x2: x + 28, y2: y + 28,
+      stroke: '#000', 'stroke-width': 1, 'stroke-dasharray': '3 2'
+    }, grp);
+    return { in: [x + 18, y], out: [x + 18, y + 40] };
+  }
+
+  function isoRegulator(x, y) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y + 8, width: 36, height: 24, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('path', {
+      d: 'M' + (x + 6) + ',' + (y + 26) + ' Q' + (x + 18) + ',' + (y + 10) + ' ' + (x + 30) + ',' + (y + 26),
+      fill: 'none', stroke: '#000', 'stroke-width': 1
+    }, grp);
+    el('line', { x1: x + 30, y1: y + 14, x2: x + 30, y2: y + 22, stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 26, y1: y + 18, x2: x + 34, y2: y + 18, stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('circle', { cx: x + 48, cy: y + 20, r: 14, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 48, y1: y + 20, x2: x + 56, y2: y + 12, stroke: '#000', 'stroke-width': 1 }, grp);
+    return { in: [x + 18, y + 8], out: [x + 18, y + 32] };
+  }
+
+  function isoManual3_2(x, y) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x + 4, y: y + 18, width: 18, height: 22, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('rect', { x: x + 22, y: y + 18, width: 18, height: 22, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 13, y1: y + 29, x2: x + 31, y2: y + 29, stroke: '#000', 'stroke-width': 1.5 }, grp);
+    el('circle', { cx: x + 22, cy: y + 8, r: 6, fill: '#fff', stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + 22, y1: y + 14, x2: x + 22, y2: y + 18, stroke: '#000', 'stroke-width': 1 }, grp);
+    return { p: [x + 13, y + 18], a: [x + 31, y + 40], r: [x + 31, y + 18] };
+  }
+
+  function isoPressureSwitch(x, y, id) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y, width: 40, height: 28, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 8, y1: y + 20, x2: x + 32, y2: y + 20, stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + 20, y1: y + 8, x2: x + 28, y2: y + 16, stroke: '#000', 'stroke-width': 1.2 }, grp);
+    label(x + 20, y - 8, id, { anchor: 'middle', bold: true, size: 12 });
+    return { in: [x + 20, y], out: [x + 20, y + 28] };
+  }
+
+  function coil(x, y, w, h, id) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y, width: w, height: h, fill: '#fff', stroke: '#000', 'stroke-width': 1 }, grp);
+    for (var i = 0; i < 4; i++) {
+      el('line', {
+        x1: x + 4, y1: y + 4 + i * 3, x2: x + w - 4, y2: y + 4 + i * 3,
+        stroke: '#000', 'stroke-width': 0.6
+      }, grp);
+    }
+    label(x + w / 2, y - 5, id, { anchor: 'middle', size: 10, bold: true });
+    return grp;
+  }
+
+  function iso3_2NC(x, y, id) {
+    var grp = g(null, layerSym);
+    coil(x + 10, y - 22, 36, 16, id);
+    el('line', { x1: x + 28, y1: y - 6, x2: x + 28, y2: y, stroke: '#000', 'stroke-width': 1 }, grp);
+    el('rect', { x: x + 8, y: y, width: 20, height: 26, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('rect', { x: x + 28, y: y, width: 20, height: 26, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 18, y1: y + 13, x2: x + 38, y2: y + 22, stroke: '#000', 'stroke-width': 1.5 }, grp);
+    el('path', {
+      d: 'M' + (x + 38) + ',' + (y + 8) + ' l4,5 l-4,5', fill: 'none', stroke: '#000', 'stroke-width': 1
+    }, grp);
+    portNum(x + 18, y + 38, 1);
+    portNum(x + 38, y + 38, 2);
+    portNum(x + 48, y + 13, 3);
+    return { p: [x + 18, y], a: [x + 38, y + 26], r: [x + 48, y + 13] };
+  }
+
+  function iso5_3CC(x, y, id, c1, c2) {
+    var grp = g(null, layerSym);
+    var w = 22, h = 34;
+    coil(x + 4, y - 24, 32, 16, c1);
+    coil(x + 52, y - 24, 32, 16, c2);
+    el('line', { x1: x + 20, y1: y - 8, x2: x + 20, y2: y, stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + 68, y1: y - 8, x2: x + 68, y2: y, stroke: '#000', 'stroke-width': 1 }, grp);
+    for (var i = 0; i < 3; i++) {
+      el('rect', {
+        x: x + 8 + i * w, y: y, width: w, height: h,
+        fill: '#fff', stroke: '#000', 'stroke-width': 1.2
+      }, grp);
+    }
+    el('line', { x1: x + 19, y1: y + 17, x2: x + 74, y2: y + 17, stroke: '#000', 'stroke-width': 1.3 }, grp);
+    el('line', { x1: x + 41, y1: y + 8, x2: x + 41, y2: y + 26, stroke: '#000', 'stroke-width': 2 }, grp);
+    el('line', { x1: x + 63, y1: y + 8, x2: x + 63, y2: y + 26, stroke: '#000', 'stroke-width': 2 }, grp);
+    label(x + 41, y + 52, id, { anchor: 'middle', bold: true, size: 13 });
+    label(x + 41, y + 68, t('valve53'), { anchor: 'middle', size: 9 });
+    portNum(x + 19, y + 44, 1);
+    portNum(x + 41, y + 44, 4);
+    portNum(x + 63, y + 44, 2);
+    portNum(x + 30, y + 12, 3);
+    portNum(x + 74, y + 12, 5);
+    return { p: [x + 19, y], a: [x + 41, y + 34], b: [x + 63, y + 34], r3: [x + 30, y], r5: [x + 74, y] };
+  }
+
+  function iso5_2DC(x, y, id, c1, c2) {
+    var grp = g(null, layerSym);
+    coil(x + 2, y - 24, 30, 16, c1);
+    coil(x + 38, y - 24, 30, 16, c2);
+    el('rect', { x: x + 8, y: y, width: 22, height: 30, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('rect', { x: x + 30, y: y, width: 22, height: 30, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 19, y1: y + 15, x2: x + 41, y2: y + 15, stroke: '#000', 'stroke-width': 1.3 }, grp);
+    label(x + 30, y + 48, id, { anchor: 'middle', bold: true, size: 12 });
+    portNum(x + 19, y + 40, 1);
+    portNum(x + 41, y + 40, 2);
+    portNum(x + 19, y + 8, 3);
+    portNum(x + 52, y + 15, 4);
+    return { p: [x + 19, y], a: [x + 19, y + 30], b: [x + 41, y + 30], r: [x + 52, y + 15] };
+  }
+
+  function isoFlowControl(x, y) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y + 6, width: 14, height: 18, fill: '#fff', stroke: '#000', 'stroke-width': 1 }, grp);
+    el('polygon', {
+      points: (x + 22) + ',' + (y + 15) + ' ' + (x + 34) + ',' + (y + 8) + ' ' + (x + 34) + ',' + (y + 22),
+      fill: '#fff', stroke: '#000', 'stroke-width': 1
+    }, grp);
+    el('line', { x1: x + 7, y1: y, x2: x + 7, y2: y + 6, stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + 4, y1: y + 2, x2: x + 10, y2: y + 2, stroke: '#000', 'stroke-width': 1 }, grp);
+    return { in: [x, y + 15], out: [x + 34, y + 15] };
+  }
+
+  function isoVBOC(x, y, id) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y, width: 16, height: 22, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('rect', { x: x + 16, y: y, width: 16, height: 22, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 8, y1: y + 11, x2: x + 24, y2: y + 18, stroke: '#000', 'stroke-width': 1.4 }, grp);
+    el('rect', { x: x + 36, y: y + 4, width: 10, height: 14, fill: '#fff', stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + 38, y1: y + 18, x2: x + 44, y2: y + 18, stroke: '#000', 'stroke-width': 1 }, grp);
+    label(x + 26, y - 6, id, { anchor: 'middle', bold: true, size: 10 });
+    label(x + 26, y + 36, 'VBOC-L2-E-S7', { anchor: 'middle', size: 7, mono: true });
+    return { in: [x, y + 11], out: [x + 32, y + 11], switch: [x + 41, y + 4] };
+  }
+
+  function isoCylinderDA(x, y, len, id, sensors) {
+    var grp = g(null, layerSym);
+    var barrel = len;
+    el('rect', { x: x, y: y + 12, width: barrel, height: 36, fill: '#fff', stroke: '#000', 'stroke-width': 1.4 }, grp);
+    el('line', { x1: x + 12, y1: y + 30, x2: x + barrel - 28, y2: y + 30, stroke: '#000', 'stroke-width': 2.5 }, grp);
+    el('rect', { x: x + barrel - 24, y: y + 22, width: 8, height: 16, fill: '#fff', stroke: '#000', 'stroke-width': 1 }, grp);
+    el('line', { x1: x + barrel - 20, y1: y + 30, x2: x + barrel + 40, y2: y + 30, stroke: '#000', 'stroke-width': 2 }, grp);
+    el('polygon', {
+      points: (x + 18) + ',' + (y + 12) + ' ' + (x + 26) + ',' + (y + 4) + ' ' + (x + 34) + ',' + (y + 12),
+      fill: '#fff', stroke: '#000', 'stroke-width': 1
+    }, grp);
+    el('polygon', {
+      points: (x + barrel - 34) + ',' + (y + 48) + ' ' + (x + barrel - 26) + ',' + (y + 56) + ' ' + (x + barrel - 18) + ',' + (y + 48),
+      fill: '#fff', stroke: '#000', 'stroke-width': 1
+    }, grp);
+    label(x + barrel / 2, y - 8, id, { anchor: 'middle', bold: true, size: 13 });
+    label(x + barrel / 2, y + 62, 'DSBC-50-1350-PPVA-N3', { anchor: 'middle', size: 8, mono: true });
+    (sensors || []).forEach(function (s, i) {
+      var sx = x + 40 + i * (barrel - 80);
+      el('rect', { x: sx, y: y + 46, width: 18, height: 10, fill: '#1e293b', stroke: '#000', 'stroke-width': 1 }, grp);
+      label(sx + 9, y + 72, s, { anchor: 'middle', size: 8 });
+    });
+    return { port1: [x + 8, y + 12], port2: [x + 8, y + 48] };
+  }
+
+  function isoCylinderSmall(x, y, id) {
+    var grp = g(null, layerSym);
+    el('rect', { x: x, y: y + 20, width: 90, height: 22, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, grp);
+    el('line', { x1: x + 10, y1: y + 31, x2: x + 55, y2: y + 31, stroke: '#000', 'stroke-width': 2 }, grp);
+    el('line', { x1: x + 55, y1: y + 31, x2: x + 120, y2: y + 31, stroke: '#000', 'stroke-width': 2 }, grp);
+    label(x + 60, y + 8, id, { anchor: 'middle', bold: true, size: 12 });
+    label(x + 60, y + 52, 'DSNU-32-50-PPV-A', { anchor: 'middle', size: 8, mono: true });
+    return { p1: [x, y + 20], p2: [x, y + 42] };
+  }
+
+  function drawTitleBlock() {
+    var x = 1020, y = 940, w = 620, h = 175;
+    el('rect', { x: x, y: y, width: w, height: h, fill: 'none', stroke: '#000', 'stroke-width': 1.5 }, layerFrame);
+    el('line', { x1: x, y1: y + 45, x2: x + w, y2: y + 45, stroke: '#000', 'stroke-width': 1 }, layerFrame);
+    el('line', { x1: x, y1: y + 90, x2: x + w, y2: y + 90, stroke: '#000', 'stroke-width': 1 }, layerFrame);
+    el('line', { x1: x + 220, y1: y, x2: x + 220, y2: y + h, stroke: '#000', 'stroke-width': 1 }, layerFrame);
+    label(x + 12, y + 28, t('tbTitle'), { size: 14, bold: true });
+    label(x + 12, y + 68, t('tbFunc'), { size: 11 });
+    label(x + 12, y + 108, t('tbRef'), { size: 9 });
+    label(x + 12, y + 128, t('tbNorm'), { size: 9 });
+    label(x + 12, y + 158, t('tbScale'), { size: 9 });
+    label(x + 240, y + 28, t('tbProject'), { size: 9 });
+    label(x + 240, y + 52, t('tbProjectVal'), { size: 11, bold: true });
+    label(x + 240, y + 82, t('tbDrawn'), { size: 9 });
+    label(x + 240, y + 102, t('tbDrawnVal'), { size: 10 });
+    label(x + 240, y + 132, t('tbDate'), { size: 9 });
+    label(x + 240, y + 152, '2026-09-29', { size: 10 });
+    label(x + 440, y + 28, t('tbDoc'), { size: 9 });
+    label(x + 440, y + 52, 'PN-01-01', { size: 12, bold: true });
+    label(x + 440, y + 100, t('tbSafety'), { size: 9 });
+    label(x + 440, y + 120, 'ISO 13849 PLd / PLe', { size: 9 });
+  }
+
+  function drawSafetyBox() {
+    var x = 80, y = 940, w = 920, h = 175;
+    el('rect', { x: x, y: y, width: w, height: h, fill: 'none', stroke: '#000', 'stroke-width': 1.2 }, layerFrame);
+    label(x + 12, y + 22, t('safetyHead'), { bold: true, size: 11 });
+    [t('safety1'), t('safety2'), t('safety3')].forEach(function (ln, i) {
+      label(x + 12, y + 48 + i * 22, ln, { size: 9 });
+    });
+  }
+
+  function connect(a, b, main) {
+    if (!a || !b) return;
+    var ax = a[0], ay = a[1], bx = b[0], by = b[1];
+    if (ax === bx || ay === by) pipe([[ax, ay], [bx, by]], main);
+    else pipe([[ax, ay], [ax, by], [bx, by]], main);
+  }
+
+  function buildPlan() {
+    drawGrid();
+    drawTitleBlock();
+    drawSafetyBox();
+
+    label(180, 145, 'p', { size: 12, bold: true });
+    label(200, 145, t('supply'), { size: 10 });
+    pipe([[200, 160], [400, 160], [400, 200]], true);
+
+    var flt = isoFilter(388, 200);
+    connect([400, 200], flt.in, true);
+    connect(flt.out, [400, 280], true);
+    var reg = isoRegulator(382, 280);
+    connect([400, 280], reg.in, true);
+    connect(reg.out, [400, 360], true);
+    label(320, 230, 'FR1', { bold: true, size: 13 });
+    label(300, 248, 'MSB4-1/4:C3:J1:D14-WP', { size: 8, mono: true });
+
+    var man = isoManual3_2(382, 360);
+    connect([400, 360], man.p, true);
+    connect(man.a, [400, 430], true);
+    var sil0 = silencer(man.r[0], man.r[1]);
+    pipe([[man.r[0], man.r[1]], [sil0.exhaust[0], sil0.exhaust[1]]], false);
+
+    var bp = isoPressureSwitch(380, 430, 'BP1');
+    connect([400, 430], bp.in, true);
+    connect(bp.out, [400, 500], true);
+    label(450, 448, 'SPBA-P2R-G18-W-M12', { size: 8, mono: true });
+
+    var y2 = iso3_2NC(372, 500, 'Y2');
+    connect([400, 500], y2.p, true);
+    pipe([[y2.a[0], y2.a[1]], [y2.a[0], 560], [520, 560], [520, 200], [680, 200]], true);
+    var silY2 = silencer(y2.r[0], y2.r[1]);
+    pipe([[y2.r[0], y2.r[1]], [silY2.exhaust[0], silY2.exhaust[1]]], false);
+    label(330, 520, t('safetyValve'), { size: 9 });
+
+    label(680, 175, t('afterY2'), { size: 10, bold: true });
+    pipe([[680, 200], [920, 200]], true);
+    pipe([[920, 200], [920, 280]], true);
+
+    var y1 = iso5_3CC(878, 280, 'Y1', 'Y1.1', 'Y1.2');
+    connect([920, 280], y1.p, true);
+    label(920, 360, 'VUVS-L25-P53C-MD-G14-F8-1C1', { anchor: 'middle', size: 8, mono: true });
+    label(780, 300, t('doorCtrl'), { size: 12, bold: true });
+
+    var sil3 = silencer(y1.r3[0], y1.r3[1]);
+    var sil5 = silencer(y1.r5[0], y1.r5[1]);
+    pipe([[y1.r3[0], y1.r3[1]], [sil3.exhaust[0], sil3.exhaust[1]]], false);
+    pipe([[y1.r5[0], y1.r5[1]], [sil5.exhaust[0], sil5.exhaust[1]]], false);
+
+    pipe([[920, 200], [1280, 200], [1280, 320]], true);
+    var y3 = iso5_2DC(1250, 320, 'Y3', 'Y3.1', 'Y3.2');
+    connect([1280, 320], y3.p, true);
+    label(1280, 400, 'VUVS-L20-B52-D-G18-F7-1C1', { anchor: 'middle', size: 8, mono: true });
+    label(1180, 300, t('basketLock'), { size: 12, bold: true });
+
+    connect(y3.b, [1280, 480], true);
+    connect([1280, 480], [1380, 480], true);
+    var pv2 = isoCylinderSmall(1380, 460, 'PV2');
+    connect([1380, 480], pv2.p1, true);
+    label(1450, 520, 'SQ3.1 / SQ3.2', { size: 8 });
+
+    pipe([[y1.a[0], y1.a[1]], [y1.a[0], 520], [320, 520], [720, 520]], true);
+    pipe([[y1.b[0], y1.b[1]], [y1.b[0], 600], [320, 600], [720, 600]], true);
+
+    function doorBranch(xRail, cylX, side, y4, y5, sqOpen, sqClose) {
+      pipe([[xRail, 520], [xRail, 700]], true);
+      var v4 = isoVBOC(xRail - 26, 700, y4);
+      connect([xRail, 700], v4.in, true);
+      var fc1 = isoFlowControl(xRail - 50, 740);
+      connect(v4.out, fc1.in, false);
+      pipe([[fc1.out[0], fc1.out[1]], [fc1.out[0], 780], [cylX, 780], [cylX, 760]], false);
+
+      pipe([[xRail, 600], [xRail, 900]], true);
+      var v5 = isoVBOC(xRail - 26, 900, y5);
+      connect([xRail, 900], v5.in, true);
+      var fc2 = isoFlowControl(xRail - 50, 940);
+      connect(v5.out, fc2.in, false);
+      pipe([[fc2.out[0], fc2.out[1]], [fc2.out[0], 980], [cylX, 980], [cylX, 960]], false);
+
+      var cyl = isoCylinderDA(cylX, 1000, 200, side, [sqOpen, sqClose]);
+      connect([cylX, 760], cyl.port1, false);
+      connect([cylX, 960], cyl.port2, false);
+
+      pipePilot([[v4.switch[0], v4.switch[1]], [v4.switch[0], 660], [180, 660], [180, 865]]);
+      pipePilot([[v5.switch[0], v5.switch[1]], [v5.switch[0], 860], [200, 860], [200, 865]]);
+    }
+
+    doorBranch(320, 480, 'PV1.L', 'Y4', 'Y5', 'SQ1.1L', 'SQ1.2L');
+    doorBranch(720, 880, 'PV1.P', 'Y6', 'Y7', 'SQ1.1P', 'SQ1.2P');
+
+    label(600, 640, t('grlaNote'), { anchor: 'middle', size: 9 });
+
+    el('rect', {
+      x: 130, y: 800, width: 210, height: 118,
+      fill: '#fff', stroke: '#000', 'stroke-width': 1.2
+    }, layerFrame);
+    label(140, 822, t('plcTitle'), { bold: true, size: 10 });
+    label(140, 842, t('plcOut'), { size: 8 });
+    label(140, 858, t('plcIn'), { size: 8 });
+    label(140, 874, t('plcKm'), { size: 8 });
+
+    pipePilot([[878, 256], [160, 256], [160, 865]]);
+    pipePilot([[910, 256], [220, 256], [220, 865]]);
+
+    label(1520, 88, t('legend'), { bold: true, size: 11 });
+    label(1520, 108, t('legendLine1'), { size: 9 });
+    label(1520, 124, t('legendLine2'), { size: 9 });
+  }
+
+  function updateToolbarUi() {
+    document.title = t('pageTitle');
+    document.getElementById('ui-plan-title').textContent = t('planTitle');
+    document.getElementById('ui-plan-subtitle').textContent = t('planSubtitle');
+    document.getElementById('ui-print').textContent = t('print');
+    document.getElementById('ui-docs').textContent = t('docs');
+    document.getElementById('ui-lang-label').textContent = currentLang.toUpperCase();
+    document.documentElement.lang = currentLang === 'tr' ? 'tr' : (currentLang === 'en' ? 'en' : 'de');
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+    });
+  }
+
+  function setLang(lang) {
+    if (!i18n[lang]) return;
+    currentLang = lang;
+    try { localStorage.setItem('pn-plan-lang', lang); } catch (e) {}
+    updateToolbarUi();
+    initLayers();
+    buildPlan();
+  }
+
+  document.getElementById('ui-print').addEventListener('click', function () { window.print(); });
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { setLang(btn.getAttribute('data-lang')); });
+  });
+
+  try {
+    var saved = localStorage.getItem('pn-plan-lang');
+    if (saved && i18n[saved]) currentLang = saved;
+  } catch (e) {}
+
+  updateToolbarUi();
+  initLayers();
+  buildPlan();
+})();
+  </script>
+</body>
+</html>

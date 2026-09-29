@@ -114,6 +114,18 @@
     .sim-plc .valve-unit.on .valve-body { fill: #1d4ed8; stroke: #60a5fa; }
     .sim-plc .valve-unit.on .valve-spool { stroke: #93c5fd; }
     .sim-plc .door-panel { transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .sch-wrap { overflow-x: auto; margin: 16px 0; }
+    .sch-svg { width: 100%; min-width: 680px; max-width: 920px; background: #fff; border: 1px solid var(--border); border-radius: 10px; display: block; }
+    .sch-line { stroke: #0f172a; stroke-width: 2; fill: none; }
+    .sch-line.pilot { stroke: #64748b; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    .sch-box { fill: #fff; stroke: #0f172a; stroke-width: 1.5; }
+    .sch-coil { fill: #f8fafc; stroke: #0f172a; stroke-width: 1.2; }
+    .sch-coil.on { fill: #fef3c7; }
+    .sch-label { fill: #0f172a; font-size: 11px; font-weight: 600; font-family: "Segoe UI", system-ui, sans-serif; }
+    .sch-sublabel { fill: #475569; font-size: 9px; font-family: "Segoe UI", system-ui, sans-serif; }
+    .sch-title { fill: #1e40af; font-size: 13px; font-weight: 700; font-family: "Segoe UI", system-ui, sans-serif; }
+    .sch-legend { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -125,6 +137,7 @@
   <a href="#gecis">Ne değişir</a>
   <a href="#plc">PLC’li plan</a>
   <a href="#plcsiz">PLC’siz plan</a>
+  <a href="#cizim">Plan çizimi</a>
   <a href="#bizim-sim">Bizim simülasyon</a>
   <a href="#plc-sim">Festo simülasyon</a>
   <a href="#smc">SMC parçalar</a>
@@ -144,6 +157,7 @@
     <a class="card-link" href="#plcsiz"><h2>PLC’siz Festo</h2><p>Kapak silindirinde pilotlu çekvalf (HGL). Konum sensörü yok.</p><span class="tag">Pneumatikplan 2</span></a>
     <a class="card-link" href="#smc"><h2>SMC seti</h2><p>Kilitli silindir, yumuşak kalkış, basınç anahtarı, elle boşaltma.</p><span class="tag">İstenen ürün</span></a>
     <a class="card-link" href="#plan1-detay"><h2>Plan 1 kapak detay</h2><p>Sadece makine kapağı: hava yolu, parçalar, PLC — sade anlatım.</p><span class="tag">Rehber</span></a>
+    <a class="card-link" href="pneumatikplan-1-sheet1.html"><h2>Pnömatik plan (A3)</h2><p>Plan 1 Blatt 1 — ISO 1219, ızgara, başlık bloğu, yazdırılabilir PDF.</p><span class="tag">Çizim</span></a>
     <a class="card-link" href="#semboller"><h2>Plan sembolleri</h2><p>İki pnömatik plandaki ISO semboller ve etiketler (Y, PV, SQ…) — okuma rehberi.</p><span class="tag">Rehber</span></a>
   </div>
 </section>
@@ -277,6 +291,14 @@ Konum sensörü yok. Ayrı kesme valfi yok. Sepet kilidi yok.</div>
       <p>Tutma işi pnömatiktir. SMC’de tutan parça HGL değil, silindirin kendi freni. Yumuşak kalkış ve basınç anahtarı eklenir. Konum sensörü şart değildir.</p>
     </div>
   </div>
+</section>
+
+<section id="cizim">
+  <h1>Pnömatik plan — Plan 1 (Blatt 1)</h1>
+  <p class="subtitle">A3 mühendislik çizimi: ISO 1219 sembolleri, ızgara (A–M / 1–8), başlık bloğu, FR1→Y2→Y1→VBOC→PV1 + Korbverriegelung. Kaynak: <strong>Pneumatikplan_1_with PLC.pdf</strong> sayfa 1 (rekonstrüksiyon).</p>
+  <div class="ok-box"><strong>Kullanım:</strong> Alttaki çizim tam sayfa. <a href="pneumatikplan-1-sheet1.html" target="_blank" rel="noopener">Yeni sekmede aç</a> → tarayıcıdan <em>Yazdır → PDF olarak kaydet</em> (A3 yatay). Festo FluidDraw çıktısı değildir; hat mantığı ve etiketler planla uyumlu tutulmuştur.</div>
+  <iframe src="pneumatikplan-1-sheet1.html" title="Pneumatikplan 1 Blatt 1" style="width:100%;height:min(85vh,720px);border:1px solid var(--border);border-radius:10px;background:#c8ccd2;"></iframe>
+  <p class="subtitle" style="margin-top:16px"><a href="pneumatikplan-1-sheet1.html" target="_blank" rel="noopener">pneumatikplan-1-sheet1.html</a> · <a href="#semboller">Sembol rehberi</a> · <a href="#plan1-detay">Plan 1 metin detay</a></p>
 </section>
 
 <div id="bizim-sim" class="anchor sim-biz">
