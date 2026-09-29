@@ -1,0 +1,55 @@
+{
+  "_yorum": "alt_malzemeler: yaprak parça veya alt komple (kod kompleler içinde tanımlıysa otomatik açılır).",
+  "kompleler": {
+    "07 00309": {
+      "aciklama": "REZİSTANS KOMPLESİ 8250W M TİPİ",
+      "alt_malzemeler": [
+        { "kod": "07 01216", "ad": "PİRİNÇ REZİSTANS SOMUNU 2\"" },
+        { "kod": "07 00339", "ad": "REZİSTANS DELRİN KAPAK" },
+        { "kod": "10 02764", "ad": "KABLO RAKORU ODB15-PG11 DIŞ GEÇMELİ TİP SİYAH" },
+        { "kod": "07 00604", "ad": "REZİSTANS KLİNGRİT CONTA" },
+        { "kod": "10 01038", "ad": "REZİSTANS 220V 8250W 2'' M:162CM BKMLÜ DİKİŞSİZ AISI3" }
+      ]
+    },
+    "07 01214": {
+      "aciklama": "YAĞ SIYIRICI KOMPLESİ TİP 1 MONTAJ",
+      "alt_malzemeler": [
+        { "kod": "10 00245", "ad": "TERMİK RÖLESİ LR2K0307 1,20-1,8A" },
+        { "kod": "10 01331", "ad": "KONTAKTÖR LC1K0910M7 220V" },
+        { "kod": "10 01332", "ad": "KONTAKTÖR LC1K1610M7 220V" },
+        { "kod": "10 00267", "ad": "KONTAK BLOK NO B1" },
+        { "kod": "10 01394", "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ" },
+        { "kod": "10 01387", "ad": "ZAMAN RÖLESİ ATP4S08-UV-60" },
+        { "kod": "07 03497", "ad": "YAĞ SIYIRICI TEFLONU" },
+        { "kod": "10 01002", "ad": "REDÜKTÖR EN:30 I:80 B:05" },
+        { "kod": "10 00243", "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A" },
+        { "kod": "10 02314", "ad": "KONTAKTÖR LC1K0610M7 220V" },
+        { "kod": "10 02526", "ad": "YAĞ KEÇESİ 20*42*7" }
+      ]
+    },
+    "07 02125": {
+      "aciklama": "INTERLOCK KİLİT KOMPLESİ",
+      "alt_malzemeler": [
+        { "kod": "07 03069", "ad": "INTERLOCK KİLİT BAĞLANTI SACI" },
+        { "kod": "10 03336", "ad": "INTERLOCK D4NL4AFAB OMRON D4A LIMIT SWITCH" },
+        { "kod": "10 02306", "ad": "RÖLE SOKETİ RSZE1S48M 8 PİNLİ" },
+        { "kod": "10 01337", "ad": "MİNYATÜR RÖLE RSB2A080P7 2 KUTUPLU 8 PİNLİ" }
+      ]
+    },
+    "07 10420": {
+      "aciklama": "BLOWER KURUTMA KOMPLESİ LYM 1350 NS",
+      "alt_malzemeler": [
+        { "kod": "07 16328", "ad": "SALYANGOZLU FAN ERF 2 0,37KW SİLİKONLU" },
+        { "kod": "10 01524", "ad": "BLOWER TEK KADEMELİ 2\" BAĞLANTI 4 KW" }
+      ]
+    },
+    "07 00546": {
+      "aciklama": "LYM 950 NS FAN İLE KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        { "kod": "07 01214", "ad": "YAĞ SIYIRICI KOMPLESİ TİP 1 MONTAJ" },
+        { "kod": "07 02125", "ad": "INTERLOCK KİLİT KOMPLESİ" },
+        { "kod": "07 10420", "ad": "BLOWER KURUTMA KOMPLESİ LYM 1350 NS" }
+      ]
+    }
+  }
+}
