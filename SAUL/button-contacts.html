@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cover Open / Close Buttons — Contact Difference | Diferencia de Contactos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f3f1ec;
+    --bg2: #e8e4db;
+    --ink: #1a1f24;
+    --muted: #5a6570;
+    --line: #cfc8bb;
+    --green: #1f8a4c;
+    --green-bg: #e6f5ec;
+    --red: #c0392b;
+    --red-bg: #fceceb;
+    --card: #ffffff;
+    --accent: #0d4f6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "DM Sans", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(900px 500px at 0% 0%, #dde8e2 0%, transparent 55%),
+      radial-gradient(700px 400px at 100% 10%, #e8e0d4 0%, transparent 50%),
+      var(--bg);
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 36px 20px 72px; }
+
+  header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  header .eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  header h1 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  header h1 em { font-style: italic; color: var(--accent); }
+
+  header .sub {
+    color: var(--muted);
+    font-size: 1.02rem;
+    max-width: 52ch;
+  }
+
+  .lang-block {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0 0;
+  }
+
+  .lang-row {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .lang-tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  section h2 {
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+
+  section .sec-sub {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+
+  .front-box {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 8px 28px rgba(26, 31, 36, 0.06);
+  }
+
+  .front-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+  }
+
+  .label-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 560px) {
+    .label-legend { grid-template-columns: 1fr; }
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+  }
+
+  .legend-item.open { background: var(--green-bg); border-color: #b8dfc8; }
+  .legend-item.close { background: var(--red-bg); border-color: #f0c4bf; }
+
+  .dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot.green { background: var(--green); box-shadow: 0 0 0 3px rgba(31, 138, 76, 0.2); }
+  .dot.red { background: var(--red); box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.18); }
+
+  .legend-item strong {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .legend-item span {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .alert {
+    margin-top: 28px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .alert h3 {
+    font-size: 1.05rem;
+    margin-bottom: 14px;
+  }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .compare { grid-template-columns: 1fr; }
+  }
+
+  .cmp {
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+  }
+
+  .cmp.std { background: #f7f5f0; }
+  .cmp.special { background: var(--green-bg); border-color: #b8dfc8; }
+
+  .cmp .title {
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin-bottom: 8px;
+  }
+
+  .cmp ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .cmp li { margin-bottom: 4px; }
+
+  .contacts {
+    display: flex;
+    gap: 6px;
+    margin: 10px 0 4px;
+  }
+
+  .chip {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  .chip.no { background: var(--green); }
+  .chip.nc { background: var(--red); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .photo-grid { grid-template-columns: 1fr; }
+  }
+
+  .photo-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(26, 31, 36, 0.05);
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    background: #ddd;
+  }
+
+  .photo-card figcaption {
+    padding: 12px 14px 14px;
+    font-size: 0.86rem;
+    color: var(--muted);
+  }
+
+  .photo-card figcaption strong {
+    display: block;
+    color: var(--ink);
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+
+  .photo-card.highlight {
+    border-color: #7bc99a;
+    box-shadow: 0 0 0 2px rgba(31, 138, 76, 0.15);
+  }
+
+  .photo-card.wide {
+    grid-column: 1 / -1;
+  }
+
+  .photo-card.wide img {
+    height: auto;
+    max-height: 420px;
+    object-fit: contain;
+    background: #eceae4;
+  }
+
+  .action {
+    margin-top: 28px;
+    background: linear-gradient(135deg, #fff8e8 0%, #fff 55%);
+    border: 1px solid #e6d4a8;
+    border-left: 4px solid #c4921a;
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .action h3 {
+    font-size: 1.08rem;
+    margin-bottom: 14px;
+    color: #8a6410;
+  }
+
+  .action-steps {
+    margin: 14px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  .action-steps li { margin-bottom: 6px; }
+
+  .nc-ref {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 18px;
+    align-items: center;
+    margin-top: 18px;
+    padding: 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  @media (max-width: 560px) {
+    .nc-ref { grid-template-columns: 1fr; }
+  }
+
+  .nc-ref img {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    background: #f0eeea;
+  }
+
+  .nc-ref .meta strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+
+  .nc-ref .meta p {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* —— PDF / print: keep sections whole —— */
+  @media print {
+    @page {
+      size: A4;
+      margin: 14mm 12mm;
+    }
+
+    html, body {
+      background: #fff !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .wrap {
+      max-width: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      break-after: page;
+      page-break-after: always;
+      margin-bottom: 0;
+      padding-bottom: 12px;
+    }
+
+    /* Each numbered section starts on a fresh page */
+    section {
+      break-before: page;
+      page-break-before: always;
+      margin-bottom: 0;
+    }
+
+    section:first-of-type {
+      break-before: auto;
+      page-break-before: auto;
+    }
+
+    .front-box,
+    .alert,
+    .action,
+    .compare,
+    .cmp,
+    .legend-item,
+    .nc-ref,
+    .label-legend,
+    .lang-row,
+    .photo-card {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    h2, .sec-sub {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    .photo-grid {
+      display: block;
+    }
+
+    .photo-card {
+      margin-bottom: 12px;
+      box-shadow: none;
+    }
+
+    /* Photos: 2 per page, then next page */
+    .photo-card:nth-child(3) {
+      break-before: page;
+      page-break-before: always;
+    }
+
+    .photo-card img {
+      height: auto;
+      max-height: 95mm;
+      object-fit: contain;
+      background: #f0eeea;
+    }
+
+    .front-box img {
+      max-height: 145mm;
+      object-fit: contain;
+    }
+
+    .nc-ref {
+      break-before: avoid;
+      page-break-before: avoid;
+    }
+
+    .nc-ref img {
+      max-height: 50mm;
+    }
+
+    footer {
+      break-before: avoid;
+      page-break-before: avoid;
+      margin-top: 18px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="eyebrow">Technical Notice · Aviso Técnico</div>
+      <h1>Cover Open / Close Buttons — <em>Contact Difference</em></h1>
+      <p class="sub">Botones Abrir / Cerrar Tapa — Diferencia de contactos</p>
+      <div class="lang-block">
+        <div class="lang-row">
+          <div class="lang-tag">EN</div>
+          <p>Please note: the contact blocks on the cover open and cover close push-buttons are not identical. Details and photos are below.</p>
+        </div>
+        <div class="lang-row">
+          <div class="lang-tag">ES</div>
+          <p>Atención: los bloques de contacto de los pulsadores Abrir tapa y Cerrar tapa no son idénticos. Detalles y fotografías a continuación.</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- FRONT PANEL -->
+    <section>
+      <h2>1. Front panel · Panel frontal</h2>
+      <p class="sec-sub">Spanish labels for the left green and right close buttons · Etiquetas en español</p>
+
+      <div class="front-box">
+        <img
+          src="WhatsApp Image 2026-10-01 at 12.36.25.jpeg"
+          alt="Front control panel — Kapak Aç / Kapak Kapat buttons"
+        />
+
+        <div class="label-legend">
+          <div class="legend-item open">
+            <span class="dot green" aria-hidden="true"></span>
+            <div>
+              <strong>Kapak Aç → Abrir tapa</strong>
+              <span>EN: Cover Open · Left green button(s)</span>
+            </div>
+          </div>
+          <div class="legend-item close">
+            <span class="dot red" aria-hidden="true"></span>
+            <div>
+              <strong>Kapak Kapat → Cerrar tapa</strong>
+              <span>EN: Cover Close · Right red button(s)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPLANATION -->
+    <section>
+      <h2>2. Contact configuration · Configuración de contactos</h2>
+      <p class="sec-sub">Why this matters for wiring / PLC logic · Por qué es importante</p>
+
+      <div class="alert">
+        <h3>Key point · Punto clave</h3>
+
+        <div class="lang-block" style="margin-top:0">
+          <div class="lang-row">
+            <div class="lang-tag">EN</div>
+            <p>
+              There are <strong>4 buttons</strong> related to cover open / cover close.
+              On <strong>3 of these 4 buttons</strong>, the contact blocks are arranged as:
+              <strong>1 red contact on the left (NC)</strong> and
+              <strong>1 green contact on the right (NO)</strong>.
+              However, the <strong>Cover Open (Abrir tapa) button on the upper-left of the label</strong>
+              has a different setup: <strong>2 green NO (Normally Open) contacts</strong> — no red NC contact.
+            </p>
+          </div>
+          <div class="lang-row">
+            <div class="lang-tag">ES</div>
+            <p>
+              Hay <strong>4 botones</strong> relacionados con abrir / cerrar tapa.
+              En <strong>3 de estos 4 botones</strong>, los bloques de contacto están dispuestos así:
+              <strong>1 contacto rojo a la izquierda (NC)</strong> y
+              <strong>1 contacto verde a la derecha (NO)</strong>.
+              Sin embargo, el <strong>botón Abrir tapa (Cover Open) situado arriba a la izquierda de la etiqueta</strong>
+              tiene una configuración distinta: <strong>2 contactos verdes NO (Normalmente Abiertos)</strong> — sin contacto rojo NC.
+            </p>
+          </div>
+        </div>
+
+        <div class="compare">
+          <div class="cmp std">
+            <div class="title">Standard — 3 buttons · Estándar — 3 botones</div>
+            <div class="contacts">
+              <span class="chip nc">NC RED · IZQ</span>
+              <span class="chip no">NO GREEN · DER</span>
+            </div>
+            <ul>
+              <li>EN: 1 red (NC) left + 1 green (NO) right</li>
+              <li>ES: 1 rojo (NC) izquierda + 1 verde (NO) derecha</li>
+            </ul>
+          </div>
+          <div class="cmp special">
+            <div class="title">Special — Upper-left Abrir tapa · Especial</div>
+            <div class="contacts">
+              <span class="chip no">NO GREEN</span>
+              <span class="chip no">NO GREEN</span>
+            </div>
+            <ul>
+              <li>EN: 2 × green NO contacts (no red NC)</li>
+              <li>ES: 2 × contactos verdes NO (sin NC rojo)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHOTOS -->
+    <section>
+      <h2>3. Photos · Fotografías</h2>
+      <p class="sec-sub">Rear view of the contact blocks · Vista trasera de los bloques de contacto</p>
+
+      <div class="photo-grid">
+        <figure class="photo-card">
+          <img
+            src="WhatsApp Image 2026-10-01 at 12.36.25 (1).jpeg"
+            alt="Contact blocks — red NC left, green NO right"
+          />
+          <figcaption>
+            <strong>Standard contacts · Contactos estándar</strong>
+            EN: Red NC (left) + Green NO (right)<br />
+            ES: Rojo NC (izquierda) + Verde NO (derecha)
+          </figcaption>
+        </figure>
+
+        <figure class="photo-card">
+          <img
+            src="WhatsApp Image 2026-10-01 at 12.36.25 (2).jpeg"
+            alt="Contact blocks close-up — NC and NO"
+          />
+          <figcaption>
+            <strong>Close-up · Primer plano</strong>
+            EN: Typical NC + NO pair on one button<br />
+            ES: Par típico NC + NO en un botón
+          </figcaption>
+        </figure>
+
+        <figure class="photo-card">
+          <img
+            src="WhatsApp Image 2026-10-01 at 12.36.26.jpeg"
+            alt="Panel interior — contact blocks with wiring"
+          />
+          <figcaption>
+            <strong>Panel interior · Interior del panel</strong>
+            EN: Wired contact blocks (standard layout)<br />
+            ES: Bloques cableados (disposición estándar)
+          </figcaption>
+        </figure>
+
+        <figure class="photo-card">
+          <img
+            src="WhatsApp Image 2026-10-01 at 12.36.26 (1).jpeg"
+            alt="Contact blocks with wire labels S14 S15"
+          />
+          <figcaption>
+            <strong>Labeled wires · Cables etiquetados</strong>
+            EN: Another standard NC (red) + NO (green) button<br />
+            ES: Otro botón estándar NC (rojo) + NO (verde)
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Requested action · Acción solicitada</h2>
+      <p class="sec-sub">Please try the following on site · Por favor pruebe lo siguiente in situ</p>
+
+      <div class="action">
+        <h3>⚠ Suggested test · Prueba sugerida</h3>
+
+        <div class="lang-block" style="margin-top:0">
+          <div class="lang-row">
+            <div class="lang-tag">EN</div>
+            <div>
+              <p>
+                On the <strong>Kapak Aç / Cover Open (Abrir tapa)</strong> button, replace the contact that sits in the
+                <strong>same position as the red contacts on the other buttons</strong> with a
+                <strong>Normally Closed (NC) contact</strong>, then test the function again.
+              </p>
+              <ul class="action-steps">
+                <li>Remove the green NO contact from that position (the side where the other buttons have the red NC).</li>
+                <li>Install an <strong>NC (Normally Closed / closed contact)</strong> block instead — same type as the red ones on the other buttons.</li>
+                <li>An <strong>equivalent NC contact</strong> from another compatible brand is also acceptable.</li>
+                <li>Reconnect the wires and test Cover Open / Abrir tapa operation.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-tag">ES</div>
+            <div>
+              <p>
+                En el botón <strong>Kapak Aç / Abrir tapa (Cover Open)</strong>, sustituya el contacto que está en la
+                <strong>misma posición que los contactos rojos de los demás botones</strong> por un
+                <strong>contacto Normalmente Cerrado (NC)</strong> y vuelva a probar la función.
+              </p>
+              <ul class="action-steps">
+                <li>Retire el contacto verde NO de esa posición (el lado donde los otros botones tienen el NC rojo).</li>
+                <li>Monte en su lugar un bloque <strong>NC (Normalmente Cerrado / contacto cerrado)</strong> — del mismo tipo que los rojos de los demás botones.</li>
+                <li>También sirve un <strong>contacto NC equivalente</strong> de otra marca compatible.</li>
+                <li>Vuelva a conectar los cables y pruebe el funcionamiento de Abrir tapa / Cover Open.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="nc-ref">
+          <img
+            src="nc-contact-emas-b2.png"
+            alt="emas B2 Normally Closed (NC) red contact block"
+          />
+          <div class="meta">
+            <strong>Reference NC contact · Contacto NC de referencia</strong>
+            <p>
+              <strong>EN:</strong> Example of the required part: <strong>emas B2</strong> — Normally Closed (NC) contact block (red actuator).
+              An equivalent NC contact from a compatible brand is fine.<br /><br />
+              <strong>ES:</strong> Ejemplo de la pieza necesaria: <strong>emas B2</strong> — bloque de contacto Normalmente Cerrado (NC) (actuador rojo).
+              Un contacto NC equivalente de marca compatible también es válido.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Summary · Resumen</h2>
+      <div class="alert">
+        <div class="lang-block" style="margin-top:0">
+          <div class="lang-row">
+            <div class="lang-tag">EN</div>
+            <p>
+              The upper-left <strong>Abrir tapa / Cover Open</strong> button currently has <strong>two green NO contacts</strong>.
+              The other three buttons use <strong>one red NC + one green NO</strong>.
+              Please replace the mismatched side with an <strong>NC (closed) contact</strong> so it matches the others, then retest.
+            </p>
+          </div>
+          <div class="lang-row">
+            <div class="lang-tag">ES</div>
+            <p>
+              El botón superior izquierdo <strong>Abrir tapa / Cover Open</strong> tiene actualmente <strong>dos contactos verdes NO</strong>.
+              Los otros tres usan <strong>un NC rojo + un NO verde</strong>.
+              Sustituya el lado incorrecto por un <strong>contacto NC (cerrado)</strong> para igualarlo a los demás y vuelva a probar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      CNK Elektronik · Control panel button contacts — Kapak Aç (Abrir tapa) / Kapak Kapat (Cerrar tapa)
+    </footer>
+
+  </div>
+</body>
+</html>
