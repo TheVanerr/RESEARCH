@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QElectroTech önizleme — ksy.qet</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent2: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      align-items: center;
+      padding: 10px 14px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      z-index: 2;
+    }
+    header h1 { margin: 0; font-size: 0.95rem; font-weight: 600; }
+    header .sub { font-size: 0.78rem; color: var(--muted); }
+    .btn {
+      border: 1px solid var(--border);
+      background: #334155;
+      color: var(--text);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .btn:hover { border-color: var(--accent); }
+    .btn.primary { background: #0369a1; border-color: #0284c7; }
+    label.chk {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    #status { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 0;
+    }
+    aside {
+      border-right: 1px solid var(--border);
+      background: var(--panel);
+      overflow: auto;
+      padding: 10px;
+    }
+    aside h2 {
+      margin: 0 0 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    #partList { list-style: none; margin: 0; padding: 0; font-size: 0.82rem; }
+    #partList li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      margin-bottom: 4px;
+    }
+    #partList li:hover { background: #334155; }
+    #partList li.active { border-color: var(--accent); background: #1e3a5f; }
+    #partList .lbl { font-weight: 600; color: #fff; }
+    #partList .meta { color: var(--muted); font-size: 0.75rem; margin-top: 2px; }
+    #viewport {
+      position: relative;
+      overflow: hidden;
+      background: #e8edf3;
+      cursor: grab;
+    }
+    #viewport.dragging { cursor: grabbing; }
+    #svgHost { transform-origin: 0 0; width: 100%; height: 100%; }
+    #svgHost svg {
+      display: block;
+      background: #fff;
+      box-shadow: 0 0 0 1px #cbd5e1;
+    }
+    .hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.45;
+      margin-bottom: 12px;
+      padding: 10px;
+      background: #0f172a;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    code { font-size: 0.72rem; color: #7dd3fc; }
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; grid-template-rows: 180px 1fr; }
+      aside { border-right: 0; border-bottom: 1px solid var(--border); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>QElectroTech önizleyici</h1>
+      <div class="sub" id="projectTitle">—</div>
+    </div>
+    <button type="button" class="btn primary" id="btnReload">Yenile</button>
+    <label class="btn">
+      .qet seç
+      <input type="file" id="fileInput" accept=".qet,.xml" hidden>
+    </label>
+    <label class="chk">
+      <input type="checkbox" id="autoRefresh" checked>
+      Otomatik izle (2 sn)
+    </label>
+    <label class="chk">
+      <input type="checkbox" id="showTerminals">
+      Terminaller
+    </label>
+    <span id="status">Hazır</span>
+  </header>
+  <main>
+    <aside>
+      <div class="hint">
+        Canlı güncelleme:
+        <code>python -m http.server 8765</code>
+        →
+        <code>http://localhost:8765/qet-preview.html</code>
+        <br><br>
+        Tekerlek: zoom · Sürükle: kaydır
+      </div>
+      <h2>Parçalar</h2>
+      <ul id="partList"></ul>
+    </aside>
+    <div id="viewport">
+      <div id="svgHost"></div>
+    </div>
+  </main>
+
+  <script>
+    /**
+     * QET model:
+     * - diagram element (x,y) = hotspot world position
+     * - orientation 0..3 = 0/90/180/270° (SVG/Qt clockwise with y-down)
+     * - definition primitives use definition coords; hotspot is attachment point
+     * - instance terminal x,y ≈ definition coords (not hotspot-relative)
+     * - instance dynamic texts are hotspot-relative (Element local origin)
+     */
+    const DEFAULT_QET = 'ksy.qet';
+    const REFRESH_MS = 2000;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const state = {
+      scale: 1,
+      panX: 40,
+      panY: 40,
+      lastHash: '',
+      highlightUuid: null,
+      library: new Map(),
+      elements: [],
+      lastDoc: null,
+    };
+
+    const svgHost = document.getElementById('svgHost');
+    const viewport = document.getElementById('viewport');
+    const statusEl = document.getElementById('status');
+    const partList = document.getElementById('partList');
+    const projectTitle = document.getElementById('projectTitle');
+
+    function svg(tag, attrs = {}) {
+      const el = document.createElementNS(NS, tag);
+      for (const [k, v] of Object.entries(attrs)) {
+        if (v != null && v !== '') el.setAttribute(k, String(v));
+      }
+      return el;
+    }
+
+    function normUuid(u) {
+      return (u || '').replace(/[{}]/g, '').toLowerCase();
+    }
+
+    function elTypeKey(typeAttr) {
+      if (!typeAttr) return '';
+      return typeAttr.split('/').pop() || '';
+    }
+
+    function parseStyle(styleStr) {
+      const out = { stroke: '#000', fill: 'none', strokeWidth: 1, dash: null };
+      if (!styleStr) return out;
+      for (const chunk of styleStr.split(';')) {
+        const [k, v] = chunk.split(':').map(s => (s || '').trim());
+        if (!k) continue;
+        if (k === 'color') out.stroke = v || '#000';
+        if (k === 'filling') {
+          if (!v || v === 'none') out.fill = 'none';
+          else if (v === 'black') out.fill = '#000';
+          else if (v === 'white') out.fill = '#fff';
+          else out.fill = v;
+        }
+        if (k === 'line-style' && v === 'dashed') out.dash = '4 2';
+        if (k === 'line-weight') {
+          if (v === 'thin') out.strokeWidth = 0.5;
+          else if (v === 'normal') out.strokeWidth = 1;
+          else if (v === 'hight' || v === 'high' || v === 'bold') out.strokeWidth = 1.8;
+        }
+      }
+      return out;
+    }
+
+    function applyStrokeFill(el, style, { isText = false } = {}) {
+      if (isText) {
+        el.setAttribute('fill', style.stroke || '#000');
+        el.setAttribute('stroke', 'none');
+        return;
+      }
+      el.setAttribute('stroke', style.stroke);
+      el.setAttribute('stroke-width', style.strokeWidth);
+      el.setAttribute('fill', style.fill);
+      el.setAttribute('stroke-linecap', 'round');
+      el.setAttribute('stroke-linejoin', 'round');
+      if (style.dash) el.setAttribute('stroke-dasharray', style.dash);
+    }
+
+    function polygonPoints(node) {
+      const xs = {};
+      const ys = {};
+      for (const attr of node.attributes) {
+        const mx = attr.name.match(/^x(\d+)$/);
+        if (mx) xs[+mx[1]] = parseFloat(attr.value);
+        const my = attr.name.match(/^y(\d+)$/);
+        if (my) ys[+my[1]] = parseFloat(attr.value);
+      }
+      const idxs = Object.keys(xs).map(Number).sort((a, b) => a - b);
+      return idxs.filter(i => ys[i] != null).map(i => [xs[i], ys[i]]);
+    }
+
+    /** SVG/Qt rotate: x' = x*cos - y*sin ; y' = x*sin + y*cos */
+    function rotateCW(x, y, angleRad) {
+      const c = Math.cos(angleRad);
+      const s = Math.sin(angleRad);
+      return [x * c - y * s, x * s + y * c];
+    }
+
+    function defToWorld(lx, ly, el) {
+      const hx = el.definition?.hotspot_x ?? 0;
+      const hy = el.definition?.hotspot_y ?? 0;
+      const a = (el.orientation || 0) * Math.PI / 2;
+      const [rx, ry] = rotateCW(lx - hx, ly - hy, a);
+      return [el.x + rx, el.y + ry];
+    }
+
+    function hotspotToWorld(lx, ly, el) {
+      const a = (el.orientation || 0) * Math.PI / 2;
+      const [rx, ry] = rotateCW(lx, ly, a);
+      return [el.x + rx, el.y + ry];
+    }
+
+    function buildLibrary(doc) {
+      const lib = new Map();
+      doc.querySelectorAll('collection element[name]').forEach(node => {
+        const name = node.getAttribute('name');
+        const def = node.querySelector(':scope > definition');
+        if (!def) return;
+        const trName = def.querySelector('names > name[lang="tr"]')?.textContent?.trim();
+        const enName = def.querySelector('names > name[lang="en"]')?.textContent?.trim();
+        lib.set(name, {
+          name,
+          title: trName || enName || name,
+          hotspot_x: parseFloat(def.getAttribute('hotspot_x') || '0'),
+          hotspot_y: parseFloat(def.getAttribute('hotspot_y') || '0'),
+          width: parseFloat(def.getAttribute('width') || '40'),
+          height: parseFloat(def.getAttribute('height') || '40'),
+          description: def.querySelector(':scope > description'),
+          terminals: [...def.querySelectorAll(':scope > description > terminal')].map((t, idx) => ({
+            idx,
+            uuid: normUuid(t.getAttribute('uuid')),
+            x: parseFloat(t.getAttribute('x') || '0'),
+            y: parseFloat(t.getAttribute('y') || '0'),
+          })),
+        });
+      });
+      return lib;
+    }
+
+    function parseFontSize(fontAttr) {
+      if (!fontAttr) return 7;
+      const parts = fontAttr.split(',');
+      const size = parseFloat(parts[1]);
+      return Number.isFinite(size) && size > 0 ? size : 7;
+    }
+
+    function parseDiagramElements(diagram, library) {
+      const items = [];
+      diagram.querySelectorAll(':scope > elements > element').forEach(node => {
+        const type = node.getAttribute('type') || '';
+        const key = elTypeKey(type);
+        const def = library.get(key);
+        const infos = {};
+        node.querySelectorAll('elementInformations > elementInformation').forEach(info => {
+          infos[info.getAttribute('name')] = info.textContent?.trim() || '';
+        });
+
+        const instanceTerminals = [...node.querySelectorAll(':scope > terminals > terminal')].map(t => ({
+          id: t.getAttribute('id'),
+          x: parseFloat(t.getAttribute('x') || '0'),
+          y: parseFloat(t.getAttribute('y') || '0'),
+        }));
+
+        // Map definition terminal UUID -> definition/instance local coords (definition space)
+        const terminalMap = new Map();
+        if (def) {
+          def.terminals.forEach((t, i) => {
+            const inst = instanceTerminals[i];
+            terminalMap.set(t.uuid, {
+              lx: inst ? inst.x : t.x,
+              ly: inst ? inst.y : t.y,
+            });
+          });
+        }
+
+        const dynTexts = [...node.querySelectorAll('dynamic_texts > dynamic_elmt_text')].map(dt => ({
+          x: parseFloat(dt.getAttribute('x') || '0'),
+          y: parseFloat(dt.getAttribute('y') || '0'),
+          text: dt.querySelector(':scope > text')?.textContent?.trim() || '',
+          rotation: parseFloat(dt.getAttribute('rotation') || '0'),
+          keepVisual: dt.getAttribute('keep_visual_rotation') === 'true',
+          fontSize: parseFontSize(dt.getAttribute('font')),
+        })).filter(d => d.text);
+
+        items.push({
+          uuid: normUuid(node.getAttribute('uuid')),
+          key,
+          definition: def,
+          x: parseFloat(node.getAttribute('x') || '0'),
+          y: parseFloat(node.getAttribute('y') || '0'),
+          orientation: parseInt(node.getAttribute('orientation') || '0', 10),
+          label: infos.label || dynTexts.find(d => /^-/.test(d.text))?.text || '',
+          comment: infos.comment || '',
+          designation: infos.designation || '',
+          terminalMap,
+          dynTexts,
+        });
+      });
+      return items;
+    }
+
+    function terminalWorld(el, terminalUuid) {
+      if (!el) return null;
+      const t = el.terminalMap.get(normUuid(terminalUuid));
+      if (!t) return null;
+      return defToWorld(t.lx, t.ly, el);
+    }
+
+    function conductorPath(conductor, byUuid) {
+      const e1 = byUuid.get(normUuid(conductor.getAttribute('element1')));
+      const e2 = byUuid.get(normUuid(conductor.getAttribute('element2')));
+      const t1 = terminalWorld(e1, conductor.getAttribute('terminal1'));
+      const t2 = terminalWorld(e2, conductor.getAttribute('terminal2'));
+      if (!t1 || !t2) return null;
+
+      const segments = [...conductor.querySelectorAll(':scope > segment')];
+      if (!segments.length) return [t1, t2];
+
+      const pts = [t1];
+      let [cx, cy] = t1;
+      for (const seg of segments) {
+        const len = parseFloat(seg.getAttribute('length') || '0');
+        const ori = seg.getAttribute('orientation');
+        if (ori === 'horizontal') cx += len;
+        else if (ori === 'vertical') cy += len;
+        pts.push([cx, cy]);
+      }
+
+      // QET path from t1 via segments should end at t2; if last point drifted, snap end
+      const last = pts[pts.length - 1];
+      const dist = Math.hypot(last[0] - t2[0], last[1] - t2[1]);
+      if (dist > 1.5) pts.push(t2);
+      else pts[pts.length - 1] = t2;
+      return pts;
+    }
+
+    function appendArc(parent, node, style) {
+      const x = parseFloat(node.getAttribute('x') || '0');
+      const y = parseFloat(node.getAttribute('y') || '0');
+      const w = parseFloat(node.getAttribute('width') || '0');
+      const h = parseFloat(node.getAttribute('height') || '0');
+      const start = parseFloat(node.getAttribute('start') || '0');
+      const angle = parseFloat(node.getAttribute('angle') || '0');
+      const cx = x + w / 2;
+      const cy = y + h / 2;
+      const rx = w / 2;
+      const ry = h / 2;
+      const steps = Math.max(12, Math.ceil(Math.abs(angle) / 4));
+      const pts = [];
+      for (let i = 0; i <= steps; i++) {
+        // Qt: 0° = 3 o'clock, positive = counter-clockwise in y-down coords
+        // => screen: x = cx + rx*cos(θ), y = cy - ry*sin(θ)
+        const th = (start + angle * (i / steps)) * Math.PI / 180;
+        pts.push([cx + rx * Math.cos(th), cy - ry * Math.sin(th)]);
+      }
+      const poly = svg('polyline', {
+        points: pts.map(p => p.join(',')).join(' '),
+        fill: 'none',
+      });
+      applyStrokeFill(poly, { ...style, fill: 'none' });
+      parent.appendChild(poly);
+    }
+
+    function appendPrimitive(parent, node) {
+      const tag = node.tagName.toLowerCase();
+      if (tag === 'terminal' || tag === 'dynamic_text') return;
+
+      const style = parseStyle(node.getAttribute('style') || '');
+      let elSvg = null;
+
+      if (tag === 'line') {
+        elSvg = svg('line', {
+          x1: node.getAttribute('x1'),
+          y1: node.getAttribute('y1'),
+          x2: node.getAttribute('x2'),
+          y2: node.getAttribute('y2'),
+        });
+      } else if (tag === 'rect') {
+        elSvg = svg('rect', {
+          x: node.getAttribute('x'),
+          y: node.getAttribute('y'),
+          width: node.getAttribute('width'),
+          height: node.getAttribute('height'),
+          rx: node.getAttribute('rx') || 0,
+          ry: node.getAttribute('ry') || 0,
+        });
+      } else if (tag === 'ellipse') {
+        const w = parseFloat(node.getAttribute('width') || '0');
+        const h = parseFloat(node.getAttribute('height') || '0');
+        elSvg = svg('ellipse', {
+          cx: parseFloat(node.getAttribute('x') || '0') + w / 2,
+          cy: parseFloat(node.getAttribute('y') || '0') + h / 2,
+          rx: w / 2,
+          ry: h / 2,
+        });
+      } else if (tag === 'circle') {
+        // QET: x,y = top-left of bounding box
+        const d = parseFloat(node.getAttribute('diameter') || '0');
+        const x = parseFloat(node.getAttribute('x') || '0');
+        const y = parseFloat(node.getAttribute('y') || '0');
+        elSvg = svg('circle', { cx: x + d / 2, cy: y + d / 2, r: d / 2 });
+      } else if (tag === 'polygon') {
+        const pts = polygonPoints(node);
+        if (pts.length < 2) return;
+        const closed = node.getAttribute('closed') !== 'false';
+        const filled = style.fill !== 'none';
+        if (closed || filled) {
+          elSvg = svg('polygon', { points: pts.map(p => p.join(',')).join(' ') });
+        } else {
+          elSvg = svg('polyline', { points: pts.map(p => p.join(',')).join(' ') });
+        }
+      } else if (tag === 'arc') {
+        appendArc(parent, node, style);
+        return;
+      } else if (tag === 'text') {
+        elSvg = svg('text', {
+          x: node.getAttribute('x'),
+          y: node.getAttribute('y'),
+          'font-size': parseFontSize(node.getAttribute('font')),
+          'font-family': 'Segoe UI, Liberation Sans, sans-serif',
+        });
+        elSvg.textContent = node.getAttribute('text') || node.textContent || '';
+        applyStrokeFill(elSvg, { stroke: node.getAttribute('color') || '#000' }, { isText: true });
+        parent.appendChild(elSvg);
+        return;
+      } else {
+        return;
+      }
+
+      applyStrokeFill(elSvg, style);
+      parent.appendChild(elSvg);
+    }
+
+    function renderElement(layer, item, showTerminals) {
+      const def = item.definition;
+      const hx = def?.hotspot_x ?? 0;
+      const hy = def?.hotspot_y ?? 0;
+      const angle = (item.orientation || 0) * 90;
+
+      // Outer group: hotspot at origin, then rotate, then place on diagram
+      const root = svg('g', {
+        'data-uuid': item.uuid,
+        transform: `translate(${item.x} ${item.y}) rotate(${angle})`,
+      });
+
+      if (state.highlightUuid === item.uuid) {
+        const hi = svg('rect', {
+          x: -hx - 6,
+          y: -hy - 6,
+          width: (def?.width || 40) + 12,
+          height: (def?.height || 40) + 12,
+          fill: 'none',
+          stroke: '#f59e0b',
+          'stroke-width': 2,
+        });
+        // highlight in definition space
+        const hiG = svg('g', { transform: `translate(${-hx} ${-hy})` });
+        hiG.appendChild(svg('rect', {
+          x: -6, y: -6,
+          width: (def?.width || 40) + 12,
+          height: (def?.height || 40) + 12,
+          fill: 'rgba(245,158,11,0.08)',
+          stroke: '#f59e0b',
+          'stroke-width': 1.5,
+        }));
+        root.appendChild(hiG);
+      }
+
+      // Symbol primitives in definition coordinates
+      const pic = svg('g', { transform: `translate(${-hx} ${-hy})` });
+      if (def?.description) {
+        [...def.description.children].forEach(child => appendPrimitive(pic, child));
+      } else {
+        pic.appendChild(svg('rect', {
+          x: -16, y: -10, width: 32, height: 20,
+          fill: '#fef3c7', stroke: '#d97706',
+        }));
+      }
+      root.appendChild(pic);
+
+      // Instance labels: hotspot-relative coordinates
+      item.dynTexts.forEach(dt => {
+        const tg = svg('g', { transform: `translate(${dt.x} ${dt.y})` });
+        // keep_visual_rotation: counter-rotate so text stays upright on diagram
+        if (dt.keepVisual || angle) {
+          const counter = dt.keepVisual ? -angle : 0;
+          const extra = dt.rotation || 0;
+          if (counter || extra) tg.setAttribute('transform', `translate(${dt.x} ${dt.y}) rotate(${counter + extra})`);
+        }
+        const t = svg('text', {
+          x: 0,
+          y: 0,
+          'font-size': dt.fontSize,
+          'font-family': 'Segoe UI, Liberation Sans, sans-serif',
+          fill: '#111',
+          'dominant-baseline': 'hanging',
+        });
+        t.textContent = dt.text;
+        tg.appendChild(t);
+        root.appendChild(tg);
+      });
+
+      if (showTerminals) {
+        for (const [, term] of item.terminalMap) {
+          const lx = term.lx - hx;
+          const ly = term.ly - hy;
+          pic.appendChild(svg('circle', {
+            cx: term.lx, cy: term.ly, r: 2.2,
+            fill: '#ef4444', stroke: 'none',
+          }));
+        }
+      }
+
+      layer.appendChild(root);
+    }
+
+    function renderDiagram(doc) {
+      const project = doc.querySelector('project');
+      projectTitle.textContent = project?.getAttribute('title') || 'Proje';
+
+      state.library = buildLibrary(doc);
+      const diagram = doc.querySelector('diagram');
+      if (!diagram) throw new Error('Diyagram bulunamadı');
+
+      const cols = parseInt(diagram.getAttribute('cols') || '17', 10);
+      const rows = parseInt(diagram.getAttribute('rows') || '8', 10);
+      const colsize = parseFloat(diagram.getAttribute('colsize') || '60');
+      const rowsize = parseFloat(diagram.getAttribute('rowsize') || '80');
+      const width = cols * colsize;
+      const height = parseFloat(diagram.getAttribute('height') || String(rows * rowsize));
+
+      state.elements = parseDiagramElements(diagram, state.library);
+      const byUuid = new Map(state.elements.map(e => [e.uuid, e]));
+      const showTerminals = document.getElementById('showTerminals').checked;
+
+      const rootSvg = svg('svg', {
+        xmlns: NS,
+        width,
+        height,
+        viewBox: `0 0 ${width} ${height}`,
+      });
+
+      // Grid aligned to QET folio cells
+      const defs = svg('defs');
+      const pat = svg('pattern', {
+        id: 'grid', width: colsize, height: rowsize, patternUnits: 'userSpaceOnUse',
+      });
+      pat.appendChild(svg('path', {
+        d: `M ${colsize} 0 L 0 0 0 ${rowsize}`,
+        fill: 'none', stroke: '#e2e8f0', 'stroke-width': 0.6,
+      }));
+      defs.appendChild(pat);
+      rootSvg.appendChild(defs);
+      rootSvg.appendChild(svg('rect', { width, height, fill: 'url(#grid)' }));
+      rootSvg.appendChild(svg('rect', {
+        width, height, fill: 'none', stroke: '#94a3b8', 'stroke-width': 1,
+      }));
+
+      const layerLines = svg('g', { id: 'conductors' });
+      let condCount = 0;
+      diagram.querySelectorAll(':scope > conductors > conductor').forEach(conductor => {
+        const path = conductorPath(conductor, byUuid);
+        if (!path) return;
+        condCount++;
+        layerLines.appendChild(svg('polyline', {
+          points: path.map(p => p.join(',')).join(' '),
+          fill: 'none',
+          stroke: '#1d4ed8',
+          'stroke-width': 1.15,
+          'stroke-linejoin': 'round',
+          'stroke-linecap': 'round',
+        }));
+      });
+      rootSvg.appendChild(layerLines);
+
+      const layerEl = svg('g', { id: 'elements' });
+      state.elements.forEach(item => renderElement(layerEl, item, showTerminals));
+      rootSvg.appendChild(layerEl);
+
+      svgHost.innerHTML = '';
+      svgHost.appendChild(rootSvg);
+      applyTransform();
+      renderPartList();
+      statusEl.textContent = `${state.elements.length} eleman · ${condCount} hat · lib ${state.library.size}`;
+    }
+
+    function renderPartList() {
+      partList.innerHTML = '';
+      const sorted = [...state.elements].sort((a, b) =>
+        (a.label || a.key).localeCompare(b.label || b.key, 'tr'));
+      sorted.forEach(item => {
+        const li = document.createElement('li');
+        if (item.uuid === state.highlightUuid) li.classList.add('active');
+        const title = item.label || item.definition?.title || item.key || '—';
+        const meta = [item.comment, item.designation].filter(Boolean).join(' · ');
+        li.innerHTML = `<div class="lbl">${esc(title)}</div><div class="meta">${esc(meta || item.definition?.title || '')}</div>`;
+        li.addEventListener('click', () => {
+          state.highlightUuid = item.uuid;
+          // Center view roughly on element
+          state.panX = viewport.clientWidth / 2 - item.x * state.scale;
+          state.panY = viewport.clientHeight / 2 - item.y * state.scale;
+          if (state.lastDoc) renderDiagram(state.lastDoc);
+        });
+        partList.appendChild(li);
+      });
+    }
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, c => (
+        { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+      ));
+    }
+
+    function applyTransform() {
+      svgHost.style.transform = `translate(${state.panX}px, ${state.panY}px) scale(${state.scale})`;
+    }
+
+    function hashString(str) {
+      let h = 0;
+      for (let i = 0; i < str.length; i++) h = ((h << 5) - h + str.charCodeAt(i)) | 0;
+      return String(h);
+    }
+
+    async function loadText(text) {
+      const h = hashString(text);
+      if (h === state.lastHash && state.lastDoc) return;
+      state.lastHash = h;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, 'application/xml');
+      if (doc.querySelector('parsererror')) throw new Error('XML okunamadı');
+      state.lastDoc = doc;
+      renderDiagram(doc);
+    }
+
+    async function loadFromUrl(url) {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${url} yüklenemedi (${res.status})`);
+      return loadText(await res.text());
+    }
+
+    document.getElementById('btnReload').addEventListener('click', () => {
+      state.lastHash = '';
+      loadFromUrl(DEFAULT_QET).catch(() => {
+        statusEl.textContent = 'ksy.qet yüklenemedi — dosya seçin veya sunucu açın';
+      });
+    });
+
+    document.getElementById('fileInput').addEventListener('change', e => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      const reader = new FileReader();
+      reader.onload = () => loadText(reader.result);
+      reader.readAsText(f);
+    });
+
+    document.getElementById('showTerminals').addEventListener('change', () => {
+      if (state.lastDoc) renderDiagram(state.lastDoc);
+    });
+
+    let refreshTimer = null;
+    document.getElementById('autoRefresh').addEventListener('change', e => {
+      if (e.target.checked) startAutoRefresh();
+      else stopAutoRefresh();
+    });
+
+    function startAutoRefresh() {
+      stopAutoRefresh();
+      refreshTimer = setInterval(() => loadFromUrl(DEFAULT_QET).catch(() => {}), REFRESH_MS);
+    }
+    function stopAutoRefresh() {
+      if (refreshTimer) clearInterval(refreshTimer);
+      refreshTimer = null;
+    }
+
+    viewport.addEventListener('wheel', e => {
+      e.preventDefault();
+      const rect = viewport.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      const before = state.scale;
+      const next = Math.min(5, Math.max(0.15, before * (e.deltaY > 0 ? 0.9 : 1.1)));
+      // zoom toward cursor
+      state.panX = mx - (mx - state.panX) * (next / before);
+      state.panY = my - (my - state.panY) * (next / before);
+      state.scale = next;
+      applyTransform();
+    }, { passive: false });
+
+    let drag = null;
+    viewport.addEventListener('pointerdown', e => {
+      drag = { x: e.clientX, y: e.clientY, panX: state.panX, panY: state.panY };
+      viewport.classList.add('dragging');
+      viewport.setPointerCapture(e.pointerId);
+    });
+    viewport.addEventListener('pointermove', e => {
+      if (!drag) return;
+      state.panX = drag.panX + (e.clientX - drag.x);
+      state.panY = drag.panY + (e.clientY - drag.y);
+      applyTransform();
+    });
+    viewport.addEventListener('pointerup', e => {
+      drag = null;
+      viewport.classList.remove('dragging');
+      try { viewport.releasePointerCapture(e.pointerId); } catch (_) {}
+    });
+
+    loadFromUrl(DEFAULT_QET)
+      .then(() => startAutoRefresh())
+      .catch(() => {
+        statusEl.textContent = 'ksy.qet otomatik yüklenemedi — .qet seç veya sunucu aç';
+      });
+  </script>
+</body>
+</html>

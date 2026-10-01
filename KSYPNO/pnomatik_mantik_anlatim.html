@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PLC'li Pnömatik Plan — Adım Adım Mantık</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0f1419;
+    --bg2: #1a2332;
+    --panel: #243044;
+    --ink: #e8eef6;
+    --muted: #9aabbd;
+    --line: #3a4d66;
+    --air: #2aa8c9;
+    --air-dim: rgba(42, 168, 201, 0.18);
+    --plc: #e8a838;
+    --plc-dim: rgba(232, 168, 56, 0.16);
+    --safe: #3ecf8e;
+    --safe-dim: rgba(62, 207, 142, 0.14);
+    --act: #e86b5a;
+    --act-dim: rgba(232, 107, 90, 0.14);
+    --warn: #f0c24b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #1c3a4a 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, #2a2418 0%, transparent 50%),
+      linear-gradient(180deg, #0f1419 0%, #121a24 40%, #0e1318 100%);
+    min-height: 100vh;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, .brand {
+    font-family: "Space Grotesk", sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 80px; }
+
+  /* HERO */
+  header.hero {
+    padding: 36px 0 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+    animation: rise 0.7s ease both;
+  }
+  .brand {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--air);
+    margin-bottom: 10px;
+  }
+  header.hero h1 {
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    font-weight: 700;
+    max-width: 18ch;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  header.hero p.lead {
+    max-width: 58ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+
+  /* ANALOGY BOX */
+  .analogy {
+    margin-top: 22px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, var(--plc-dim), transparent 70%), var(--bg2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--plc);
+    border-radius: 4px 12px 12px 4px;
+  }
+  .analogy strong { color: var(--plc); }
+  .analogy p { color: var(--ink); font-size: 0.98rem; }
+
+  /* NAV STEPS */
+  .step-nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 28px 0 8px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 12px 0;
+    background: linear-gradient(180deg, rgba(15,20,25,0.96), rgba(15,20,25,0.88));
+    backdrop-filter: blur(8px);
+  }
+  .step-nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--bg2);
+    transition: color .2s, border-color .2s, background .2s, transform .2s;
+  }
+  .step-nav a:hover, .step-nav a.active {
+    color: var(--ink);
+    border-color: var(--air);
+    background: var(--air-dim);
+    transform: translateY(-1px);
+  }
+
+  /* MAP */
+  .map {
+    margin: 20px 0 36px;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    animation: rise 0.8s 0.1s ease both;
+  }
+  .map h2 { font-size: 1.15rem; margin-bottom: 6px; }
+  .map > p { color: var(--muted); font-size: 0.92rem; margin-bottom: 16px; }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1.4fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    min-height: 280px;
+  }
+  @media (max-width: 800px) {
+    .map-grid { grid-template-columns: 1fr; }
+  }
+
+  .zone-chip {
+    border: 1px dashed transparent;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: transform .25s, border-color .25s, box-shadow .25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .zone-chip::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.06) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform .6s;
+  }
+  .zone-chip:hover::after { transform: translateX(120%); }
+  .zone-chip:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.25); }
+  .zone-chip .tag {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: 0.9;
+  }
+  .zone-chip h3 { font-size: 1rem; margin-bottom: 4px; }
+  .zone-chip p { font-size: 0.82rem; color: var(--muted); }
+
+  .z-air { background: var(--air-dim); border-color: rgba(42,168,201,0.35); grid-row: 1 / 3; }
+  .z-door { background: var(--act-dim); border-color: rgba(232,107,90,0.35); }
+  .z-valve { background: var(--plc-dim); border-color: rgba(232,168,56,0.35); }
+  .z-lock { background: var(--safe-dim); border-color: rgba(62,207,142,0.35); }
+  .z-svc { background: rgba(154,171,189,0.12); border-color: rgba(154,171,189,0.35); grid-column: 1 / -1; }
+
+  /* SECTIONS */
+  section.block {
+    margin: 42px 0;
+    scroll-margin-top: 70px;
+    animation: rise 0.6s ease both;
+  }
+  section.block .head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .num {
+    flex: 0 0 auto;
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display: grid; place-items: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .n-air { background: var(--air-dim); color: var(--air); border: 1px solid rgba(42,168,201,0.4); }
+  .n-door { background: var(--act-dim); color: var(--act); border: 1px solid rgba(232,107,90,0.4); }
+  .n-valve { background: var(--plc-dim); color: var(--plc); border: 1px solid rgba(232,168,56,0.4); }
+  .n-safe { background: var(--safe-dim); color: var(--safe); border: 1px solid rgba(62,207,142,0.4); }
+  .n-lock { background: var(--safe-dim); color: var(--safe); border: 1px solid rgba(62,207,142,0.4); }
+  .n-svc { background: rgba(154,171,189,0.15); color: var(--muted); border: 1px solid var(--line); }
+  .n-flow { background: var(--plc-dim); color: var(--plc); border: 1px solid rgba(232,168,56,0.4); }
+
+  section.block h2 { font-size: 1.35rem; line-height: 1.25; }
+  section.block .sub { color: var(--muted); font-size: 0.92rem; margin-top: 2px; }
+
+  .plain {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .plain p + p { margin-top: 10px; }
+  .plain .hint { color: var(--muted); font-size: 0.92rem; }
+
+  /* PART CARDS */
+  .parts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+  }
+  .part {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px;
+    transition: border-color .2s;
+  }
+  .part:hover { border-color: rgba(255,255,255,0.28); }
+  .part .code {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--air);
+    margin-bottom: 4px;
+  }
+  .part h4 { font-size: 0.95rem; margin-bottom: 6px; }
+  .part p { font-size: 0.86rem; color: var(--muted); }
+  .part .role {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .role-in { background: var(--safe-dim); color: var(--safe); }
+  .role-out { background: var(--plc-dim); color: var(--plc); }
+  .role-mech { background: var(--act-dim); color: var(--act); }
+  .role-air { background: var(--air-dim); color: var(--air); }
+
+  /* FLOW TIMELINE */
+  .timeline {
+    list-style: none;
+    border-left: 2px solid var(--line);
+    margin-left: 12px;
+    padding: 4px 0 4px 22px;
+  }
+  .timeline li {
+    position: relative;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 18px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--plc);
+    box-shadow: 0 0 0 4px var(--plc-dim);
+  }
+  .timeline .step-label {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--plc);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .timeline h4 { font-size: 1rem; margin-bottom: 4px; }
+  .timeline p { font-size: 0.9rem; color: var(--muted); }
+  .signals {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .sig {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+  }
+  .sig-y { background: var(--plc-dim); color: var(--plc); border-color: rgba(232,168,56,0.4); }
+  .sig-sq { background: var(--safe-dim); color: var(--safe); border-color: rgba(62,207,142,0.4); }
+  .sig-bp { background: var(--air-dim); color: var(--air); border-color: rgba(42,168,201,0.4); }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 16px 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .legend span::before {
+    content: "";
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .l-y::before { background: var(--plc); }
+  .l-sq::before { background: var(--safe); }
+  .l-bp::before { background: var(--air); }
+  .l-pv::before { background: var(--act); }
+
+  details.faq {
+    background: var(--bg2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+  }
+  details.faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::before {
+    content: "+";
+    display: inline-block;
+    width: 1.2em;
+    color: var(--air);
+    font-weight: 700;
+  }
+  details.faq[open] summary::before { content: "−"; }
+  details.faq p {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* simple pulse on map */
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(42,168,201,0.0); }
+    50% { box-shadow: 0 0 0 6px rgba(42,168,201,0.12); }
+  }
+  .zone-chip.glow { animation: pulse 2.4s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">KSYPNO · Pnömatik Plan</div>
+    <h1>PLC'li pnömatik sistem nasıl çalışır?</h1>
+    <p class="lead">
+      Bu sayfa, <em>Pneumatikplan_1_with PLC</em> diyagramını hiç bilmeyen birine anlatır gibi
+      bölge bölge açıklar. Amaç: “Hava nereden geliyor, PLC neye komut veriyor,
+      silindir nasıl hareket ediyor?” sorularına net cevap vermek.
+    </p>
+    <div class="analogy">
+      <p>
+        <strong>Basit benzetme:</strong>
+        PLC = beyin (elektrik sinyali verir),
+        manyetik valf = musluk (havayı yönlendirir),
+        silindir = kas (kapıyı / kilidi hareket ettirir),
+        sensör = göz (PLC’ye “hedefe vardım” der).
+      </p>
+    </div>
+  </header>
+
+  <nav class="step-nav" id="nav">
+    <a href="#genel">0 · Genel bakış</a>
+    <a href="#hava">1 · Hava hazırlama</a>
+    <a href="#kapi">2 · Kapı silindirleri</a>
+    <a href="#yon">3 · Yön valfleri</a>
+    <a href="#guvenlik">4 · Güvenlik kilidi</a>
+    <a href="#sepet">5 · Sepet kilidi</a>
+    <a href="#servis">6 · Servis hatları</a>
+    <a href="#akis">7 · Adım adım akış</a>
+    <a href="#sss">8 · SSS</a>
+  </nav>
+
+  <div class="legend">
+    <span class="l-y">Y… = PLC çıkışı (valf bobini)</span>
+    <span class="l-sq">SQ… = PLC girişi (konum sensörü)</span>
+    <span class="l-bp">BP… = basınç anahtarı</span>
+    <span class="l-pv">PV… = pnömatik silindir</span>
+  </div>
+
+  <!-- MAP -->
+  <div class="map" id="genel">
+    <h2>Diyagramın kuşbakışı haritası</h2>
+    <p>Plan iki ana iş yapar: <strong style="color:var(--act)">kapıyı yukarı/aşağı hareket ettirmek</strong> ve <strong style="color:var(--safe)">sepeti kilitlemek</strong>. Soldan sağa hava hazırlanır, ortada kapı kontrol edilir, sağda sepet kilidi çalışır. Kutuya tıklayınca ilgili bölüme gidersin.</p>
+    <div class="map-grid">
+      <button class="zone-chip z-air glow" type="button" data-go="#hava">
+        <div class="tag">Bölge A · Sol</div>
+        <h3>FR1 — Hava hazırlama</h3>
+        <p>Filtre + regülatör + ana açma/kapama. Sistemin “nefes borusu”.</p>
+      </button>
+      <button class="zone-chip z-door" type="button" data-go="#kapi">
+        <div class="tag">Bölge B · Üst orta</div>
+        <h3>PV1.L / PV1.P — Kapı silindirleri</h3>
+        <p>İki büyük silindir kapıyı AUF/AB (yukarı/aşağı) hareket ettirir.</p>
+      </button>
+      <button class="zone-chip z-valve" type="button" data-go="#yon">
+        <div class="tag">Bölge C · Alt orta</div>
+        <h3>Y1.1 / Y1.2 + Y2 — Yön valfleri</h3>
+        <p>PLC’nin komutuyla havayı silindire hangi yoldan göndereceğini seçer.</p>
+      </button>
+      <button class="zone-chip z-lock" type="button" data-go="#sepet">
+        <div class="tag">Bölge D · Sağ</div>
+        <h3>PV2 — Sepet kilidi</h3>
+        <p>Küçük silindir sepeti kilitler/açar. Kendi valfi ve sensörleri vardır.</p>
+      </button>
+      <button class="zone-chip z-svc" type="button" data-go="#servis">
+        <div class="tag">Sayfa 2 · Servis</div>
+        <h3>FR2 / FR3 — Elle kullanım hatları</h3>
+        <p>El tabancası, cam üfleme, nozul temizleme gibi manuel servis çıkışları.</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- 1 AIR -->
+  <section class="block" id="hava">
+    <div class="head">
+      <div class="num n-air">1</div>
+      <div>
+        <h2>Hava hazırlama ünitesi (FR1)</h2>
+        <div class="sub">MSB4-1/4:C3:J1:D14 · “Önce temiz ve doğru basınçta hava”</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>Kompresörden gelen hava hamdır: içinde toz, su damlacığı olabilir; basıncı da her zaman istediğimiz değerde olmayabilir. <strong>FR1</strong> bu havayı makineye vermeden önce hazırlar.</p>
+      <p class="hint">Bunu evdeki su tesisatına benzet: musluktan önce filtre ve basınç ayarı varsa armatürler bozulmaz. Pnömatikte de aynı mantık.</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">Manuel stop + kilit</div>
+        <h4>El ile ana kapatma</h4>
+        <p>Bakımda havayı elle keser. Kilitlenebilir; yanlışlıkla açılmasını engeller.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+      <article class="part">
+        <div class="code">Filtre / su ayırıcı</div>
+        <h4>Kir ve nemi tutar</h4>
+        <p>Valf ve silindirlerin içine pislik gitmesin diye havayı temizler.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+      <article class="part">
+        <div class="code">Regülatör + manometre</div>
+        <h4>Basıncı ayarlar</h4>
+        <p>Çalışma basıncını sabitler. Saat gibi göstergeyle görürsün; ayar kilitlenebilir.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+      <article class="part">
+        <div class="code">Y1 / BP2 · soft-start</div>
+        <h4>Ana emniyet açma valfi</h4>
+        <p>PLC enerjilendirince sisteme hava verir. Ani darbe yerine yumuşak doldurma mantığı vardır. BP2 basıncın geldiğini doğrular.</p>
+        <span class="role role-out">PLC çıkışı / giriş</span>
+      </article>
+      <article class="part">
+        <div class="code">U-1/4 · Schalldämpfer</div>
+        <h4>Sessizleştirici</h4>
+        <p>Hava boşaltılırken “tısss” sesini kısar. Her egzoz portunda bulunur.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 2 DOOR -->
+  <section class="block" id="kapi">
+    <div class="head">
+      <div class="num n-door">2</div>
+      <div>
+        <h2>Kapı silindirleri — TÜRSTEUERUNG (AUF/AB)</h2>
+        <div class="sub">PV1.L ve PV1.P · DSBC-50-1350-PPVA-N3</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>İki büyük <strong>çift etkili</strong> silindir var: sol kapı (<strong>PV1.L</strong>) ve sağ kapı (<strong>PV1.P</strong>). İçlerindeki piston, bir tarafa hava verilince yukarı, diğer tarafa verilince aşağı gider. Kapıyı fiziken onlar kaldırır/indirir.</p>
+      <p class="hint">“Çift etkili” demek: hem açmak hem kapatmak için hava kullanılır. Yerçekimine bırakılmaz.</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">DSBC-50-1350</div>
+        <h4>Ana silindir (kas)</h4>
+        <p>Ø50 mm piston, 1350 mm strok. Kapının uzun hareketi için seçilmiş.</p>
+        <span class="role role-mech">Aktüatör</span>
+      </article>
+      <article class="part">
+        <div class="code">SQ1.1L / SQ1.2L · SQ1.1P / SQ1.2P</div>
+        <h4>Uç konum sensörleri</h4>
+        <p>SMT-8M manyetik sensörler. Piston en üstte veya en altta mı? PLC’ye haber verir.</p>
+        <span class="role role-in">PLC girişi</span>
+      </article>
+      <article class="part">
+        <div class="code">SGS / SNCL</div>
+        <h4>Mekanik bağlantılar</h4>
+        <p>Rod eye ve ayak bağlantısı: silindiri kapıya ve şasiye bağlayan demir parçalar.</p>
+        <span class="role role-mech">Mekanik</span>
+      </article>
+      <article class="part">
+        <div class="code">QSY / QS fittings</div>
+        <h4>Hortum ve bağlantı parçaları</h4>
+        <p>Havanın “damarları”. 6 mm / 10 mm push-in bağlantılar.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3 VALVES -->
+  <section class="block" id="yon">
+    <div class="head">
+      <div class="num n-valve">3</div>
+      <div>
+        <h2>Yön kontrol valfleri (PLC’nin muslukları)</h2>
+        <div class="sub">Y1.1 / Y1.2 (5/3) · Y2 (3/2)</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>PLC silindiri doğrudan itmez. Sadece 24 V elektrik verir. Bu elektrik <strong>manyetik bobini</strong> çeker; bobin valfin içindeki sopacığı kaydırır; sopacık da havayı hangi porta gideceğini seçer.</p>
+      <p class="hint">5/3-yollu valf = 5 port, 3 konum. Orta konumda (kapalı merkez) her iki taraf da kilitlenir; kapı olduğu yerde durur.</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">Y1.1 · VUVS-L25-P53C</div>
+        <h4>Kapı YUKARI komutu</h4>
+        <p>PLC Y1.1’i enerjilendirince hava silindirin “yukarı” tarafına gider.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">Y1.2 · aynı valf, diğer bobin</div>
+        <h4>Kapı AŞAĞI komutu</h4>
+        <p>Y1.2 enerjilenince hava ters tarafa gider; kapı iner.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">Y2 · VUVS 3/2</div>
+        <h4>Hat açma / basınç yolu</h4>
+        <p>İlgili devreye havayı açıp kapatan basit Aç/Kapa valfi. Güvenlik kanalında kullanılır.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">-BP1 · SPBA basınç şalteri</div>
+        <h4>“Basınç yeterli mi?”</h4>
+        <p>Basınç düşükse PLC hareket başlatmaz. Kısmi, tehlikeli hareketleri önler.</p>
+        <span class="role role-in">PLC girişi</span>
+      </article>
+      <article class="part">
+        <div class="code">KMEB-1-24-5-LED</div>
+        <h4>Valf soketi + LED</h4>
+        <p>24 V bağlantı kablosu. LED yanıyorsa bobine sinyal geldiğini gözle görürsün.</p>
+        <span class="role role-out">Elektrik</span>
+      </article>
+      <article class="part">
+        <div class="code">U-1/4 / U-1/8</div>
+        <h4>Egzoz sessizleştiricileri</h4>
+        <p>Valften çıkan havanın gürültüsünü keser.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4 SAFETY LOCK -->
+  <section class="block" id="guvenlik">
+    <div class="head">
+      <div class="num n-safe">4</div>
+      <div>
+        <h2>Silindir üzerindeki güvenlik kilit valfleri</h2>
+        <div class="sub">Y4, Y5, Y6, Y7 · VBOC Absperrventil · ISO 13849 / 14118</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>Ağır kapı havasız kalırsa veya hortum koparsa düşebilir. Bu yüzden her silindir portunun hemen yanında <strong>2/2 kapatma valfleri</strong> (Y4–Y7) vardır. Bunlar kapalıyken silindirin içindeki hava hapsedilir; kapı “frenlenmiş” gibi yerinde kalır.</p>
+      <p class="hint">Planda iki kanal gösterilir: bir kanal 5/3 yön valfi, diğer kanal bu kilit valfleri. İkisi de güvenli durumda olmalı ki hareket serbest kalsın (Kategori 3, PLd fikri).</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">Y4 / Y5 · sol silindir</div>
+        <h4>PV1.L port kilitleri</h4>
+        <p>Sol kapı silindirinin iki tarafını bağımsız kilitleyebilir.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">Y6 / Y7 · sağ silindir</div>
+        <h4>PV1.P port kilitleri</h4>
+        <p>Sağ kapı için aynı iş. Hareket öncesi PLC bunları açar; bitince kapatabilir.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">SQ2.1L / SQ2.2L …</div>
+        <h4>Valf / mekanizma geri bildirimi</h4>
+        <p>Kilit gerçekten açıldı mı / kapandı mı? PLC doğrular (yüksek tanı kapsamı).</p>
+        <span class="role role-in">PLC girişi</span>
+      </article>
+      <article class="part">
+        <div class="code">GRLA / drossel</div>
+        <h4>Hız ayar valfleri</h4>
+        <p>Hava debisini kısarak kapının çok hızlı inip çıkmasını engeller.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5 BASKET -->
+  <section class="block" id="sepet">
+    <div class="head">
+      <div class="num n-lock">5</div>
+      <div>
+        <h2>Sepet kilidi — KORBVERRIEGELUNG</h2>
+        <div class="sub">PV2 · DSNU-32-50 · Y3.1 / Y3.2</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>Kapıdan ayrı, daha küçük bir iş: sepeti (kafesi) mekanik olarak kilitlemek. Küçük silindir <strong>PV2</strong> pimi içeri/dışarı iter. Kontrolü kendi 5/2 valfiyle yapılır.</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">PV2 · DSNU-32-50-PPV-A</div>
+        <h4>Kilit silindiri</h4>
+        <p>Kısa stroklu yuvarlak silindir. Kilit pimini hareket ettirir.</p>
+        <span class="role role-mech">Aktüatör</span>
+      </article>
+      <article class="part">
+        <div class="code">Y3.1 / Y3.2 · VUVS-L20-B52</div>
+        <h4>5/2 çift bobin yön valfi</h4>
+        <p>Y3.1 bir yöne, Y3.2 diğer yöne hava verir. LED’li KMEB soketlerle bağlanır.</p>
+        <span class="role role-out">PLC çıkışı</span>
+      </article>
+      <article class="part">
+        <div class="code">SQ3.1 / SQ3.2</div>
+        <h4>Kilitli / açık sensörleri</h4>
+        <p>PLC’ye “sepet kilitli” veya “serbest” bilgisini verir. SMBR braketle monte.</p>
+        <span class="role role-in">PLC girişi</span>
+      </article>
+      <article class="part">
+        <div class="code">GRLA-1/8-QS-6-D</div>
+        <h4>Tek yönlü hız kısıcı</h4>
+        <p>Kilit piminin hızını ayarlar; çarpma / gürültüyü azaltır.</p>
+        <span class="role role-air">Hava yolu</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 6 SERVICE -->
+  <section class="block" id="servis">
+    <div class="head">
+      <div class="num n-svc">6</div>
+      <div>
+        <h2>Servis hatları (Sayfa 2) — FR2 ve FR3</h2>
+        <div class="sub">Elle kullanılan hava çıkışları · PLC’siz / manuel</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>Makinenin otomatik kısmından ayrı, operatörün eliyle kullandığı hava hatları vardır. Her hatta yine bir servis ünitesi (filtre + regülatör + manuel aç/kapa) bulunur.</p>
+    </div>
+    <div class="parts">
+      <article class="part">
+        <div class="code">FR2</div>
+        <h4>HANDLUFTGEWEHR</h4>
+        <p>El hava tabancası. Temizlik / üfleme için hazır basınçlı hava.</p>
+        <span class="role role-air">Servis</span>
+      </article>
+      <article class="part">
+        <div class="code">FR3</div>
+        <h4>Cam üfleme + nozul temizleme</h4>
+        <p>QSLV2 dağıtıcı ile iki çıkışa ayrılır: cam yıkama/üfleme ve nozul üfleme.</p>
+        <span class="role role-air">Servis</span>
+      </article>
+      <article class="part">
+        <div class="code">MSB4 … + U-1/4</div>
+        <h4>Servis ünitesi + sessizleştirici</h4>
+        <p>Manuel kapatınca hat boşalır; egzoz sessizleştiriciden çıkar.</p>
+        <span class="role role-air">Servis</span>
+      </article>
+    </div>
+  </section>
+
+  <!-- 7 FLOW -->
+  <section class="block" id="akis">
+    <div class="head">
+      <div class="num n-flow">7</div>
+      <div>
+        <h2>PLC gözünden adım adım örnek akış</h2>
+        <div class="sub">Örnek: “Kapıyı yukarı al, sonra sepeti kilitle”</div>
+      </div>
+    </div>
+    <div class="plain">
+      <p>Aşağıdaki sıra diyagramdaki güvenlik felsefesine uygun tipik bir senaryodur. Gerçek programda zamanlayıcılar, arızalar ve acil stop da eklenir; ama iskelet budur.</p>
+    </div>
+    <ol class="timeline">
+      <li>
+        <div class="step-label">Adım 1</div>
+        <h4>Sistem hazır mı?</h4>
+        <p>PLC basınç anahtarlarını okur. Basınç yoksa hiçbir hareket yok.</p>
+        <div class="signals">
+          <span class="sig sig-bp">BP1 / BP2</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 2</div>
+        <h4>Ana havayı aç</h4>
+        <p>Soft-start / ana emniyet valfi enerjilenir; hatlar dolar.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y1 (ana)</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 3</div>
+        <h4>Silindir kilitlerini serbest bırak</h4>
+        <p>Y4–Y7 açılır; silindir portları artık yön valfinden hava alabilir. Geri bildirim sensörleri doğrulanır.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y4 Y5 Y6 Y7</span>
+          <span class="sig sig-sq">SQ2…</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 4</div>
+        <h4>Kapıyı yukarı gönder</h4>
+        <p>Y1.1 enerjilenir. Hava silindirlerin “yukarı” odasına gider; egzoz diğer taraftan çıkar.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y1.1</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 5</div>
+        <h4>“Yukarıdayım” bekle</h4>
+        <p>Hem sol hem sağ silindirin üst sensörü gelmeden iş bitmiş sayılmaz.</p>
+        <div class="signals">
+          <span class="sig sig-sq">SQ1.1L</span>
+          <span class="sig sig-sq">SQ1.1P</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 6</div>
+        <h4>Dur ve kilitle</h4>
+        <p>Y1.1 söner (orta konum / kapalı merkez). Gerekirse Y4–Y7 kapanarak kapıyı yerinde tutar.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y1.1 OFF</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Adım 7</div>
+        <h4>Sepeti kilitle</h4>
+        <p>Y3.1 ile PV2 hareket eder; SQ3.x “kilitli” diyene kadar beklenir.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y3.1</span>
+          <span class="sig sig-sq">SQ3.2</span>
+        </div>
+      </li>
+      <li>
+        <div class="step-label">Kapıyı indirme</div>
+        <h4>Ters yön aynı mantık</h4>
+        <p>Kilitleri aç → Y1.2 enerjile → SQ1.2L ve SQ1.2P gelince dur → gerekirse tekrar kilitle.</p>
+        <div class="signals">
+          <span class="sig sig-y">Y1.2</span>
+          <span class="sig sig-sq">SQ1.2L / SQ1.2P</span>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 8 FAQ -->
+  <section class="block" id="sss">
+    <div class="head">
+      <div class="num n-svc">8</div>
+      <div>
+        <h2>Sık sorulanlar (hiç bilmeyen için)</h2>
+        <div class="sub">Kafadaki “neden?” soruları</div>
+      </div>
+    </div>
+
+    <details class="faq">
+      <summary>PLC olmasa ne olurdu?</summary>
+      <p>Valfleri elle veya butonla da sürebilirsin (planda “without PLC” versiyonu da var). Ama sensörlerle sıralı, güvenli, tekrarlanabilir otomasyon için PLC şarttır: “şu sensör gelmeden şu çıkışı verme” kurallarını o koşturur.</p>
+    </details>
+    <details class="faq">
+      <summary>Y ile SQ farkı ne?</summary>
+      <p><strong>Y</strong> = PLC’nin konuştuğu (çıkış): valfe “aç” der. <strong>SQ</strong> = PLC’nin dinlediği (giriş): sensör “buradayım” der. BP de giriş grubundandır; basınç bilgisi taşır.</p>
+    </details>
+    <details class="faq">
+      <summary>Neden iki kapı silindiri var?</summary>
+      <p>Sol ve sağ kapı kanatları (veya iki paralel aktüatör) senkron hareket etsin diye. PLC genelde her iki üst sensörü de bekler; biri takılırsa hareketi güvenli şekilde keser.</p>
+    </details>
+    <details class="faq">
+      <summary>5/3, 5/2, 3/2 ne demek?</summary>
+      <p>İlk rakam port sayısı, ikinci rakam konum sayısıdır. 5/3: üç konumlu (orta da var — dur/bekle için ideal). 5/2: iki konum (A veya B). 3/2: basit aç/kapa.</p>
+    </details>
+    <details class="faq">
+      <summary>Güvenlik yazıları neden Almanca ve ISO numaralı?</summary>
+      <p>Plan Festo bileşenleriyle endüstriyel güvenlik standartlarına (ISO 13849-1, ISO 14118) göre çizilmiş. Özet: beklenmedik hareket olmasın, arıza olsa bile sistem güvenli tarafa düşsün, kaçaklarda tehlike fark edilsin.</p>
+    </details>
+    <details class="faq">
+      <summary>Malzeme listesi (Sayfa 3) ne işe yarar?</summary>
+      <p>Sipariş / montaj listesidir: hangi Festo kodundan kaç adet. Mantığı değiştirmez; diyagramdaki her sembolün raftaki karşılığını gösterir (silindir, valf, sensör, fitting, sessizleştirici…).</p>
+    </details>
+  </section>
+
+  <footer>
+    Kaynak: <code>Pneumatikplan_1_with PLC.pdf</code> (kapı + sepet + güvenlik) ve sayfa 2 servis hatları.
+    Bileşenler çoğunlukla Festo. Bu HTML eğitim amaçlı sadeleştirilmiş bir anlatımdır; devreye alma için orijinal plan ve güvenlik dokümanı esas alınmalıdır.
+  </footer>
+</div>
+
+<script>
+  // sticky nav active state
+  const links = [...document.querySelectorAll('.step-nav a')];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const id = '#' + en.target.id;
+      links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === id));
+    });
+  }, { rootMargin: '-30% 0px -55% 0px', threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+
+  // map chips navigate
+  document.querySelectorAll('.zone-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = document.querySelector(btn.dataset.go);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

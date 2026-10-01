@@ -1,0 +1,33 @@
+<definition width="60" version="0.80" hotspot_x="30" hotspot_y="25" height="50" link_type="simple" type="element">
+    <uuid uuid="{5a8b0a9b-4395-4674-87bb-b9efbd741126}"/>
+    <names>
+        <name lang="tr">Tek Etkili Döner Aktüatör (Yaylı)</name>
+        <name lang="en">Single-acting semi-rotary actuator</name>
+    </names>
+    <informations>Yay dönüşlü, tek hava girişli pnömatik döner aktüatör.</informations>
+    <description>
+        <!-- Gövde (Yarım daire) -->
+        <arc width="40" x="-20" y="-20" antialias="true" height="40" style="line-style:normal;line-weight:normal;filling:none;color:black" start="0" angle="180"/>
+        <!-- Alt kapanış çizgisi -->
+        <line length1="1.5" length2="1.5" antialias="false" end1="none" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="0" x1="-25" y2="0" x2="25"/>
+        <!-- Vana bağlantı mili -->
+        <line length1="1.5" length2="1.5" antialias="false" end1="none" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="0" x1="0" y2="10" x2="0"/>
+        <!-- Sol Dönen Ok -->
+        <arc width="24" x="-12" y="-12" antialias="true" height="24" style="line-style:normal;line-weight:normal;filling:none;color:black" start="135" angle="45"/>
+        <polygon x1="-12" y1="-8" x2="-7" y2="-12" x3="-13" y3="-13" antialias="true" style="line-style:normal;line-weight:normal;filling:black;color:black"/>
+        <!-- Sağ Dönen Ok -->
+        <arc width="24" x="-12" y="-12" antialias="true" height="24" style="line-style:normal;line-weight:normal;filling:none;color:black" start="0" angle="45"/>
+        <polygon x1="12" y1="-8" x2="7" y2="-12" x3="13" y3="-13" antialias="true" style="line-style:normal;line-weight:normal;filling:black;color:black"/>
+        <!-- Yay (Zikzak) -->
+        <polyline antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="0" x1="12" y2="-4" x2="17" y3="-8" x4="17" y4="-12" x3="12" y5="-16" x5="12"/>
+        <!-- Hava giriş portu çizgisi (Sadece Solda) -->
+        <line length1="1.5" length2="1.5" antialias="false" end1="none" end2="none" style="line-style:normal;line-weight:normal;filling:none;color:black" y1="0" x1="-15" y2="15" x2="-15"/>
+        <!-- Terminal (Hava Bağlantı Noktası) -->
+        <terminal x="-15" y="15" uuid="{1ebf4640-5e58-45a2-9742-1e78553229b4}" name="" orientation="s"/>
+        <!-- Etiket -->
+        <dynamic_text z="1" Halignment="AlignLeft" text_width="-1" x="25" y="-10" uuid="{15c8c5c3-1c39-4ab3-9c8e-3dbb7ba4cfc5}" font="Sans Serif,9,-1,5,50,0,0,0,0,0" Valignment="AlignTop" rotation="0" text_from="ElementInfo" frame="false">
+            <text></text>
+            <info_name>label</info_name>
+        </dynamic_text>
+    </description>
+</definition>

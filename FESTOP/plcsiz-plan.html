@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLC’siz pnömatik plan — okuma</title>
+<style>
+  :root { --bg:#f4f6f8; --card:#fff; --ink:#1a1a1a; --muted:#5c6570; --line:#d8dee6; --blue:#1d4ed8; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:"Segoe UI",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.55; }
+  nav { position:sticky; top:0; background:#1e293b; padding:10px 16px; display:flex; flex-wrap:wrap; gap:6px 12px; z-index:5; }
+  nav a { color:#cbd5e1; text-decoration:none; font-size:.82rem; padding:3px 7px; border-radius:5px; }
+  nav a:hover { background:#334155; color:#fff; }
+  .wrap { max-width:1080px; margin:0 auto; padding:28px 16px 80px; }
+  h1 { font-size:1.6rem; margin:0 0 6px; }
+  h2 { font-size:1.15rem; margin:0 0 12px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+  h3 { font-size:1rem; margin:16px 0 6px; }
+  .sub { color:var(--muted); margin:0 0 18px; }
+  section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; margin-bottom:16px; scroll-margin-top:52px; }
+  p { margin:0 0 10px; }
+  img { max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:8px; display:block; }
+  .shot { margin:10px 0 4px; }
+  .cap { font-size:.8rem; color:var(--muted); margin:0 0 12px; }
+  table { width:100%; border-collapse:collapse; font-size:.88rem; margin:10px 0; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#f0f4f8; }
+  code { font-family:Consolas,monospace; font-size:.86em; background:#f1f5f9; padding:1px 4px; border-radius:3px; }
+  .flow { font-family:Consolas,monospace; font-size:.84rem; background:#0f172a; color:#e2e8f0; padding:14px 16px; border-radius:8px; white-space:pre; overflow-x:auto; line-height:1.65; }
+  .note { background:#fffbeb; border:1px solid #fcd34d; border-radius:8px; padding:12px 14px; margin:10px 0; }
+  .ok { background:#ecfdf5; border:1px solid #6ee7b7; border-radius:8px; padding:12px 14px; margin:10px 0; }
+  ol { margin:6px 0 0; padding-left:1.2rem; }
+  li { margin:0 0 6px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; }
+  .box { background:#f8fafc; border:1px solid var(--line); border-radius:8px; padding:12px; }
+  .box h3 { margin:0 0 6px; }
+</style>
+</head>
+<body>
+<nav>
+  <a href="#nasil">Nasıl okunur</a>
+  <a href="#harita">6 sayfa</a>
+  <a href="#hava">Hava</a>
+  <a href="#kapak">Kapak</a>
+  <a href="#hgl">HGL</a>
+  <a href="#qm1">QM1</a>
+  <a href="#kompakt">Kompakt</a>
+  <a href="#ada">Ada</a>
+  <a href="#diger">Sayfa 2–6</a>
+  <a href="#bizim">Bizim hat</a>
+</nav>
+<div class="wrap">
+
+<section id="nasil">
+  <h1>PLC’siz planı okumak</h1>
+  <p class="sub">Pneumatikplan_2_without_PLC.pdf · 6 sayfa, tek valf adası. Kapak işi sadece 1. sayfadadır.</p>
+  <div class="ok"><strong>30 saniyelik özet:</strong> Hava solda alttaki filtre-regülatörden girer, alttaki valf adasına basılır. Adadaki ilk valf <code>QM1</code> iki büyük silindiri (<code>MM1</code>, <code>MM2</code>) birlikte yürütür. Bunlar kapaktır. Hava kesilince kapağı tutan parça silindirin 2 numaralı portundaki <code>HGL</code> çekvalfidir. Yumuşak kalkış valfi bu planda yoktur.</div>
+  <h3>Kâğıt üzerindeki ızgara</h3>
+  <p>Üstteki sayılar <strong>6 solda, 1 sağda</strong>. Soldaki harfler <strong>D üstte, A altta</strong>. Bir parçanın yeri “sütun + satır”dır. Hava hazırlık 6A’dadır (sol alt). Kapak silindirleri 6D ve 5D’dedir (sol üst).</p>
+  <h3>Etiketler</h3>
+  <table>
+    <tr><th>Önek</th><th>Ne</th><th>Örnek</th></tr>
+    <tr><td><code>-GQ</code></td><td>Hava hazırlık</td><td>GQ1 filtre + regülatör</td></tr>
+    <tr><td><code>-KH</code></td><td>Elle kesme</td><td>KH1</td></tr>
+    <tr><td><code>-AZ1</code></td><td>Valf adasının kendisi</td><td>VTUG, 6 sayfaya yayılmış</td></tr>
+    <tr><td><code>-QM</code></td><td>Adadaki bir solenoid valf</td><td>QM1 kapak, QM16 son valf</td></tr>
+    <tr><td><code>-MM</code></td><td>Silindir veya küresel vana aktüatörü</td><td>MM1 kapak silindiri</td></tr>
+    <tr><td><code>-DP</code></td><td>Diyafram pompa</td><td>DP1, DP2, DP3</td></tr>
+    <tr><td><code>-RN</code> <code>-RM</code></td><td>Hız ayarı ve pilotlu çekvalf</td><td>RN1…RN4, RM1, RM2</td></tr>
+    <tr><td><code>MB1</code> <code>MB2</code></td><td>Valfin iki bobini</td><td>Biri bir yön, diğeri ters yön</td></tr>
+  </table>
+  <h3>Sayfalar birbirine nasıl bağlı</h3>
+  <p>Ada havası sayfanın sağ kenarından çıkar, sonraki sayfanın sol kenarından girer. Okun yanındaki <code>/2.E1</code> “2. sayfadaki E1 ucu” demektir. Son sayfanın sağı <code>XX</code> ile biter: ada burada tükenir. Pompa ve küresel vana sayfaları kapağın havasını değiştirmez; aynı barayı paylaşır.</p>
+</section>
+
+<section id="harita">
+  <h2>Altı sayfa, tek ada</h2>
+  <p>Parça kodu her sayfanın altında aynıdır: <code>VTUG-14-VRPT-B1T-Q10-U-Q8S-GG14M</code>. Bir manifold, üzerinde 16 yön valfi. Elektrik kutusu ve konum sensörü çizilmemiştir. Bobinler çizilidir; “PLC’siz” sensörsüz ve emniyet PLC’siz demektir, bobinsiz demek değildir.</p>
+  <table>
+    <tr><th>Sayfa</th><th>Valfler</th><th>Ne çalıştırır</th></tr>
+    <tr><td>1</td><td>QM1, QM2, QM3</td><td>Kapak MM1+MM2. İki grup kısa silindir MM3–MM7 ve MM8–MM12</td></tr>
+    <tr><td>2</td><td>QM4, QM5, QM6</td><td>Yıkama boşaltma pompası DP1, boşaltma küresel vanası MM13, durulama→yıkama pompası DP2</td></tr>
+    <tr><td>3</td><td>QM7, QM8, QM9</td><td>Emme küresel MM14, basma küresel MM15, durulama besleme pompası DP3</td></tr>
+    <tr><td>4</td><td>QM10, QM11, QM12</td><td>Durulama besleme küresel MM16, yıkama dönüş MM17, durulama dönüş MM18</td></tr>
+    <tr><td>5</td><td>QM13, QM14, QM15</td><td>Kabin taze hava MM19, buhar fanı MM20, kapak tahliye küresel MM22</td></tr>
+    <tr><td>6</td><td>QM16</td><td>İkinci buhar fanı MM21. Adanın sonu</td></tr>
+  </table>
+  <p class="shot"><img src="plan2/sayfa-1.png" alt="Sayfa 1 tam"></p>
+  <p class="cap">Sayfa 1. Sol üst kapak. Sol alt hava. Alt şerit valf adası. Sağ üst kısa silindirler.</p>
+</section>
+
+<section id="hava">
+  <h2>Hava nereden girer</h2>
+  <p class="shot"><img src="plan2/p1-hava.png" alt="Hava hazırlık"></p>
+  <p class="cap">6A. KH1 elle kesme, GQ1 filtre-regülatör, çıkış 2 adaya gider.</p>
+  <div class="flow">Şebeke
+  → KH1          elle aç/kapa. Bakımda hattı keser
+  → GQ1          MS6-LFR-1/2-D7-ERV-AS
+                 filtre + regülatör + manometre, port 1/2"
+  → port 2       valf adasının beslemesine</div>
+  <p>Regülatörden sonra ayrı bir “ana valf” veya yavaş doldurma valfi yoktur. Basınç, regülatör açıkken adanın üzerinde hazır bekler. Hangi işin yürüyeceğine adadaki bobin karar verir.</p>
+</section>
+
+<section id="kapak">
+  <h2>Kapak — MM1 ve MM2</h2>
+  <p class="shot"><img src="plan2/p1-kapak.png" alt="Kapak silindirleri"></p>
+  <p class="cap">İki silindir paralel. Aynı QM1’den beslenir. Mavi çizgiler hız ayarının pilotunu karşı hatta bağlar.</p>
+  <table>
+    <tr><th>Etiket</th><th>Parça</th><th>Görevi</th></tr>
+    <tr><td>MM1, MM2</td><td><code>DSBC-63-1170-C-PPVA</code></td><td>Ø63 mm, strok 1170 mm, çift etkili. İkisi bir kapağı taşır. Konum sensörü yok. Üstteki yay sembolü yastıklamadır, elektrikli fren değildir.</td></tr>
+    <tr><td>RM1, RM2</td><td><code>HGL-1/4-B</code></td><td>Pilotlu çekvalf. Sadece 2 numaralı porta takılı. Hava gidince o odayı kilitler.</td></tr>
+    <tr><td>RN1…RN4</td><td><code>GRLA-1/4-QS-8-D</code></td><td>Hız ayarlı çekvalf, hortum 8 mm. Her iki portta var. İnişi ve çıkışı ayrı kısar.</td></tr>
+  </table>
+  <div class="flow">GQ1 çıkışı
+  → ada beslemesi
+  → QM1  (P53C, iki bobin)
+       iş hattı A ── RN (hız) ── silindir port 1     MM1 ve MM2 paralel
+       iş hattı B ── HGL ── RN (hız) ── silindir port 2</div>
+  <p>İki silindirin aynı numaralı portları birbirine bağlıdır. QM1 bir yöne çekilince ikisi birlikte uzar, diğer bobin çekilince ikisi birlikte toplanır. Biri açıp diğeri kapatan bir valf değildir.</p>
+</section>
+
+<section id="hgl">
+  <h2>HGL ne işe yarar</h2>
+  <p>HGL, kapıya takılan bir çekvalftir. Tek başına elektrik istemez. Yanındaki ince hat <strong>pilottur</strong>: karşı iş hattında basınç varsa çekvalf açılır ve oda boşalabilir. Karşı hatta basınç yoksa çekvalf kapanır, port 2’deki hava içeride kalır.</p>
+  <ol>
+    <li><strong>Kapağı yürütmek.</strong> QM1’in bir bobini çeker. Bir hat dolar, diğer hat egzoza gider. Dolan hattın basıncı karşı HGL’nin pilotunu açar. Silindir yürür. GRLA o yöndeki hızı kısar.</li>
+    <li><strong>Bobin bırakılır, hava durur.</strong> İki hat da pilot üretemez. HGL kapanır. Port 2 dolu kalır. Kapak kendi ağırlığıyla o odayı sıkıştıramaz, düşmez.</li>
+    <li><strong>Hortum, HGL’den sonra patlarsa</strong> hapsolmuş hava kaçar. Bu planda ikinci bir mekanik fren yoktur.</li>
+  </ol>
+  <div class="note">HGL yalnızca port 2’dedir. Tutulan taraf odur. Port 1 düz hız ayarıdır; orada hava hapsedilmez.</div>
+</section>
+
+<section id="qm1">
+  <h2>QM1 — kapağın yön valfi</h2>
+  <p class="shot"><img src="plan2/p1-qm1.png" alt="QM1 valf sembolü"></p>
+  <p class="cap">Altta P53C yazar. İki yanda bobin MB1 ve MB2, ikisinde de yay.</p>
+  <p><code>P53C</code> Festo’da <strong>5/3, orta konumda tüm portlar kapalı</strong> demektir. Beş yollu: basınç, iki iş hattı, iki egzoz. Üç konum:</p>
+  <table>
+    <tr><th>Konum</th><th>Ne olur</th></tr>
+    <tr><td>MB1 enerjili</td><td>Bir iş hattı basınca, diğeri egzoza bağlanır. Kapak bir yöne gider.</td></tr>
+    <tr><td>MB2 enerjili</td><td>Hatlar ters döner. Kapak diğer yöne gider.</td></tr>
+    <tr><td>İkisi de enerjisiz</td><td>Yaylar valfi ortaya alır. Basınç da iş hatları da egzoz da tıkalıdır. HGL zaten port 2’yi tutuyordur.</td></tr>
+  </table>
+  <p>İki bobin aynı anda çekilmez. Orta konum “havayı boşalt” değildir; hatları tıkar. Bu yüzden kapağı düşmekten koruyan asıl parça QM1’in ortası değil, HGL’dir.</p>
+  <p>Sembole giren <code>12/14</code> ve <code>82/84</code> uçları bobinlerin elektrik ve pilot hatlarıdır. <code>1</code> basınç, <code>2</code> ve <code>4</code> iş, <code>3</code> ve <code>5</code> egzoz, <code>G</code> ortak egzoz barasıdır.</p>
+</section>
+
+<section id="kompakt">
+  <h2>Sağ üst — kısa silindirler</h2>
+  <p class="shot"><img src="plan2/p1-kompakt.png" alt="Kompakt silindirler"></p>
+  <p class="cap">Sayfa 1’in sağ yarısı kapak değildir.</p>
+  <p>İki grup, her biri 5 adet <code>ADNGF-32-20-PPS-A</code>. Çap 32 mm, strok sadece 20 mm. MM3–MM7 bir valfe (QM2), MM8–MM12 diğer valfe (QM3) bağlıdır. Grup içindeki silindirler paraleldir: bir bobin beşi birden yürütür. HGL yoktur. Kapak devresine karıştırma.</p>
+</section>
+
+<section id="ada">
+  <h2>Alttaki şerit — valf adası</h2>
+  <p class="shot"><img src="plan2/p1-ada.png" alt="Valf adası sayfa 1"></p>
+  <p class="cap">Sayfa 1’de üç valf yuvası: QM1, QM2, QM3. Üstteki düz çizgiler adanın ortak basınç ve egzoz baralarıdır.</p>
+  <p>Okuma sırası her yuva için aynıdır, 2–6. sayfalarda da değişmez:</p>
+  <ol>
+    <li>Üstteki yatay baradan <code>1</code> numaralı porta basınç iner.</li>
+    <li>Alttaki kutu yön valfidir. İki bobin, ortaya dönen yay.</li>
+    <li><code>2</code> ve <code>4</code> yukarı çıkar, o sayfadaki silindire veya pompaya gider.</li>
+    <li><code>3</code> ve <code>5</code> egzoz barasına döner.</li>
+  </ol>
+  <p>Yani “ana valf ayrı, kapak valfi ayrı” diye iki kademe yoktur. Regülatör adayı doldurur. Her QM kendi tüketicisinin hem açma hem kapatma valfidir.</p>
+</section>
+
+<section id="diger">
+  <h2>Sayfa 2–6 — kapak dışı</h2>
+  <p>Hepsi aynı ada şerididir. Üstte tüketici, altta onu süren QM. Kapak pistonuna hortum gitmez.</p>
+
+  <h3>Sayfa 2</h3>
+  <p class="shot"><img src="plan2/sayfa-2.png" alt="Sayfa 2"></p>
+  <table>
+    <tr><th>Valf</th><th>Tüketici</th><th>Ne</th></tr>
+    <tr><td>QM4</td><td>DP1</td><td>PD05A 1/2" diyafram pompa. Yıkama tankı boşaltma</td></tr>
+    <tr><td>QM5</td><td>MM13</td><td>Küresel vana aktüatörü C2908713. Yıkama boşaltma vanası</td></tr>
+    <tr><td>QM6</td><td>DP2</td><td>PD05A 1/2" pompa. Durulamadan yıkamaya</td></tr>
+  </table>
+
+  <h3>Sayfa 3</h3>
+  <p class="shot"><img src="plan2/sayfa-3.png" alt="Sayfa 3"></p>
+  <table>
+    <tr><th>Valf</th><th>Tüketici</th><th>Ne</th></tr>
+    <tr><td>QM7</td><td>MM14</td><td>Küresel. Durulamadan yıkama emiş vanası</td></tr>
+    <tr><td>QM8</td><td>MM15</td><td>Küresel. Durulamadan yıkama basma vanası</td></tr>
+    <tr><td>QM9</td><td>DP3</td><td>PD05A 1/2" pompa. Durulama tankı besleme</td></tr>
+  </table>
+
+  <h3>Sayfa 4</h3>
+  <p class="shot"><img src="plan2/sayfa-4.png" alt="Sayfa 4"></p>
+  <table>
+    <tr><th>Valf</th><th>Tüketici</th><th>Ne</th></tr>
+    <tr><td>QM10</td><td>MM16</td><td>Küresel. Durulama besleme vanası</td></tr>
+    <tr><td>QM11</td><td>MM17</td><td><code>DSBC-32-150</code>. Yıkama tankı dönüş vanası</td></tr>
+    <tr><td>QM12</td><td>MM18</td><td><code>DSBC-32-150</code>. Durulama tankı dönüş vanası</td></tr>
+  </table>
+
+  <h3>Sayfa 5</h3>
+  <p class="shot"><img src="plan2/sayfa-5.png" alt="Sayfa 5"></p>
+  <table>
+    <tr><th>Valf</th><th>Tüketici</th><th>Ne</th></tr>
+    <tr><td>QM13</td><td>MM19</td><td><code>DSBC-32-230</code>. Kabin taze hava klapesi</td></tr>
+    <tr><td>QM14</td><td>MM20</td><td><code>DSBC-32-230</code>. Buhar fanı klapesi</td></tr>
+    <tr><td>QM15</td><td>MM22</td><td>Küresel C2908636. Kapak tahliye vanası. Kapak silindiri değildir</td></tr>
+  </table>
+
+  <h3>Sayfa 6</h3>
+  <p class="shot"><img src="plan2/sayfa-6.png" alt="Sayfa 6"></p>
+  <p>QM16 → MM21, <code>DSBC-32-230</code>, ikinci buhar fanı klapesi. Sağ uç <code>XX</code>: ada biter. Başka sayfa yoktur.</p>
+</section>
+
+<section id="bizim">
+  <h2>Senin hattınla yan yana</h2>
+  <div class="grid">
+    <div class="box">
+      <h3>Senin mevcut hat</h3>
+      <p>Regülatör → ana valf (kesme) → 5/3 → piston. Ana valf yumuşak kalkışlı değil. Kapanış hattında çekvalf var; bu çekvalf HGL gibi pilotlu tutma olmak zorunda değil.</p>
+    </div>
+    <div class="box">
+      <h3>Bu plan</h3>
+      <p>Regülatör → doğrudan ada → QM1 (P53C, 5/3 kapalı orta) → iki silindir. Ana valf kademesi yok. Tutma, port 2’deki HGL.</p>
+    </div>
+  </div>
+  <p>Kurulacak sıra, bu çizimdeki gibi <strong>regülatörden yön valfine</strong> gitmektir. Yumuşak kalkış eklenecekse o, regülatör ile QM1’in arasına girer ve senin ana valfinin yerini alır. Regülatör → yumuşak kalkış → bir de eski ana valf → 5/3 diye iki kesme art arda konmaz.</p>
+  <table>
+    <tr><th>Bu plandaki parça</th><th>Sende karşılığı</th></tr>
+    <tr><td>KH1 + GQ1</td><td>Regülatör. SMC’de VHS40 + AW40</td></tr>
+    <tr><td>Yok</td><td>AV4000 yavaş başlatma, bu PDF’te çizili değil</td></tr>
+    <tr><td>QM1 P53C</td><td>Senin kapak aç/kapat 5/3’ün</td></tr>
+    <tr><td>HGL port 2</td><td>SMC setinde bunun yerine silindirin kendi mil freni var</td></tr>
+    <tr><td>GRLA</td><td>Hız ayarın. Yerinde kalabilir</td></tr>
+    <tr><td>MM1 + MM2</td><td>İki kapak pistonu</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>
