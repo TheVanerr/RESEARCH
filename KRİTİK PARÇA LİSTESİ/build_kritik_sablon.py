@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+from collections import defaultdict
 from datetime import date
 
 import openpyxl
@@ -12,6 +14,47 @@ from openpyxl.utils import get_column_letter
 
 FOLDER = os.path.dirname(os.path.abspath(__file__))
 VERI_PATH = os.path.join(FOLDER, "kritik-parca-veri.json")
+PHOTOS_DIR = os.path.join(FOLDER, "photos")
+_PHOTO_PREF = {".jpg": 0, ".jpeg": 1, ".png": 2, ".webp": 3, ".jfif": 4}
+
+
+def norm_siparis(raw) -> str | None:
+    if raw is None:
+        return None
+    compact = re.sub(r"\s+", "", str(raw).strip())
+    m = re.match(r"^(\d{2})(\d{3,6})$", compact)
+    if m:
+        return f"{m.group(1)} {m.group(2).zfill(5)}"
+    return None
+
+
+def photo_map() -> dict[str, str]:
+    """Sipariş kodu -> photos/… (aynı seride jpg tercih)."""
+    if not os.path.isdir(PHOTOS_DIR):
+        return {}
+    by: dict[str, list[str]] = defaultdict(list)
+    for name in os.listdir(PHOTOS_DIR):
+        code = norm_siparis(os.path.splitext(name)[0])
+        if code:
+            by[code].append(name)
+    out: dict[str, str] = {}
+    for code, files in by.items():
+        files.sort(key=lambda n: _PHOTO_PREF.get(os.path.splitext(n)[1].lower(), 99))
+        out[code] = f"photos/{files[0]}"
+    return out
+
+
+def apply_photos(data: dict[str, list[dict]]) -> int:
+    photos = photo_map()
+    n = 0
+    for rows in data.values():
+        for r in rows:
+            code = norm_siparis(r.get("Sipariş kodu", ""))
+            if code and code in photos:
+                if r.get("Fotoğraf") != photos[code]:
+                    r["Fotoğraf"] = photos[code]
+                    n += 1
+    return n
 
 
 def normalize_row(r: dict) -> dict:
@@ -29,10 +72,12 @@ def load_data() -> dict[str, list[dict]]:
         return {"LYM": [], "VDL": [], "KBN": []}
     with open(VERI_PATH, encoding="utf-8") as f:
         raw = json.load(f)
-    return {
+    data = {
         k: [normalize_row(dict(row)) for row in raw.get(k, [])]
         for k in ("LYM", "VDL", "KBN")
     }
+    apply_photos(data)
+    return data
 
 
 def row_to_list(r: dict) -> list:
@@ -481,9 +526,13 @@ def write_html(path: str, data: dict[str, list[dict]]) -> None:
 
 def main() -> None:
     data = load_data()
+    with open(VERI_PATH, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
     write_excel(os.path.join(FOLDER, "Kritik-Parca-Listeleri.xlsx"), data)
     write_html(os.path.join(FOLDER, "kritik-parca-listeleri.html"), data)
-    print("Sablon OK:", date.today().isoformat())
+    linked = sum(1 for rows in data.values() for r in rows if r.get("Fotoğraf"))
+    print("Sablon OK:", date.today().isoformat(), f"| foto bağlı: {linked}")
 
 
 if __name__ == "__main__":
