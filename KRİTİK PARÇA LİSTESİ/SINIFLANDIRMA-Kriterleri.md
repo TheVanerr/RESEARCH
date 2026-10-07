@@ -57,3 +57,20 @@ Bu proje **IEC/IEEE 82079-1** anlamında *hangi parçaların dokümante edilece�
 6. **Not / gerekçe**
 
 Komple–alt parça ayrımı veri doldurulunca eklenebilir; şablon düz tablodur.
+
+## Uygulanan stok formülü
+
+`build_kritik_sablon.py` → `STOK_KURALLARI`. Önerilen miktar **yalnızca** Önem + Aşınma + Ulaşılabilirlik'ten hesaplanır; aynı sınıftaki iki parça her zaman aynı miktarı alır. Elle girilen miktar ve gerekçe her üretimde formülle üzerine yazılır. Sınıf eksikse miktar 0 olur.
+
+**Aşınma belirleyicidir:** sık (1) ≥ 2 > orta (2) = 1 ≥ seyrek (3) ≤ 1. Nadir bozulan bir parça (ör. faz koruma rölesi) hiçbir zaman sık bozulan bir parçadan (ör. rezistans) fazla stok almaz. Ulaşılabilirlik yalnızca seyrek + kritik parçada "1 emniyet yedeği mi, sadece liste mi" kararını verir.
+
+| Kural (ilk eşleşen) | Miktar | Gerekçe |
+|---|---|---|
+| C + 1 | 3 | sık aşınma, kritik — depo seti |
+| A/B + 1 | 2 | sık aşınma — depo seti |
+| 2 (her önem/ulaş.) | 1 | orta aşınma — 1 yedek |
+| C + 3 + K/O | 1 | kritik ama seyrek — 1 emniyet yedeği |
+| C + 3 + Z | 0 | kritik, seyrek, imalat / uzun termin — listede tut, siparişle |
+| A/B + 3 | 0 | seyrek arıza — listede tut, siparişle |
+
+**Set birimli parçalar (nozzle):** adet yerine **set** önerilir; formül stok veriyorsa **1 set** = makinedeki nozzle takımı. `SET_BIRIMLI` deseniyle başka parça aileleri de eklenebilir.
