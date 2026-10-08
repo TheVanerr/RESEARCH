@@ -44,6 +44,16 @@ HARIC_KOD = {
     "10 03672 26",  # KBN 2B SIEMENS'Lİ ELEKTRİK KUTUSU KOMPLESİ
     "07 00511",     # KBN DOZAJ ÜNİTESİ 1 BANYO İÇİN
     "07 05388",     # FİLTRE DOLULUK SİSTEM KOMPLESİ KBN
+    "02 00905",     # VBR TİP 3
+    "02 01801",     # VDL 40-50 ASANSÖRLÜ PARÇA YÜKLEME KONVEYÖRLÜ
+    "07 09689",     # VBR TİP 3 SANDIKLI
+    "07 00512",     # VDL DOZAJ ÜNİTESİ
+    "02 01803",     # VDL 40-50 ASANSÖRLÜ PARÇA YÜKLEME KONVEYÖR SANDIKLI
+    "02 02101",     # KASA DEVİRME TİP 1
+    "02 02102",     # KASA DEVİRME TİP 2
+    "02 00902",     # VİBRASYONLU PARÇA YÜKLEME TİP 1
+    "07 09677",     # VİBRASYONLU PARÇA YÜKLEME TİP 1 (SANDIKLI)
+    "07 14658",     # SU BASINÇ ÖLÇME KOMPLESİ (alt kırılımlardan da çıkar)
 }
 # Makine bazlı elle düzeltmeler: makine -> {stok kodu: (ad, adet, birim) | None}. None = kalemi çıkar;
 # kayıt varsa adet/ad güncellenir, kalem yoksa eklenir (yerine geçtiği kalemin sırasına).
@@ -69,7 +79,7 @@ FONKSIYONEL = [
 
 # "Normal" görünüm: kompleler açılır, yalnızca elektrik bağlantılı ürünler ve pano içi malzemeler kalır.
 ELEKTRIKLI = (r"MOTOR|(?<!DİYAFRAMLI )POMPA|\bFAN\b|BLOWER|YAĞ BUHARI TOPLAMA|REZİSTANS|ISITICI|SENSÖR(?!.*KABLOSU)|"
-              r"TERMOKUPU?L|TERMOSTAT|SEVİYE BEKÇİSİ|ŞALTER|SWITCH|INTERLOCK|IŞIK BARİYERİ|P\.VALF|BOBİN|SİGORTA|R[ÖO]LE|"
+              r"TERMOKUPU?L|TERMOSTAT|SEVİYE BEKÇİSİ|PASLANMAZ ŞAMANDIRA|SELENOİD|ŞALTER|SWITCH|INTERLOCK|IŞIK BARİYERİ|P\.VALF|BOBİN|SİGORTA|R[ÖO]LE|"
               r"KONTAKTÖR|KONTAK|^BUTON|LAMBA|GÜÇ KAYNAĞI|ORDEL|PLC|OPERATÖR PANELİ|NB7W|İNVERTÖR|^TMŞ|NSX|PRİZ|FİŞ|"
               r"ZAMANLAYICI|ELEKTRİK KUT")
 # Alt kırılımı girilmemiş ama elektrik içermesi beklenmeyen kompleler (uyarı listesine alınmaz).
@@ -211,7 +221,8 @@ def load_subparts() -> dict[str, list[dict]]:
         return {}
     with open(path, encoding="utf-8") as f:
         raw = json.load(f).get("kompleler", {})
-    return {k: [{"c": a["kod"], "n": a["ad"]} for a in v.get("alt_malzemeler", [])] for k, v in raw.items()}
+    return {k: [{"c": a["kod"], "n": a["ad"]} for a in v.get("alt_malzemeler", []) if a["kod"] not in HARIC_KOD]
+            for k, v in raw.items() if k not in HARIC_KOD}
 
 
 def load_full_names() -> dict[str, dict[str, str]]:
@@ -227,6 +238,26 @@ def load_full_names() -> dict[str, dict[str, str]]:
 BOM_FOTO_AILELERI = [
     (r"BLOWER KURUTMA", "10 01524"),  # blower ile kurutma kompleleri -> tek kademeli blower
     (r"KÖRÜKLÜ FAN ERF", "07 17295"),  # ERF fan ailesi (aynı görünüm)
+    (r"POMPA LEO AMS", "10 00695"),     # LEO AMS serisi paslanmaz santrifüj pompalar (aynı gövde)
+    (r"PASLANMAZ ŞAMANDIRA", "10 00296"),  # paslanmaz şamandıralı seviye şalteri
+    (r"MOTORLU .*MR\d{3}", "10 01718"),  # Yılmaz MR serisi ayaklı helisel redüktörlü motorlar
+    # Aynı seri / aynı gövde -> klasördeki kardeş ürünün fotoğrafı
+    (r"^SİGORTA A9F741", "10 01421"),        # Acti9 iC60N 1 kutuplu
+    (r"KAÇAK AKIMLI A9R", "10 00303"),       # Acti9 iID 4 kutuplu kaçak akım
+    (r"^SİNYAL LAMBASI S222|^SİNYAL LAMBA SARI 22MM", "10 02780"),  # Emas S2 22 mm sinyal lambası
+    (r"B7 B MAVİ LED", "10 00275"),          # Emas B serisi mavi LED lamba
+    (r"^İNVERTÖR VFD0\d\dEL", "10 16319"),   # Delta VFD-EL gövdesi
+    (r"CT-2467", "10 03253"),                # pano LED bant armatür
+    (r"LRS 350/24", "10 04903"),             # Mean Well LRS-350-24
+    (r"^SWITCH BS10", "10 16235"),           # BS10xx mini sınır şalteri
+    (r"^REDÜKTÖR EN:", "10 01002"),          # Yılmaz EN sonsuz vidalı redüktör
+    (r"^KÜRESEL VANA .*GALVANİZLİ", "10 00543"),
+    (r"^KÜRESEL VANA", "10 00544"),
+    (r"^TORBA FİLTRE", "10 05378"),
+    (r"^TAŞ FİLTRE", "10 00470"),
+    (r"HASSAS FİLTRE KOMPLESİ|HASSAS FİLTRASYON .*YUVASI", "10 05378"),  # torba filtreli hassas filtre
+    (r"OTOMATİK TANK DOLUM", "07 16791"),    # dolum ünitesi -> seviye sensörü
+    (r"KURUTMA KOMPLESİ", "07 17295"),       # kurutma -> fan
 ]
 
 

@@ -1520,6 +1520,141 @@
       "tr": "KBN 2B 1650 elektrik kutusu komplesi, Omron PLC'li",
       "en": "KBN 2B 1650 electrical cabinet assembly, Omron PLC",
       "de": "KBN 2B 1650 Schaltschrank-Baugruppe, Omron-SPS"
+    },
+    "10 01587": {
+      "tr": "Filtre regülatör (hava şartlandırıcı), 1/2\", GFR 300-15",
+      "en": "Filter regulator, 1/2\", GFR 300-15",
+      "de": "Filterregler, 1/2\", GFR 300-15"
+    },
+    "10 01184": {
+      "tr": "SMC 2/2 selenoid valf (su), 1/2\", 24 V",
+      "en": "SMC 2/2 solenoid valve (water), 1/2\", 24 V",
+      "de": "SMC 2/2-Wege-Magnetventil (Wasser), 1/2\", 24 V"
+    },
+    "10 01801": {
+      "tr": "LEO AMS370/1.1 paslanmaz (AISI 304) santrifüj pompa, 1,1 kW, 380 V 50 Hz",
+      "en": "LEO AMS370/1.1 stainless steel (AISI 304) centrifugal pump, 1.1 kW, 380 V 50 Hz",
+      "de": "LEO AMS370/1.1 Edelstahl-Kreiselpumpe (AISI 304), 1,1 kW, 380 V 50 Hz"
+    },
+    "10 02270": {
+      "tr": "Pirinç gövdeli küresel vana, 1 1/4\", galvanizli",
+      "en": "Brass ball valve, 1 1/4\", galvanized",
+      "de": "Messing-Kugelhahn, 1 1/4\", verzinkt"
+    },
+    "10 01121": {
+      "tr": "Paslanmaz çelik şamandıralı seviye şalteri komplesi",
+      "en": "Stainless steel float level switch assembly",
+      "de": "Edelstahl-Schwimmerschalter-Baugruppe"
+    },
+    "10 02933": {
+      "tr": "Schneider Acti9 iC60N A9F74363 otomatik sigorta (MCB), 3 kutuplu, 63 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74363 miniature circuit breaker (MCB), 3-pole, 63 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74363 Leitungsschutzschalter (MCB), 3-polig, 63 A, C-Charakteristik, 6 kA"
+    },
+    "10 00284": {
+      "tr": "Emas S222B sinyal lambası, 22 mm, beyaz, 230 V AC",
+      "en": "Emas S222B indicator lamp, 22 mm, white, 230 V AC",
+      "de": "Emas S222B Meldeleuchte, 22 mm, weiß, 230 V AC"
+    },
+    "10 02778": {
+      "tr": "Emas S222K sinyal lambası, 22 mm, kırmızı, 230 V AC",
+      "en": "Emas S222K indicator lamp, 22 mm, red, 230 V AC",
+      "de": "Emas S222K Meldeleuchte, 22 mm, rot, 230 V AC"
+    },
+    "10 13569": {
+      "tr": "GEMO DTH2 dijital termostat (sıcaklık kontrol cihazı)",
+      "en": "GEMO DTH2 digital thermostat (temperature controller)",
+      "de": "GEMO DTH2 digitaler Thermostat (Temperaturregler)"
+    },
+    "10 01006": {
+      "tr": "Yılmaz Redüktör EN 40 sonsuz vidalı redüktör, motorsuz, i=50, B07 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 40 worm gearbox, without motor, ratio i=50, B07 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 40 Schneckengetriebe, ohne Motor, Übersetzung i=50, Motoranbau B07 (IEC-Flansch)"
+    },
+    "10 01380": {
+      "tr": "Siemens SENTRON 3LD2704-0TK53 ana şalter (pako), 3 kutuplu, 100 A, kırmızı-sarı acil kesme kollu",
+      "en": "Siemens SENTRON 3LD2704-0TK53 main switch, 3-pole, 100 A, red-yellow emergency-off handle",
+      "de": "Siemens SENTRON 3LD2704-0TK53 Hauptschalter, 3-polig, 100 A, rot-gelber Not-Aus-Griff"
+    },
+    "10 01416": {
+      "tr": "Schneider Acti9 iID A9R11491 kaçak akım rölesi (RCCB), 4 kutuplu",
+      "en": "Schneider Acti9 iID A9R11491 residual current circuit breaker (RCCB), 4-pole",
+      "de": "Schneider Acti9 iID A9R11491 Fehlerstromschutzschalter (RCCB), 4-polig"
+    },
+    "10 16117": {
+      "tr": "Schneider Acti9 iID A9R11480 kaçak akım rölesi (RCCB), 4 kutuplu",
+      "en": "Schneider Acti9 iID A9R11480 residual current circuit breaker (RCCB), 4-pole",
+      "de": "Schneider Acti9 iID A9R11480 Fehlerstromschutzschalter (RCCB), 4-polig"
+    },
+    "10 03037": {
+      "tr": "Schneider (Merlin Gerin) C120N A9N18367 otomatik sigorta, 3 kutuplu, 100 A, C eğrisi, 10 kA",
+      "en": "Schneider (Merlin Gerin) C120N A9N18367 circuit breaker, 3-pole, 100 A, C curve, 10 kA",
+      "de": "Schneider (Merlin Gerin) C120N A9N18367 Leitungsschutzschalter, 3-polig, 100 A, C-Charakteristik, 10 kA"
+    },
+    "10 01328": {
+      "tr": "Schneider TeSys D LC1D09M7 kontaktör, 9 A, bobin 220 V AC",
+      "en": "Schneider TeSys D LC1D09M7 contactor, 9 A, 220 V AC coil",
+      "de": "Schneider TeSys D LC1D09M7 Schütz, 9 A, Spule 220 V AC"
+    },
+    "10 07205": {
+      "tr": "Delta VFD-EL VFD022EL21A frekans invertörü, 2,2 kW, 1 faz 230 V giriş",
+      "en": "Delta VFD-EL VFD022EL21A frequency inverter, 2.2 kW, single-phase 230 V input",
+      "de": "Delta VFD-EL VFD022EL21A Frequenzumrichter, 2,2 kW, Eingang 1-phasig 230 V"
+    },
+    "10 06670": {
+      "tr": "Emas BPR10K potansiyometre butonu, 22 mm, 10 kΩ",
+      "en": "Emas BPR10K potentiometer operator, 22 mm, 10 kΩ",
+      "de": "Emas BPR10K Potentiometer-Befehlsgerät, 22 mm, 10 kΩ"
+    },
+    "10 09112": {
+      "tr": "Schneider Acti9 iC60N A9F74216 otomatik sigorta (MCB), 2 kutuplu, 16 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74216 miniature circuit breaker (MCB), 2-pole, 16 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74216 Leitungsschutzschalter (MCB), 2-polig, 16 A, C-Charakteristik, 6 kA"
+    },
+    "10 02843": {
+      "tr": "Schneider EasyPact CVS250B LV525303 kompakt güç şalteri (TMŞ), 3 kutuplu, 3D termik-manyetik koruma",
+      "en": "Schneider EasyPact CVS250B LV525303 moulded case circuit breaker (MCCB), 3-pole, 3D thermal-magnetic trip",
+      "de": "Schneider EasyPact CVS250B LV525303 Kompaktleistungsschalter, 3-polig, 3D thermomagnetischer Auslöser"
+    },
+    "10 07229": {
+      "tr": "Siemens SIMATIC HMI KTP700 Basic 6AV2123-2GB03-0AX0, 7\" dokunmatik operatör paneli",
+      "en": "Siemens SIMATIC HMI KTP700 Basic 6AV2123-2GB03-0AX0, 7\" touch operator panel",
+      "de": "Siemens SIMATIC HMI KTP700 Basic 6AV2123-2GB03-0AX0, 7\"-Touch-Bedienpanel"
+    },
+    "10 04736": {
+      "tr": "Siemens SIMATIC S7-1200 CPU 1214C DC/DC/DC (6ES7214-1AG40-0XB0)",
+      "en": "Siemens SIMATIC S7-1200 CPU 1214C DC/DC/DC (6ES7214-1AG40-0XB0)",
+      "de": "Siemens SIMATIC S7-1200 CPU 1214C DC/DC/DC (6ES7214-1AG40-0XB0)"
+    },
+    "10 09426": {
+      "tr": "Siemens SIMATIC S7-1200 SM 1231 TC termokupl giriş modülü, 4 kanal (6ES7231-5QD32-0XB0)",
+      "en": "Siemens SIMATIC S7-1200 SM 1231 TC thermocouple input module, 4 channels (6ES7231-5QD32-0XB0)",
+      "de": "Siemens SIMATIC S7-1200 SM 1231 TC Thermoelement-Eingangsmodul, 4 Kanäle (6ES7231-5QD32-0XB0)"
+    },
+    "10 11439": {
+      "tr": "Siemens SIMATIC S7-1200 SM 1223 dijital G/Ç modülü, 8 giriş 24 V DC / 8 röle çıkış (6ES7223-1PH32-0XB0)",
+      "en": "Siemens SIMATIC S7-1200 SM 1223 digital I/O module, 8 DI 24 V DC / 8 relay DQ (6ES7223-1PH32-0XB0)",
+      "de": "Siemens SIMATIC S7-1200 SM 1223 Digital-E/A-Modul, 8 DE 24 V DC / 8 Relais-DA (6ES7223-1PH32-0XB0)"
+    },
+    "10 01009": {
+      "tr": "Yılmaz Redüktör EN 50 sonsuz vidalı redüktör, motorsuz, i=50, B07 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 50 worm gearbox, without motor, ratio i=50, B07 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 50 Schneckengetriebe, ohne Motor, Übersetzung i=50, Motoranbau B07 (IEC-Flansch)"
+    },
+    "10 05386": {
+      "tr": "Sinyal lambası, 22 mm, sarı, 24 V",
+      "en": "Indicator lamp, 22 mm, yellow, 24 V",
+      "de": "Meldeleuchte, 22 mm, gelb, 24 V"
+    },
+    "10 01718": {
+      "tr": "Yılmaz Redüktör MR273 ayaklı helisel dişli redüktörlü motor, 1,5 kW, çıkış 28 d/d, IE2",
+      "en": "Yılmaz Redüktör MR273 foot-mounted helical geared motor, 1.5 kW, output 28 rpm, IE2",
+      "de": "Yılmaz Redüktör MR273 Stirnradgetriebemotor in Fußausführung, 1,5 kW, Abtrieb 28 1/min, IE2"
+    },
+    "10 02556": {
+      "tr": "Yılmaz Redüktör MR373 ayaklı helisel dişli redüktörlü motor, 2,2 kW, çıkış 30 d/d",
+      "en": "Yılmaz Redüktör MR373 foot-mounted helical geared motor, 2.2 kW, output 30 rpm",
+      "de": "Yılmaz Redüktör MR373 Stirnradgetriebemotor in Fußausführung, 2,2 kW, Abtrieb 30 1/min"
     }
   }
 }
