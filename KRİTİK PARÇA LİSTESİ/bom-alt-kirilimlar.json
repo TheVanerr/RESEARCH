@@ -1,0 +1,1898 @@
+{
+  "_yorum": "BOM sayfası alt kırılımları — ERP 'Ürün Ağacı' ekranlarından. Yalnızca fonksiyonel komponentler (civata, somun, sac, kablo, klemens, rakor vb. yazılmaz). Yeni komple eklemek için aynı biçimde satır ekleyin.",
+  "kompleler": {
+    "07 00309": {
+      "aciklama": "REZİSTANS KOMPLESİ 8250W M TİPİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 01038",
+          "ad": "REZİSTANS 220V 8250W 2'' M:162CM BKMLÜ DİKİŞSİZ AISI3"
+        }
+      ]
+    },
+    "07 01214": {
+      "aciklama": "YAĞ SIYIRICI KOMPLESİ TİP 1 MONTAJ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00586",
+          "ad": "REDÜKTÖR MOTORU 0,09KW 1500D/D B14 SIYIRICI"
+        },
+        {
+          "kod": "10 01002",
+          "ad": "REDÜKTÖR EN:30 I:80 B:05"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 00279",
+          "ad": "SİNYAL LAMBASI S14B BEYAZ 220V"
+        },
+        {
+          "kod": "10 00262",
+          "ad": "BUTON MANDAL B100S20"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01017",
+          "ad": "RULMAN 6004 2RS ORS"
+        },
+        {
+          "kod": "10 02526",
+          "ad": "YAĞ KEÇESİ 20*42*7"
+        }
+      ]
+    },
+    "07 00546": {
+      "aciklama": "LYM 950 NS FAN İLE KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16328",
+          "ad": "SALYANGOZLU FAN ERF 2 0,37KW SİLİKONLU"
+        },
+        {
+          "kod": "10 00245",
+          "ad": "TERMİK RÖLESİ LR2K0307 1,20-1,8A"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 01394",
+          "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ"
+        },
+        {
+          "kod": "10 01387",
+          "ad": "ZAMAN RÖLESİ ATP4S08-UV-60"
+        }
+      ]
+    },
+    "07 03001": {
+      "aciklama": "BUHAR TAHLİYE ÜNİTESİ 1",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16099",
+          "ad": "SALYANGOZLU FAN ERF 1 HAVA SOĞ. SİLİKONLU"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 00240",
+          "ad": "YARDIMCI KONTAK LA1KN31"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 01394",
+          "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ"
+        },
+        {
+          "kod": "10 01387",
+          "ad": "ZAMAN RÖLESİ ATP4S08-UV-60"
+        }
+      ]
+    },
+    "07 12273": {
+      "aciklama": "LYM BUHAR YOĞUŞTURMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 13821",
+          "ad": "YAĞ BUHARI TOPLAMA ÜNİTESİ (FAN) FILTERMIST S200"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 01387",
+          "ad": "ZAMAN RÖLESİ ATP4S08-UV-60"
+        },
+        {
+          "kod": "10 01394",
+          "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 00240",
+          "ad": "YARDIMCI KONTAK LA1KN31"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        }
+      ]
+    },
+    "07 00516": {
+      "aciklama": "OTOMATİK BOŞALTMA ÜNİTESİ TİP 1 (PYM-LYM)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 17118",
+          "ad": "POMPA WATER SOUND 1019 BB300/150 2HP 380V 50HZ"
+        },
+        {
+          "kod": "10 00552",
+          "ad": "KÜRESEL VANA 2'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 00273",
+          "ad": "BUTON START B100DY"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        }
+      ]
+    },
+    "07 00515": {
+      "aciklama": "LYM 950 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03960",
+          "ad": "HASSAS FİLTRE KOMPLESİ 50CM"
+        },
+        {
+          "kod": "07 01284",
+          "ad": "HASSAS FİLTRASYON 50CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 05378",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 50CM PASL. TEL ÇERÇEVE)"
+        }
+      ]
+    },
+    "07 02125": {
+      "aciklama": "INTERLOCK KİLİT KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 03336",
+          "ad": "INTERLOCK D4NL4AFAB OMRON D4A LIMIT SWITCH"
+        },
+        {
+          "kod": "10 02306",
+          "ad": "RÖLE SOKETİ RSZE1S48M 8 PİNLİ"
+        },
+        {
+          "kod": "10 01337",
+          "ad": "MİNYATÜR RÖLE RSB2A080P7 2 KUTUPLU 8 PİNLİ"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        }
+      ]
+    },
+    "10 03672 02": {
+      "aciklama": "LYM 1 DİJİTAL ELEKTRİK KUT.KOMP.(PYM950-1150-1350)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00303",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41425 4'LÜ"
+        },
+        {
+          "kod": "10 00302",
+          "ad": "SİGORTA A9F74103 1*3"
+        },
+        {
+          "kod": "10 02663",
+          "ad": "SİGORTA A9F74425 SCHNEIDER İC60N,6KA,25A"
+        },
+        {
+          "kod": "10 00294",
+          "ad": "MİNYATÜR RÖLE RXM4AB1P7 220V"
+        },
+        {
+          "kod": "10 01398",
+          "ad": "MİNYATÜR RÖLE RXM4AB1BD 24V 16 PİNLİ"
+        },
+        {
+          "kod": "10 00295",
+          "ad": "RÖLE SOKETİ RXZE2M114M"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 00238",
+          "ad": "YARDIMCI KONTAK LA1KN20"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 00248",
+          "ad": "TERMİK RÖLESİ LR2K0312 3,70-5,5A"
+        },
+        {
+          "kod": "10 00246",
+          "ad": "TERMİK RÖLESİ LR2K0308 1,80-2,6A"
+        },
+        {
+          "kod": "10 00278",
+          "ad": "SİNYAL LAMBASI S14K KIRMIZI 220V"
+        },
+        {
+          "kod": "10 00266",
+          "ad": "BUTON İKİZ LAMBALI B102K20KY"
+        },
+        {
+          "kod": "10 00274",
+          "ad": "SİNYAL LAMBA BB BEYAZ LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00270",
+          "ad": "BUTON START B100DB"
+        },
+        {
+          "kod": "10 00263",
+          "ad": "BUTON MANDAL B100SL20Y"
+        },
+        {
+          "kod": "10 00276",
+          "ad": "SİNYAL LAMBA BY YEŞİL LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00275",
+          "ad": "SİNYAL LAMBA BM MAVİ LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 00285",
+          "ad": "PAKO ŞALTER YKL301025 3*25 BÜYÜK KASALI"
+        },
+        {
+          "kod": "10 00237",
+          "ad": "TERMOSTAT DİJİTAL DT 481 GEMO"
+        },
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 02491",
+          "ad": "GÜÇ KAYNAĞI MDR 20/24"
+        },
+        {
+          "kod": "10 10465",
+          "ad": "ZAMAN ROLESİ DZ 482 DİJİTAL GEMO"
+        }
+      ]
+    },
+    "07 08285": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ LYM 950-1150",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00588",
+          "ad": "REDÜKTÖR MOTORU 0,18KW 1500D/D B34"
+        },
+        {
+          "kod": "10 01004",
+          "ad": "REDÜKTÖR EN:40 I:16 B:06 YILMAZ"
+        }
+      ]
+    },
+    "07 08287": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ LYM 1350-1400",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00588",
+          "ad": "REDÜKTÖR MOTORU 0,18KW 1500D/D B34"
+        },
+        {
+          "kod": "10 01007",
+          "ad": "REDÜKTÖR EN:40 I:12 B:06 YILMAZ"
+        }
+      ]
+    },
+    "07 03265": {
+      "aciklama": "LYM 1150 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03960",
+          "ad": "HASSAS FİLTRE KOMPLESİ 50CM"
+        },
+        {
+          "kod": "07 01284",
+          "ad": "HASSAS FİLTRASYON 50CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 05378",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 50CM PASL. TEL ÇERÇEVE)"
+        }
+      ]
+    },
+    "07 16939": {
+      "aciklama": "LYM 1150 NS FAN İLE KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 18173",
+          "ad": "SALYANGOZLU FAN ENA 2 0,37 KW"
+        },
+        {
+          "kod": "10 18529",
+          "ad": "AMORTİSÖR 430N"
+        },
+        {
+          "kod": "10 11779",
+          "ad": "AMORTİSÖR 350N"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 00244",
+          "ad": "TERMİK RÖLESİ LR2K0306 0,80-1,2A"
+        },
+        {
+          "kod": "10 00240",
+          "ad": "YARDIMCI KONTAK LA1KN31"
+        },
+        {
+          "kod": "10 01394",
+          "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ"
+        },
+        {
+          "kod": "10 01387",
+          "ad": "ZAMAN RÖLESİ ATP4S08-UV-60"
+        }
+      ]
+    },
+    "07 16504": {
+      "aciklama": "LYM 1150 NS BLOWER KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 01524",
+          "ad": "BLOWER TEK KADEMELİ 2'' BAĞLANTI 4 KW"
+        },
+        {
+          "kod": "10 02854",
+          "ad": "FİLTRE 2'' BLOWER 500"
+        }
+      ]
+    },
+    "07 10419": {
+      "aciklama": "LYM 1350 NS HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03960",
+          "ad": "HASSAS FİLTRE KOMPLESİ 50CM"
+        },
+        {
+          "kod": "07 01284",
+          "ad": "HASSAS FİLTRASYON 50CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 05378",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 50CM PASL. TEL ÇERÇEVE)"
+        }
+      ]
+    },
+    "07 03268": {
+      "aciklama": "LYM 1500 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03960",
+          "ad": "HASSAS FİLTRE KOMPLESİ 50CM"
+        },
+        {
+          "kod": "07 01284",
+          "ad": "HASSAS FİLTRASYON 50CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 05378",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 50CM PASL. TEL ÇERÇEVE)"
+        }
+      ]
+    },
+    "07 12272": {
+      "aciklama": "LYM 1350 BASINÇLI HAVA İLE KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 04814",
+          "ad": "TEK TARAFLI P.VALF 24VDC 3V210-08-NC 1/4'' 3-2"
+        },
+        {
+          "kod": "10 02246",
+          "ad": "PNÖMATİK BOBİN 220V"
+        },
+        {
+          "kod": "10 14003",
+          "ad": "NOZZLE HAVA TARAĞI 110MM SWA.4"
+        }
+      ]
+    },
+    "07 16713": {
+      "aciklama": "LYM 1500 NS FANLI KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 17295",
+          "ad": "SALYANGOZLU FAN ENA 2 0,37 KW HAVA SO.SİLİKONLU"
+        },
+        {
+          "kod": "10 02268",
+          "ad": "AMORTİSÖR 1600N"
+        },
+        {
+          "kod": "10 01202",
+          "ad": "AMORTİSÖR 1400N"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 00244",
+          "ad": "TERMİK RÖLESİ LR2K0306 0,80-1,2A"
+        },
+        {
+          "kod": "10 00240",
+          "ad": "YARDIMCI KONTAK LA1KN31"
+        },
+        {
+          "kod": "10 01394",
+          "ad": "RÖLE SOKETİ RS1P08G1 8 PİNLİ"
+        },
+        {
+          "kod": "10 01387",
+          "ad": "ZAMAN RÖLESİ ATP4S08-UV-60"
+        }
+      ]
+    },
+    "10 03672 04": {
+      "aciklama": "LYM 2 DİJİTAL ELEKTRİK KUT.KOMP.(PYM1400-1550)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00304",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41440 4'LÜ"
+        },
+        {
+          "kod": "10 00302",
+          "ad": "SİGORTA A9F74103 1*3"
+        },
+        {
+          "kod": "10 02664",
+          "ad": "SİGORTA A9F74440 SCHNEIDER 40A"
+        },
+        {
+          "kod": "10 00294",
+          "ad": "MİNYATÜR RÖLE RXM4AB1P7 220V"
+        },
+        {
+          "kod": "10 01398",
+          "ad": "MİNYATÜR RÖLE RXM4AB1BD 24V 16 PİNLİ"
+        },
+        {
+          "kod": "10 00295",
+          "ad": "RÖLE SOKETİ RXZE2M114M"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 00238",
+          "ad": "YARDIMCI KONTAK LA1KN20"
+        },
+        {
+          "kod": "10 00244",
+          "ad": "TERMİK RÖLESİ LR2K0306 0,80-1,2A"
+        },
+        {
+          "kod": "10 00248",
+          "ad": "TERMİK RÖLESİ LR2K0312 3,70-5,5A"
+        },
+        {
+          "kod": "10 00278",
+          "ad": "SİNYAL LAMBASI S14K KIRMIZI 220V"
+        },
+        {
+          "kod": "10 00266",
+          "ad": "BUTON İKİZ LAMBALI B102K20KY"
+        },
+        {
+          "kod": "10 00274",
+          "ad": "SİNYAL LAMBA BB BEYAZ LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00270",
+          "ad": "BUTON START B100DB"
+        },
+        {
+          "kod": "10 00263",
+          "ad": "BUTON MANDAL B100SL20Y"
+        },
+        {
+          "kod": "10 00276",
+          "ad": "SİNYAL LAMBA BY YEŞİL LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00275",
+          "ad": "SİNYAL LAMBA BM MAVİ LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 00286",
+          "ad": "PAKO ŞALTER YKL301M40 3*40 KÜÇÜK KASALI"
+        },
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 02491",
+          "ad": "GÜÇ KAYNAĞI MDR 20/24"
+        },
+        {
+          "kod": "10 10465",
+          "ad": "ZAMAN ROLESİ DZ 482 DİJİTAL GEMO"
+        },
+        {
+          "kod": "10 00237",
+          "ad": "TERMOSTAT DİJİTAL DT 481 GEMO"
+        }
+      ]
+    },
+    "07 08289": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ LYM-KBN 1550",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00590",
+          "ad": "REDÜKTÖR MOTORU 0,37KW 1500D/D"
+        },
+        {
+          "kod": "10 01008",
+          "ad": "REDÜKTÖR EN:40 I:12 B:07 YILMAZ"
+        }
+      ]
+    },
+    "07 10420": {
+      "aciklama": "BLOWER KURUTMA KOMPLESİ LYM 1350 NS",
+      "alt_malzemeler": [
+        {
+          "kod": "07 06739",
+          "ad": "ÖRDEK AĞZI HAVA BIÇAĞI"
+        }
+      ]
+    },
+    "07 16782": {
+      "aciklama": "KBN SEPET DURDURMA ÜST SENSÖR KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 17992",
+          "ad": "SENSÖR IME18-12NPSZC0S SICK M18 12MM 1040982"
+        },
+        {
+          "kod": "10 00653",
+          "ad": "O-RING 3,00*41,00"
+        },
+        {
+          "kod": "10 18249",
+          "ad": "O-RING 3,00*24,00"
+        }
+      ]
+    },
+    "07 14657": {
+      "aciklama": "HAVA BASINÇ ÖLÇME KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 02211",
+          "ad": "HAVA VALFİ 1/2'' (ERKEK JAK)"
+        },
+        {
+          "kod": "10 16858",
+          "ad": "BASINÇ ŞALTERİ 1-12 BAR 1/4'' DS1A3012"
+        }
+      ]
+    },
+    "07 04792": {
+      "aciklama": "OTOMATİK TANK DOLUM ÜNİTESİ KBN 1B 1650",
+      "alt_malzemeler": [
+        {
+          "kod": "10 07993",
+          "ad": "AKTÜATÖR TEK ETKİLİ 52 GÖVDE PASLANMAZ 304"
+        },
+        {
+          "kod": "10 07995",
+          "ad": "AKTÜATÖRLÜ VANA GÖVDESİ 3/4'' PASLANMAZ 304L"
+        },
+        {
+          "kod": "10 01618",
+          "ad": "SWITCH BOX LS10.2M"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "07 16791",
+          "ad": "SEVİYE SENSÖRÜ ÇAT.TİP VEGASWING 51 DİŞ ÇEKİLMİŞ"
+        },
+        {
+          "kod": "10 01596",
+          "ad": "TEK TARAFLI P.VALF 24VDC 4V210-08 1/4'' 5-2"
+        },
+        {
+          "kod": "10 01780",
+          "ad": "TAŞ FİLTRE 1/8''"
+        }
+      ]
+    },
+    "07 05764": {
+      "aciklama": "YAĞ SIYIRICI KOMPLESİ TİP 2 MONTAJ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00586",
+          "ad": "REDÜKTÖR MOTORU 0,09KW 1500D/D B14 SIYIRICI"
+        },
+        {
+          "kod": "10 01002",
+          "ad": "REDÜKTÖR EN:30 I:80 B:05"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 00279",
+          "ad": "SİNYAL LAMBASI S14B BEYAZ 220V"
+        },
+        {
+          "kod": "10 00262",
+          "ad": "BUTON MANDAL B100S20"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01017",
+          "ad": "RULMAN 6004 2RS ORS"
+        },
+        {
+          "kod": "10 02526",
+          "ad": "YAĞ KEÇESİ 20*42*7"
+        }
+      ]
+    },
+    "07 03635": {
+      "aciklama": "YAĞ AYIRICI ÜNİTESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 02164",
+          "ad": "YAĞ AYIRMA ŞAMANDIRASI 3'LÜ"
+        },
+        {
+          "kod": "10 03185",
+          "ad": "DİYAFRAMLI POMPA 200514 HP05 PP-S"
+        },
+        {
+          "kod": "10 06255",
+          "ad": "HASSAS REGÜLATÖR 1/4'' 30SR20008L3G"
+        },
+        {
+          "kod": "10 04814",
+          "ad": "TEK TARAFLI P.VALF 24VDC 3V210-08-NC 1/4'' 3-2"
+        },
+        {
+          "kod": "10 09407",
+          "ad": "FİLTRE 10'' 3/4'' YIK. PASLANMAZ KIRMIZI"
+        },
+        {
+          "kod": "10 10612",
+          "ad": "FİLTRE 10'' KIRMIZI ISI DAY. YIKANABİLİR FYK120.K"
+        },
+        {
+          "kod": "10 00545",
+          "ad": "KÜRESEL VANA 1'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01384",
+          "ad": "YAPRAK RÖLE APF30324-VDS-KK SOKET 1C/O 24VDC"
+        }
+      ]
+    },
+    "07 04793": {
+      "aciklama": "BUHAR YOĞUNLAŞTIRMA ÜNİTESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 05381",
+          "ad": "YAĞ BUHARI TOPLAMA ÜNİTESİ (FAN) FILTERMIST S400"
+        }
+      ]
+    },
+    "07 05519": {
+      "aciklama": "OTOMATİK TANK BOŞALTMA (KBN 1B)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 17120",
+          "ad": "POMPA WATER SOUND 1010 BK50 304 380V 50HZ"
+        },
+        {
+          "kod": "10 00552",
+          "ad": "KÜRESEL VANA 2'' PİRİNÇ GÖVDELİ"
+        }
+      ]
+    },
+    "07 04361": {
+      "aciklama": "KBN 1B 1650 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03961",
+          "ad": "HASSAS FİLTRE KOMPLESİ 70CM"
+        },
+        {
+          "kod": "07 01277",
+          "ad": "HASSAS FİLTRASYON 70CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 06630",
+          "ad": "EMNİYET VENTİLİ YKS 1/4'' 7 BAR KROM KAPLI PİRİNÇ"
+        },
+        {
+          "kod": "10 01791",
+          "ad": "O-RING 4,00*245,00"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        }
+      ]
+    },
+    "07 04465": {
+      "aciklama": "EL KORUMA LAZER IŞIN BARİYERİ KOMPLESİ KBN 1B",
+      "alt_malzemeler": [
+        {
+          "kod": "10 16720",
+          "ad": "IŞIK BARİYERİ SF4D-H48 USF4DH48 PANASONIC 95CM"
+        },
+        {
+          "kod": "10 03262",
+          "ad": "SWITCH L5K13MEP123 1NO 1NC"
+        },
+        {
+          "kod": "10 04814",
+          "ad": "TEK TARAFLI P.VALF 24VDC 3V210-08-NC 1/4'' 3-2"
+        },
+        {
+          "kod": "10 16858",
+          "ad": "BASINÇ ŞALTERİ 1-12 BAR 1/4'' DS1A3012"
+        },
+        {
+          "kod": "10 00470",
+          "ad": "TAŞ FİLTRE 1/4''"
+        },
+        {
+          "kod": "10 03672 31",
+          "ad": "KBN 1B ORDELLİ OMRONLU ELEKTRİK KUTUSU KOMPLESİ"
+        }
+      ]
+    },
+    "07 04466": {
+      "aciklama": "EL KORUMA FOTOSELLİ SENSÖR KOMPLESİ KBN 1B",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00241",
+          "ad": "SENSÖR XUK1 ARCNL2"
+        },
+        {
+          "kod": "10 00242",
+          "ad": "REFLEKTÖR XUZC50"
+        },
+        {
+          "kod": "10 03262",
+          "ad": "SWITCH L5K13MEP123 1NO 1NC"
+        },
+        {
+          "kod": "10 05035",
+          "ad": "SWITCH LK20K27 ANI HARK.1NK+2NA KONTAK BLOK"
+        },
+        {
+          "kod": "10 03672 08",
+          "ad": "KBN 1B ORDELLİ ELEKTRİK KUTUSU KOMPLESİ"
+        }
+      ]
+    },
+    "07 09161": {
+      "aciklama": "KBN 1B 1650 FANLI KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16331",
+          "ad": "KÖRÜKLÜ FAN ERF K-2 HAVA SOĞ. SİLİKONLU"
+        },
+        {
+          "kod": "07 12004",
+          "ad": "KKO NS KOMPLESİ"
+        }
+      ]
+    },
+    "07 08623": {
+      "aciklama": "KBN 1B 1650 BLOWER KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 01524",
+          "ad": "BLOWER TEK KADEMELİ 2'' BAĞLANTI 4 KW"
+        },
+        {
+          "kod": "10 02854",
+          "ad": "FİLTRE 2'' BLOWER 500"
+        },
+        {
+          "kod": "10 02634",
+          "ad": "TERMOKUPUL ETB30F06-4Ç"
+        },
+        {
+          "kod": "07 12004",
+          "ad": "KKO NS KOMPLESİ"
+        }
+      ]
+    },
+    "07 00551": {
+      "aciklama": "KBN SIZINTI TAVASI UYARI SİSTEMİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00296",
+          "ad": "PASLANMAZ SEVİYE BEKÇİSİ"
+        }
+      ]
+    },
+    "07 05386": {
+      "aciklama": "KABİN İÇİ AYDINLATMA KOMPLESİ KBN",
+      "alt_malzemeler": [
+        {
+          "kod": "10 10792",
+          "ad": "LED LAMBA 10-30V PMX LW-5027B KARE"
+        },
+        {
+          "kod": "10 16098",
+          "ad": "PYM-MST-KBN AYDINLATMA PLEKSİ"
+        }
+      ]
+    },
+    "07 08366": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ KBN 1650",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00590",
+          "ad": "REDÜKTÖR MOTORU 0,37KW 1500D/D"
+        },
+        {
+          "kod": "10 03390",
+          "ad": "REDÜKTÖR EN:50 I:25 B:07"
+        }
+      ]
+    },
+    "10 03672 31": {
+      "aciklama": "KBN 1B ORDELLİ OMRONLU ELEKTRİK KUTUSU KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00305",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41463 4'LÜ"
+        },
+        {
+          "kod": "10 00302",
+          "ad": "SİGORTA A9F74103 1*3"
+        },
+        {
+          "kod": "10 04732",
+          "ad": "SİGORTA A9F74463 SCHNEIDER İC60N 6KA,63A,4P 63A"
+        },
+        {
+          "kod": "10 00294",
+          "ad": "MİNYATÜR RÖLE RXM4AB1P7 220V"
+        },
+        {
+          "kod": "10 01398",
+          "ad": "MİNYATÜR RÖLE RXM4AB1BD 24V 16 PİNLİ"
+        },
+        {
+          "kod": "10 00295",
+          "ad": "RÖLE SOKETİ RXZE2M114M"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 00238",
+          "ad": "YARDIMCI KONTAK LA1KN20"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 00245",
+          "ad": "TERMİK RÖLESİ LR2K0307 1,20-1,8A"
+        },
+        {
+          "kod": "10 00249",
+          "ad": "TERMİK RÖLESİ LR2K0314 5,80-8,0A"
+        },
+        {
+          "kod": "10 00278",
+          "ad": "SİNYAL LAMBASI S14K KIRMIZI 220V"
+        },
+        {
+          "kod": "10 00279",
+          "ad": "SİNYAL LAMBASI S14B BEYAZ 220V"
+        },
+        {
+          "kod": "10 00262",
+          "ad": "BUTON MANDAL B100S20"
+        },
+        {
+          "kod": "10 00270",
+          "ad": "BUTON START B100DB"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00275",
+          "ad": "SİNYAL LAMBA BM MAVİ LEDLİ IŞIK"
+        },
+        {
+          "kod": "10 00271",
+          "ad": "BUTON START B100DK"
+        },
+        {
+          "kod": "10 00273",
+          "ad": "BUTON START B100DY"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 00287",
+          "ad": "PAKO ŞALTER YKL301M63 3*63"
+        },
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 02772",
+          "ad": "GÜÇ KAYNAĞI MDR 100/24"
+        },
+        {
+          "kod": "10 00229",
+          "ad": "ORDEL OC990-9/0240 FIR.KON.CİH-DİJ.PAN."
+        },
+        {
+          "kod": "10 10343",
+          "ad": "SİNYAL LAMBASI S140NM2 MAVİ 24V"
+        },
+        {
+          "kod": "10 01384",
+          "ad": "YAPRAK RÖLE APF30324-VDS-KK SOKET 1C/O 24VDC"
+        },
+        {
+          "kod": "10 04538",
+          "ad": "EMNİYET RÖLESİ G9SPN20S OMRON G9SX"
+        },
+        {
+          "kod": "10 16319",
+          "ad": "İNVERTÖR VFD004EL21W-1 0,4KW"
+        }
+      ]
+    },
+    "10 03672 08": {
+      "aciklama": "KBN 1B ORDELLİ ELEKTRİK KUTUSU KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00229",
+          "ad": "ORDEL OC990-9/0240 FIR.KON.CİH-DİJ.PAN."
+        },
+        {
+          "kod": "10 00244",
+          "ad": "TERMİK RÖLESİ LR2K0306 0,80-1,2A"
+        },
+        {
+          "kod": "10 00249",
+          "ad": "TERMİK RÖLESİ LR2K0314 5,80-8,0A"
+        },
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 00270",
+          "ad": "BUTON START B100DB"
+        },
+        {
+          "kod": "10 00271",
+          "ad": "BUTON START B100DK"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00273",
+          "ad": "BUTON START B100DY"
+        },
+        {
+          "kod": "10 00278",
+          "ad": "SİNYAL LAMBASI S14K KIRMIZI 220V"
+        },
+        {
+          "kod": "10 00279",
+          "ad": "SİNYAL LAMBASI S14B BEYAZ 220V"
+        },
+        {
+          "kod": "10 00287",
+          "ad": "PAKO ŞALTER YKL301M63 3*63"
+        },
+        {
+          "kod": "10 00294",
+          "ad": "MİNYATÜR RÖLE RXM4AB1P7 220V"
+        },
+        {
+          "kod": "10 00295",
+          "ad": "RÖLE SOKETİ RXZE2M114M"
+        },
+        {
+          "kod": "10 00302",
+          "ad": "SİGORTA A9F74103 1*3"
+        },
+        {
+          "kod": "10 00305",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41463 4'LÜ"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 01384",
+          "ad": "YAPRAK RÖLE APF30324-VDS-KK SOKET 1C/O 24VDC"
+        },
+        {
+          "kod": "10 01398",
+          "ad": "MİNYATÜR RÖLE RXM4AB1BD 24V 16 PİNLİ"
+        },
+        {
+          "kod": "10 01421",
+          "ad": "SİGORTA A9F74106 1*6"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 02772",
+          "ad": "GÜÇ KAYNAĞI MDR 100/24"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 04538",
+          "ad": "EMNİYET RÖLESİ G9SPN20S OMRON G9SX"
+        },
+        {
+          "kod": "10 04732",
+          "ad": "SİGORTA A9F74463 SCHNEIDER İC60N 6KA,63A,4P 63A"
+        },
+        {
+          "kod": "10 16319",
+          "ad": "İNVERTÖR VFD004EL21W-1 0,4KW"
+        }
+      ]
+    },
+    "07 08928": {
+      "aciklama": "OTOMATİK TANK DOLUM ÜNİTESİ KBN 2B 2050",
+      "alt_malzemeler": [
+        {
+          "kod": "10 07993",
+          "ad": "AKTÜATÖR TEK ETKİLİ 52 GÖVDE PASLANMAZ 304"
+        },
+        {
+          "kod": "10 07995",
+          "ad": "AKTÜATÖRLÜ VANA GÖVDESİ 3/4'' PASLANMAZ 304L"
+        },
+        {
+          "kod": "10 01618",
+          "ad": "SWITCH BOX LS10.2M"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01596",
+          "ad": "TEK TARAFLI P.VALF 24VDC 4V210-08 1/4'' 5-2"
+        },
+        {
+          "kod": "10 01780",
+          "ad": "TAŞ FİLTRE 1/8''"
+        }
+      ]
+    },
+    "07 04925": {
+      "aciklama": "OTOMATİK TANK BOŞALTMA (KBN 2B)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 17118",
+          "ad": "POMPA WATER SOUND 1019 BB300/150 2HP 380V 50HZ"
+        },
+        {
+          "kod": "10 00552",
+          "ad": "KÜRESEL VANA 2'' PİRİNÇ GÖVDELİ"
+        }
+      ]
+    },
+    "07 10772": {
+      "aciklama": "KBN 2B 2050 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03961",
+          "ad": "HASSAS FİLTRE KOMPLESİ 70CM"
+        },
+        {
+          "kod": "07 01277",
+          "ad": "HASSAS FİLTRASYON 70CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 06630",
+          "ad": "EMNİYET VENTİLİ YKS 1/4'' 7 BAR KROM KAPLI PİRİNÇ"
+        },
+        {
+          "kod": "10 01791",
+          "ad": "O-RING 4,00*245,00"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 01534",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 70CM PASL TEL ÇERÇEVELİ)"
+        }
+      ]
+    },
+    "07 07740": {
+      "aciklama": "EL KORUMA FOTOSELLİ SENSÖR KOMPLESİ KBN 2B 1650",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00241",
+          "ad": "SENSÖR XUK1 ARCNL2"
+        },
+        {
+          "kod": "10 00242",
+          "ad": "REFLEKTÖR XUZC50"
+        },
+        {
+          "kod": "10 03262",
+          "ad": "SWITCH L5K13MEP123 1NO 1NC"
+        },
+        {
+          "kod": "10 05035",
+          "ad": "SWITCH LK20K27 ANI HARK.1NK+2NA KONTAK BLOK"
+        }
+      ]
+    },
+    "07 07741": {
+      "aciklama": "EL KORUMA LAZER IŞIN BARİYERİ KOMPLESİ KBN 2B",
+      "alt_malzemeler": [
+        {
+          "kod": "10 16720",
+          "ad": "IŞIK BARİYERİ SF4D-H48 USF4DH48 PANASONIC 95CM"
+        },
+        {
+          "kod": "10 03262",
+          "ad": "SWITCH L5K13MEP123 1NO 1NC"
+        },
+        {
+          "kod": "10 04814",
+          "ad": "TEK TARAFLI P.VALF 24VDC 3V210-08-NC 1/4'' 3-2"
+        },
+        {
+          "kod": "10 16858",
+          "ad": "BASINÇ ŞALTERİ 1-12 BAR 1/4'' DS1A3012"
+        },
+        {
+          "kod": "10 00470",
+          "ad": "TAŞ FİLTRE 1/4''"
+        }
+      ]
+    },
+    "07 08047": {
+      "aciklama": "KBN 2B 2050 KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16331",
+          "ad": "KÖRÜKLÜ FAN ERF K-2 HAVA SOĞ. SİLİKONLU"
+        },
+        {
+          "kod": "07 12004",
+          "ad": "KKO NS KOMPLESİ"
+        }
+      ]
+    },
+    "07 10374": {
+      "aciklama": "KBN 2B 2050 BLOWER KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 01524",
+          "ad": "BLOWER TEK KADEMELİ 2'' BAĞLANTI 4 KW"
+        },
+        {
+          "kod": "07 01431",
+          "ad": "KÜÇÜK KURUTMA ODASI KOMPLESİ"
+        }
+      ]
+    },
+    "10 03672 14": {
+      "aciklama": "KBN 2B DELTA PLC'Lİ ELEKTRİK KUTUSU KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 00271",
+          "ad": "BUTON START B100DK"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00273",
+          "ad": "BUTON START B100DY"
+        },
+        {
+          "kod": "10 00302",
+          "ad": "SİGORTA A9F74103 1*3"
+        },
+        {
+          "kod": "10 00304",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41440 4'LÜ"
+        },
+        {
+          "kod": "10 00305",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41463 4'LÜ"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 01365",
+          "ad": "YARDIMCI KONTAK GVAE11 MKŞ"
+        },
+        {
+          "kod": "10 01367",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME06"
+        },
+        {
+          "kod": "10 01368",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME04"
+        },
+        {
+          "kod": "10 01369",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME08"
+        },
+        {
+          "kod": "10 01371",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME07"
+        },
+        {
+          "kod": "10 01375",
+          "ad": "SİNYAL LAMBA B7 B MAVİ LED Lİ BLOK 12-30V AC/DC"
+        },
+        {
+          "kod": "10 01384",
+          "ad": "YAPRAK RÖLE APF30324-VDS-KK SOKET 1C/O 24VDC"
+        },
+        {
+          "kod": "10 01421",
+          "ad": "SİGORTA A9F74106 1*6"
+        },
+        {
+          "kod": "10 01422",
+          "ad": "SİGORTA A9F74110 1*10"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 02391",
+          "ad": "İNVERTÖR VFD007EL21W-1 0,75 KW DELTA"
+        },
+        {
+          "kod": "10 02822",
+          "ad": "SİGORTA A9K24325 SCHNEIDER İK60N,6KA,25A,3P,C"
+        },
+        {
+          "kod": "10 02964",
+          "ad": "TMŞ LV516303 SCHNEIDER CVS160B 3P3D"
+        },
+        {
+          "kod": "10 03164",
+          "ad": "LV429338 NSX 100-250"
+        },
+        {
+          "kod": "10 03255",
+          "ad": "PANO LAMBA LEDLİ BANT 8W 220V ARMATÜR CT-2467 60CM"
+        },
+        {
+          "kod": "10 03313",
+          "ad": "PRİZ RAYA MONTAJ TOPRAKLI EPREU2G"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 03457",
+          "ad": "PLC EK MODÜL DELTA DVP 04 TC"
+        },
+        {
+          "kod": "10 03458",
+          "ad": "PLC EK MODÜL DELTA DVP 16 SP"
+        },
+        {
+          "kod": "10 04000",
+          "ad": "SİGORTA A9F74316 SCHNEIDER 16A"
+        },
+        {
+          "kod": "10 04260",
+          "ad": "PLC MODÜL DVP14S2211T2 DELTA 8 GİRİŞ 6 ÇIKIŞ 24VDC"
+        },
+        {
+          "kod": "10 04538",
+          "ad": "EMNİYET RÖLESİ G9SPN20S OMRON G9SX"
+        },
+        {
+          "kod": "10 06963",
+          "ad": "GÜÇ KAYNAĞI LRS 350/24 24VDC 14,6AMP"
+        },
+        {
+          "kod": "10 09583",
+          "ad": "PLC EKRAN OPERATÖR PANELİ 7'' DOP-107BV"
+        },
+        {
+          "kod": "10 10820",
+          "ad": "YARDIMCI KONTAK 1NA/1NK A9A26924 IOF"
+        },
+        {
+          "kod": "10 16231",
+          "ad": "SWITCH BS1012 ANI HARK.1NA+1NK"
+        }
+      ]
+    },
+    "07 08385": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ KBN 2050",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00590",
+          "ad": "REDÜKTÖR MOTORU 0,37KW 1500D/D"
+        },
+        {
+          "kod": "10 03390",
+          "ad": "REDÜKTÖR EN:50 I:25 B:07"
+        }
+      ]
+    },
+    "07 08380": {
+      "aciklama": "REDÜKTÖR VE MOTOR KOMP YILMAZ KBN 1850",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00590",
+          "ad": "REDÜKTÖR MOTORU 0,37KW 1500D/D"
+        },
+        {
+          "kod": "10 03390",
+          "ad": "REDÜKTÖR EN:50 I:25 B:07"
+        }
+      ]
+    },
+    "07 08927": {
+      "aciklama": "OTOMATİK TANK DOLUM ÜNİTESİ KBN 2B 1850",
+      "alt_malzemeler": [
+        {
+          "kod": "10 07993",
+          "ad": "AKTÜATÖR TEK ETKİLİ 52 GÖVDE PASLANMAZ 304"
+        },
+        {
+          "kod": "10 07995",
+          "ad": "AKTÜATÖRLÜ VANA GÖVDESİ 3/4'' PASLANMAZ 304L"
+        },
+        {
+          "kod": "10 01618",
+          "ad": "SWITCH BOX LS10.2M"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01596",
+          "ad": "TEK TARAFLI P.VALF 24VDC 4V210-08 1/4'' 5-2"
+        },
+        {
+          "kod": "10 01780",
+          "ad": "TAŞ FİLTRE 1/8''"
+        }
+      ]
+    },
+    "07 04649": {
+      "aciklama": "YAĞ SIYIRICI KOMPLESİ TİP 3 MONTAJ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00586",
+          "ad": "REDÜKTÖR MOTORU 0,09KW 1500D/D B14 SIYIRICI"
+        },
+        {
+          "kod": "10 01002",
+          "ad": "REDÜKTÖR EN:30 I:80 B:05"
+        },
+        {
+          "kod": "10 00243",
+          "ad": "TERMİK RÖLESİ LR2K0305 0,54-0,8A"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 00279",
+          "ad": "SİNYAL LAMBASI S14B BEYAZ 220V"
+        },
+        {
+          "kod": "10 00262",
+          "ad": "BUTON MANDAL B100S20"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01017",
+          "ad": "RULMAN 6004 2RS ORS"
+        },
+        {
+          "kod": "10 02526",
+          "ad": "YAĞ KEÇESİ 20*42*7"
+        }
+      ]
+    },
+    "07 09158": {
+      "aciklama": "OTOMATİK TANK BOŞALTMA (KBN 2B 1850)",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00695",
+          "ad": "POMPA LEO AMS-70/0,55 380V/50HZ"
+        },
+        {
+          "kod": "10 00545",
+          "ad": "KÜRESEL VANA 1'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        }
+      ]
+    },
+    "07 03258": {
+      "aciklama": "KBN 2B 1850 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03961",
+          "ad": "HASSAS FİLTRE KOMPLESİ 70CM"
+        },
+        {
+          "kod": "07 01277",
+          "ad": "HASSAS FİLTRASYON 70CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 06630",
+          "ad": "EMNİYET VENTİLİ YKS 1/4'' 7 BAR KROM KAPLI PİRİNÇ"
+        },
+        {
+          "kod": "10 01791",
+          "ad": "O-RING 4,00*245,00"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 01534",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 70CM PASL TEL ÇERÇEVELİ)"
+        }
+      ]
+    },
+    "07 05953": {
+      "aciklama": "OTOMATİK TANK DOLUM ÜNİTESİ KBN 2B 1650",
+      "alt_malzemeler": [
+        {
+          "kod": "10 07993",
+          "ad": "AKTÜATÖR TEK ETKİLİ 52 GÖVDE PASLANMAZ 304"
+        },
+        {
+          "kod": "10 07995",
+          "ad": "AKTÜATÖRLÜ VANA GÖVDESİ 3/4'' PASLANMAZ 304L"
+        },
+        {
+          "kod": "10 01618",
+          "ad": "SWITCH BOX LS10.2M"
+        },
+        {
+          "kod": "10 00544",
+          "ad": "KÜRESEL VANA 3/4'' PİRİNÇ GÖVDELİ"
+        },
+        {
+          "kod": "10 01596",
+          "ad": "TEK TARAFLI P.VALF 24VDC 4V210-08 1/4'' 5-2"
+        },
+        {
+          "kod": "10 01780",
+          "ad": "TAŞ FİLTRE 1/8''"
+        },
+        {
+          "kod": "07 16791",
+          "ad": "SEVİYE SENSÖRÜ ÇAT.TİP VEGASWING 51 DİŞ ÇEKİLMİŞ"
+        },
+        {
+          "kod": "07 14658",
+          "ad": "SU BASINÇ ÖLÇME KOMPLESİ"
+        }
+      ]
+    },
+    "07 03267": {
+      "aciklama": "KBN 2B 1650 HASSAS FİLTRE KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 03961",
+          "ad": "HASSAS FİLTRE KOMPLESİ 70CM"
+        },
+        {
+          "kod": "07 01277",
+          "ad": "HASSAS FİLTRASYON 70CM FİLTRE YUVASI KOMPLESİ"
+        },
+        {
+          "kod": "10 06630",
+          "ad": "EMNİYET VENTİLİ YKS 1/4'' 7 BAR KROM KAPLI PİRİNÇ"
+        },
+        {
+          "kod": "10 01791",
+          "ad": "O-RING 4,00*245,00"
+        },
+        {
+          "kod": "10 00543",
+          "ad": "KÜRESEL VANA 1/2'' PİRİNÇ GÖVDELİ GALVANİZLİ"
+        },
+        {
+          "kod": "10 01534",
+          "ad": "TORBA FİLTRE 200 MİKRON ( 70CM PASL TEL ÇERÇEVELİ)"
+        }
+      ]
+    },
+    "07 04365": {
+      "aciklama": "KBN 2B 1650 KURUTMA ÜNİTESİ KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16331",
+          "ad": "KÖRÜKLÜ FAN ERF K-2 HAVA SOĞ. SİLİKONLU"
+        },
+        {
+          "kod": "07 16349",
+          "ad": "KKO NS 3'' KOMPLESİ"
+        }
+      ]
+    },
+    "07 15419": {
+      "aciklama": "KBN 2B 1650 BLOWER KURUTMA KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "07 16349",
+          "ad": "KKO NS 3'' KOMPLESİ"
+        }
+      ]
+    },
+    "10 03672 99": {
+      "aciklama": "KBN 2B 1650 OMRON PLC'Lİ ELEKTRİK KUTUSU KOMPLESİ",
+      "alt_malzemeler": [
+        {
+          "kod": "10 00258",
+          "ad": "FAZ KORUMA RÖLESİ MKS-03"
+        },
+        {
+          "kod": "10 00267",
+          "ad": "KONTAK BLOK NO B1"
+        },
+        {
+          "kod": "10 00268",
+          "ad": "KONTAK BLOK NC B2"
+        },
+        {
+          "kod": "10 00271",
+          "ad": "BUTON START B100DK"
+        },
+        {
+          "kod": "10 00272",
+          "ad": "BUTON START B100DM"
+        },
+        {
+          "kod": "10 00273",
+          "ad": "BUTON START B100DY"
+        },
+        {
+          "kod": "10 00303",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41425 4'LÜ 25 A"
+        },
+        {
+          "kod": "10 00304",
+          "ad": "SİGORTA KAÇAK AKIMLI A9R41440 4'LÜ 40 A"
+        },
+        {
+          "kod": "10 01329",
+          "ad": "KONTAKTÖR LC1D25M7"
+        },
+        {
+          "kod": "10 01331",
+          "ad": "KONTAKTÖR LC1K0910M7 220V"
+        },
+        {
+          "kod": "10 01332",
+          "ad": "KONTAKTÖR LC1K1610M7 220V"
+        },
+        {
+          "kod": "10 01362",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME10 4-6,3A"
+        },
+        {
+          "kod": "10 01363",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME14 6-10A"
+        },
+        {
+          "kod": "10 01365",
+          "ad": "YARDIMCI KONTAK GVAE11 MKŞ"
+        },
+        {
+          "kod": "10 01368",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME04 0,40-0,63A"
+        },
+        {
+          "kod": "10 01369",
+          "ad": "MOTOR KORUMA ŞALTERİ GV2ME08 2,5-4A"
+        },
+        {
+          "kod": "10 01421",
+          "ad": "SCHNEIDER SİGORTA A9F74106 1*6"
+        },
+        {
+          "kod": "10 02146",
+          "ad": "YAPRAK RÖLE KONTAĞI WEİDMÜLLER TRS 24VDC 1CO"
+        },
+        {
+          "kod": "10 02314",
+          "ad": "KONTAKTÖR LC1K0610M7 220V"
+        },
+        {
+          "kod": "10 02822",
+          "ad": "SİGORTA A9K24325 SCHNEİDER İK60N,6KA,25A,3P,C"
+        },
+        {
+          "kod": "10 03253",
+          "ad": "PANO LAMBASI CT-2467"
+        },
+        {
+          "kod": "10 03313",
+          "ad": "PRİZ RAYA MONTAJ TOPRAKLI EPREU2G"
+        },
+        {
+          "kod": "10 03445",
+          "ad": "BUTON ACİL STOP MANTAR B200EE"
+        },
+        {
+          "kod": "10 04000",
+          "ad": "SİGORTA A9F74316 SCHNEİDER 16A"
+        },
+        {
+          "kod": "10 04538",
+          "ad": "EMNİYET RÖLESİ G9SPN20S OMRON G9SX"
+        },
+        {
+          "kod": "10 04903",
+          "ad": "GÜÇ KAYNAĞI LRS 350/24 24VDC 14,6AMP"
+        },
+        {
+          "kod": "10 05803",
+          "ad": "İNVERTÖR VFD75E43A 7,5KW"
+        },
+        {
+          "kod": "10 10820",
+          "ad": "YARDIMCI KONTAK 1NA/1NK A9A26924 IOF"
+        },
+        {
+          "kod": "10 16119",
+          "ad": "SİGORTA A9F74340 SCHNEİDER 40A"
+        },
+        {
+          "kod": "10 16235",
+          "ad": "SWITCH BS1022 ANI HARK.1NA+1NK"
+        },
+        {
+          "kod": "10 16319",
+          "ad": "İNVERTÖR VFD004EL21W-1 0,4KW"
+        },
+        {
+          "kod": "10 16496",
+          "ad": "OMRON NB7W-TW01B"
+        },
+        {
+          "kod": "10 17183",
+          "ad": "PLC EK MODÜL OMRON CP1WTS002"
+        },
+        {
+          "kod": "10 17184",
+          "ad": "PLC EK MODÜL OMRON CP1WADB21"
+        },
+        {
+          "kod": "10 17185",
+          "ad": "PLC EK MODÜL CPU OMRON CP2EN60DT1"
+        }
+      ]
+    }
+  }
+}

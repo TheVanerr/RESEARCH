@@ -60,6 +60,7 @@ FOTO_AILELERI = [
     (r"^NOZZLE ", "07 00253"),               # 1/4" yassı huzme nozzle
     (r"^TERMOKUPU?L ETB30F06", "10 01343"),
     (r"^ÖN FİLTRE ", "07 10214"),            # paslanmaz sepet ön filtre (çizim)   # Enda ETB30F06 (kablo boyu farklı)
+    (r"^EMİŞ FİLTRESİ ", "07 00670"),        # delikli paslanmaz pompa emiş filtresi (PYM 1 / PYM 2 aynı görünüm)
 ]
 
 

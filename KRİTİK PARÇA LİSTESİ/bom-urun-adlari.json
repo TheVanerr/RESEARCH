@@ -1,0 +1,1525 @@
+{
+  "_yorum": "BOM sayfası 'Ürün tam adı' sütunu: stok kodu -> {tr, en, de}. Stok adı (ERP) değişmez; tam ad seçili dilde gösterilir. Boş bırakılan ürünler sayfada '—' görünür.",
+  "adlar": {
+    "07 16791": {
+      "tr": "VEGA VEGASWING 51 titreşimli çatal seviye şalteri, dişli bağlantı",
+      "en": "VEGA VEGASWING 51 vibrating fork level switch, threaded",
+      "de": "VEGA VEGASWING 51 Vibrationsgrenzschalter, Einschraubversion"
+    },
+    "10 00241": {
+      "tr": "Telemecanique XUK1ARCNL2 reflektörlü fotoelektrik sensör",
+      "en": "Telemecanique XUK1ARCNL2 retro-reflective photoelectric sensor",
+      "de": "Telemecanique XUK1ARCNL2 Reflexionslichtschranke"
+    },
+    "10 00242": {
+      "tr": "Telemecanique XUZC50 reflektör, 50×50 mm",
+      "en": "Telemecanique XUZC50 reflector, 50×50 mm",
+      "de": "Telemecanique XUZC50 Reflektor, 50×50 mm"
+    },
+    "10 00243": {
+      "tr": "Schneider TeSys LR2K0305 termik aşırı akım rölesi, 0,54–0,8 A",
+      "en": "Schneider TeSys LR2K0305 thermal overload relay, 0.54–0.8 A",
+      "de": "Schneider TeSys LR2K0305 thermisches Überlastrelais, 0,54–0,8 A"
+    },
+    "10 00245": {
+      "tr": "Schneider TeSys LR2K0307 termik aşırı akım rölesi, 1,2–1,8 A",
+      "en": "Schneider TeSys LR2K0307 thermal overload relay, 1.2–1.8 A",
+      "de": "Schneider TeSys LR2K0307 thermisches Überlastrelais, 1,2–1,8 A"
+    },
+    "10 00247": {
+      "tr": "Schneider TeSys LR2K0310 termik aşırı akım rölesi, 2,6–3,7 A",
+      "en": "Schneider TeSys LR2K0310 thermal overload relay, 2.6–3.7 A",
+      "de": "Schneider TeSys LR2K0310 thermisches Überlastrelais, 2,6–3,7 A"
+    },
+    "10 00248": {
+      "tr": "Schneider TeSys LR2K0312 termik aşırı akım rölesi, 3,7–5,5 A",
+      "en": "Schneider TeSys LR2K0312 thermal overload relay, 3.7–5.5 A",
+      "de": "Schneider TeSys LR2K0312 thermisches Überlastrelais, 3,7–5,5 A"
+    },
+    "10 02314": {
+      "tr": "Schneider TeSys K LC1K0610M7 kontaktör, 6 A, bobin 220 V AC",
+      "en": "Schneider TeSys K LC1K0610M7 contactor, 6 A, 220 V AC coil",
+      "de": "Schneider TeSys K LC1K0610M7 Schütz, 6 A, Spule 220 V AC"
+    },
+    "10 01331": {
+      "tr": "Schneider TeSys K LC1K0910M7 kontaktör, 9 A, bobin 220 V AC",
+      "en": "Schneider TeSys K LC1K0910M7 contactor, 9 A, 220 V AC coil",
+      "de": "Schneider TeSys K LC1K0910M7 Schütz, 9 A, Spule 220 V AC"
+    },
+    "10 01332": {
+      "tr": "Schneider TeSys K LC1K1610M7 kontaktör, 16 A, bobin 220 V AC",
+      "en": "Schneider TeSys K LC1K1610M7 contactor, 16 A, 220 V AC coil",
+      "de": "Schneider TeSys K LC1K1610M7 Schütz, 16 A, Spule 220 V AC"
+    },
+    "10 00240": {
+      "tr": "Schneider TeSys K LA1KN31 yardımcı kontak bloğu, 3NO+1NC",
+      "en": "Schneider TeSys K LA1KN31 auxiliary contact block, 3NO+1NC",
+      "de": "Schneider TeSys K LA1KN31 Hilfsschalterblock, 3S+1Ö"
+    },
+    "10 02306": {
+      "tr": "Schneider Zelio RSZE1S48M röle soketi, 8 pinli (RSB serisi)",
+      "en": "Schneider Zelio RSZE1S48M relay socket, 8-pin (RSB series)",
+      "de": "Schneider Zelio RSZE1S48M Relaissockel, 8-polig (Serie RSB)"
+    },
+    "10 01337": {
+      "tr": "Schneider Zelio RSB2A080P7 minyatür röle, 2 C/O, 8 A, bobin 230 V AC",
+      "en": "Schneider Zelio RSB2A080P7 miniature relay, 2 C/O, 8 A, 230 V AC coil",
+      "de": "Schneider Zelio RSB2A080P7 Miniaturrelais, 2 Wechsler, 8 A, Spule 230 V AC"
+    },
+    "10 03336": {
+      "tr": "Omron D4NL-4AFA-B kilitli emniyet kapı şalteri (interlock)",
+      "en": "Omron D4NL-4AFA-B guard-locking safety door switch (interlock)",
+      "de": "Omron D4NL-4AFA-B Sicherheits-Türschalter mit Zuhaltung"
+    },
+    "10 00267": {
+      "tr": "Emas B1 kontak bloğu, 1NO",
+      "en": "Emas B1 contact block, 1NO",
+      "de": "Emas B1 Kontaktelement, 1S"
+    },
+    "10 00268": {
+      "tr": "Emas B2 kontak bloğu, 1NC",
+      "en": "Emas B2 contact block, 1NC",
+      "de": "Emas B2 Kontaktelement, 1Ö"
+    },
+    "10 03262": {
+      "tr": "Emas L5K13MEP123 sınır şalteri, ayarlı plastik makaralı kol, ani hareketli, 1NO+1NC",
+      "en": "Emas L5K13MEP123 limit switch, adjustable plastic roller lever, snap action, 1NO+1NC",
+      "de": "Emas L5K13MEP123 Positionsschalter, einstellbarer Kunststoff-Rollenhebel, Sprungkontakt, 1S+1Ö"
+    },
+    "10 00261": {
+      "tr": "Emas L5K13MUM331 sınır şalteri, plastik gövde, 1NO+1NC",
+      "en": "Emas L5K13MUM331 limit switch, plastic body, 1NO+1NC",
+      "de": "Emas L5K13MUM331 Positionsschalter, Kunststoffgehäuse, 1S+1Ö"
+    },
+    "10 00260": {
+      "tr": "Emas L5K27MUM331 sınır şalteri, plastik gövde, 2NO+1NC",
+      "en": "Emas L5K27MUM331 limit switch, plastic body, 2NO+1NC",
+      "de": "Emas L5K27MUM331 Positionsschalter, Kunststoffgehäuse, 2S+1Ö"
+    },
+    "10 05035": {
+      "tr": "Emas LK20K27 sınır şalteri yedek kontak bloğu, 1NC+2NO",
+      "en": "Emas LK20K27 spare contact block for limit switch, 1NC+2NO",
+      "de": "Emas LK20K27 Ersatzkontaktblock für Positionsschalter, 1Ö+2S"
+    },
+    "10 02780": {
+      "tr": "Emas S222S sinyal lambası, sarı, 22 mm, 230 V AC",
+      "en": "Emas S222S indicator lamp, yellow, 22 mm, 230 V AC",
+      "de": "Emas S222S Meldeleuchte, gelb, 22 mm, 230 V AC"
+    },
+    "10 03206": {
+      "tr": "Emas IK53F024XM03 flaşlı LED tepe lambası (kolon), 24 V",
+      "en": "Emas IK53F024XM03 flashing LED signal tower, 24 V",
+      "de": "Emas IK53F024XM03 LED-Signalsäule mit Blinklicht, 24 V"
+    },
+    "10 00307": {
+      "tr": "Bemis 32 A 5P (3P+N+E) IP44 CEE enversör düz fiş",
+      "en": "Bemis 32 A 5P (3P+N+E) IP44 CEE phase-inverter plug",
+      "de": "Bemis 32 A 5P (3P+N+E) IP44 CEE-Stecker mit Phasenwender"
+    },
+    "10 00308": {
+      "tr": "Bemis 32 A 5P (3P+N+E) IP44 CEE 90° eğik duvar prizi",
+      "en": "Bemis 32 A 5P (3P+N+E) IP44 CEE 90° angled wall socket",
+      "de": "Bemis 32 A 5P (3P+N+E) IP44 CEE-Wandsteckdose, 90° geneigt"
+    },
+    "10 00309": {
+      "tr": "CEE düz fiş, 63 A, 5 kutuplu (3P+N+E), IP44",
+      "en": "CEE plug, 63 A, 5-pole (3P+N+E), IP44",
+      "de": "CEE-Stecker, 63 A, 5-polig (3P+N+E), IP44"
+    },
+    "10 00310": {
+      "tr": "CEE duvar prizi, 63 A, 5 kutuplu (3P+N+E), IP44",
+      "en": "CEE wall socket, 63 A, 5-pole (3P+N+E), IP44",
+      "de": "CEE-Wandsteckdose, 63 A, 5-polig (3P+N+E), IP44"
+    },
+    "10 00694 10": {
+      "tr": "Goulds (Xylem) e-SH ESHE 32-160/22 paslanmaz santrifüj pompa, 2,2 kW, 380 V 50 Hz",
+      "en": "Goulds (Xylem) e-SH ESHE 32-160/22 stainless end-suction pump, 2.2 kW, 380 V 50 Hz",
+      "de": "Goulds (Xylem) e-SH ESHE 32-160/22 Edelstahl-Normpumpe, 2,2 kW, 380 V 50 Hz"
+    },
+    "10 00694 11": {
+      "tr": "Goulds (Xylem) e-SH ESHE 32-200/30 paslanmaz santrifüj pompa, 3 kW, 380 V 50 Hz",
+      "en": "Goulds (Xylem) e-SH ESHE 32-200/30 stainless end-suction pump, 3 kW, 380 V 50 Hz",
+      "de": "Goulds (Xylem) e-SH ESHE 32-200/30 Edelstahl-Normpumpe, 3 kW, 380 V 50 Hz"
+    },
+    "10 00694 12": {
+      "tr": "Goulds (Xylem) e-SH ESHE 32-200/40 paslanmaz santrifüj pompa, 4 kW, 380 V 50 Hz",
+      "en": "Goulds (Xylem) e-SH ESHE 32-200/40 stainless end-suction pump, 4 kW, 380 V 50 Hz",
+      "de": "Goulds (Xylem) e-SH ESHE 32-200/40 Edelstahl-Normpumpe, 4 kW, 380 V 50 Hz"
+    },
+    "10 06364": {
+      "tr": "Goulds (Xylem) GCEA 370/1 paslanmaz dişli bağlantılı santrifüj pompa, 380 V 50 Hz",
+      "en": "Goulds (Xylem) GCEA 370/1 stainless threaded centrifugal pump, 380 V 50 Hz",
+      "de": "Goulds (Xylem) GCEA 370/1 Edelstahl-Kreiselpumpe mit Gewindeanschluss, 380 V 50 Hz"
+    },
+    "10 08525": {
+      "tr": "Goulds (Xylem) GCEA 370/2 paslanmaz dişli bağlantılı santrifüj pompa, 380 V 50 Hz",
+      "en": "Goulds (Xylem) GCEA 370/2 stainless threaded centrifugal pump, 380 V 50 Hz",
+      "de": "Goulds (Xylem) GCEA 370/2 Edelstahl-Kreiselpumpe mit Gewindeanschluss, 380 V 50 Hz"
+    },
+    "10 06316": {
+      "tr": "Goulds (Xylem) GCEA 370/3 paslanmaz dişli bağlantılı santrifüj pompa, 380 V 50 Hz",
+      "en": "Goulds (Xylem) GCEA 370/3 stainless threaded centrifugal pump, 380 V 50 Hz",
+      "de": "Goulds (Xylem) GCEA 370/3 Edelstahl-Kreiselpumpe mit Gewindeanschluss, 380 V 50 Hz"
+    },
+    "10 17118": {
+      "tr": "Water Sound WS1019 BB300/150 komple paslanmaz kapalı fanlı santrifüj pompa, 2 HP, 380 V 50 Hz",
+      "en": "Water Sound WS1019 BB300/150 all-stainless closed-impeller centrifugal pump, 2 HP, 380 V 50 Hz",
+      "de": "Water Sound WS1019 BB300/150 Volledelstahl-Kreiselpumpe mit geschlossenem Laufrad, 2 PS, 380 V 50 Hz"
+    },
+    "10 17119": {
+      "tr": "Water Sound WS1020 BB500/220 komple paslanmaz kapalı fanlı santrifüj pompa, 3 HP, 380 V 50 Hz",
+      "en": "Water Sound WS1020 BB500/220 all-stainless closed-impeller centrifugal pump, 3 HP, 380 V 50 Hz",
+      "de": "Water Sound WS1020 BB500/220 Volledelstahl-Kreiselpumpe mit geschlossenem Laufrad, 3 PS, 380 V 50 Hz"
+    },
+    "10 02818": {
+      "tr": "Atlantis Blu KAF 300T/304 paslanmaz kapalı fanlı santrifüj pompa, 3 HP, 380 V 50 Hz",
+      "en": "Atlantis Blu KAF 300T/304 stainless closed-impeller centrifugal pump, 3 HP, 380 V 50 Hz",
+      "de": "Atlantis Blu KAF 300T/304 Edelstahl-Kreiselpumpe mit geschlossenem Laufrad, 3 PS, 380 V 50 Hz"
+    },
+    "10 17117": {
+      "tr": "Atlantis Blu KAF 150T paslanmaz kapalı fanlı santrifüj pompa, trifaze",
+      "en": "Atlantis Blu KAF 150T stainless closed-impeller centrifugal pump, three-phase",
+      "de": "Atlantis Blu KAF 150T Edelstahl-Kreiselpumpe mit geschlossenem Laufrad, Drehstrom"
+    },
+    "10 17125": {
+      "tr": "Atlantis Blu KAF 200T/304 paslanmaz kapalı fanlı santrifüj pompa, 380 V 50 Hz",
+      "en": "Atlantis Blu KAF 200T/304 stainless closed-impeller centrifugal pump, 380 V 50 Hz",
+      "de": "Atlantis Blu KAF 200T/304 Edelstahl-Kreiselpumpe mit geschlossenem Laufrad, 380 V 50 Hz"
+    },
+    "10 17115": {
+      "tr": "Atlantis Blu CA 65-40/7,5T flanşlı paslanmaz santrifüj pompa, 7,5 HP, trifaze",
+      "en": "Atlantis Blu CA 65-40/7.5T flanged stainless centrifugal pump, 7.5 HP, three-phase",
+      "de": "Atlantis Blu CA 65-40/7,5T Edelstahl-Kreiselpumpe mit Flanschanschluss, 7,5 PS, Drehstrom"
+    },
+    "10 18815": {
+      "tr": "Dosatron D25RE5 AF oransal dozaj pompası, %1–5, 2,5 m³/h",
+      "en": "Dosatron D25RE5 AF proportional dosing pump, 1–5 %, 2.5 m³/h",
+      "de": "Dosatron D25RE5 AF Proportional-Dosierpumpe, 1–5 %, 2,5 m³/h"
+    },
+    "10 18816": {
+      "tr": "Theben SELEKTA 174 top3 astronomik dijital zaman saati, haftalık program, DIN ray",
+      "en": "Theben SELEKTA 174 top3 astronomical digital time switch, weekly program, DIN rail",
+      "de": "Theben SELEKTA 174 top3 Astro-Zeitschaltuhr mit Wochenprogramm, Hutschiene"
+    },
+    "10 13821": {
+      "tr": "Filtermist S200 yağ buharı toplama ünitesi (fan)",
+      "en": "Filtermist S200 oil mist collector (fan unit)",
+      "de": "Filtermist S200 Ölnebelabscheider (Lüftereinheit)"
+    },
+    "10 01343": {
+      "tr": "Enda ETB30F06-2 J tipi (Fe-Konst) termokupl, Ø6×30 mm, M12, 2 m kablo",
+      "en": "Enda ETB30F06-2 type J (Fe-CuNi) thermocouple, Ø6×30 mm, M12, 2 m cable",
+      "de": "Enda ETB30F06-2 Thermoelement Typ J (Fe-CuNi), Ø6×30 mm, M12, 2 m Kabel"
+    },
+    "10 02634": {
+      "tr": "Enda ETB30F06-4 J tipi (Fe-Konst) termokupl, Ø6×30 mm, M12, 4 m kablo",
+      "en": "Enda ETB30F06-4 type J (Fe-CuNi) thermocouple, Ø6×30 mm, M12, 4 m cable",
+      "de": "Enda ETB30F06-4 Thermoelement Typ J (Fe-CuNi), Ø6×30 mm, M12, 4 m Kabel"
+    },
+    "10 02976": {
+      "tr": "Enda ETB30F06-5 J tipi (Fe-Konst) termokupl, Ø6×30 mm, M12, 5 m kablo",
+      "en": "Enda ETB30F06-5 type J (Fe-CuNi) thermocouple, Ø6×30 mm, M12, 5 m cable",
+      "de": "Enda ETB30F06-5 Thermoelement Typ J (Fe-CuNi), Ø6×30 mm, M12, 5 m Kabel"
+    },
+    "10 01384": {
+      "tr": "Panasonic APF30324 ince (slim) röle, soketli, 1 C/O, 24 V DC",
+      "en": "Panasonic APF30324 slim relay with socket, 1 C/O, 24 V DC",
+      "de": "Panasonic APF30324 Koppelrelais mit Sockel, 1 Wechsler, 24 V DC"
+    },
+    "10 04814": {
+      "tr": "Airtac 3V210-08-NC 3/2 normalde kapalı solenoid valf, 1/4\", 24 V DC",
+      "en": "Airtac 3V210-08-NC 3/2 normally closed solenoid valve, 1/4\", 24 V DC",
+      "de": "Airtac 3V210-08-NC 3/2-Wege-Magnetventil, stromlos geschlossen, 1/4\", 24 V DC"
+    },
+    "10 07492": {
+      "tr": "Airtac 4V220-08 5/2 çift bobinli solenoid valf, 1/4\", 24 V DC",
+      "en": "Airtac 4V220-08 5/2 double solenoid valve, 1/4\", 24 V DC",
+      "de": "Airtac 4V220-08 5/2-Wege-Magnetventil, beidseitig betätigt, 1/4\", 24 V DC"
+    },
+    "10 05243": {
+      "tr": "Airtac CS1-E (CS1E020) pnömatik silindir konum sensörü (reed)",
+      "en": "Airtac CS1-E (CS1E020) pneumatic cylinder reed position sensor",
+      "de": "Airtac CS1-E (CS1E020) Reed-Zylinderschalter"
+    },
+    "10 16720": {
+      "tr": "Panasonic SF4D-H48 emniyet ışık perdesi, 48 ışın, 95 cm koruma yüksekliği",
+      "en": "Panasonic SF4D-H48 safety light curtain, 48 beams, 95 cm protective height",
+      "de": "Panasonic SF4D-H48 Sicherheitslichtvorhang, 48 Strahlen, 95 cm Schutzfeldhöhe"
+    },
+    "10 02006": {
+      "tr": "Lechler 632.804.16.CC yassı huzme nozzle (632 serisi)",
+      "en": "Lechler 632.804.16.CC flat fan nozzle (series 632)",
+      "de": "Lechler 632.804.16.CC Flachstrahldüse (Serie 632)"
+    },
+    "10 01079": {
+      "tr": "Lechler 650.724.1C.CC yassı huzme nozzle (650 serisi)",
+      "en": "Lechler 650.724.1C.CC flat fan nozzle (series 650)",
+      "de": "Lechler 650.724.1C.CC Flachstrahldüse (Serie 650)"
+    },
+    "10 01017": {
+      "tr": "Sabit bilyalı rulman 6004-2RS, 20×42×12 mm (ORS)",
+      "en": "Deep groove ball bearing 6004-2RS, 20×42×12 mm (ORS)",
+      "de": "Rillenkugellager 6004-2RS, 20×42×12 mm (ORS)"
+    },
+    "10 02128": {
+      "tr": "Makaralı zincir 08B-1, 1/2\" (DIN 8187)",
+      "en": "Roller chain 08B-1, 1/2\" (DIN 8187)",
+      "de": "Rollenkette 08B-1, 1/2\" (DIN 8187)"
+    },
+    "10 02129": {
+      "tr": "Makaralı zincir 08B-1 ek baklası (kilit)",
+      "en": "Connecting link for roller chain 08B-1",
+      "de": "Verbindungsglied für Rollenkette 08B-1"
+    },
+    "10 03994": {
+      "tr": "Makaralı zincir 16B-1, 1\" (DIN 8187)",
+      "en": "Roller chain 16B-1, 1\" (DIN 8187)",
+      "de": "Rollenkette 16B-1, 1\" (DIN 8187)"
+    },
+    "10 07177": {
+      "tr": "Makaralı zincir 16B-1 ek baklası (kilit)",
+      "en": "Connecting link for roller chain 16B-1",
+      "de": "Verbindungsglied für Rollenkette 16B-1"
+    },
+    "10 01038": {
+      "tr": "Daldırma tipi rezistans elemanı, 220 V, 8250 W, 2\" bağlantı, M tipi, 162 cm, dikişsiz paslanmaz boru",
+      "en": "Immersion heating element, 220 V, 8250 W, 2\" connection, M-type, 162 cm, seamless stainless tube",
+      "de": "Einschraubheizkörper, 220 V, 8250 W, 2\"-Anschluss, M-Form, 162 cm, nahtloses Edelstahlrohr"
+    },
+    "10 07455": {
+      "tr": "Serpantin rezistans, 220 V, 2000 W, 112 cm, dikişsiz AISI 316 paslanmaz boru",
+      "en": "Serpentine heating element, 220 V, 2000 W, 112 cm, seamless AISI 316 stainless tube",
+      "de": "Rohrheizkörper (Serpentine), 220 V, 2000 W, 112 cm, nahtloses Edelstahlrohr AISI 316"
+    },
+    "10 00262": {
+      "tr": "Emas B100S20 seçici şalter (mandallı buton), B serisi plastik, 22 mm, 2 konumlu (0-I) 60° kalıcı, 1NO",
+      "en": "Emas B100S20 selector switch, B series plastic, 22 mm, 2-position (0-I) 60° stay-put, 1NO",
+      "de": "Emas B100S20 Wahlschalter, B-Serie Kunststoff, 22 mm, 2 Stellungen (0-I) 60° rastend, 1S"
+    },
+    "10 00273": {
+      "tr": "Emas B100DY start butonu, B serisi plastik, 22 mm, yaylı, düz, yeşil, 1NO",
+      "en": "Emas B100DY start push button, B series plastic, 22 mm, spring-return, flush, green, 1NO",
+      "de": "Emas B100DY Start-Drucktaster, B-Serie Kunststoff, 22 mm, tastend, flach, grün, 1S"
+    },
+    "10 01387": {
+      "tr": "ENDA ATP4-UV-S08-60 çok fonksiyonlu analog zaman rölesi, 48x48 mm, 8 pinli soket, 90-250 V AC, 0-60 skala, 2 röle çıkışı",
+      "en": "ENDA ATP4-UV-S08-60 multi-function analog timer, 48x48 mm, 8-pin octal, 90-250 V AC, 0-60 scale, 2 relay outputs",
+      "de": "ENDA ATP4-UV-S08-60 Multifunktions-Analogzeitrelais, 48x48 mm, 8-polig Oktal, 90-250 V AC, Skala 0-60, 2 Relaisausgänge"
+    },
+    "10 01394": {
+      "tr": "Emas RS1P08G1 güç rölesi soketi, RS1 serisi, 8 pin, 10 A, plug-in, IP40, MS70 ray tipi, gri",
+      "en": "Emas RS1P08G1 power relay socket, RS1 series, 8-pin, 10 A, plug-in, IP40, MS70 DIN-rail type, grey",
+      "de": "Emas RS1P08G1 Relaissockel, RS1-Serie, 8-polig, 10 A, steckbar, IP40, MS70 Hutschiene, grau"
+    },
+    "10 00543": {
+      "tr": "Pirinç gövdeli küresel vana, 1/2\", galvanizli",
+      "en": "Brass ball valve, 1/2\", galvanized",
+      "de": "Messing-Kugelhahn, 1/2\", verzinkt"
+    },
+    "10 00544": {
+      "tr": "Pirinç gövdeli küresel vana, 3/4\"",
+      "en": "Brass ball valve, 3/4\"",
+      "de": "Messing-Kugelhahn, 3/4\""
+    },
+    "10 00552": {
+      "tr": "Pirinç gövdeli küresel vana, 2\"",
+      "en": "Brass ball valve, 2\"",
+      "de": "Messing-Kugelhahn, 2\""
+    },
+    "10 00470": {
+      "tr": "Sinter bronz pnömatik susturucu (taş filtre), 1/4\"",
+      "en": "Sintered bronze pneumatic silencer (exhaust filter), 1/4\"",
+      "de": "Sinterbronze-Schalldämpfer (Pneumatik), 1/4\""
+    },
+    "10 02526": {
+      "tr": "Radyal mil keçesi (yağ keçesi), 20×42×7 mm",
+      "en": "Radial shaft seal (oil seal), 20×42×7 mm",
+      "de": "Radial-Wellendichtring, 20×42×7 mm"
+    },
+    "10 05378": {
+      "tr": "Torba filtre, 200 mikron, 50 cm, paslanmaz tel çember",
+      "en": "Filter bag, 200 µm, 50 cm, stainless steel wire ring",
+      "de": "Filterbeutel, 200 µm, 50 cm, Edelstahl-Drahtring"
+    },
+    "10 00296": {
+      "tr": "Paslanmaz çelik şamandıralı seviye şalteri (seviye bekçisi)",
+      "en": "Stainless steel float level switch",
+      "de": "Edelstahl-Schwimmerschalter (Niveauschalter)"
+    },
+    "07 16328": {
+      "tr": "ERF Group ERF-2 (160-70) alüminyum döküm gövdeli salyangoz (radyal) fan, 0,37 kW, 2900 d/d, silikon contalı",
+      "en": "ERF Group ERF-2 (160-70) cast-aluminium scroll-housing centrifugal fan, 0.37 kW, 2900 rpm, silicone-sealed",
+      "de": "ERF Group ERF-2 (160-70) Radialventilator mit Aluminiumdruckguss-Spiralgehäuse, 0,37 kW, 2900 1/min, silikongedichtet"
+    },
+    "07 16099": {
+      "tr": "ERF Group ERF-1 (140-70) alüminyum döküm gövdeli salyangoz (radyal) fan, 0,25 kW, 2900 d/d, hava soğutmalı, silikon contalı",
+      "en": "ERF Group ERF-1 (140-70) cast-aluminium scroll-housing centrifugal fan, 0.25 kW, 2900 rpm, air-cooled, silicone-sealed",
+      "de": "ERF Group ERF-1 (140-70) Radialventilator mit Aluminiumdruckguss-Spiralgehäuse, 0,25 kW, 2900 1/min, luftgekühlt, silikongedichtet"
+    },
+    "10 00586": {
+      "tr": "Redüktör motoru, 3 fazlı asenkron, 0,09 kW, 4 kutuplu (1500 d/d), B14 flanşlı (yağ sıyırıcı tahriki)",
+      "en": "Gear motor, three-phase induction, 0.09 kW, 4-pole (1500 rpm), B14 face flange (oil skimmer drive)",
+      "de": "Getriebemotor, Drehstrom-Asynchron, 0,09 kW, 4-polig (1500 1/min), B14-Flansch (Ölskimmer-Antrieb)"
+    },
+    "10 01002": {
+      "tr": "Yılmaz Redüktör EN 30 sonsuz vidalı (sonsuz dişli) redüktör, motorsuz, i=80, B05 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 30 worm gearbox, without motor, ratio i=80, B05 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 30 Schneckengetriebe, ohne Motor, Übersetzung i=80, Motoranbau B05 (IEC-Flansch)"
+    },
+    "10 17121": {
+      "tr": "Uçtan emişli santrifüj pompa HMSE 40-200/75",
+      "en": "End-suction centrifugal pump HMSE 40-200/75",
+      "de": "Normsaug-Kreiselpumpe HMSE 40-200/75"
+    },
+    "10 00004": {
+      "tr": "Gazlı amortisör (gaz yayı), 1000 N",
+      "en": "Gas spring (gas strut), 1000 N",
+      "de": "Gasdruckfeder, 1000 N"
+    },
+    "10 01202": {
+      "tr": "Gazlı amortisör (gaz yayı), 1400 N",
+      "en": "Gas spring (gas strut), 1400 N",
+      "de": "Gasdruckfeder, 1400 N"
+    },
+    "10 11779": {
+      "tr": "Gazlı amortisör (gaz yayı), 350 N",
+      "en": "Gas spring (gas strut), 350 N",
+      "de": "Gasdruckfeder, 350 N"
+    },
+    "10 12433": {
+      "tr": "Gazlı amortisör (gaz yayı), 175 N",
+      "en": "Gas spring (gas strut), 175 N",
+      "de": "Gasdruckfeder, 175 N"
+    },
+    "10 01004": {
+      "tr": "Yılmaz Redüktör EN 40 sonsuz vidalı redüktör, motorsuz, i=16, B06 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 40 worm gearbox, without motor, ratio i=16, B06 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 40 Schneckengetriebe, ohne Motor, Übersetzung i=16, Motoranbau B06 (IEC-Flansch)"
+    },
+    "10 01007": {
+      "tr": "Yılmaz Redüktör EN 40 sonsuz vidalı redüktör, motorsuz, i=12, B06 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 40 worm gearbox, without motor, ratio i=12, B06 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 40 Schneckengetriebe, ohne Motor, Übersetzung i=12, Motoranbau B06 (IEC-Flansch)"
+    },
+    "10 00588": {
+      "tr": "Redüktör motoru, 3 fazlı asenkron, 0,18 kW, 4 kutuplu (1500 d/d), B34 montajlı",
+      "en": "Gear motor, three-phase induction, 0.18 kW, 4-pole (1500 rpm), B34 mounting",
+      "de": "Getriebemotor, Drehstrom-Asynchron, 0,18 kW, 4-polig (1500 1/min), Bauform B34"
+    },
+    "10 00244": {
+      "tr": "Schneider TeSys LR2K0306 termik aşırı akım rölesi, 0,8–1,2 A",
+      "en": "Schneider TeSys LR2K0306 thermal overload relay, 0.8–1.2 A",
+      "de": "Schneider TeSys LR2K0306 thermisches Überlastrelais, 0,8–1,2 A"
+    },
+    "10 00246": {
+      "tr": "Schneider TeSys LR2K0308 termik aşırı akım rölesi, 1,8–2,6 A",
+      "en": "Schneider TeSys LR2K0308 thermal overload relay, 1.8–2.6 A",
+      "de": "Schneider TeSys LR2K0308 thermisches Überlastrelais, 1,8–2,6 A"
+    },
+    "10 18529": {
+      "tr": "Gazlı amortisör (gaz yayı), 430 N",
+      "en": "Gas spring (gas strut), 430 N",
+      "de": "Gasdruckfeder, 430 N"
+    },
+    "10 00238": {
+      "tr": "Schneider LA1KN20 TeSys K yardımcı kontak bloğu, 2NO (2 NA), vida kelepçeli terminaller",
+      "en": "Schneider LA1KN20 TeSys K auxiliary contact block, 2NO, screw-clamp terminals",
+      "de": "Schneider LA1KN20 TeSys K Hilfsschalterblock, 2S, Schraubklemmen"
+    },
+    "10 00263": {
+      "tr": "Emas B100SL20Y seçici anahtar, B serisi plastik, 22 mm, ışıklı, kalıcı (mandallı), 0-I 60°, yeşil, 1NO",
+      "en": "Emas B100SL20Y selector switch, B series plastic, 22 mm, illuminated, stay-put (maintained), 0-I 60°, green, 1NO",
+      "de": "Emas B100SL20Y Wahlschalter, B-Serie Kunststoff, 22 mm, beleuchtet, rastend, 0-I 60°, grün, 1S"
+    },
+    "10 00266": {
+      "tr": "Emas B102K20KY ikiz (çiftli) buton, B serisi plastik, 22 mm, düz, kırmızı-yeşil, ortada lamba camlı, 1NO+1NC",
+      "en": "Emas B102K20KY twin (double) push button, B series plastic, 22 mm, flush, red-green, with centre lamp lens, 1NO+1NC",
+      "de": "Emas B102K20KY Doppeldrucktaster, B-Serie Kunststoff, 22 mm, flach, rot-grün, mit Leuchtfeld in der Mitte, 1S+1Ö"
+    },
+    "10 00274": {
+      "tr": "Emas B serisi plastik sinyal lambası, 22 mm, LED'li, 100-230 V AC, beyaz",
+      "en": "Emas B series plastic pilot light, 22 mm, LED, 100-230 V AC, white",
+      "de": "Emas B-Serie Kunststoff Meldeleuchte, 22 mm, LED, 100-230 V AC, weiß"
+    },
+    "10 00276": {
+      "tr": "Emas B serisi plastik sinyal lambası, 22 mm, LED'li, 100-230 V AC, yeşil",
+      "en": "Emas B series plastic pilot light, 22 mm, LED, 100-230 V AC, green",
+      "de": "Emas B-Serie Kunststoff Meldeleuchte, 22 mm, LED, 100-230 V AC, grün"
+    },
+    "10 00275": {
+      "tr": "Emas B serisi plastik sinyal lambası, 22 mm, LED'li, 100-230 V AC, mavi",
+      "en": "Emas B series plastic pilot light, 22 mm, LED, 100-230 V AC, blue",
+      "de": "Emas B-Serie Kunststoff Meldeleuchte, 22 mm, LED, 100-230 V AC, blau"
+    },
+    "10 00285": {
+      "tr": "Opaş YKL301025 pako şalter, 3 kutuplu 3x25 A, 0-1 aç-kapa, kilitlenebilir, sarı-kırmızı, 66x66 mm",
+      "en": "Opaş YKL301025 rotary cam switch, 3-pole 3x25 A, 0-1 on-off, padlockable, yellow-red, 66x66 mm",
+      "de": "Opaş YKL301025 Nockenschalter, 3-polig 3x25 A, 0-1 Ein-Aus, abschließbar, gelb-rot, 66x66 mm"
+    },
+    "10 02663": {
+      "tr": "Schneider Acti9 iC60N A9F74425 otomatik sigorta (MCB), 4 kutuplu, 25 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74425 miniature circuit breaker, 4P, 25 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74425 Leitungsschutzschalter, 4-polig, 25 A, C-Charakteristik, 6 kA"
+    },
+    "10 00303": {
+      "tr": "Schneider Acti9 iID A9R41425 kaçak akım rölesi (RCCB), 4 kutuplu, 25 A, 30 mA, AC tipi",
+      "en": "Schneider Acti9 iID A9R41425 residual current circuit breaker (RCCB), 4P, 25 A, 30 mA, type AC",
+      "de": "Schneider Acti9 iID A9R41425 FI-Schutzschalter, 4-polig, 25 A, 30 mA, Typ AC"
+    },
+    "10 00302": {
+      "tr": "Schneider Acti9 iC60N A9F74103 otomatik sigorta (MCB), 1 kutuplu, 3 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74103 miniature circuit breaker, 1P, 3 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74103 Leitungsschutzschalter, 1-polig, 3 A, C-Charakteristik, 6 kA"
+    },
+    "10 00294": {
+      "tr": "Schneider Zelio RXM4AB1P7 minyatür röle, 4 CO, 6 A, 230 V AC bobin",
+      "en": "Schneider Zelio RXM4AB1P7 miniature plug-in relay, 4 CO, 6 A, 230 V AC coil",
+      "de": "Schneider Zelio RXM4AB1P7 Miniaturrelais, 4 Wechsler, 6 A, Spule 230 V AC"
+    },
+    "10 01398": {
+      "tr": "Schneider Zelio RXM4AB1BD minyatür röle, 4 CO, 6 A, 24 V DC bobin",
+      "en": "Schneider Zelio RXM4AB1BD miniature plug-in relay, 4 CO, 6 A, 24 V DC coil",
+      "de": "Schneider Zelio RXM4AB1BD Miniaturrelais, 4 Wechsler, 6 A, Spule 24 V DC"
+    },
+    "10 00295": {
+      "tr": "Schneider Zelio RXZE2M114M röle soketi, RXM2/RXM4 röleler için, karışık kontak, 250 V AC",
+      "en": "Schneider Zelio RXZE2M114M socket for RXM2/RXM4 relays, mixed contact, connector connection, 250 V AC",
+      "de": "Schneider Zelio RXZE2M114M Sockel für Relais RXM2/RXM4, gemischte Kontakte, 250 V AC"
+    },
+    "10 02491": {
+      "tr": "Mean Well MDR-20-24 DIN ray güç kaynağı, 20 W, 24 V DC, 1 A",
+      "en": "Mean Well MDR-20-24 DIN-rail power supply, 20 W, 24 V DC, 1 A",
+      "de": "Mean Well MDR-20-24 Hutschienen-Netzteil, 20 W, 24 V DC, 1 A"
+    },
+    "10 00237": {
+      "tr": "GEMO DT481 ON/OFF sıcaklık kontrol cihazı, dijital, 48x48 mm, J/K tipi termokupl girişli",
+      "en": "GEMO DT481 ON/OFF digital temperature controller, 48x48 mm, J/K thermocouple input",
+      "de": "GEMO DT481 digitaler Temperaturregler, Zweipunkt (EIN/AUS), 48x48 mm, Thermoelement-Eingang J/K"
+    },
+    "10 10465": {
+      "tr": "GEMO DZ482 dijital zaman rölesi, temel fonksiyonlu, START girişli, 48x48 mm",
+      "en": "GEMO DZ482 digital timer relay, basic functions, with START input, 48x48 mm",
+      "de": "GEMO DZ482 digitales Zeitrelais, Grundfunktionen, mit START-Eingang, 48x48 mm"
+    },
+    "10 00258": {
+      "tr": "ENTES MKS-03 motor (faz) koruma rölesi, faz yokluğu ve faz sırası, %40 sabit asimetri, 230 V AC, 8 A, DIN ray",
+      "en": "ENTES MKS-03 phase failure and phase sequence relay (motor protection), 40% fixed asymmetry, 230 V AC, 8 A, DIN rail",
+      "de": "ENTES MKS-03 Phasenausfall- und Phasenfolgerelais (Motorschutz), 40 % feste Asymmetrie, 230 V AC, 8 A, Hutschiene"
+    },
+    "10 00278": {
+      "tr": "Emas S serisi plastik sinyal lambası, 14 mm, 230 V AC, kırmızı, terminalli",
+      "en": "Emas S series plastic signal lamp, 14 mm, 230 V AC, red, tab terminals",
+      "de": "Emas S-Serie Kunststoff Meldeleuchte, 14 mm, 230 V AC, rot, Flachsteckanschluss"
+    },
+    "10 00279": {
+      "tr": "Emas S serisi plastik sinyal lambası, 14 mm, 230 V AC, beyaz/şeffaf",
+      "en": "Emas S series plastic signal lamp, 14 mm, 230 V AC, white/clear",
+      "de": "Emas S-Serie Kunststoff Meldeleuchte, 14 mm, 230 V AC, weiß/klar"
+    },
+    "10 03445": {
+      "tr": "Emas B200EE acil stop butonu, B serisi plastik, 22 mm, 40 mm mantar, çevirmeli, etiketli, kırmızı, 1NC",
+      "en": "Emas B200EE emergency stop push button, B series plastic, 22 mm, 40 mm mushroom, turn-to-release, with label, red, 1NC",
+      "de": "Emas B200EE Not-Halt-Taster, B-Serie Kunststoff, 22 mm, 40-mm-Pilzkopf, Drehentriegelung, mit Schild, rot, 1Ö"
+    },
+    "10 00270": {
+      "tr": "Emas B100DB start butonu, B serisi plastik, 22 mm, yaylı, düz, beyaz, 1NO",
+      "en": "Emas B100DB start push button, B series plastic, 22 mm, spring-return, flush, white, 1NO",
+      "de": "Emas B100DB Start-Drucktaster, B-Serie Kunststoff, 22 mm, tastend, flach, weiß, 1S"
+    },
+    "10 00272": {
+      "tr": "Emas B100DM start butonu, B serisi plastik, 22 mm, yaylı, düz, mavi, 1NO",
+      "en": "Emas B100DM start push button, B series plastic, 22 mm, spring-return, flush, blue, 1NO",
+      "de": "Emas B100DM Start-Drucktaster, B-Serie Kunststoff, 22 mm, tastend, flach, blau, 1S"
+    },
+    "10 18173": {
+      "tr": "ENA Fan Grup ENA-2 160_80 alüminyum döküm gövdeli salyangoz fan, 0,37 kW, 2800 d/d, 1600/1650 m³/h",
+      "en": "ENA Fan Grup ENA-2 160_80 cast-aluminium centrifugal scroll fan, 0.37 kW, 2800 rpm, 1600/1650 m³/h",
+      "de": "ENA Fan Grup ENA-2 160_80 Radialventilator mit Aluminiumdruckguss-Spiralgehäuse, 0,37 kW, 2800 1/min, 1600/1650 m³/h"
+    },
+    "07 17295": {
+      "tr": "ENA Fan Grup ENA-2 160_80 alüminyum döküm gövdeli salyangoz fan, 0,37 kW, 2800 d/d, 1600/1650 m³/h, hava soğutmalı, silikon contalı",
+      "en": "ENA Fan Grup ENA-2 160_80 cast-aluminium centrifugal scroll fan, 0.37 kW, 2800 rpm, 1600/1650 m³/h, air-cooled, silicone-sealed",
+      "de": "ENA Fan Grup ENA-2 160_80 Radialventilator mit Aluminiumdruckguss-Spiralgehäuse, 0,37 kW, 2800 1/min, 1600/1650 m³/h, luftgekühlt, silikongedichtet"
+    },
+    "10 02268": {
+      "tr": "Gazlı amortisör (gaz yayı), 1600 N",
+      "en": "Gas spring (gas strut), 1600 N",
+      "de": "Gasdruckfeder, 1600 N"
+    },
+    "10 00304": {
+      "tr": "Schneider Acti9 iID A9R41440 kaçak akım rölesi (RCCB), 4 kutuplu, 40 A, 30 mA, AC tipi",
+      "en": "Schneider Acti9 iID A9R41440 residual current circuit breaker (RCCB), 4-pole, 40 A, 30 mA, type AC",
+      "de": "Schneider Acti9 iID A9R41440 Fehlerstromschutzschalter (RCCB), 4-polig, 40 A, 30 mA, Typ AC"
+    },
+    "10 02664": {
+      "tr": "Schneider Acti9 iC60N A9F74440 otomatik sigorta (MCB), 4 kutuplu, 40 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74440 miniature circuit breaker (MCB), 4-pole, 40 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74440 Leitungsschutzschalter (MCB), 4-polig, 40 A, C-Charakteristik, 6 kA"
+    },
+    "10 00286": {
+      "tr": "Opaş YKL301M40 pako şalter, 3 kutuplu 3×40 A, 0-1 aç-kapa, küçük kasalı",
+      "en": "Opaş YKL301M40 rotary cam switch, 3-pole 3×40 A, 0-1 on-off, small housing",
+      "de": "Opaş YKL301M40 Nockenschalter, 3-polig 3×40 A, 0-1 Ein-Aus, kleines Gehäuse"
+    },
+    "10 00590": {
+      "tr": "Redüktör motoru, 3 fazlı asenkron, 0,37 kW, 4 kutuplu (1500 d/d)",
+      "en": "Gear motor, three-phase induction, 0.37 kW, 4-pole (1500 rpm)",
+      "de": "Getriebemotor, Drehstrom-Asynchron, 0,37 kW, 4-polig (1500 1/min)"
+    },
+    "10 01008": {
+      "tr": "Yılmaz Redüktör EN 40 sonsuz vidalı redüktör, motorsuz, i=12, B07 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 40 worm gearbox, without motor, ratio i=12, B07 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 40 Schneckengetriebe, ohne Motor, Übersetzung i=12, Motoranbau B07 (IEC-Flansch)"
+    },
+    "10 02246": {
+      "tr": "Pnömatik valf bobini, 220 V AC",
+      "en": "Pneumatic valve solenoid coil, 220 V AC",
+      "de": "Magnetspule für Pneumatikventil, 220 V AC"
+    },
+    "10 14003": {
+      "tr": "Hava tarağı (hava bıçağı) nozzle, 110 mm",
+      "en": "Air knife (air comb) nozzle, 110 mm",
+      "de": "Luftmesser-Düse (Luftkamm), 110 mm"
+    },
+    "07 06739": {
+      "tr": "Ördek ağzı hava bıçağı (blower çıkışı)",
+      "en": "Duck-bill air knife (blower outlet)",
+      "de": "Entenschnabel-Luftmesser (Gebläseauslass)"
+    },
+    "10 16858": {
+      "tr": "Pnomek DS1 A3 012 mekanik basınç şalteri, 1–12 bar, 1/4\"",
+      "en": "Pnomek DS1 A3 012 mechanical pressure switch, 1–12 bar, 1/4\"",
+      "de": "Pnomek DS1 A3 012 mechanischer Druckschalter, 1–12 bar, 1/4\""
+    },
+    "10 03433": {
+      "tr": "Ağır hizmet tipi çok kontaklı makina konnektörü, 5 kontaklı (4+PE), erkek",
+      "en": "Heavy-duty multi-pin machine connector, 5 contacts (4+PE), male",
+      "de": "Schwerer Industriesteckverbinder, 5-polig (4+PE), Stecker"
+    },
+    "10 08542": {
+      "tr": "Ağır hizmet tipi çok kontaklı makina konnektörü, 5 kontaklı (4+PE), dişi",
+      "en": "Heavy-duty multi-pin machine connector, 5 contacts (4+PE), female",
+      "de": "Schwerer Industriesteckverbinder, 5-polig (4+PE), Buchse"
+    },
+    "10 00229": {
+      "tr": "Ordel OC990-9/0240 dijital fırın kontrol cihazı, panel tipi",
+      "en": "Ordel OC990-9/0240 digital oven controller, panel mount",
+      "de": "Ordel OC990-9/0240 digitaler Ofenregler, Schalttafeleinbau"
+    },
+    "10 00249": {
+      "tr": "Schneider TeSys LR2K0314 termik aşırı akım rölesi, 5,5–8 A",
+      "en": "Schneider TeSys LR2K0314 thermal overload relay, 5.5–8 A",
+      "de": "Schneider TeSys LR2K0314 thermisches Überlastrelais, 5,5–8 A"
+    },
+    "10 00271": {
+      "tr": "Emas B100DK start butonu, B serisi plastik, 22 mm, yaylı, düz, kırmızı, 1NO",
+      "en": "Emas B100DK start push button, B series plastic, 22 mm, spring-return, flush, red, 1NO",
+      "de": "Emas B100DK Start-Drucktaster, B-Serie Kunststoff, 22 mm, tastend, flach, rot, 1S"
+    },
+    "10 00287": {
+      "tr": "Opaş YKL301M63 pako şalter, 3 kutuplu 3×63 A, 0-1 aç-kapa",
+      "en": "Opaş YKL301M63 rotary cam switch, 3-pole 3×63 A, 0-1 on-off",
+      "de": "Opaş YKL301M63 Nockenschalter, 3-polig 3×63 A, 0-1 Ein-Aus"
+    },
+    "10 00305": {
+      "tr": "Schneider Acti9 iID A9R41463 kaçak akım rölesi (RCCB), 4 kutuplu, 63 A, 30 mA, AC tipi",
+      "en": "Schneider Acti9 iID A9R41463 residual current circuit breaker (RCCB), 4-pole, 63 A, 30 mA, type AC",
+      "de": "Schneider Acti9 iID A9R41463 Fehlerstromschutzschalter (RCCB), 4-polig, 63 A, 30 mA, Typ AC"
+    },
+    "10 00545": {
+      "tr": "Pirinç gövdeli küresel vana, 1\", galvanizli",
+      "en": "Brass ball valve, 1\", galvanized",
+      "de": "Messing-Kugelhahn, 1\", verzinkt"
+    },
+    "10 00653": {
+      "tr": "O-ring, 3 mm kesit × 41 mm iç çap",
+      "en": "O-ring, 3 mm cross-section × 41 mm inner diameter",
+      "de": "O-Ring, Schnurstärke 3 mm × Innendurchmesser 41 mm"
+    },
+    "10 00695": {
+      "tr": "LEO AMS70/0.55 paslanmaz (AISI 304) santrifüj pompa, 0,55 kW, 380 V 50 Hz",
+      "en": "LEO AMS70/0.55 stainless steel (AISI 304) centrifugal pump, 0.55 kW, 380 V 50 Hz",
+      "de": "LEO AMS70/0.55 Edelstahl-Kreiselpumpe (AISI 304), 0,55 kW, 380 V 50 Hz"
+    },
+    "10 01329": {
+      "tr": "Schneider TeSys D LC1D25M7 kontaktör, 25 A, bobin 220 V AC",
+      "en": "Schneider TeSys D LC1D25M7 contactor, 25 A, 220 V AC coil",
+      "de": "Schneider TeSys D LC1D25M7 Schütz, 25 A, Spule 220 V AC"
+    },
+    "10 01362": {
+      "tr": "Schneider TeSys GV2ME10 motor koruma şalteri (termik-manyetik), 4–6,3 A",
+      "en": "Schneider TeSys GV2ME10 motor circuit breaker (thermal-magnetic), 4–6.3 A",
+      "de": "Schneider TeSys GV2ME10 Motorschutzschalter (thermisch-magnetisch), 4–6,3 A"
+    },
+    "10 01363": {
+      "tr": "Schneider TeSys GV2ME14 motor koruma şalteri (termik-manyetik), 6–10 A",
+      "en": "Schneider TeSys GV2ME14 motor circuit breaker (thermal-magnetic), 6–10 A",
+      "de": "Schneider TeSys GV2ME14 Motorschutzschalter (thermisch-magnetisch), 6–10 A"
+    },
+    "10 01365": {
+      "tr": "Schneider TeSys GVAE11 motor koruma şalteri yardımcı kontağı, önden montaj, 1NO+1NC",
+      "en": "Schneider TeSys GVAE11 auxiliary contact for motor circuit breaker, front mounted, 1NO+1NC",
+      "de": "Schneider TeSys GVAE11 Hilfsschalter für Motorschutzschalter, frontseitig, 1S+1Ö"
+    },
+    "10 01367": {
+      "tr": "Schneider TeSys GV2ME06 motor koruma şalteri (termik-manyetik), 1–1,6 A",
+      "en": "Schneider TeSys GV2ME06 motor circuit breaker (thermal-magnetic), 1–1.6 A",
+      "de": "Schneider TeSys GV2ME06 Motorschutzschalter (thermisch-magnetisch), 1–1,6 A"
+    },
+    "10 01368": {
+      "tr": "Schneider TeSys GV2ME04 motor koruma şalteri (termik-manyetik), 0,4–0,63 A",
+      "en": "Schneider TeSys GV2ME04 motor circuit breaker (thermal-magnetic), 0.4–0.63 A",
+      "de": "Schneider TeSys GV2ME04 Motorschutzschalter (thermisch-magnetisch), 0,4–0,63 A"
+    },
+    "10 01369": {
+      "tr": "Schneider TeSys GV2ME08 motor koruma şalteri (termik-manyetik), 2,5–4 A",
+      "en": "Schneider TeSys GV2ME08 motor circuit breaker (thermal-magnetic), 2.5–4 A",
+      "de": "Schneider TeSys GV2ME08 Motorschutzschalter (thermisch-magnetisch), 2,5–4 A"
+    },
+    "10 01371": {
+      "tr": "Schneider TeSys GV2ME07 motor koruma şalteri (termik-manyetik), 1,6–2,5 A",
+      "en": "Schneider TeSys GV2ME07 motor circuit breaker (thermal-magnetic), 1.6–2.5 A",
+      "de": "Schneider TeSys GV2ME07 Motorschutzschalter (thermisch-magnetisch), 1,6–2,5 A"
+    },
+    "10 01375": {
+      "tr": "Emas B serisi LED'li ışık bloğu (sinyal lambası için), mavi, 12–30 V AC/DC",
+      "en": "Emas B series LED light block (for pilot light), blue, 12–30 V AC/DC",
+      "de": "Emas B-Serie LED-Leuchtelement (für Meldeleuchte), blau, 12–30 V AC/DC"
+    },
+    "10 01421": {
+      "tr": "Schneider Acti9 iC60N A9F74106 otomatik sigorta (MCB), 1 kutuplu, 6 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74106 miniature circuit breaker (MCB), 1-pole, 6 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74106 Leitungsschutzschalter (MCB), 1-polig, 6 A, C-Charakteristik, 6 kA"
+    },
+    "10 01422": {
+      "tr": "Schneider Acti9 iC60N A9F74110 otomatik sigorta (MCB), 1 kutuplu, 10 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74110 miniature circuit breaker (MCB), 1-pole, 10 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74110 Leitungsschutzschalter (MCB), 1-polig, 10 A, C-Charakteristik, 6 kA"
+    },
+    "10 01524": {
+      "tr": "Yan kanallı (side channel) blower, tek kademeli, 4 kW, 2\" bağlantı",
+      "en": "Side channel blower, single stage, 4 kW, 2\" connection",
+      "de": "Seitenkanalverdichter, einstufig, 4 kW, 2\"-Anschluss"
+    },
+    "10 01534": {
+      "tr": "Torba filtre, 200 mikron, 70 cm, paslanmaz tel çember",
+      "en": "Filter bag, 200 µm, 70 cm, stainless steel wire ring",
+      "de": "Filterbeutel, 200 µm, 70 cm, Edelstahl-Drahtring"
+    },
+    "10 01596": {
+      "tr": "Airtac 4V210-08 5/2 tek bobinli solenoid valf, 1/4\", 24 V DC",
+      "en": "Airtac 4V210-08 5/2 single solenoid valve, 1/4\", 24 V DC",
+      "de": "Airtac 4V210-08 5/2-Wege-Magnetventil, einseitig betätigt, 1/4\", 24 V DC"
+    },
+    "10 01618": {
+      "tr": "LS10.2M aktüatör konum bildirim kutusu (switch box), mekanik sınır şalterli",
+      "en": "LS10.2M actuator position indicator box (switch box), with mechanical limit switches",
+      "de": "LS10.2M Stellungsrückmelder für Schwenkantrieb (Switchbox), mit mechanischen Endschaltern"
+    },
+    "10 01780": {
+      "tr": "Sinter bronz pnömatik susturucu (taş filtre), 1/8\"",
+      "en": "Sintered bronze pneumatic silencer (exhaust filter), 1/8\"",
+      "de": "Sinterbronze-Schalldämpfer (Pneumatik), 1/8\""
+    },
+    "10 01791": {
+      "tr": "O-ring, 4 mm kesit × 245 mm iç çap",
+      "en": "O-ring, 4 mm cross-section × 245 mm inner diameter",
+      "de": "O-Ring, Schnurstärke 4 mm × Innendurchmesser 245 mm"
+    },
+    "10 02146": {
+      "tr": "Weidmüller TERMSERIES TRS 24VDC 1CO röle modülü, 1 C/O, 24 V DC, DIN ray",
+      "en": "Weidmüller TERMSERIES TRS 24VDC 1CO relay module, 1 C/O, 24 V DC, DIN rail",
+      "de": "Weidmüller TERMSERIES TRS 24VDC 1CO Relaiskoppler, 1 Wechsler, 24 V DC, Hutschiene"
+    },
+    "10 02211": {
+      "tr": "Pnömatik hava valfi (hızlı bağlantı jaklı), 1/2\", erkek",
+      "en": "Pneumatic air valve with quick coupling, 1/2\", male",
+      "de": "Pneumatik-Luftventil mit Schnellkupplung, 1/2\", Außengewinde"
+    },
+    "10 02391": {
+      "tr": "Delta VFD-EL VFD007EL21W-1 frekans invertörü, 0,75 kW, 1 faz 230 V giriş",
+      "en": "Delta VFD-EL VFD007EL21W-1 frequency inverter, 0.75 kW, single-phase 230 V input",
+      "de": "Delta VFD-EL VFD007EL21W-1 Frequenzumrichter, 0,75 kW, Eingang 1-phasig 230 V"
+    },
+    "10 02772": {
+      "tr": "Mean Well MDR-100-24 DIN ray güç kaynağı, 100 W, 24 V DC, 4 A",
+      "en": "Mean Well MDR-100-24 DIN-rail power supply, 100 W, 24 V DC, 4 A",
+      "de": "Mean Well MDR-100-24 Hutschienen-Netzteil, 100 W, 24 V DC, 4 A"
+    },
+    "10 02822": {
+      "tr": "Schneider Acti9 iK60N A9K24325 otomatik sigorta (MCB), 3 kutuplu, 25 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iK60N A9K24325 miniature circuit breaker (MCB), 3-pole, 25 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iK60N A9K24325 Leitungsschutzschalter (MCB), 3-polig, 25 A, C-Charakteristik, 6 kA"
+    },
+    "10 02854": {
+      "tr": "Blower emiş filtresi, 2\" bağlantı (500 tipi)",
+      "en": "Blower intake filter, 2\" connection (type 500)",
+      "de": "Ansaugfilter für Gebläse, 2\"-Anschluss (Typ 500)"
+    },
+    "10 02964": {
+      "tr": "Schneider EasyPact CVS160B LV516303 kompakt güç şalteri (TMŞ), 3 kutuplu, 3D termik-manyetik koruma",
+      "en": "Schneider EasyPact CVS160B LV516303 moulded case circuit breaker (MCCB), 3-pole, 3D thermal-magnetic trip",
+      "de": "Schneider EasyPact CVS160B LV516303 Kompaktleistungsschalter, 3-polig, 3D thermomagnetischer Auslöser"
+    },
+    "10 03164": {
+      "tr": "Schneider Compact NSX100-250 için LV429338 uzatılmış kapı tipi döner kol",
+      "en": "Schneider LV429338 extended rotary handle (door mounted) for Compact NSX100-250",
+      "de": "Schneider LV429338 verlängerter Türdrehantrieb für Compact NSX100-250"
+    },
+    "10 03185": {
+      "tr": "Pnömatik çift diyaframlı pompa, polipropilen gövde (200514 HP05 PP-S)",
+      "en": "Air-operated double diaphragm pump, polypropylene body (200514 HP05 PP-S)",
+      "de": "Druckluft-Doppelmembranpumpe, Polypropylengehäuse (200514 HP05 PP-S)"
+    },
+    "10 03253": {
+      "tr": "Cata CT-2467 LED bant armatür (pano aydınlatma lambası)",
+      "en": "Cata CT-2467 LED batten luminaire (control-cabinet light)",
+      "de": "Cata CT-2467 LED-Lichtleiste (Schaltschrankleuchte)"
+    },
+    "10 03255": {
+      "tr": "Cata CT-2467 LED bant armatür (pano aydınlatma), 8 W, 220 V, 60 cm",
+      "en": "Cata CT-2467 LED batten luminaire (control-cabinet lighting), 8 W, 220 V, 60 cm",
+      "de": "Cata CT-2467 LED-Lichtleiste (Schaltschrankbeleuchtung), 8 W, 220 V, 60 cm"
+    },
+    "10 03313": {
+      "tr": "DIN raya montaj topraklı priz (Schuko), 230 V (EPREU2G)",
+      "en": "DIN-rail mounted earthed socket outlet (Schuko), 230 V (EPREU2G)",
+      "de": "Hutschienen-Schutzkontaktsteckdose, 230 V (EPREU2G)"
+    },
+    "10 03390": {
+      "tr": "Yılmaz Redüktör EN 50 sonsuz vidalı redüktör, motorsuz, i=25, B07 motor girişli (IEC flanş)",
+      "en": "Yılmaz Redüktör EN 50 worm gearbox, without motor, ratio i=25, B07 motor input (IEC flange)",
+      "de": "Yılmaz Redüktör EN 50 Schneckengetriebe, ohne Motor, Übersetzung i=25, Motoranbau B07 (IEC-Flansch)"
+    },
+    "10 03457": {
+      "tr": "Delta DVP04TC-S PLC termokupl giriş modülü, 4 kanal",
+      "en": "Delta DVP04TC-S PLC thermocouple input module, 4 channels",
+      "de": "Delta DVP04TC-S SPS-Thermoelement-Eingangsmodul, 4 Kanäle"
+    },
+    "10 03458": {
+      "tr": "Delta DVP16SP PLC dijital genişleme modülü, 8 giriş / 8 çıkış",
+      "en": "Delta DVP16SP PLC digital expansion module, 8 inputs / 8 outputs",
+      "de": "Delta DVP16SP SPS-Digitalerweiterungsmodul, 8 Eingänge / 8 Ausgänge"
+    },
+    "10 04000": {
+      "tr": "Schneider Acti9 iC60N A9F74316 otomatik sigorta (MCB), 3 kutuplu, 16 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74316 miniature circuit breaker (MCB), 3-pole, 16 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74316 Leitungsschutzschalter (MCB), 3-polig, 16 A, C-Charakteristik, 6 kA"
+    },
+    "10 04260": {
+      "tr": "Delta DVP14SS2 PLC CPU (DVP14SS211T), 8 giriş / 6 transistör çıkış, 24 V DC",
+      "en": "Delta DVP14SS2 PLC CPU (DVP14SS211T), 8 inputs / 6 transistor outputs, 24 V DC",
+      "de": "Delta DVP14SS2 SPS-CPU (DVP14SS211T), 8 Eingänge / 6 Transistorausgänge, 24 V DC"
+    },
+    "10 04538": {
+      "tr": "Omron G9SP-N20S bağımsız emniyet kontrolörü (programlanabilir emniyet rölesi), 24 V DC",
+      "en": "Omron G9SP-N20S stand-alone safety controller (programmable safety relay), 24 V DC",
+      "de": "Omron G9SP-N20S eigenständige Sicherheitssteuerung (programmierbares Sicherheitsrelais), 24 V DC"
+    },
+    "10 04732": {
+      "tr": "Schneider Acti9 iC60N A9F74463 otomatik sigorta (MCB), 4 kutuplu, 63 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74463 miniature circuit breaker (MCB), 4-pole, 63 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74463 Leitungsschutzschalter (MCB), 4-polig, 63 A, C-Charakteristik, 6 kA"
+    },
+    "10 04903": {
+      "tr": "Mean Well LRS-350-24 kapalı tip güç kaynağı, 350 W, 24 V DC, 14,6 A",
+      "en": "Mean Well LRS-350-24 enclosed power supply, 350 W, 24 V DC, 14.6 A",
+      "de": "Mean Well LRS-350-24 Einbaunetzteil, 350 W, 24 V DC, 14,6 A"
+    },
+    "10 06963": {
+      "tr": "Mean Well LRS-350-24 kapalı tip güç kaynağı, 350 W, 24 V DC, 14,6 A",
+      "en": "Mean Well LRS-350-24 enclosed power supply, 350 W, 24 V DC, 14.6 A",
+      "de": "Mean Well LRS-350-24 Einbaunetzteil, 350 W, 24 V DC, 14,6 A"
+    },
+    "10 05381": {
+      "tr": "Filtermist S400 yağ buharı toplama ünitesi (fan), 0,55 kW",
+      "en": "Filtermist S400 oil mist collector (fan unit), 0.55 kW",
+      "de": "Filtermist S400 Ölnebelabscheider (Lüftereinheit), 0,55 kW"
+    },
+    "10 05803": {
+      "tr": "Delta VFD-E VFD75E43A frekans invertörü, 7,5 kW, 3 faz 380 V giriş",
+      "en": "Delta VFD-E VFD75E43A frequency inverter, 7.5 kW, three-phase 380 V input",
+      "de": "Delta VFD-E VFD75E43A Frequenzumrichter, 7,5 kW, Eingang 3-phasig 380 V"
+    },
+    "10 06255": {
+      "tr": "Hassas basınç regülatörü, 1/4\" (30SR20008L3G)",
+      "en": "Precision pressure regulator, 1/4\" (30SR20008L3G)",
+      "de": "Präzisions-Druckregler, 1/4\" (30SR20008L3G)"
+    },
+    "10 06630": {
+      "tr": "Emniyet ventili (YKS), 1/4\", 7 bar, krom kaplı pirinç",
+      "en": "Safety relief valve (YKS), 1/4\", 7 bar, chrome-plated brass",
+      "de": "Sicherheitsventil (YKS), 1/4\", 7 bar, Messing verchromt"
+    },
+    "10 07993": {
+      "tr": "Pnömatik aktüatör, tek etkili (yay geri dönüşlü), 52 gövde, paslanmaz AISI 304",
+      "en": "Pneumatic actuator, single-acting (spring return), size 52, stainless AISI 304",
+      "de": "Pneumatischer Schwenkantrieb, einfachwirkend (Federrückstellung), Größe 52, Edelstahl AISI 304"
+    },
+    "10 07995": {
+      "tr": "Aktüatör bağlantılı küresel vana gövdesi, 3/4\", paslanmaz AISI 304L",
+      "en": "Ball valve body for actuator mounting, 3/4\", stainless AISI 304L",
+      "de": "Kugelhahn-Gehäuse für Antriebsaufbau, 3/4\", Edelstahl AISI 304L"
+    },
+    "10 08330": {
+      "tr": "Omron G9SB-2002-A emniyet rölesi, 2 kanal, 2NO emniyet çıkışı, otomatik reset, 24 V AC/DC",
+      "en": "Omron G9SB-2002-A safety relay unit, 2-channel, 2NO safety outputs, automatic reset, 24 V AC/DC",
+      "de": "Omron G9SB-2002-A Sicherheitsrelais, 2-kanalig, 2 Schließer-Sicherheitsausgänge, automatischer Reset, 24 V AC/DC"
+    },
+    "10 09407": {
+      "tr": "10\" filtre (kap + yıkanabilir paslanmaz elek), 3/4\" bağlantı, kırmızı",
+      "en": "10\" filter (housing + washable stainless screen), 3/4\" connection, red",
+      "de": "10\"-Filter (Gehäuse + waschbares Edelstahlsieb), 3/4\"-Anschluss, rot"
+    },
+    "10 09583": {
+      "tr": "Delta DOP-107BV 7\" dokunmatik operatör paneli (HMI)",
+      "en": "Delta DOP-107BV 7\" touch operator panel (HMI)",
+      "de": "Delta DOP-107BV 7\"-Touch-Bedienpanel (HMI)"
+    },
+    "10 10343": {
+      "tr": "Emas S140NM2 sinyal lambası, 14 mm, mavi, 24 V",
+      "en": "Emas S140NM2 signal lamp, 14 mm, blue, 24 V",
+      "de": "Emas S140NM2 Meldeleuchte, 14 mm, blau, 24 V"
+    },
+    "10 10612": {
+      "tr": "10\" ısıya dayanıklı yıkanabilir filtre kartuşu, kırmızı (FYK120.K)",
+      "en": "10\" heat-resistant washable filter cartridge, red (FYK120.K)",
+      "de": "10\" hitzebeständige waschbare Filterkartusche, rot (FYK120.K)"
+    },
+    "10 10792": {
+      "tr": "Kare LED çalışma lambası, 10–30 V DC (PMX LW-5027B)",
+      "en": "Square LED work light, 10–30 V DC (PMX LW-5027B)",
+      "de": "Quadratischer LED-Arbeitsscheinwerfer, 10–30 V DC (PMX LW-5027B)"
+    },
+    "10 10820": {
+      "tr": "Schneider Acti9 iOF A9A26924 yardımcı kontak (açık/kapalı sinyali), 1 C/O",
+      "en": "Schneider Acti9 iOF A9A26924 auxiliary contact (open/closed indication), 1 C/O",
+      "de": "Schneider Acti9 iOF A9A26924 Hilfsschalter (Schaltstellungsanzeige), 1 Wechsler"
+    },
+    "10 16098": {
+      "tr": "Kabin içi aydınlatma pleksi kapağı (PYM-MST-KBN)",
+      "en": "Cabin lighting acrylic cover (PYM-MST-KBN)",
+      "de": "Acrylglas-Abdeckung für Kabinenbeleuchtung (PYM-MST-KBN)"
+    },
+    "10 16119": {
+      "tr": "Schneider Acti9 iC60N A9F74340 otomatik sigorta (MCB), 3 kutuplu, 40 A, C eğrisi, 6 kA",
+      "en": "Schneider Acti9 iC60N A9F74340 miniature circuit breaker (MCB), 3-pole, 40 A, C curve, 6 kA",
+      "de": "Schneider Acti9 iC60N A9F74340 Leitungsschutzschalter (MCB), 3-polig, 40 A, C-Charakteristik, 6 kA"
+    },
+    "10 16231": {
+      "tr": "BS1012 ani hareketli mini sınır şalteri, 1NO+1NC",
+      "en": "BS1012 snap-action miniature limit switch, 1NO+1NC",
+      "de": "BS1012 Mini-Positionsschalter mit Sprungkontakt, 1S+1Ö"
+    },
+    "10 16235": {
+      "tr": "BS1022 ani hareketli mini sınır şalteri, 1NO+1NC",
+      "en": "BS1022 snap-action miniature limit switch, 1NO+1NC",
+      "de": "BS1022 Mini-Positionsschalter mit Sprungkontakt, 1S+1Ö"
+    },
+    "10 16319": {
+      "tr": "Delta VFD-EL VFD004EL21W-1 frekans invertörü, 0,4 kW, 1 faz 230 V giriş",
+      "en": "Delta VFD-EL VFD004EL21W-1 frequency inverter, 0.4 kW, single-phase 230 V input",
+      "de": "Delta VFD-EL VFD004EL21W-1 Frequenzumrichter, 0,4 kW, Eingang 1-phasig 230 V"
+    },
+    "10 16496": {
+      "tr": "Omron NB7W-TW01B 7\" dokunmatik operatör paneli (HMI), TFT, Ethernet",
+      "en": "Omron NB7W-TW01B 7\" touch operator panel (HMI), TFT, Ethernet",
+      "de": "Omron NB7W-TW01B 7\"-Touch-Bedienpanel (HMI), TFT, Ethernet"
+    },
+    "10 17120": {
+      "tr": "Water Sound WS1010 BK50 paslanmaz santrifüj pompa, 380 V 50 Hz",
+      "en": "Water Sound WS1010 BK50 stainless centrifugal pump, 380 V 50 Hz",
+      "de": "Water Sound WS1010 BK50 Edelstahl-Kreiselpumpe, 380 V 50 Hz"
+    },
+    "10 17183": {
+      "tr": "Omron CP1W-TS002 PLC termokupl giriş genişleme modülü, 4 kanal",
+      "en": "Omron CP1W-TS002 PLC thermocouple input expansion unit, 4 channels",
+      "de": "Omron CP1W-TS002 SPS-Thermoelement-Erweiterungsmodul, 4 Kanäle"
+    },
+    "10 17184": {
+      "tr": "Omron CP1W-ADB21 PLC analog giriş genişleme modülü, 2 kanal",
+      "en": "Omron CP1W-ADB21 PLC analog input expansion unit, 2 channels",
+      "de": "Omron CP1W-ADB21 SPS-Analogeingangsmodul, 2 Kanäle"
+    },
+    "10 17185": {
+      "tr": "Omron CP2E-N60DT1-D PLC CPU, 60 G/Ç (36 giriş / 24 PNP transistör çıkış), Ethernet, 24 V DC",
+      "en": "Omron CP2E-N60DT1-D PLC CPU, 60 I/O (36 inputs / 24 PNP transistor outputs), Ethernet, 24 V DC",
+      "de": "Omron CP2E-N60DT1-D SPS-CPU, 60 E/A (36 Eingänge / 24 PNP-Transistorausgänge), Ethernet, 24 V DC"
+    },
+    "10 17992": {
+      "tr": "SICK IME18-12NPSZC0S (1040982) endüktif sensör, M18, 12 mm algılama, PNP NO, M12 konnektör",
+      "en": "SICK IME18-12NPSZC0S (1040982) inductive sensor, M18, 12 mm sensing range, PNP NO, M12 connector",
+      "de": "SICK IME18-12NPSZC0S (1040982) induktiver Sensor, M18, 12 mm Schaltabstand, PNP Schließer, M12-Stecker"
+    },
+    "10 18249": {
+      "tr": "O-ring, 3 mm kesit × 24 mm iç çap",
+      "en": "O-ring, 3 mm cross-section × 24 mm inner diameter",
+      "de": "O-Ring, Schnurstärke 3 mm × Innendurchmesser 24 mm"
+    },
+    "07 16331": {
+      "tr": "ERF Group K-2 körüklü radyal fan, hava soğutmalı, silikon contalı",
+      "en": "ERF Group K-2 radial blower fan, air-cooled, silicone-sealed",
+      "de": "ERF Group K-2 Radialgebläse, luftgekühlt, silikongedichtet"
+    },
+    "07 00253": {
+      "tr": "Paslanmaz yassı huzme nozzle, 1/4\", 0° açılı (ÇNK)",
+      "en": "Stainless flat fan nozzle, 1/4\", 0° angle (ÇNK)",
+      "de": "Edelstahl-Flachstrahldüse, 1/4\", 0° Winkel (ÇNK)"
+    },
+    "07 02164": {
+      "tr": "Yağ ayırma şamandırası, 3'lü set",
+      "en": "Oil separation float, set of 3",
+      "de": "Ölabscheide-Schwimmer, 3er-Satz"
+    },
+    "07 02113": {
+      "tr": "Yataklama tekeri, U profilli, tip 4",
+      "en": "Bearing roller, U-groove, type 4",
+      "de": "Lagerrolle, U-Nut, Typ 4"
+    },
+    "02 00902": {
+      "tr": "Titreşimli (vibrasyonlu) parça yükleme ünitesi, tip 1",
+      "en": "Vibratory part loading unit, type 1",
+      "de": "Vibrations-Teilebeschickung, Typ 1"
+    },
+    "02 00905": {
+      "tr": "Titreşimli parça yükleme ünitesi (VBR), tip 3",
+      "en": "Vibratory part loading unit (VBR), type 3",
+      "de": "Vibrations-Teilebeschickung (VBR), Typ 3"
+    },
+    "07 09677": {
+      "tr": "Titreşimli parça yükleme ünitesi, tip 1, sandıklı",
+      "en": "Vibratory part loading unit, type 1, with bin",
+      "de": "Vibrations-Teilebeschickung, Typ 1, mit Behälter"
+    },
+    "07 09689": {
+      "tr": "Titreşimli parça yükleme ünitesi (VBR), tip 3, sandıklı",
+      "en": "Vibratory part loading unit (VBR), type 3, with bin",
+      "de": "Vibrations-Teilebeschickung (VBR), Typ 3, mit Behälter"
+    },
+    "02 01801": {
+      "tr": "VDL 40-50 asansörlü parça yükleme ünitesi, konveyörlü",
+      "en": "VDL 40-50 elevator part loading unit, with conveyor",
+      "de": "VDL 40-50 Teilebeschickung mit Hubwerk und Förderband"
+    },
+    "02 01803": {
+      "tr": "VDL 40-50 asansörlü parça yükleme ünitesi, konveyör sandıklı",
+      "en": "VDL 40-50 elevator part loading unit, conveyor with bin",
+      "de": "VDL 40-50 Teilebeschickung mit Hubwerk, Förderband mit Behälter"
+    },
+    "02 02101": {
+      "tr": "Kasa devirme ünitesi, tip 1 (detaylar satın almada netleşecek)",
+      "en": "Bin tipping unit, type 1 (details to be finalised by purchasing)",
+      "de": "Kistenkippvorrichtung, Typ 1 (Details klärt der Einkauf)"
+    },
+    "02 02102": {
+      "tr": "Kasa devirme ünitesi, tip 2 (detaylar satın almada netleşecek)",
+      "en": "Bin tipping unit, type 2 (details to be finalised by purchasing)",
+      "de": "Kistenkippvorrichtung, Typ 2 (Details klärt der Einkauf)"
+    },
+    "07 00267": {
+      "tr": "Yataklama tekeri komplesi, tip 4",
+      "en": "Bearing roller assembly, type 4",
+      "de": "Lagerrollen-Baugruppe, Typ 4"
+    },
+    "07 00309": {
+      "tr": "Rezistans komplesi, 8250 W, M tipi (daldırma rezistans + bağlantı)",
+      "en": "Heater assembly, 8250 W, M-type (immersion heater + connection)",
+      "de": "Heizkörper-Baugruppe, 8250 W, M-Form (Einschraubheizkörper + Anschluss)"
+    },
+    "07 15142": {
+      "tr": "Rezistans komplesi, 8000 W, 50 cm, düz, dikişsiz paslanmaz boru",
+      "en": "Heater assembly, 8000 W, 50 cm, straight, seamless stainless tube",
+      "de": "Heizkörper-Baugruppe, 8000 W, 50 cm, gerade, nahtloses Edelstahlrohr"
+    },
+    "07 00512": {
+      "tr": "VDL dozaj ünitesi (kimyasal dozajlama)",
+      "en": "VDL dosing unit (chemical dosing)",
+      "de": "VDL Dosiereinheit (Chemikaliendosierung)"
+    },
+    "07 00551": {
+      "tr": "KBN sızıntı tavası uyarı sistemi (seviye bekçili)",
+      "en": "KBN drip tray leak warning system (level switch)",
+      "de": "KBN Leckwannen-Warnsystem (Niveauschalter)"
+    },
+    "07 00554": {
+      "tr": "VDL sızıntı tavası uyarı sistemi (seviye bekçili)",
+      "en": "VDL drip tray leak warning system (level switch)",
+      "de": "VDL Leckwannen-Warnsystem (Niveauschalter)"
+    },
+    "07 00670": {
+      "tr": "Pompa emiş filtresi komplesi, delikli paslanmaz sepet (PYM2, KBN, VDL, ULT, KNV)",
+      "en": "Pump suction filter assembly, perforated stainless basket (PYM2, KBN, VDL, ULT, KNV)",
+      "de": "Pumpen-Saugfilter-Baugruppe, gelochter Edelstahlkorb (PYM2, KBN, VDL, ULT, KNV)"
+    },
+    "07 00800": {
+      "tr": "Pompa emiş filtresi komplesi, delikli paslanmaz sepet (PYM 1)",
+      "en": "Pump suction filter assembly, perforated stainless basket (PYM 1)",
+      "de": "Pumpen-Saugfilter-Baugruppe, gelochter Edelstahlkorb (PYM 1)"
+    },
+    "07 01221": {
+      "tr": "Ön filtre komplesi, paslanmaz sepet",
+      "en": "Pre-filter assembly, stainless basket",
+      "de": "Vorfilter-Baugruppe, Edelstahlkorb"
+    },
+    "07 10214": {
+      "tr": "Ön filtre komplesi (NS), paslanmaz sepet",
+      "en": "Pre-filter assembly (NS), stainless basket",
+      "de": "Vorfilter-Baugruppe (NS), Edelstahlkorb"
+    },
+    "07 01277": {
+      "tr": "Hassas filtrasyon filtre yuvası komplesi, 70 cm",
+      "en": "Fine filtration filter housing assembly, 70 cm",
+      "de": "Feinfiltrations-Filtergehäuse-Baugruppe, 70 cm"
+    },
+    "07 01284": {
+      "tr": "Hassas filtrasyon filtre yuvası komplesi, 50 cm",
+      "en": "Fine filtration filter housing assembly, 50 cm",
+      "de": "Feinfiltrations-Filtergehäuse-Baugruppe, 50 cm"
+    },
+    "07 03960": {
+      "tr": "Hassas filtre komplesi, 50 cm torba filtreli",
+      "en": "Fine filter assembly, 50 cm bag filter",
+      "de": "Feinfilter-Baugruppe, 50-cm-Filterbeutel"
+    },
+    "07 03961": {
+      "tr": "Hassas filtre komplesi, 70 cm torba filtreli",
+      "en": "Fine filter assembly, 70 cm bag filter",
+      "de": "Feinfilter-Baugruppe, 70-cm-Filterbeutel"
+    },
+    "07 01431": {
+      "tr": "Küçük kurutma odası komplesi",
+      "en": "Small drying chamber assembly",
+      "de": "Baugruppe kleine Trockenkammer"
+    },
+    "07 12004": {
+      "tr": "Küçük kurutma odası (KKO) komplesi, NS",
+      "en": "Small drying chamber (KKO) assembly, NS",
+      "de": "Baugruppe kleine Trockenkammer (KKO), NS"
+    },
+    "07 16349": {
+      "tr": "Küçük kurutma odası (KKO) komplesi, NS, 3\"",
+      "en": "Small drying chamber (KKO) assembly, NS, 3\"",
+      "de": "Baugruppe kleine Trockenkammer (KKO), NS, 3\""
+    },
+    "07 02125": {
+      "tr": "Interlock kapı kilit komplesi (emniyet kapı şalterli)",
+      "en": "Interlock door lock assembly (with safety door switch)",
+      "de": "Türverriegelungs-Baugruppe (mit Sicherheits-Türschalter)"
+    },
+    "07 01214": {
+      "tr": "Yağ sıyırıcı komplesi, tip 1, motorlu (montajlı)",
+      "en": "Oil skimmer assembly, type 1, motor driven (assembled)",
+      "de": "Ölskimmer-Baugruppe, Typ 1, motorbetrieben (montiert)"
+    },
+    "07 05764": {
+      "tr": "Yağ sıyırıcı komplesi, tip 2, motorlu (montajlı)",
+      "en": "Oil skimmer assembly, type 2, motor driven (assembled)",
+      "de": "Ölskimmer-Baugruppe, Typ 2, motorbetrieben (montiert)"
+    },
+    "07 04649": {
+      "tr": "Yağ sıyırıcı komplesi, tip 3, motorlu (montajlı)",
+      "en": "Oil skimmer assembly, type 3, motor driven (assembled)",
+      "de": "Ölskimmer-Baugruppe, Typ 3, motorbetrieben (montiert)"
+    },
+    "07 03635": {
+      "tr": "Yağ ayırıcı ünitesi (şamandıralı, diyaframlı pompalı)",
+      "en": "Oil separator unit (float type, diaphragm pump)",
+      "de": "Ölabscheider-Einheit (Schwimmer, Membranpumpe)"
+    },
+    "07 03001": {
+      "tr": "Buhar tahliye ünitesi 1 (salyangoz fanlı)",
+      "en": "Vapour extraction unit 1 (centrifugal fan)",
+      "de": "Dampfabsaugeinheit 1 (Radialventilator)"
+    },
+    "07 04793": {
+      "tr": "Buhar yoğunlaştırma ünitesi (Filtermist yağ buharı toplayıcılı)",
+      "en": "Vapour condensing unit (with Filtermist oil mist collector)",
+      "de": "Dampfkondensationseinheit (mit Filtermist-Ölnebelabscheider)"
+    },
+    "07 12273": {
+      "tr": "LYM buhar yoğuşturma komplesi (Filtermist yağ buharı toplayıcılı)",
+      "en": "LYM vapour condensing assembly (with Filtermist oil mist collector)",
+      "de": "LYM Dampfkondensations-Baugruppe (mit Filtermist-Ölnebelabscheider)"
+    },
+    "07 04465": {
+      "tr": "El koruma lazer ışın bariyeri komplesi, KBN 1B",
+      "en": "Hand protection light curtain assembly, KBN 1B",
+      "de": "Handschutz-Lichtvorhang-Baugruppe, KBN 1B"
+    },
+    "07 07741": {
+      "tr": "El koruma lazer ışın bariyeri komplesi, KBN 2B",
+      "en": "Hand protection light curtain assembly, KBN 2B",
+      "de": "Handschutz-Lichtvorhang-Baugruppe, KBN 2B"
+    },
+    "07 04466": {
+      "tr": "El koruma fotoselli sensör komplesi, KBN 1B",
+      "en": "Hand protection photoelectric sensor assembly, KBN 1B",
+      "de": "Handschutz-Lichtschranken-Baugruppe, KBN 1B"
+    },
+    "07 07740": {
+      "tr": "El koruma fotoselli sensör komplesi, KBN 2B 1650",
+      "en": "Hand protection photoelectric sensor assembly, KBN 2B 1650",
+      "de": "Handschutz-Lichtschranken-Baugruppe, KBN 2B 1650"
+    },
+    "07 05386": {
+      "tr": "KBN kabin içi aydınlatma komplesi (LED lambalı)",
+      "en": "KBN cabin interior lighting assembly (LED lamp)",
+      "de": "KBN Kabineninnenbeleuchtung-Baugruppe (LED-Leuchte)"
+    },
+    "07 05244": {
+      "tr": "Sensörlü depolar arası kaskat sistemi, VDL 40 3500 2B",
+      "en": "Sensor-controlled tank-to-tank cascade system, VDL 40 3500 2B",
+      "de": "Sensorgesteuerte Kaskade zwischen Tanks, VDL 40 3500 2B"
+    },
+    "07 09159": {
+      "tr": "Sensörlü depolar arası kaskat sistemi, VDL 50 4250 2B",
+      "en": "Sensor-controlled tank-to-tank cascade system, VDL 50 4250 2B",
+      "de": "Sensorgesteuerte Kaskade zwischen Tanks, VDL 50 4250 2B"
+    },
+    "07 14657": {
+      "tr": "Hava basınç ölçme komplesi (basınç şalterli)",
+      "en": "Air pressure measuring assembly (with pressure switch)",
+      "de": "Luftdruck-Messbaugruppe (mit Druckschalter)"
+    },
+    "07 14658": {
+      "tr": "Su basınç ölçme komplesi",
+      "en": "Water pressure measuring assembly",
+      "de": "Wasserdruck-Messbaugruppe"
+    },
+    "07 16782": {
+      "tr": "KBN sepet durdurma üst sensör komplesi (endüktif sensörlü)",
+      "en": "KBN basket stop upper sensor assembly (inductive sensor)",
+      "de": "KBN Korb-Stopp oberer Sensor, Baugruppe (induktiver Sensor)"
+    },
+    "07 12272": {
+      "tr": "LYM 1350 basınçlı hava ile kurutma komplesi (solenoid valf + hava tarağı)",
+      "en": "LYM 1350 compressed-air drying assembly (solenoid valve + air knife)",
+      "de": "LYM 1350 Druckluft-Trocknungsbaugruppe (Magnetventil + Luftmesser)"
+    },
+    "07 00515": {
+      "tr": "LYM 950 hassas filtre komplesi (torba filtreli)",
+      "en": "LYM 950 fine filter assembly (bag filter)",
+      "de": "LYM 950 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 03265": {
+      "tr": "LYM 1150 hassas filtre komplesi (torba filtreli)",
+      "en": "LYM 1150 fine filter assembly (bag filter)",
+      "de": "LYM 1150 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 10419": {
+      "tr": "LYM 1350 NS hassas filtre komplesi (torba filtreli)",
+      "en": "LYM 1350 NS fine filter assembly (bag filter)",
+      "de": "LYM 1350 NS Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 03268": {
+      "tr": "LYM 1500 hassas filtre komplesi (torba filtreli)",
+      "en": "LYM 1500 fine filter assembly (bag filter)",
+      "de": "LYM 1500 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 04361": {
+      "tr": "KBN 1B 1650 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 1B 1650 fine filter assembly (bag filter)",
+      "de": "KBN 1B 1650 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 08391": {
+      "tr": "KBN 1B 1850 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 1B 1850 fine filter assembly (bag filter)",
+      "de": "KBN 1B 1850 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 08197": {
+      "tr": "KBN 1B 2050 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 1B 2050 fine filter assembly (bag filter)",
+      "de": "KBN 1B 2050 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 03267": {
+      "tr": "KBN 2B 1650 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 2B 1650 fine filter assembly (bag filter)",
+      "de": "KBN 2B 1650 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 03258": {
+      "tr": "KBN 2B 1850 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 2B 1850 fine filter assembly (bag filter)",
+      "de": "KBN 2B 1850 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 10772": {
+      "tr": "KBN 2B 2050 hassas filtre komplesi (torba filtreli)",
+      "en": "KBN 2B 2050 fine filter assembly (bag filter)",
+      "de": "KBN 2B 2050 Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 03573": {
+      "tr": "VDL 40 2500 1B hassas filtre komplesi (torba filtreli)",
+      "en": "VDL 40 2500 1B fine filter assembly (bag filter)",
+      "de": "VDL 40 2500 1B Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 08587": {
+      "tr": "VDL 40 3500 2B hassas filtre komplesi (torba filtreli)",
+      "en": "VDL 40 3500 2B fine filter assembly (bag filter)",
+      "de": "VDL 40 3500 2B Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 09454": {
+      "tr": "VDL 50 4250 2B hassas filtre komplesi (torba filtreli)",
+      "en": "VDL 50 4250 2B fine filter assembly (bag filter)",
+      "de": "VDL 50 4250 2B Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 11743": {
+      "tr": "VDL 80 6500 2B hassas filtre komplesi (torba filtreli)",
+      "en": "VDL 80 6500 2B fine filter assembly (bag filter)",
+      "de": "VDL 80 6500 2B Feinfilter-Baugruppe (Filterbeutel)"
+    },
+    "07 00546": {
+      "tr": "LYM 950 NS fanlı kurutma komplesi",
+      "en": "LYM 950 NS fan drying assembly",
+      "de": "LYM 950 NS Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 16939": {
+      "tr": "LYM 1150 NS fanlı kurutma komplesi",
+      "en": "LYM 1150 NS fan drying assembly",
+      "de": "LYM 1150 NS Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 16713": {
+      "tr": "LYM 1500 NS fanlı kurutma komplesi",
+      "en": "LYM 1500 NS fan drying assembly",
+      "de": "LYM 1500 NS Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 09161": {
+      "tr": "KBN 1B 1650 fanlı kurutma komplesi",
+      "en": "KBN 1B 1650 fan drying assembly",
+      "de": "KBN 1B 1650 Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 08394": {
+      "tr": "KBN 1B 1850 kurutma komplesi",
+      "en": "KBN 1B 1850 drying assembly",
+      "de": "KBN 1B 1850 Trocknungsbaugruppe"
+    },
+    "07 04365": {
+      "tr": "KBN 2B 1650 fanlı kurutma komplesi",
+      "en": "KBN 2B 1650 fan drying assembly",
+      "de": "KBN 2B 1650 Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 08047": {
+      "tr": "KBN 2B 2050 fanlı kurutma komplesi",
+      "en": "KBN 2B 2050 fan drying assembly",
+      "de": "KBN 2B 2050 Trocknungsbaugruppe mit Ventilator"
+    },
+    "07 03553": {
+      "tr": "VDL 40 2500 1B kurutma komplesi",
+      "en": "VDL 40 2500 1B drying assembly",
+      "de": "VDL 40 2500 1B Trocknungsbaugruppe"
+    },
+    "07 16504": {
+      "tr": "LYM 1150 NS blower ile kurutma komplesi",
+      "en": "LYM 1150 NS blower drying assembly",
+      "de": "LYM 1150 NS Trocknungsbaugruppe mit Gebläse"
+    },
+    "07 10420": {
+      "tr": "LYM 1350 NS blower ile kurutma komplesi",
+      "en": "LYM 1350 NS blower drying assembly",
+      "de": "LYM 1350 NS Trocknungsbaugruppe mit Gebläse"
+    },
+    "07 08623": {
+      "tr": "KBN 1B 1650 blower ile kurutma komplesi",
+      "en": "KBN 1B 1650 blower drying assembly",
+      "de": "KBN 1B 1650 Trocknungsbaugruppe mit Gebläse"
+    },
+    "07 15419": {
+      "tr": "KBN 2B 1650 blower ile kurutma komplesi",
+      "en": "KBN 2B 1650 blower drying assembly",
+      "de": "KBN 2B 1650 Trocknungsbaugruppe mit Gebläse"
+    },
+    "07 10374": {
+      "tr": "KBN 2B 2050 blower ile kurutma komplesi",
+      "en": "KBN 2B 2050 blower drying assembly",
+      "de": "KBN 2B 2050 Trocknungsbaugruppe mit Gebläse"
+    },
+    "07 04792": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 1B 1650 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 1B 1650 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 1B 1650 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 08925": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 1B 1850 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 1B 1850 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 1B 1850 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 08926": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 1B 2050 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 1B 2050 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 1B 2050 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 05953": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 2B 1650 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 2B 1650 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 2B 1650 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 08927": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 2B 1850 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 2B 1850 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 2B 1850 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 08928": {
+      "tr": "Otomatik tank dolum ünitesi, KBN 2B 2050 (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, KBN 2B 2050 (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, KBN 2B 2050 (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 12468": {
+      "tr": "Otomatik tank dolum ünitesi, VDL 40 2500 1B (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, VDL 40 2500 1B (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, VDL 40 2500 1B (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 12469": {
+      "tr": "Otomatik tank dolum ünitesi, VDL 40 3500 2B (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, VDL 40 3500 2B (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, VDL 40 3500 2B (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 12467": {
+      "tr": "Otomatik tank dolum ünitesi, VDL 50 4250 2B (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, VDL 50 4250 2B (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, VDL 50 4250 2B (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 11465": {
+      "tr": "Otomatik tank dolum ünitesi, VDL 60 5500 2B (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, VDL 60 5500 2B (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, VDL 60 5500 2B (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 12470": {
+      "tr": "Otomatik tank dolum ünitesi, VDL 80 6500 2B (aktüatörlü vana + seviye kontrol)",
+      "en": "Automatic tank filling unit, VDL 80 6500 2B (actuated valve + level control)",
+      "de": "Automatische Tankbefülleinheit, VDL 80 6500 2B (Ventil mit Antrieb + Niveauregelung)"
+    },
+    "07 17693": {
+      "tr": "Otomatik tank dolum ünitesi, solenoid valfli, VDL 40 2500 1B",
+      "en": "Automatic tank filling unit, solenoid valve, VDL 40 2500 1B",
+      "de": "Automatische Tankbefülleinheit, mit Magnetventil, VDL 40 2500 1B"
+    },
+    "07 00516": {
+      "tr": "Otomatik tank boşaltma ünitesi, tip 1 (PYM-LYM) (pompalı)",
+      "en": "Automatic tank draining unit, tip 1 (PYM-LYM) (pump)",
+      "de": "Automatische Tankentleerungseinheit, tip 1 (PYM-LYM) (Pumpe)"
+    },
+    "07 05519": {
+      "tr": "Otomatik tank boşaltma ünitesi, KBN 1B (pompalı)",
+      "en": "Automatic tank draining unit, KBN 1B (pump)",
+      "de": "Automatische Tankentleerungseinheit, KBN 1B (Pumpe)"
+    },
+    "07 04925": {
+      "tr": "Otomatik tank boşaltma ünitesi, KBN 2B (pompalı)",
+      "en": "Automatic tank draining unit, KBN 2B (pump)",
+      "de": "Automatische Tankentleerungseinheit, KBN 2B (Pumpe)"
+    },
+    "07 09158": {
+      "tr": "Otomatik tank boşaltma ünitesi, KBN 2B 1850 (pompalı)",
+      "en": "Automatic tank draining unit, KBN 2B 1850 (pump)",
+      "de": "Automatische Tankentleerungseinheit, KBN 2B 1850 (Pumpe)"
+    },
+    "07 05243": {
+      "tr": "Otomatik tank boşaltma ünitesi, VDL 40-50 2B (pompalı)",
+      "en": "Automatic tank draining unit, VDL 40-50 2B (pump)",
+      "de": "Automatische Tankentleerungseinheit, VDL 40-50 2B (Pumpe)"
+    },
+    "07 10969": {
+      "tr": "Otomatik tank boşaltma ünitesi, VDL 40 1B (pompalı)",
+      "en": "Automatic tank draining unit, VDL 40 1B (pump)",
+      "de": "Automatische Tankentleerungseinheit, VDL 40 1B (Pumpe)"
+    },
+    "07 08285": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), LYM 950-1150 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), LYM 950-1150 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), LYM 950-1150 – Trommel-/Korbantrieb"
+    },
+    "07 08287": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), LYM 1350-1400 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), LYM 1350-1400 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), LYM 1350-1400 – Trommel-/Korbantrieb"
+    },
+    "07 08289": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), LYM-KBN 1550 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), LYM-KBN 1550 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), LYM-KBN 1550 – Trommel-/Korbantrieb"
+    },
+    "07 08366": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), KBN 1650 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), KBN 1650 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), KBN 1650 – Trommel-/Korbantrieb"
+    },
+    "07 08380": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), KBN 1850 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), KBN 1850 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), KBN 1850 – Trommel-/Korbantrieb"
+    },
+    "07 08385": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), KBN 2050 – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), KBN 2050 – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), KBN 2050 – Trommel-/Korbantrieb"
+    },
+    "07 10970": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), VDL 40 2500 1B – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), VDL 40 2500 1B – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), VDL 40 2500 1B – Trommel-/Korbantrieb"
+    },
+    "07 08589": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), VDL 40 3500 2B – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), VDL 40 3500 2B – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), VDL 40 3500 2B – Trommel-/Korbantrieb"
+    },
+    "07 09267": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), VDL 50 4250 2B – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), VDL 50 4250 2B – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), VDL 50 4250 2B – Trommel-/Korbantrieb"
+    },
+    "07 08941": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), VDL 60 5500 2B – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), VDL 60 5500 2B – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), VDL 60 5500 2B – Trommel-/Korbantrieb"
+    },
+    "07 11744": {
+      "tr": "Redüktör ve motor komplesi (Yılmaz), VDL 80 6500 2B – tambur/sepet tahriki",
+      "en": "Gearbox and motor assembly (Yılmaz), VDL 80 6500 2B – drum/basket drive",
+      "de": "Getriebe-Motor-Baugruppe (Yılmaz), VDL 80 6500 2B – Trommel-/Korbantrieb"
+    },
+    "10 03672 02": {
+      "tr": "LYM 1 dijital elektrik kutusu komplesi (PYM 950-1150-1350)",
+      "en": "LYM 1 digital electrical cabinet assembly (PYM 950-1150-1350)",
+      "de": "LYM 1 digitaler Schaltschrank, Baugruppe (PYM 950-1150-1350)"
+    },
+    "10 03672 04": {
+      "tr": "LYM 2 dijital elektrik kutusu komplesi (PYM 1400-1550)",
+      "en": "LYM 2 digital electrical cabinet assembly (PYM 1400-1550)",
+      "de": "LYM 2 digitaler Schaltschrank, Baugruppe (PYM 1400-1550)"
+    },
+    "10 03672 08": {
+      "tr": "KBN 1B elektrik kutusu komplesi, Ordel kontrol cihazlı",
+      "en": "KBN 1B electrical cabinet assembly, with Ordel controller",
+      "de": "KBN 1B Schaltschrank-Baugruppe, mit Ordel-Regler"
+    },
+    "10 03672 31": {
+      "tr": "KBN 1B elektrik kutusu komplesi, Ordel kontrol cihazlı, Omron emniyetli",
+      "en": "KBN 1B electrical cabinet assembly, Ordel controller, Omron safety",
+      "de": "KBN 1B Schaltschrank-Baugruppe, Ordel-Regler, Omron-Sicherheitstechnik"
+    },
+    "10 03672 09": {
+      "tr": "VDL 1B elektrik kutusu komplesi",
+      "en": "VDL 1B electrical cabinet assembly",
+      "de": "VDL 1B Schaltschrank-Baugruppe"
+    },
+    "10 03672 10": {
+      "tr": "VDL 2B elektrik kutusu komplesi",
+      "en": "VDL 2B electrical cabinet assembly",
+      "de": "VDL 2B Schaltschrank-Baugruppe"
+    },
+    "10 03672 34": {
+      "tr": "VDL 2B elektrik kutusu komplesi, Siemens PLC'li",
+      "en": "VDL 2B electrical cabinet assembly, Siemens PLC",
+      "de": "VDL 2B Schaltschrank-Baugruppe, Siemens-SPS"
+    },
+    "10 03672 14": {
+      "tr": "KBN 2B elektrik kutusu komplesi, Delta PLC'li",
+      "en": "KBN 2B electrical cabinet assembly, Delta PLC",
+      "de": "KBN 2B Schaltschrank-Baugruppe, Delta-SPS"
+    },
+    "10 03672 99": {
+      "tr": "KBN 2B 1650 elektrik kutusu komplesi, Omron PLC'li",
+      "en": "KBN 2B 1650 electrical cabinet assembly, Omron PLC",
+      "de": "KBN 2B 1650 Schaltschrank-Baugruppe, Omron-SPS"
+    }
+  }
+}

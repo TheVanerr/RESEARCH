@@ -94,7 +94,7 @@
     {
       "Sipariş kodu": "10 00296",
       "Parça adı": "PASLANMAZ SEVİYE BEKÇİSİ",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/10 00296.jpg",
       "Varyant / makine": "LYM 950–1500",
       "Önem (A/B/C)": "C",
       "Aşınma (1/2/3)": "3",
@@ -499,7 +499,7 @@
     {
       "Sipariş kodu": "10 07455",
       "Parça adı": "REZİSTANS 220V 2000W 112CM SERP. DİKİŞSİZ AISI316",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/10 07455.jpg",
       "Varyant / makine": "VDL 2B 40/50/60/80",
       "Önem (A/B/C)": "A",
       "Aşınma (1/2/3)": "1",
@@ -681,7 +681,7 @@
     {
       "Sipariş kodu": "07 00670",
       "Parça adı": "EMİŞ FİLTRESİ KOMPLESİ (PYM2,KBN,VDL,ULT,KNV)",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/07 00670.jpg",
       "Varyant / makine": "VDL 1B 40 · VDL 2B 40/50/60/80",
       "Önem (A/B/C)": "B",
       "Aşınma (1/2/3)": "1",
@@ -866,7 +866,7 @@
       "Sipariş kodu": "07 00309",
       "Parça adı": "REZİSTANS KOMPLESİ 8250W M TİPİ",
       "Fotoğraf": "photos/07 00309.jpg",
-      "Varyant / makine": "KBN 1B 1650/1850/2050/2350 · KBN 2B 1650/1850",
+      "Varyant / makine": "KBN 1B 1650/1850/2050/2350",
       "Önem (A/B/C)": "A",
       "Aşınma (1/2/3)": "1",
       "Ulaşılabilirlik (K/O/Z)": "Z",
@@ -917,8 +917,8 @@
     {
       "Sipariş kodu": "07 15142",
       "Parça adı": "REZİSTANS KOMPLESİ 8000W 50CM DÜZ DİKİŞSİZ",
-      "Fotoğraf": "",
-      "Varyant / makine": "KBN 2B 2050",
+      "Fotoğraf": "photos/07 15142.jpg",
+      "Varyant / makine": "KBN 2B 1650/1850/2050",
       "Önem (A/B/C)": "A",
       "Aşınma (1/2/3)": "1",
       "Ulaşılabilirlik (K/O/Z)": "Z",
@@ -1112,7 +1112,7 @@
     {
       "Sipariş kodu": "10 17121",
       "Parça adı": "POMPA HMSE 40-200/75",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/10 17121.jpg",
       "Varyant / makine": "KBN 1B 1650/1850",
       "Önem (A/B/C)": "C",
       "Aşınma (1/2/3)": "2",
@@ -1203,7 +1203,7 @@
     {
       "Sipariş kodu": "07 00670",
       "Parça adı": "EMİŞ FİLTRESİ KOMPLESİ (PYM2,KBN,VDL,ULT,KNV)",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/07 00670.jpg",
       "Varyant / makine": "KBN 1B 1650/1850/2050/2350 · KBN 2B 1650/1850/2050",
       "Önem (A/B/C)": "B",
       "Aşınma (1/2/3)": "1",
@@ -1398,7 +1398,7 @@
     {
       "Sipariş kodu": "10 05243",
       "Parça adı": "PNÖMATİK SİLİNDİR SENSÖRÜ 39CMSE020 CS1E020 CS1-E",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/10 05243.jpg",
       "Varyant / makine": "KBN 2B 1650/2050",
       "Önem (A/B/C)": "B",
       "Aşınma (1/2/3)": "2",
@@ -1411,7 +1411,7 @@
     {
       "Sipariş kodu": "10 16858",
       "Parça adı": "BASINÇ ŞALTERİ 1-12 BAR 1/4\" DS1A3012",
-      "Fotoğraf": "",
+      "Fotoğraf": "photos/10 16858.jpg",
       "Varyant / makine": "KBN 1B 1650 · KBN 2B 1650",
       "Önem (A/B/C)": "B",
       "Aşınma (1/2/3)": "2",
